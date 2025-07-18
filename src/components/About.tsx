@@ -1,0 +1,74 @@
+import { Card, CardContent } from "@/components/ui/card";
+
+const About = () => {
+  const skills = [
+    "React", "TypeScript", "Node.js", "Python", "PostgreSQL", "AWS",
+    "Next.js", "Express.js", "MongoDB", "Docker", "Git", "Tailwind CSS"
+  ];
+
+  return (
+    <section id="about" className="py-20 px-4">
+      <div className="container mx-auto max-w-6xl">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
+            About Me
+          </h2>
+          <div className="w-24 h-1 bg-gradient-primary mx-auto"></div>
+        </div>
+        
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          {/* About Text */}
+          <div className="space-y-6 animate-slide-up">
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              I'm a passionate full-stack developer with over 5 years of experience 
+              building scalable web applications. I love turning complex problems 
+              into simple, beautiful, and intuitive solutions.
+            </p>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              When I'm not coding, you can find me exploring new technologies, 
+              contributing to open-source projects, or hiking in the mountains. 
+              I believe in continuous learning and staying up-to-date with the 
+              latest industry trends.
+            </p>
+            
+            {/* Experience Cards */}
+            <div className="grid grid-cols-2 gap-4 mt-8">
+              <Card className="bg-gradient-card border-0 shadow-card">
+                <CardContent className="p-6 text-center">
+                  <div className="text-3xl font-bold text-accent mb-2">5+</div>
+                  <div className="text-sm text-muted-foreground">Years Experience</div>
+                </CardContent>
+              </Card>
+              <Card className="bg-gradient-card border-0 shadow-card">
+                <CardContent className="p-6 text-center">
+                  <div className="text-3xl font-bold text-accent mb-2">50+</div>
+                  <div className="text-sm text-muted-foreground">Projects Completed</div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+          
+          {/* Skills */}
+          <div className="animate-slide-up">
+            <h3 className="text-2xl font-bold mb-6 text-foreground">
+              Technical Skills
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {skills.map((skill, index) => (
+                <div
+                  key={skill}
+                  className="bg-secondary/50 rounded-lg px-4 py-3 text-center text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground transition-colors duration-300 cursor-default"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  {skill}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default About;
