@@ -32,9 +32,8 @@ const Hero = () => {
             View My Work
           </Button>
           <Button 
-            variant="outline" 
             size="lg"
-            className="border-white/30 text-white hover:bg-white/10 font-semibold px-8 py-3 transition-all duration-300 hover:scale-105"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 shadow-elegant transition-all duration-300 hover:scale-105 animate-glow"
           >
             Download Resume
           </Button>
