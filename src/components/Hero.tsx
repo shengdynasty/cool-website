@@ -15,7 +15,7 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 text-center text-white px-4 animate-fade-in">
         <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-          John <span className="text-accent">Doe</span>
+          Shawn <span className="text-accent">Yan</span>
         </h1>
         <p className="text-xl md:text-2xl mb-4 text-primary-foreground/90">
           Full-Stack Developer
