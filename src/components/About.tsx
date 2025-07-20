@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import profilePhoto from "@/assets/profile-photo.jpg";
 
 const About = () => {
   const skills = [
@@ -24,7 +25,7 @@ const About = () => {
             <div className="flex justify-center md:justify-start mb-8">
               <Avatar className="h-32 w-32 border-4 border-primary/20 shadow-elegant">
                 <AvatarImage 
-                  src="/placeholder.svg" 
+                  src={profilePhoto} 
                   alt="Shawn Yan" 
                   className="object-cover"
                 />
