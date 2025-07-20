@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const About = () => {
   const skills = [
@@ -19,6 +20,19 @@ const About = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* About Text */}
           <div className="space-y-6 animate-slide-up">
+            {/* Profile Picture */}
+            <div className="flex justify-center md:justify-start mb-8">
+              <Avatar className="h-32 w-32 border-4 border-primary/20 shadow-elegant">
+                <AvatarImage 
+                  src="/placeholder.svg" 
+                  alt="Shawn Yan" 
+                  className="object-cover"
+                />
+                <AvatarFallback className="text-2xl bg-gradient-primary text-primary-foreground">
+                  SY
+                </AvatarFallback>
+              </Avatar>
+            </div>
             <p className="text-lg text-muted-foreground leading-relaxed">
               I'm a passionate full-stack developer with over 5 years of experience 
               building scalable web applications. I love turning complex problems 
