@@ -9,8 +9,8 @@ const Projects = () => {
   
   const projects = [
     {
-      id: "e-commerce-platform",
-      title: "E-Commerce Platform",
+      id: "calculator",
+      title: "Calculator",
       description: "A full-stack e-commerce solution with React, Node.js, and PostgreSQL. Features include user authentication, payment processing, and admin dashboard.",
       technologies: ["React", "Node.js", "PostgreSQL", "Stripe"],
       github: "https://github.com",
