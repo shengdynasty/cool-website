@@ -13,39 +13,60 @@ const ProjectDetail = () => {
     {
       id: "calculator",
       title: "Calculator",
-      description: "A simple yet powerful calculator application built with React. Features basic arithmetic operations, memory functions, and a clean, intuitive interface.",
-      fullDescription: "This calculator application demonstrates proficiency in React state management, component composition, and user interface design. Built with modern JavaScript ES6+ features and styled with Tailwind CSS for a responsive, mobile-first design.",
-      technologies: ["React", "JavaScript", "Tailwind CSS", "Vite"],
+      description: "A basic four function calculator with a bacic UI",
+      fullDescription: "Cool Calculator is a Calculator that's designed for addition (+), subtraction (−), multiplication (×), and division (÷). It features a numeric keypad (0–9), decimal point, and function keys for each operation, along with an “equals” button to compute results. The UI used a built-in package in the Python library called tkinder",
+      technologies: ["python", "tkinter"],
       github: "https://github.com",
       live: "https://example.com",
       featured: true,
-      codeSnippet: `function Calculator() {
-  const [display, setDisplay] = useState('0');
-  const [operation, setOperation] = useState(null);
-  const [waitingForOperand, setWaitingForOperand] = useState(false);
+      codeSnippet: `import tkinter as tk
 
-  const calculate = (firstOperand, secondOperand, operation) => {
-    switch (operation) {
-      case '+':
-        return firstOperand + secondOperand;
-      case '-':
-        return firstOperand - secondOperand;
-      case '*':
-        return firstOperand * secondOperand;
-      case '/':
-        return firstOperand / secondOperand;
-      default:
-        return secondOperand;
-    }
-  };
+def click_button(value):
+    current = entry.get()
+    entry.delete(0, tk.END)
+    entry.insert(0, current + value)
 
-  return (
-    <div className="calculator">
-      <div className="display">{display}</div>
-      {/* Calculator buttons */}
-    </div>
-  );
-}`,
+def clear_screen():
+    entry.delete(0, tk.END)
+
+def calculate():
+    try:
+        result = str(eval(entry.get()))
+        entry.delete(0, tk.END)
+        entry.insert(0, result)
+    except ZeroDivisionError:
+        entry.delete(0, tk.END)
+        entry.insert(0, "can't divide by 0")
+    except Exception:
+        entry.delete(0, tk.END)
+        entry.insert(0, "error")
+
+root = tk.Tk()
+root.title("Cool Calculator")
+root.geometry("300x400")
+root.resizable(False, False)
+entry = tk.Entry(root, width=20, font=("Arial", 18), borderwidth=5, relief="ridge", justify="right")
+entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
+
+buttons = [
+    ("7", 1, 0), ("8", 1, 1), ("9", 1, 2), ("/", 1, 3),
+    ("4", 2, 0), ("5", 2, 1), ("6", 2, 2), ("*", 2, 3),
+    ("1", 3, 0), ("2", 3, 1), ("3", 3, 2), ("-", 3, 3),
+    ("0", 4, 0), (".", 4, 1), ("+", 4, 2), ("=", 4, 3),
+]
+
+for (text, row, col) in buttons:
+    if text == "=":
+        tk.Button(root, text=text, width=5, height=2, font=("Arial", 14),
+                  command=calculate).grid(row=row, column=col, padx=5, pady=5)
+    else:
+        tk.Button(root, text=text, width=5, height=2, font=("Arial", 14),
+                  command=lambda t=text: click_button(t)).grid(row=row, column=col, padx=5, pady=5)
+
+tk.Button(root, text="C", width=23, height=2, font=("Arial", 14),
+          command=clear_screen).grid(row=5, column=0, columnspan=4, padx=5, pady=5)
+
+root.mainloop()`,
       images: [
         "/api/placeholder/400/300",
         "/api/placeholder/400/300",
