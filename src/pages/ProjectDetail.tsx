@@ -75,26 +75,37 @@ root.mainloop()`,
     },
     {
       id: "task management app",
-      title: "Tic Tac Toe",
-      description: "This program creates a Tic Tac Toe board using Pythons Tkinter library",
-      fullDescription: "This program creates a Tic Tac Toe board using Python’s Tkinter library. It displays a clean 3×3 grid styled to look like a game board, but it has no interactive functionality — it’s just for visual display. Each square is represented by a Label widget with borders, giving the appearance of a traditional Tic Tac Toe layout.",
-      technologies: ["Python", "Tkinter"],
+      title: "Task Management App",
+      description: "A comprehensive task management application with drag-and-drop functionality",
+      fullDescription: "Smart Task Manager is a productivity application designed for organizing and tracking tasks efficiently. It features a Kanban-style board with drag-and-drop functionality, allowing users to move tasks between different status columns (To Do, In Progress, Done). The application includes task creation, editing, priority levels, due dates, and real-time updates. Built with React and modern web technologies for a smooth user experience.",
+      technologies: ["React", "JavaScript", "CSS"],
       github: "https://github.com",
       live: "https://example.com",
       featured: true,
-      codeSnippet: `const TaskList = ({ tasks, onUpdateTask }) => {
+      codeSnippet: `import React, { useState } from 'react';
+
+const TaskList = ({ tasks, onUpdateTask }) => {
   const [draggedTask, setDraggedTask] = useState(null);
 
   const handleDragStart = (e, task) => {
     setDraggedTask(task);
+    e.dataTransfer.effectAllowed = 'move';
   };
 
   const handleDrop = (e, status) => {
     e.preventDefault();
-    if (draggedTask) {
-      onUpdateTask(draggedTask.id, { status });
+    if (draggedTask && draggedTask.status !== status) {
+      onUpdateTask(draggedTask.id, { 
+        status,
+        updatedAt: new Date().toISOString()
+      });
       setDraggedTask(null);
     }
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
   };
 
   return (
@@ -104,22 +115,31 @@ root.mainloop()`,
           key={status}
           className="task-column"
           onDrop={(e) => handleDrop(e, status)}
-          onDragOver={(e) => e.preventDefault()}
+          onDragOver={handleDragOver}
         >
-          <h3>{status.replace('-', ' ').toUpperCase()}</h3>
+          <h3 className="column-header">
+            {status.replace('-', ' ').toUpperCase()}
+            <span className="task-count">
+              ({tasks.filter(task => task.status === status).length})
+            </span>
+          </h3>
           {tasks.filter(task => task.status === status).map(task => (
             <TaskCard
               key={task.id}
               task={task}
               onDragStart={handleDragStart}
+              draggable
             />
           ))}
         </div>
       ))}
     </div>
   );
-};`,
+};
+
+export default TaskList;`,
       images: [
+        "/api/placeholder/400/300",
         "/api/placeholder/400/300",
         "/api/placeholder/400/300"
       ]
