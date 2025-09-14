@@ -291,174 +291,58 @@ window.mainloop()`,
       codeSnippet: `import tkinter as tk
 from tkinter import messagebox
 
-class TicTacToe:
-    def __init__(self):
-        self.window = tk.Tk()
-        self.window.title("Tic Tac Toe Game")
-        self.window.geometry("400x450")
-        self.window.resizable(False, False)
-        self.window.configure(bg="#2c3e50")
-        
-        self.current_player = "X"
-        self.board = [["" for _ in range(3)] for _ in range(3)]
-        self.buttons = []
-        self.game_active = True
-        
-        self.setup_ui()
-        
-    def setup_ui(self):
-        # Title label
-        title = tk.Label(self.window, text="Tic Tac Toe", 
-                        font=("Arial", 24, "bold"), 
-                        bg="#2c3e50", fg="white")
-        title.pack(pady=20)
-        
-        # Game board frame
-        board_frame = tk.Frame(self.window, bg="#2c3e50")
-        board_frame.pack(pady=10)
-        
-        # Create 3x3 grid of buttons
-        for i in range(3):
-            button_row = []
-            for j in range(3):
-                btn = tk.Button(board_frame, text="", width=6, height=3,
-                               font=("Arial", 20, "bold"), bg="white",
-                               command=lambda row=i, col=j: self.make_move(row, col))
-                btn.grid(row=i, column=j, padx=2, pady=2)
-                button_row.append(btn)
-            self.buttons.append(button_row)
-        
-        # Player turn label
-        self.status_label = tk.Label(self.window, 
-                                   text=f"Player {self.current_player}'s Turn",
-                                   font=("Arial", 16), bg="#2c3e50", fg="white")
-        self.status_label.pack(pady=10)
-        
-        # Reset button
-        reset_btn = tk.Button(self.window, text="Reset Game", 
-                             font=("Arial", 14), bg="#e74c3c", fg="white",
-                             command=self.reset_game)
-        reset_btn.pack(pady=10)
-        
-    def make_move(self, row, col):
-        if not self.game_active or self.board[row][col] != "":
-            return
-            
-        # Update board and button
-        self.board[row][col] = self.current_player
-        self.buttons[row][col]["text"] = self.current_player
-        self.buttons[row][col]["bg"] = "#3498db" if self.current_player == "X" else "#e67e22"
-        self.buttons[row][col]["fg"] = "white"
-        
-        # Check for winner
-        if self.check_winner():
-            self.status_label["text"] = f"Player {self.current_player} Wins!"
-            self.game_active = False
-            messagebox.showinfo("Game Over", f"Player {self.current_player} wins!")
-        elif self.check_tie():
-            self.status_label["text"] = "It's a Tie!"
-            self.game_active = False
-            messagebox.showinfo("Game Over", "It's a tie!")
-        else:
-            # Switch players
-            self.current_player = "O" if self.current_player == "X" else "X"
-            self.status_label["text"] = f"Player {self.current_player}'s Turn"
-    
-    def check_winner(self):
-        # Check rows, columns, and diagonals
-        for i in range(3):
-            if (self.board[i][0] == self.board[i][1] == self.board[i][2] == self.current_player or
-                self.board[0][i] == self.board[1][i] == self.board[2][i] == self.current_player):
-                return True
-        
-        if (self.board[0][0] == self.board[1][1] == self.board[2][2] == self.current_player or
-            self.board[0][2] == self.board[1][1] == self.board[2][0] == self.current_player):
+window = tk.Tk()
+window.title("Tic Tac Toe")
+
+player = "X"
+board = [[None, None, None],
+         [None, None, None],
+         [None, None, None]]
+
+def check_winner():
+    for r in range(3):
+        if board[r][0]["text"] == board[r][1]["text"] == board[r][2]["text"] != "":
             return True
-        
-        return False
-    
-    def check_tie(self):
-        return all(self.board[i][j] != "" for i in range(3) for j in range(3))
-    
-    def reset_game(self):
-        self.current_player = "X"
-        self.board = [["" for _ in range(3)] for _ in range(3)]
-        self.game_active = True
-        self.status_label["text"] = f"Player {self.current_player}'s Turn"
-        
-        for i in range(3):
-            for j in range(3):
-                self.buttons[i][j]["text"] = ""
-                self.buttons[i][j]["bg"] = "white"
-                self.buttons[i][j]["fg"] = "black"
-    
-    def run(self):
-        self.window.mainloop()
+    for c in range(3):
+        if board[0][c]["text"] == board[1][c]["text"] == board[2][c]["text"] != "":
+            return True
+    if board[0][0]["text"] == board[1][1]["text"] == board[2][2]["text"] != "":
+        return True
+    if board[0][2]["text"] == board[1][1]["text"] == board[2][0]["text"] != "":
+        return True
+    return False
 
-# Create and run the game
-if __name__ == "__main__":
-    game = TicTacToe()
-    game.run()`,
+def check_tie():
+    for r in range(3):
+        for c in range(3):
+            if board[r][c]["text"] == "":
+                return False
+    return True
+
+def handle_click(r, c):
+    global player
+    if board[r][c]["text"] == "":
+        board[r][c]["text"] = player
+        if check_winner():
+            messagebox.showinfo("Game Over", f"Player {player} wins!")
+            window.quit()
+        elif check_tie():
+            messagebox.showinfo("Game Over", "It's a tie!")
+            window.quit()
+        else:
+            player = "O" if player == "X" else "X"
+
+for r in range(3):
+    for c in range(3):
+        board[r][c] = tk.Button(window, text="",
+                                width=10, height=3,
+                                font=("Arial", 20),
+                                command=lambda row=r, col=c: handle_click(row, col))
+        board[r][c].grid(row=r, column=c)
+
+window.mainloop()`,
       images: [
-        "/api/placeholder/400/300",
-        "/api/placeholder/400/300",
-        "/api/placeholder/400/300",
-        "/api/placeholder/400/300"
-      ]
-    },
-    {
-      id: "expense-tracker",
-      title: "Expense Tracker",
-      description: "Personal finance management tool with budget tracking, expense categorization, and financial insights visualization.",
-      fullDescription: "A comprehensive expense tracking application that helps users manage their personal finances. Features include expense categorization, budget setting, financial goal tracking, and detailed analytics with interactive charts and reports.",
-      technologies: ["Vue.js", "Express.js", "MongoDB", "Chart.js"],
-      github: "https://github.com",
-      live: "https://example.com",
-      featured: false,
-      codeSnippet: `const ExpenseTracker = () => {
-  const [expenses, setExpenses] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [budget, setBudget] = useState(0);
-
-  const addExpense = (expense) => {
-    const newExpense = {
-      id: Date.now(),
-      ...expense,
-      date: new Date()
-    };
-    setExpenses(prev => [...prev, newExpense]);
-  };
-
-  const getTotalExpenses = () => {
-    return expenses.reduce((total, expense) => total + expense.amount, 0);
-  };
-
-  const getExpensesByCategory = () => {
-    return expenses.reduce((acc, expense) => {
-      acc[expense.category] = (acc[expense.category] || 0) + expense.amount;
-      return acc;
-    }, {});
-  };
-
-  const getRemainingBudget = () => {
-    return budget - getTotalExpenses();
-  };
-
-  return (
-    <div className="expense-tracker">
-      <BudgetOverview
-        budget={budget}
-        totalExpenses={getTotalExpenses()}
-        remaining={getRemainingBudget()}
-      />
-      <ExpenseForm onAddExpense={addExpense} />
-      <ExpenseList expenses={expenses} />
-      <ExpenseChart data={getExpensesByCategory()} />
-    </div>
-  );
-};`,
-      images: [
-        "/api/placeholder/400/300",
+        "file:///C:/Users/sheng/Downloads/Screenshot%202025-09-14%20105303.png",
         "/api/placeholder/400/300"
       ]
     }
