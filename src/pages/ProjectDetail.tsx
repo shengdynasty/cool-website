@@ -53,8 +53,8 @@ const ProjectDetail = () => {
       ]
     },
     {
-      id: "task-management-app",
-      title: "Task Management App",
+      id: "tic-tac-toe",
+      title: "Tic Tac Toe",
       description: "Collaborative task management application with real-time updates, file attachments, and team collaboration features.",
       fullDescription: "A comprehensive task management solution built with Next.js and TypeScript. Features real-time collaboration, drag-and-drop task organization, file attachments, and team member assignments.",
       technologies: ["Next.js", "TypeScript", "MongoDB", "Socket.io"],

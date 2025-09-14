@@ -18,8 +18,8 @@ const Projects = () => {
       featured: true
     },
     {
-      id: "task-management-app",
-      title: "Task Management App",
+      id: "tic-tac-toe",
+      title: "Tic Tac Toe",
       description: "Collaborative task management application with real-time updates, file attachments, and team collaboration features.",
       technologies: ["Next.js", "TypeScript", "MongoDB", "Socket.io"],
       github: "https://github.com",
