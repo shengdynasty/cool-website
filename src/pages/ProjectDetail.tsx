@@ -146,10 +146,10 @@ export default TaskList;`,
     },
     {
       id: "weather-dashboard",
-      title: "Weather Dashboard",
-      description: "Beautiful weather dashboard with location-based forecasts, interactive maps, and weather alerts using OpenWeather API.",
-      fullDescription: "A modern weather application that provides real-time weather data, 7-day forecasts, and interactive weather maps. Built with React and integrated with the OpenWeather API for accurate, up-to-date weather information.",
-      technologies: ["React", "Tailwind CSS", "OpenWeather API"],
+      title: "Tic Tac Toe Game",
+      description: "Interactive Tic Tac Toe game built with Python and Tkinter featuring player vs player gameplay",
+      fullDescription: "Classic Tic Tac Toe Game is a two-player strategy game built using Python's Tkinter library. The game features a clean 3×3 grid interface where players alternate between X and O markers. It includes win detection for rows, columns, and diagonals, tie game detection, and automatic game reset functionality. The interface uses large, clear buttons with Arial font for optimal user experience.",
+      technologies: ["Python", "Tkinter"],
       github: "https://github.com",
       live: "https://example.com",
       featured: false,
@@ -158,6 +158,8 @@ from tkinter import messagebox
 
 window = tk.Tk()
 window.title("Tic Tac Toe")
+window.geometry("300x300")
+window.resizable(False, False)
 
 player = "X"
 board = [[None, None, None],
@@ -165,12 +167,15 @@ board = [[None, None, None],
          [None, None, None]]
 
 def check_winner():
+    # Check rows
     for r in range(3):
         if board[r][0]["text"] == board[r][1]["text"] == board[r][2]["text"] != "":
             return True
+    # Check columns
     for c in range(3):
         if board[0][c]["text"] == board[1][c]["text"] == board[2][c]["text"] != "":
             return True
+    # Check diagonals
     if board[0][0]["text"] == board[1][1]["text"] == board[2][2]["text"] != "":
         return True
     if board[0][2]["text"] == board[1][1]["text"] == board[2][0]["text"] != "":
@@ -188,22 +193,37 @@ def handle_click(r, c):
     global player
     if board[r][c]["text"] == "":
         board[r][c]["text"] = player
+        board[r][c]["bg"] = "#90EE90" if player == "X" else "#FFB6C1"
+        
         if check_winner():
             messagebox.showinfo("Game Over", f"Player {player} wins!")
-            window.quit()
+            reset_game()
         elif check_tie():
             messagebox.showinfo("Game Over", "It's a tie!")
-            window.quit()
+            reset_game()
         else:
             player = "O" if player == "X" else "X"
 
+def reset_game():
+    global player
+    player = "X"
+    for r in range(3):
+        for c in range(3):
+            board[r][c]["text"] = ""
+            board[r][c]["bg"] = "white"
+
+# Create the game board
 for r in range(3):
     for c in range(3):
-        board[r][c] = tk.Button(window, text="",
-                                width=10, height=3,
-                                font=("Arial", 20),
+        board[r][c] = tk.Button(window, text="", width=8, height=3,
+                                font=("Arial", 20, "bold"), bg="white",
                                 command=lambda row=r, col=c: handle_click(row, col))
-        board[r][c].grid(row=r, column=c)
+        board[r][c].grid(row=r, column=c, padx=2, pady=2)
+
+# Add reset button
+reset_btn = tk.Button(window, text="Reset Game", font=("Arial", 12),
+                      command=reset_game, bg="#F0F0F0")
+reset_btn.grid(row=3, column=0, columnspan=3, pady=10)
 
 window.mainloop()`,
       images: [
