@@ -74,11 +74,11 @@ root.mainloop()`,
       ]
     },
     {
-      id: "task-management-app",
-      title: "Task Management App",
-      description: "Collaborative task management application with real-time updates, file attachments, and team collaboration features.",
-      fullDescription: "A comprehensive task management solution built with Next.js and TypeScript. Features real-time collaboration, drag-and-drop task organization, file attachments, and team member assignments.",
-      technologies: ["Next.js", "TypeScript", "MongoDB", "Socket.io"],
+      id: "task management app",
+      title: "Tic Tac Toe",
+      description: "This program creates a Tic Tac Toe board using Pythons Tkinter library",
+      fullDescription: "This program creates a Tic Tac Toe board using Python’s Tkinter library. It displays a clean 3×3 grid styled to look like a game board, but it has no interactive functionality — it’s just for visual display. Each square is represented by a Label widget with borders, giving the appearance of a traditional Tic Tac Toe layout.",
+      technologies: ["Python", "Tkinter"],
       github: "https://github.com",
       live: "https://example.com",
       featured: true,
@@ -133,33 +133,59 @@ root.mainloop()`,
       github: "https://github.com",
       live: "https://example.com",
       featured: false,
-      codeSnippet: `const WeatherDashboard = () => {
-  const [weather, setWeather] = useState(null);
-  const [forecast, setForecast] = useState([]);
-  const [location, setLocation] = useState('');
+      codeSnippet: `import tkinter as tk
+from tkinter import messagebox
 
-  const fetchWeather = async (city) => {
-    try {
-      const response = await fetch(
-        \`https://api.openweathermap.org/data/2.5/weather?q=\${city}&appid=\${API_KEY}&units=metric\`
-      );
-      const data = await response.json();
-      setWeather(data);
-    } catch (error) {
-      console.error('Error fetching weather:', error);
-    }
-  };
+window = tk.Tk()
+window.title("Tic Tac Toe")
 
-  return (
-    <div className="weather-dashboard">
-      <SearchBar onSearch={fetchWeather} />
-      {weather && (
-        <CurrentWeather data={weather} />
-      )}
-      <ForecastChart data={forecast} />
-    </div>
-  );
-};`,
+player = "X"
+board = [[None, None, None],
+         [None, None, None],
+         [None, None, None]]
+
+def check_winner():
+    for r in range(3):
+        if board[r][0]["text"] == board[r][1]["text"] == board[r][2]["text"] != "":
+            return True
+    for c in range(3):
+        if board[0][c]["text"] == board[1][c]["text"] == board[2][c]["text"] != "":
+            return True
+    if board[0][0]["text"] == board[1][1]["text"] == board[2][2]["text"] != "":
+        return True
+    if board[0][2]["text"] == board[1][1]["text"] == board[2][0]["text"] != "":
+        return True
+    return False
+
+def check_tie():
+    for r in range(3):
+        for c in range(3):
+            if board[r][c]["text"] == "":
+                return False
+    return True
+
+def handle_click(r, c):
+    global player
+    if board[r][c]["text"] == "":
+        board[r][c]["text"] = player
+        if check_winner():
+            messagebox.showinfo("Game Over", f"Player {player} wins!")
+            window.quit()
+        elif check_tie():
+            messagebox.showinfo("Game Over", "It's a tie!")
+            window.quit()
+        else:
+            player = "O" if player == "X" else "X"
+
+for r in range(3):
+    for c in range(3):
+        board[r][c] = tk.Button(window, text="",
+                                width=10, height=3,
+                                font=("Arial", 20),
+                                command=lambda row=r, col=c: handle_click(row, col))
+        board[r][c].grid(row=r, column=c)
+
+window.mainloop()`,
       images: [
         "/api/placeholder/400/300",
         "/api/placeholder/400/300",
