@@ -281,72 +281,124 @@ window.mainloop()`,
     },
     {
       id: "ai-chat-application",
-      title: "AI Chat Application",
-      description: "Real-time chat application with AI integration, supporting multiple users, message history, and smart responses.",
-      fullDescription: "An intelligent chat application that combines real-time messaging with AI-powered responses. Features include user authentication, message history, typing indicators, and integration with OpenAI's GPT API for smart, contextual responses.",
-      technologies: ["React", "Node.js", "OpenAI API", "WebSocket"],
+      title: "Tic Tac Toe Game",
+      description: "Classic two-player Tic Tac Toe game built with Python's Tkinter library featuring intelligent game logic",
+      fullDescription: "Interactive Tic Tac Toe Game is a classic strategy game implementation using Python's Tkinter GUI framework. The game supports two players alternating between X and O symbols on a 3x3 grid. It features comprehensive win detection across rows, columns, and diagonals, tie game recognition, visual feedback with colored squares, and automatic game reset functionality. The interface includes large, easily clickable buttons with clear typography for an optimal gaming experience.",
+      technologies: ["Python", "Tkinter", "GUI Programming"],
       github: "https://github.com",
       live: "https://example.com",
       featured: true,
-      codeSnippet: `const ChatApp = () => {
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
-  const socketRef = useRef();
+      codeSnippet: `import tkinter as tk
+from tkinter import messagebox
 
-  useEffect(() => {
-    socketRef.current = io('ws://localhost:3001');
+class TicTacToe:
+    def __init__(self):
+        self.window = tk.Tk()
+        self.window.title("Tic Tac Toe Game")
+        self.window.geometry("400x450")
+        self.window.resizable(False, False)
+        self.window.configure(bg="#2c3e50")
+        
+        self.current_player = "X"
+        self.board = [["" for _ in range(3)] for _ in range(3)]
+        self.buttons = []
+        self.game_active = True
+        
+        self.setup_ui()
+        
+    def setup_ui(self):
+        # Title label
+        title = tk.Label(self.window, text="Tic Tac Toe", 
+                        font=("Arial", 24, "bold"), 
+                        bg="#2c3e50", fg="white")
+        title.pack(pady=20)
+        
+        # Game board frame
+        board_frame = tk.Frame(self.window, bg="#2c3e50")
+        board_frame.pack(pady=10)
+        
+        # Create 3x3 grid of buttons
+        for i in range(3):
+            button_row = []
+            for j in range(3):
+                btn = tk.Button(board_frame, text="", width=6, height=3,
+                               font=("Arial", 20, "bold"), bg="white",
+                               command=lambda row=i, col=j: self.make_move(row, col))
+                btn.grid(row=i, column=j, padx=2, pady=2)
+                button_row.append(btn)
+            self.buttons.append(button_row)
+        
+        # Player turn label
+        self.status_label = tk.Label(self.window, 
+                                   text=f"Player {self.current_player}'s Turn",
+                                   font=("Arial", 16), bg="#2c3e50", fg="white")
+        self.status_label.pack(pady=10)
+        
+        # Reset button
+        reset_btn = tk.Button(self.window, text="Reset Game", 
+                             font=("Arial", 14), bg="#e74c3c", fg="white",
+                             command=self.reset_game)
+        reset_btn.pack(pady=10)
+        
+    def make_move(self, row, col):
+        if not self.game_active or self.board[row][col] != "":
+            return
+            
+        # Update board and button
+        self.board[row][col] = self.current_player
+        self.buttons[row][col]["text"] = self.current_player
+        self.buttons[row][col]["bg"] = "#3498db" if self.current_player == "X" else "#e67e22"
+        self.buttons[row][col]["fg"] = "white"
+        
+        # Check for winner
+        if self.check_winner():
+            self.status_label["text"] = f"Player {self.current_player} Wins!"
+            self.game_active = False
+            messagebox.showinfo("Game Over", f"Player {self.current_player} wins!")
+        elif self.check_tie():
+            self.status_label["text"] = "It's a Tie!"
+            self.game_active = False
+            messagebox.showinfo("Game Over", "It's a tie!")
+        else:
+            # Switch players
+            self.current_player = "O" if self.current_player == "X" else "X"
+            self.status_label["text"] = f"Player {self.current_player}'s Turn"
     
-    socketRef.current.on('message', (message) => {
-      setMessages(prev => [...prev, message]);
-    });
+    def check_winner(self):
+        # Check rows, columns, and diagonals
+        for i in range(3):
+            if (self.board[i][0] == self.board[i][1] == self.board[i][2] == self.current_player or
+                self.board[0][i] == self.board[1][i] == self.board[2][i] == self.current_player):
+                return True
+        
+        if (self.board[0][0] == self.board[1][1] == self.board[2][2] == self.current_player or
+            self.board[0][2] == self.board[1][1] == self.board[2][0] == self.current_player):
+            return True
+        
+        return False
+    
+    def check_tie(self):
+        return all(self.board[i][j] != "" for i in range(3) for j in range(3))
+    
+    def reset_game(self):
+        self.current_player = "X"
+        self.board = [["" for _ in range(3)] for _ in range(3)]
+        self.game_active = True
+        self.status_label["text"] = f"Player {self.current_player}'s Turn"
+        
+        for i in range(3):
+            for j in range(3):
+                self.buttons[i][j]["text"] = ""
+                self.buttons[i][j]["bg"] = "white"
+                self.buttons[i][j]["fg"] = "black"
+    
+    def run(self):
+        self.window.mainloop()
 
-    socketRef.current.on('typing', (data) => {
-      setIsTyping(data.isTyping);
-    });
-
-    return () => socketRef.current.disconnect();
-  }, []);
-
-  const sendMessage = async () => {
-    if (!newMessage.trim()) return;
-
-    const message = {
-      id: Date.now(),
-      text: newMessage,
-      sender: 'user',
-      timestamp: new Date()
-    };
-
-    socketRef.current.emit('message', message);
-    setMessages(prev => [...prev, message]);
-    setNewMessage('');
-
-    // Get AI response
-    const aiResponse = await getAIResponse(newMessage);
-    const aiMessage = {
-      id: Date.now() + 1,
-      text: aiResponse,
-      sender: 'ai',
-      timestamp: new Date()
-    };
-
-    socketRef.current.emit('message', aiMessage);
-    setMessages(prev => [...prev, aiMessage]);
-  };
-
-  return (
-    <div className="chat-container">
-      <MessageList messages={messages} />
-      {isTyping && <TypingIndicator />}
-      <MessageInput
-        value={newMessage}
-        onChange={setNewMessage}
-        onSend={sendMessage}
-      />
-    </div>
-  );
-};`,
+# Create and run the game
+if __name__ == "__main__":
+    game = TicTacToe()
+    game.run()`,
       images: [
         "/api/placeholder/400/300",
         "/api/placeholder/400/300",
