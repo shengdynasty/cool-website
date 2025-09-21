@@ -4,8 +4,8 @@ import profilePhoto from "@/assets/profile-photo.jpg";
 
 const About = () => {
   const skills = [
-    "React", "TypeScript", "Node.js", "Python", "PostgreSQL", "AWS",
-    "Next.js", "Express.js", "MongoDB", "Docker", "Git", "Tailwind CSS"
+    "Python", "Tkinter", "Node.js", "HTML", "CSS", "Javascript",
+    "C++", "Data structure", "MongoDB", "Docker", "Git", "Tailwind CSS"
   ];
 
   return (
