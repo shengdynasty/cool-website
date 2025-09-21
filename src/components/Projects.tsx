@@ -47,7 +47,7 @@ const Projects = () => {
     {
       id: "ai-chat-application",
       title: "Tic Tac Toe",
-      description: "Real-time chat application with AI integration, supporting multiple users, message history, and smart responses.",
+      description: "Classic two-player Tic Tac Toe game built with Python's Tkinter library featuring intelligent game logic and visual feedback.",
       technologies: ["React", "Node.js", "OpenAI API", "WebSocket"],
       github: "https://github.com",
       live: "https://example.com",
