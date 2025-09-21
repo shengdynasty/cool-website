@@ -69,8 +69,6 @@ tk.Button(root, text="C", width=23, height=2, font=("Arial", 14),
 
 root.mainloop()`,
       images: [
-        "/api/placeholder/400/300",
-        "/api/placeholder/400/300",
         "/api/placeholder/400/300"
       ]
     },
