@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ExternalLink, Github, Code, Image, FileText } from "lucide-react";
+import calculatorImage from "@/assets/calculator-app.png";
 
 const ProjectDetail = () => {
   const { projectId } = useParams();
@@ -414,11 +415,21 @@ window.mainloop()`,
           <CardContent>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {project.images.map((image, index) => (
-                <div key={index} className="aspect-video bg-muted rounded-lg flex items-center justify-center">
-                  <div className="text-center text-muted-foreground">
-                    <Image className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                    <p className="text-sm">Screenshot {index + 1}</p>
-                  </div>
+                <div key={index} className="aspect-video bg-muted rounded-lg overflow-hidden">
+                  {index === 0 && project.id === "calculator" ? (
+                    <img 
+                      src={calculatorImage} 
+                      alt={`${project.title} screenshot ${index + 1}`}
+                      className="w-full h-full object-contain bg-white"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <div className="text-center text-muted-foreground">
+                        <Image className="w-12 h-12 mx-auto mb-2 opacity-50" />
+                        <p className="text-sm">Screenshot {index + 1}</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
