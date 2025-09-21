@@ -413,7 +413,7 @@ window.mainloop()`,
           <CardContent>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {project.images.map((image, index) => (
-                <div key={index} className="aspect-video bg-muted rounded-lg overflow-hidden">
+                <div key={index} className="aspect-video bg-muted rounded-lg overflow-hidden" style={{width: '400%', maxWidth: 'none'}}>
                   {index === 0 && project.id === "calculator" ? (
                     <img 
                       src={calculatorImage} 
