@@ -12,7 +12,7 @@ const Projects = () => {
       id: "calculator",
       title: "Calculator",
       description: "A full-stack e-commerce solution with React, Node.js, and PostgreSQL. Features include user authentication, payment processing, and admin dashboard.",
-      technologies: ["React", "Node.js", "PostgreSQL", "Stripe"],
+      technologies: ["Python", "Tkinter"],
       github: "https://github.com",
       live: "https://example.com",
       featured: true
@@ -48,7 +48,7 @@ const Projects = () => {
       id: "ai-chat-application",
       title: "Tic Tac Toe",
       description: "Classic two-player Tic Tac Toe game built with Python and Tkinter featuring strategic gameplay and intuitive interface.",
-      technologies: ["React", "Node.js", "OpenAI API", "WebSocket"],
+      technologies: ["Python", "Tkinter"],
       github: "https://github.com",
       live: "https://example.com",
       featured: true
