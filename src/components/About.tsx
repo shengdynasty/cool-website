@@ -35,7 +35,7 @@ const About = () => {
               </Avatar>
             </div>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              I'm a passionate full-stack developer with over 5 years of experience 
+              I'm a passionate full-stack developer with over 2 years of experience 
               building scalable web applications. I love turning complex problems 
               into simple, beautiful, and intuitive solutions.
             </p>
@@ -50,7 +50,7 @@ const About = () => {
             <div className="grid grid-cols-2 gap-4 mt-8">
               <Card className="bg-gradient-card border-0 shadow-card">
                 <CardContent className="p-6 text-center">
-                  <div className="text-3xl font-bold text-accent mb-2">0.5+</div>
+                  <div className="text-3xl font-bold text-accent mb-2">2+</div>
                   <div className="text-sm text-muted-foreground">Years Experience</div>
                 </CardContent>
               </Card>
