@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import profilePhoto from "@/assets/IMG_3940 (1).jpg";
+import profilePhoto from "@/assets/profile.jpg";
 
 const About = () => {
   const skills = [
