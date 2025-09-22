@@ -19,7 +19,7 @@ const Hero = () => {
         <p className="text-xl md:text-2xl mb-4 text-primary-foreground/90">
           Full-Stack Developer
         </p>
-        <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto text-primary-foreground/80 leading-relaxed">
+        <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto text-primary-foreground/80 leading-relaxed bg-gradient-to-r from-black/40 via-black/30 to-black/40 backdrop-blur-sm rounded-lg px-6 py-4">
           I craft beautiful, functional web applications with modern technologies. 
           Passionate about clean code, user experience, and innovative solutions.
         </p>
