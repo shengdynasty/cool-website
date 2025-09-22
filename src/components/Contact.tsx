@@ -57,7 +57,12 @@ const Contact = () => {
               >
                 <Linkedin className="w-5 h-5" />
               </Button>
-              <Button variant="outline" size="icon" className="w-12 h-12">
+              <Button 
+                variant="outline" 
+                size="icon" 
+                className="w-12 h-12"
+                onClick={() => window.open('https://github.com/shengdynasty', '_blank')}
+              >
                 <Github className="w-5 h-5" />
               </Button>
             </div>
