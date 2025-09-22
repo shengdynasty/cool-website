@@ -128,3 +128,139 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+/* VSCode-style syntax highlighting */
+.vscode-theme pre[class*="language-"] {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+}
+
+.vscode-theme code[class*="language-"] {
+  color: #d4d4d4;
+  background: none;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Token colors matching VSCode Dark theme */
+.vscode-theme .token.comment,
+.vscode-theme .token.prolog,
+.vscode-theme .token.doctype,
+.vscode-theme .token.cdata {
+  color: #6a9955;
+  font-style: italic;
+}
+
+.vscode-theme .token.punctuation {
+  color: #d4d4d4;
+}
+
+.vscode-theme .token.property,
+.vscode-theme .token.tag,
+.vscode-theme .token.constant,
+.vscode-theme .token.symbol,
+.vscode-theme .token.deleted {
+  color: #569cd6;
+}
+
+.vscode-theme .token.boolean,
+.vscode-theme .token.number {
+  color: #b5cea8;
+}
+
+.vscode-theme .token.selector,
+.vscode-theme .token.attr-name,
+.vscode-theme .token.string,
+.vscode-theme .token.char,
+.vscode-theme .token.builtin,
+.vscode-theme .token.inserted {
+  color: #ce9178;
+}
+
+.vscode-theme .token.operator,
+.vscode-theme .token.entity,
+.vscode-theme .token.url,
+.vscode-theme .language-css .token.string,
+.vscode-theme .style .token.string,
+.vscode-theme .token.variable {
+  color: #d4d4d4;
+}
+
+.vscode-theme .token.atrule,
+.vscode-theme .token.attr-value,
+.vscode-theme .token.function,
+.vscode-theme .token.class-name {
+  color: #dcdcaa;
+}
+
+.vscode-theme .token.keyword {
+  color: #569cd6;
+}
+
+.vscode-theme .token.regex,
+.vscode-theme .token.important {
+  color: #d16969;
+}
+
+.vscode-theme .token.important,
+.vscode-theme .token.bold {
+  font-weight: bold;
+}
+
+.vscode-theme .token.italic {
+  font-style: italic;
+}
+
+.vscode-theme .token.entity {
+  cursor: help;
+}
+
+/* Python specific highlighting */
+.vscode-theme .language-python .token.keyword {
+  color: #569cd6;
+}
+
+.vscode-theme .language-python .token.string {
+  color: #ce9178;
+}
+
+.vscode-theme .language-python .token.function {
+  color: #dcdcaa;
+}
+
+.vscode-theme .language-python .token.class-name {
+  color: #4ec9b0;
+}
+
+.vscode-theme .language-python .token.builtin {
+  color: #569cd6;
+}
+
+/* JavaScript/JSX specific highlighting */
+.vscode-theme .language-jsx .token.tag .token.punctuation,
+.vscode-theme .language-jsx .token.tag .token.script-punctuation {
+  color: #808080;
+}
+
+.vscode-theme .language-jsx .token.tag .token.tag {
+  color: #569cd6;
+}
+
+.vscode-theme .language-jsx .token.tag .token.attr-name {
+  color: #92c5f8;
+}
+
+.vscode-theme .language-jsx .token.tag .token.attr-value .token.punctuation {
+  color: #ce9178;
+}
+
+.vscode-theme .language-jsx .token.tag .token.attr-value .token.punctuation:first-child {
+  color: #ce9178;
+}

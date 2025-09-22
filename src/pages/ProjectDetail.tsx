@@ -1,13 +1,26 @@
 import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ExternalLink, Github, Code, Image, FileText } from "lucide-react";
 import calculatorImage from "@/assets/calculator-app.png";
+import Prism from 'prismjs';
+import 'prismjs/components/prism-python';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-jsx';
+import 'prismjs/components/prism-typescript';
 
 const ProjectDetail = () => {
   const { projectId } = useParams();
   const navigate = useNavigate();
+  const codeRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (codeRef.current) {
+      Prism.highlightElement(codeRef.current);
+    }
+  }, [projectId]);
 
   // Sample project data - in a real app this would come from a database
   const projects = [
@@ -482,10 +495,31 @@ window.mainloop()`,
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="bg-muted rounded-lg p-4 overflow-x-auto">
-              <pre className="text-sm text-foreground">
-                <code>{project.codeSnippet}</code>
-              </pre>
+            <div className="vscode-theme rounded-lg overflow-hidden">
+              <div className="bg-[#1e1e1e] px-4 py-2 text-white text-sm flex items-center gap-2 border-b border-[#2d2d30]">
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[#ff5f57]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#28ca42]"></div>
+                </div>
+                <span className="ml-4 text-gray-300">
+                  {project.technologies.includes('Python') || project.technologies.includes('python') ? 'main.py' : 
+                   project.technologies.includes('React') || project.technologies.includes('JavaScript') ? 'App.jsx' : 'code.txt'}
+                </span>
+              </div>
+              <div className="bg-[#1e1e1e] p-4 overflow-x-auto">
+                <pre className="text-sm leading-relaxed">
+                  <code 
+                    ref={codeRef}
+                    className={`language-${
+                      project.technologies.includes('Python') || project.technologies.includes('python') ? 'python' : 
+                      project.technologies.includes('React') || project.technologies.includes('JavaScript') ? 'jsx' : 'javascript'
+                    }`}
+                  >
+                    {project.codeSnippet}
+                  </code>
+                </pre>
+              </div>
             </div>
           </CardContent>
         </Card>
