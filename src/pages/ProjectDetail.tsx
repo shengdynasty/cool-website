@@ -152,8 +152,6 @@ const TaskList = ({ tasks, onUpdateTask }) => {
 export default TaskList;`,
       images: [
         "/api/placeholder/400/300",
-        "/api/placeholder/400/300",
-        "/api/placeholder/400/300"
       ]
     },
     {
