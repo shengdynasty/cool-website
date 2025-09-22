@@ -9,7 +9,7 @@ const Hero = () => {
       </div>
       
       {/* Content */}
-      <div className="relative z-10 text-center text-white px-4 animate-fade-in bg-gradient-to-b from-black/50 via-black/30 to-black/50 backdrop-blur-sm rounded-2xl mx-4 py-12">
+      <div className="relative z-10 text-center text-white px-4 animate-fade-in mx-4 py-12">
         <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
           Shawn <span className="text-accent">Yan</span>
         </h1>
