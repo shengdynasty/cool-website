@@ -49,7 +49,12 @@ const Contact = () => {
             </Card>
 
             <div className="flex gap-4">
-              <Button variant="outline" size="icon" className="w-12 h-12">
+              <Button 
+                variant="outline" 
+                size="icon" 
+                className="w-12 h-12"
+                onClick={() => window.open('https://www.linkedin.com/in/sheng-yan-b54305386/', '_blank')}
+              >
                 <Linkedin className="w-5 h-5" />
               </Button>
               <Button variant="outline" size="icon" className="w-12 h-12">
