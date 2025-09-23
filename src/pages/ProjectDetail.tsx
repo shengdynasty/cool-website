@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ExternalLink, Github, Code, Image, FileText } from "lucide-react";
 import calculatorImage from "@/assets/calculator-app.png";
+import tttImage from "@/assets/ttt-ss.png";
 import Prism from 'prismjs';
 import 'prismjs/components/prism-python';
 import 'prismjs/components/prism-javascript';
@@ -432,6 +433,12 @@ window.mainloop()`,
                 {project.id === "calculator" ? (
                   <img 
                     src={calculatorImage} 
+                    alt={`${project.title} screenshot`}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (project.id === "weather-dashboard" || project.id === "ai-chat-application") ? (
+                  <img 
+                    src={tttImage} 
                     alt={`${project.title} screenshot`}
                     className="w-full h-full object-cover"
                   />
