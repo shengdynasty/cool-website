@@ -380,11 +380,20 @@ window.mainloop()`,
             Back to Projects
           </Button>
           <div className="flex gap-3">
-            <Button variant="outline" size="sm" className="flex items-center gap-2">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="flex items-center gap-2"
+              onClick={() => window.open("https://github.com/shengdynasty", "_blank")}
+            >
               <Github className="w-4 h-4" />
               View Code
             </Button>
-            <Button size="sm" className="flex items-center gap-2">
+            <Button 
+              size="sm" 
+              className="flex items-center gap-2"
+              onClick={() => window.open("https://github.com/shengdynasty", "_blank")}
+            >
               <ExternalLink className="w-4 h-4" />
               Live Demo
             </Button>

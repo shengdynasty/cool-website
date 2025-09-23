@@ -104,11 +104,20 @@ const Projects = () => {
                   ))}
                 </div>
                 <div className="flex gap-3">
-                  <Button variant="outline" size="sm" className="flex items-center gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex items-center gap-2"
+                    onClick={() => window.open("https://github.com/shengdynasty", "_blank")}
+                  >
                     <Github className="w-4 h-4" />
                     Code
                   </Button>
-                  <Button size="sm" className="flex items-center gap-2 bg-accent hover:bg-accent/90">
+                  <Button 
+                    size="sm" 
+                    className="flex items-center gap-2 bg-accent hover:bg-accent/90"
+                    onClick={() => window.open("https://github.com/shengdynasty", "_blank")}
+                  >
                     <ExternalLink className="w-4 h-4" />
                     Live Demo
                   </Button>
@@ -135,10 +144,20 @@ const Projects = () => {
                       {project.title}
                     </CardTitle>
                     <div className="flex gap-2">
-                      <Button variant="ghost" size="icon" className="w-8 h-8">
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className="w-8 h-8"
+                        onClick={() => window.open("https://github.com/shengdynasty", "_blank")}
+                      >
                         <Github className="w-4 h-4" />
                       </Button>
-                      <Button variant="ghost" size="icon" className="w-8 h-8">
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className="w-8 h-8"
+                        onClick={() => window.open("https://github.com/shengdynasty", "_blank")}
+                      >
                         <ExternalLink className="w-4 h-4" />
                       </Button>
                     </div>
