@@ -1,18 +1,20 @@
-# Welcome to your Lovable project
+# Sheng Yan's resume website
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/38be6e79-049c-43bc-acab-d28149c19486
+**URL**: https://sheng-yan.lovable.app/
 
-## How can I edit this code?
 
-There are several ways of editing your application.
+## What technologies are used for this project?
 
-**Use Lovable**
+This project is built with:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/38be6e79-049c-43bc-acab-d28149c19486) and start prompting.
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
-Changes made via Lovable will be committed automatically to this repo.
 
 **Use your preferred IDE**
 
