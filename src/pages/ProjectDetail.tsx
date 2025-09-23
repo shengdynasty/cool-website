@@ -237,8 +237,6 @@ reset_btn.grid(row=3, column=0, columnspan=3, pady=10)
 
 window.mainloop()`,
       images: [
-        "/api/placeholder/400/300",
-        "/api/placeholder/400/300",
         "/api/placeholder/400/300"
       ]
     },
@@ -285,7 +283,6 @@ window.mainloop()`,
   );
 };`,
       images: [
-        "/api/placeholder/400/300",
         "/api/placeholder/400/300"
       ]
     },
@@ -352,7 +349,6 @@ for r in range(3):
 
 window.mainloop()`,
       images: [
-        "file:///C:/Users/sheng/Downloads/Screenshot%202025-09-14%20105303.png",
         "/api/placeholder/400/300"
       ]
     }
@@ -384,11 +380,20 @@ window.mainloop()`,
             Back to Projects
           </Button>
           <div className="flex gap-3">
-            <Button variant="outline" size="sm" className="flex items-center gap-2">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="flex items-center gap-2"
+              onClick={() => window.open("https://github.com/shengdynasty", "_blank")}
+            >
               <Github className="w-4 h-4" />
               View Code
             </Button>
-            <Button size="sm" className="flex items-center gap-2">
+            <Button 
+              size="sm" 
+              className="flex items-center gap-2"
+              onClick={() => window.open("https://github.com/shengdynasty", "_blank")}
+            >
               <ExternalLink className="w-4 h-4" />
               Live Demo
             </Button>
@@ -422,25 +427,23 @@ window.mainloop()`,
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {project.images.map((image, index) => (
-                <div key={index} className="aspect-video bg-muted rounded-lg overflow-hidden" style={{width: '400%', maxWidth: 'none'}}>
-                  {index === 0 && project.id === "calculator" ? (
-                    <img 
-                      src={calculatorImage} 
-                      alt={`${project.title} screenshot ${index + 1}`}
-                      className="w-full h-full object-contain bg-white"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <div className="text-center text-muted-foreground">
-                        <Image className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                        <p className="text-sm">Screenshot {index + 1}</p>
-                      </div>
+            <div className="flex justify-center">
+              <div className="w-full max-w-2xl aspect-video bg-muted rounded-lg overflow-hidden">
+                {project.id === "calculator" ? (
+                  <img 
+                    src={calculatorImage} 
+                    alt={`${project.title} screenshot`}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <div className="text-center text-muted-foreground">
+                      <Image className="w-12 h-12 mx-auto mb-2 opacity-50" />
+                      <p className="text-sm">Screenshot</p>
                     </div>
-                  )}
-                </div>
-              ))}
+                  </div>
+                )}
+              </div>
             </div>
           </CardContent>
         </Card>
