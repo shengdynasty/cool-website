@@ -87,7 +87,15 @@ const Projects = () => {
               <CardHeader>
                 <CardTitle 
                   className="text-xl text-foreground group-hover:text-accent transition-colors duration-300 cursor-pointer hover:underline"
-                  onClick={() => navigate(`/project/${project.id}`)}
+                  onClick={() => {
+                    if (project.id === "task-management-app") {
+                      navigate("/task-management");
+                    } else if (project.id === "expense-tracker") {
+                      navigate("/expense-tracker");
+                    } else {
+                      navigate(`/project/${project.id}`);
+                    }
+                  }}
                 >
                   {project.title}
                 </CardTitle>
@@ -139,7 +147,15 @@ const Projects = () => {
                   <div className="flex justify-between items-start">
                     <CardTitle 
                       className="text-lg text-foreground group-hover:text-accent transition-colors duration-300 cursor-pointer hover:underline"
-                      onClick={() => navigate(`/project/${project.id}`)}
+                      onClick={() => {
+                        if (project.id === "task-management-app") {
+                          navigate("/task-management");
+                        } else if (project.id === "expense-tracker") {
+                          navigate("/expense-tracker");
+                        } else {
+                          navigate(`/project/${project.id}`);
+                        }
+                      }}
                     >
                       {project.title}
                     </CardTitle>
