@@ -18,7 +18,7 @@ const About = () => {
             {/* Profile Picture */}
             <div className="flex justify-center md:justify-start mb-8">
               <Avatar className="h-32 w-32 border-4 border-primary/20 shadow-elegant">
-                
+                <AvatarImage src={profilePhoto} alt="Shawn Yan" className="object-cover" />
                 <AvatarFallback className="text-2xl bg-gradient-primary text-primary-foreground">
                   SY
                 </AvatarFallback>
