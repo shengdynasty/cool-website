@@ -1,15 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import profilePhoto from "@/assets/profile.jpg";
-
 const About = () => {
-  const skills = [
-    "Python", "Tkinter", "Node.js", "HTML", "CSS", "Javascript",
-    "C++", "Data structure", "MongoDB", "Docker", "Git", "Tailwind CSS"
-  ];
-
-  return (
-    <section id="about" className="py-20 px-4">
+  const skills = ["Python", "Tkinter", "Node.js", "HTML", "CSS", "Javascript", "C++", "Data structure", "MongoDB", "Docker", "Git", "Tailwind CSS"];
+  return <section id="about" className="py-20 px-4">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
@@ -24,21 +18,13 @@ const About = () => {
             {/* Profile Picture */}
             <div className="flex justify-center md:justify-start mb-8">
               <Avatar className="h-32 w-32 border-4 border-primary/20 shadow-elegant">
-                <AvatarImage 
-                  src={profilePhoto} 
-                  alt="Shawn Yan" 
-                  className="object-cover"
-                />
+                <AvatarImage src={profilePhoto} alt="Shawn Yan" className="object-cover" />
                 <AvatarFallback className="text-2xl bg-gradient-primary text-primary-foreground">
                   SY
                 </AvatarFallback>
               </Avatar>
             </div>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              I'm a passionate full-stack developer with over 2 years of experience 
-              building scalable web applications. I love turning complex problems 
-              into simple, beautiful, and intuitive solutions.
-            </p>
+            <p className="text-lg text-muted-foreground leading-relaxed">I'm a passionate high school Freshmen with over 2 years of experience building scalable web applications. I love turning complex problems into simple, beautiful, and intuitive solutions.</p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               When I'm not coding, you can find me exploring new technologies, 
               contributing to open-source projects, or hiking in the mountains. 
@@ -69,21 +55,15 @@ const About = () => {
               Technical Skills
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {skills.map((skill, index) => (
-                <div
-                  key={skill}
-                  className="bg-secondary/50 rounded-lg px-4 py-3 text-center text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground transition-colors duration-300 cursor-default"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
+              {skills.map((skill, index) => <div key={skill} className="bg-secondary/50 rounded-lg px-4 py-3 text-center text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground transition-colors duration-300 cursor-default" style={{
+              animationDelay: `${index * 0.1}s`
+            }}>
                   {skill}
-                </div>
-              ))}
+                </div>)}
             </div>
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default About;
