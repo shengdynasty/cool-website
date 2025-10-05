@@ -1,6 +1,4 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import profilePhoto from "@/assets/profile.jpg";
 const About = () => {
   const skills = ["Python", "Tkinter", "Node.js", "HTML", "CSS", "Javascript", "C++", "Data structure", "MongoDB", "Docker", "Git", "Tailwind CSS"];
   return <section id="about" className="py-20 px-4">
@@ -15,15 +13,6 @@ const About = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* About Text */}
           <div className="space-y-6 animate-slide-up">
-            {/* Profile Picture */}
-            <div className="flex justify-center md:justify-start mb-8">
-              <Avatar className="h-32 w-32 border-4 border-primary/20 shadow-elegant">
-                <AvatarImage src={profilePhoto} alt="Shawn Yan" className="object-cover" />
-                <AvatarFallback className="text-2xl bg-gradient-primary text-primary-foreground">
-                  SY
-                </AvatarFallback>
-              </Avatar>
-            </div>
             <p className="text-lg text-muted-foreground leading-relaxed">I'm a passionate high school Freshmen with over 2 years of experience building scalable web applications. I love turning complex problems into simple, beautiful, and intuitive solutions.</p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               When I'm not coding, you can find me exploring new technologies, 
