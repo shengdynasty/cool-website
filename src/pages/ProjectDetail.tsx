@@ -95,62 +95,71 @@ root.mainloop()`,
       github: "https://github.com",
       live: "https://example.com",
       featured: true,
-      codeSnippet: `import React, { useState } from 'react';
+      codeSnippet: `import tkinter as tk
+from tkinter import messagebox
 
-const TaskList = ({ tasks, onUpdateTask }) => {
-  const [draggedTask, setDraggedTask] = useState(null);
+tasks = []  # list 
 
-  const handleDragStart = (e, task) => {
-    setDraggedTask(task);
-    e.dataTransfer.effectAllowed = 'move';
-  };
+def add_task():
+    task_text = task_entry.get().strip()
+    if task_text:
+        var = tk.BooleanVar()
+        cb = tk.Checkbutton(task_frame, text=task_text, variable=var, anchor="w")
+        cb.pack(fill="x", padx=5, pady=2)
+        tasks.append((task_text, var, cb))
+        task_entry.delete(0, tk.END)
+    else:
+        messagebox.showwarning("Input Error", "Please enter a task.")
 
-  const handleDrop = (e, status) => {
-    e.preventDefault();
-    if (draggedTask && draggedTask.status !== status) {
-      onUpdateTask(draggedTask.id, { 
-        status,
-        updatedAt: new Date().toISOString()
-      });
-      setDraggedTask(null);
-    }
-  };
+def delete_task():
+    to_remove = [t for t in tasks if t[1].get()]  # tasks with checkbox
+    if not to_remove:
+        messagebox.showwarning("Selection Error", "No task selected to delete.")
+        return
+    for task_text, var, cb in to_remove:
+        cb.destroy()
+        tasks.remove((task_text, var, cb))
+    messagebox.showinfo("Task Deleted", f"Deleted {len(to_remove)} task(s).")
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
-  };
+def view_tasks():
+    if not tasks:
+        messagebox.showinfo("My Tasks", "No tasks yet.")
+        return
+    task_list = "\n".join(
+        [f"[{'x' if var.get() else ' '}] {task_text}" for task_text, var, _ in tasks]
+    )
+    messagebox.showinfo("My Tasks", task_list)
 
-  return (
-    <div className="task-board">
-      {['todo', 'in-progress', 'done'].map(status => (
-        <div
-          key={status}
-          className="task-column"
-          onDrop={(e) => handleDrop(e, status)}
-          onDragOver={handleDragOver}
-        >
-          <h3 className="column-header">
-            {status.replace('-', ' ').toUpperCase()}
-            <span className="task-count">
-              ({tasks.filter(task => task.status === status).length})
-            </span>
-          </h3>
-          {tasks.filter(task => task.status === status).map(task => (
-            <TaskCard
-              key={task.id}
-              task={task}
-              onDragStart={handleDragStart}
-              draggable
-            />
-          ))}
-        </div>
-      ))}
-    </div>
-  );
-};
+def exit_app():
+    root.destroy()
 
-export default TaskList;`,
+root = tk.Tk()
+root.title("Cool To-Do List")
+root.geometry("400x450")
+
+# Entry field and add button
+task_entry = tk.Entry(root, width=30)
+task_entry.pack(pady=10)
+
+add_button = tk.Button(root, text="Add Task", command=add_task)
+add_button.pack(pady=5)
+
+# Frame
+task_frame = tk.Frame(root)
+task_frame.pack(pady=10, fill="both", expand=True)
+
+# Buttons
+delete_button = tk.Button(root, text="Delete Selected Task(s)", command=delete_task)
+delete_button.pack(pady=5)
+
+view_button = tk.Button(root, text="View All Tasks", command=view_tasks)
+view_button.pack(pady=5)
+
+exit_button = tk.Button(root, text="Exit", command=exit_app)
+exit_button.pack(pady=5)
+
+root.mainloop()
+`,
       images: [
         "/api/placeholder/400/300",
       ]
