@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import ProjectDetail from "./pages/ProjectDetail";
 import TaskManagementDetail from "./pages/TaskManagementDetail";
 import ExpenseTrackerDetail from "./pages/ExpenseTrackerDetail";
+import TurtleArtDetail from "./pages/TurtleArtDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/project/:projectId" element={<ProjectDetail />} />
             <Route path="/task-management" element={<TaskManagementDetail />} />
             <Route path="/expense-tracker" element={<ExpenseTrackerDetail />} />
+            <Route path="/turtle-art" element={<TurtleArtDetail />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
