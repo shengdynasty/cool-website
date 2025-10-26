@@ -20,69 +20,155 @@ const TurtleArtDetail = () => {
 
   const codeSnippet = `import turtle
 import random
+import json
 
-def draw_spiral_pattern():
-    screen = turtle.Screen()
-    screen.bgcolor("black")
-    screen.title("Turtle Art - Spiral Pattern")
-    
-    t = turtle.Turtle()
-    t.speed(0)
-    t.width(2)
-    
-    colors = ["#FF6B6B", "#4ECDC4", "#45B7D1", "#FFA07A", 
-              "#98D8C8", "#F7DC6F", "#BB8FCE", "#85C1E9"]
-    
-    for i in range(360):
-        t.color(random.choice(colors))
-        t.forward(i * 2)
-        t.left(59)
-    
-    t.hideturtle()
-    screen.mainloop()
+# Setup screen
+screen = turtle.Screen()
+screen.title("Interactive Turtle Art Generator - Final Phase")
+screen.bgcolor("white")
+screen.setup(width=800, height=800)
 
-def draw_geometric_flower():
-    screen = turtle.Screen()
-    screen.bgcolor("white")
-    screen.title("Turtle Art - Geometric Flower")
-    
-    t = turtle.Turtle()
-    t.speed(0)
-    
-    colors = ["red", "purple", "blue", "green", "orange", "yellow"]
-    
-    for i in range(36):
-        t.color(colors[i % 6])
-        t.circle(100)
-        t.left(10)
-    
-    t.hideturtle()
-    screen.mainloop()
+# Create turtle
+artist = turtle.Turtle()
+artist.speed(0)
+artist.width(2)
 
-def draw_rainbow_square():
-    screen = turtle.Screen()
-    screen.bgcolor("black")
-    screen.title("Turtle Art - Rainbow Squares")
-    
-    t = turtle.Turtle()
-    t.speed(0)
-    t.width(3)
-    
-    colors = ["red", "orange", "yellow", "green", 
-              "blue", "indigo", "violet"]
-    
-    for i in range(180):
-        t.color(colors[i % 7])
-        t.forward(i * 2)
-        t.right(91)
-    
-    t.hideturtle()
-    screen.mainloop()
+# Global settings
+colors = ["red", "orange", "yellow", "green", "blue", "purple", "pink"]
+saved_designs = {}
 
-# Run one of the patterns
-draw_spiral_pattern()
-# draw_geometric_flower()
-# draw_rainbow_square()`;
+# functions
+def random_color():
+    return random.choice(colors)
+
+def random_position():
+    return random.randint(-300, 300), random.randint(-300, 300)
+
+def draw_random_shape():
+    shape_type = random.choice(["circle", "square", "triangle", "star", "spiral"])
+    color = random_color()
+    size = random.randint(20, 100)
+    x, y = random_position()
+    draw_shape(shape_type, size, color, x, y)
+
+def draw_shape(shape_type, size, color, x, y):
+    artist.penup()
+    artist.goto(x, y)
+    artist.pendown()
+    artist.color(color)
+    
+    if shape_type == "circle":
+        artist.begin_fill()
+        artist.circle(size)
+        artist.end_fill()
+    
+    elif shape_type == "square":
+        artist.begin_fill()
+        for _ in range(4):
+            artist.forward(size)
+            artist.right(90)
+        artist.end_fill()
+    
+    elif shape_type == "triangle":
+        artist.begin_fill()
+        for _ in range(3):
+            artist.forward(size)
+            artist.left(120)
+        artist.end_fill()
+    
+    elif shape_type == "star":
+        artist.begin_fill()
+        for _ in range(5):
+            artist.forward(size)
+            artist.right(144)
+        artist.end_fill()
+    
+    elif shape_type == "spiral":
+        artist.begin_fill()
+        for i in range(size):
+            artist.forward(i)
+            artist.right(30)
+        artist.end_fill()
+
+# Movement
+def move_up():
+    artist.setheading(90)
+    artist.forward(20)
+
+def move_down():
+    artist.setheading(270)
+    artist.forward(20)
+
+def move_left():
+    artist.setheading(180)
+    artist.forward(20)
+
+def move_right():
+    artist.setheading(0)
+    artist.forward(20)
+
+# Color change
+def change_color():
+    artist.color(random_color())
+
+# Clear the screen
+def clear_screen():
+    artist.clear()
+
+# Save current screen to memory
+def save_design():
+    name = screen.textinput("Save Design", "Enter a name for this design:")
+    if not name:
+        return
+    saved_designs[name] = screen.getcanvas().postscript()
+    with open("saved_designs.json", "w") as f:
+        json.dump(list(saved_designs.keys()), f)
+    print(f"Design '{name}' saved successfully.")
+
+# Load saved design names
+def load_design():
+    try:
+        with open("saved_designs.json", "r") as f:
+            saved_names = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        saved_names = []
+    
+    if not saved_names:
+        print("No saved designs found.")
+        return
+    
+    name = screen.textinput("Load Design", f"Available: {', '.join(saved_names)}")
+    if name in saved_designs:
+        print(f"Design '{name}' loaded (image not redrawn for simplicity).")
+
+# Surprise pattern
+def surprise_me():
+    clear_screen()
+    for _ in range(random.randint(10, 25)):
+        draw_random_shape()
+
+# Key bindings
+screen.listen()
+screen.onkey(move_up, "Up")
+screen.onkey(move_down, "Down")
+screen.onkey(move_left, "Left")
+screen.onkey(move_right, "Right")
+screen.onkey(change_color, "c")
+screen.onkey(clear_screen, "space")
+screen.onkey(save_design, "s")
+screen.onkey(load_design, "l")
+screen.onkey(surprise_me, "r")
+
+# Instructions
+print("Interactive Turtle Art Generator Controls:")
+print("Arrow Keys - Move Turtle")
+print("C - Change Color")
+print("Space - Clear Screen")
+print("S - Save Design")
+print("L - Load Design")
+print("R - Surprise Me (random art)")
+
+screen.mainloop()`;
 
   return (
     <div className="min-h-screen bg-background">
