@@ -2,120 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Academic minimal design system - All colors MUST be HSL */
 
 @layer base {
   :root {
-    /* Professional color palette */
-    --background: 220 15% 97%;
-    --foreground: 220 13% 18%;
+    /* Neutral academic palette */
+    --background: 0 0% 99%;
+    --foreground: 220 10% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 13% 18%;
+    --card-foreground: 220 10% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 13% 18%;
+    --popover-foreground: 220 10% 15%;
 
-    --primary: 220 50% 25%;
-    --primary-foreground: 210 40% 98%;
-    --primary-glow: 220 60% 40%;
+    --primary: 220 10% 20%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 15% 95%;
-    --secondary-foreground: 220 13% 18%;
+    --secondary: 220 5% 96%;
+    --secondary-foreground: 220 10% 15%;
 
-    --muted: 220 15% 95%;
-    --muted-foreground: 220 8% 46%;
+    --muted: 220 5% 94%;
+    --muted-foreground: 220 5% 45%;
 
-    --accent: 215 70% 60%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 220 8% 88%;
+    --accent-foreground: 220 10% 15%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 220 50% 25%;
+    --border: 220 5% 90%;
+    --input: 220 5% 90%;
+    --ring: 220 10% 20%;
 
-    /* Design system tokens */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--secondary)) 100%);
-    
-    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.1);
-    --shadow-card: 0 4px 20px -4px hsl(var(--primary) / 0.1);
-    --shadow-glow: 0 0 40px hsl(var(--accent) / 0.3);
-    
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-spring: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    --radius: 0.375rem;
 
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Academic typography */
+    --font-serif: 'Georgia', 'Times New Roman', serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
   }
 
   .dark {
-    --background: 220 15% 8%;
-    --foreground: 210 40% 98%;
+    --background: 220 10% 8%;
+    --foreground: 220 5% 92%;
 
-    --card: 220 15% 10%;
-    --card-foreground: 210 40% 98%;
+    --card: 220 10% 10%;
+    --card-foreground: 220 5% 92%;
 
-    --popover: 220 15% 10%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 220 10% 10%;
+    --popover-foreground: 220 5% 92%;
 
-    --primary: 215 70% 60%;
-    --primary-foreground: 220 15% 8%;
-    --primary-glow: 215 80% 70%;
+    --primary: 220 5% 85%;
+    --primary-foreground: 220 10% 8%;
 
-    --secondary: 220 15% 15%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 220 8% 15%;
+    --secondary-foreground: 220 5% 92%;
 
-    --muted: 220 15% 15%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 220 8% 18%;
+    --muted-foreground: 220 5% 55%;
 
-    --accent: 215 70% 60%;
-    --accent-foreground: 220 15% 8%;
+    --accent: 220 8% 22%;
+    --accent-foreground: 220 5% 92%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 20%;
-    --input: 220 15% 20%;
-    --ring: 215 70% 60%;
-
-    /* Dark mode gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--secondary)) 100%);
-    
-    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.2);
-    --shadow-card: 0 4px 20px -4px hsl(var(--primary) / 0.15);
-    --shadow-glow: 0 0 40px hsl(var(--accent) / 0.4);
-
-    --sidebar-background: 220 15% 10%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 215 70% 60%;
-    --sidebar-primary-foreground: 220 15% 8%;
-    --sidebar-accent: 220 15% 15%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 220 15% 20%;
-    --sidebar-ring: 215 70% 60%;
+    --border: 220 8% 20%;
+    --input: 220 8% 20%;
+    --ring: 220 5% 85%;
   }
 }
 
@@ -125,8 +80,36 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-medium tracking-tight;
+  }
+}
+
+/* Academic prose styling */
+.prose-academic {
+  @apply leading-relaxed;
+}
+
+.prose-academic p {
+  @apply mb-4 text-muted-foreground;
+}
+
+.prose-academic h3 {
+  @apply text-lg font-medium text-foreground mb-3;
+}
+
+/* Code block styling */
+.code-block {
+  @apply bg-muted rounded-md p-4 font-mono text-sm overflow-x-auto;
+}
+
+/* Subtle hover effects */
+.hover-lift {
+  @apply transition-transform duration-200 hover:-translate-y-0.5;
 }
 
 /* VSCode-style syntax highlighting */
@@ -241,26 +224,4 @@ All colors MUST be HSL.
 
 .vscode-theme .language-python .token.builtin {
   color: #569cd6;
-}
-
-/* JavaScript/JSX specific highlighting */
-.vscode-theme .language-jsx .token.tag .token.punctuation,
-.vscode-theme .language-jsx .token.tag .token.script-punctuation {
-  color: #808080;
-}
-
-.vscode-theme .language-jsx .token.tag .token.tag {
-  color: #569cd6;
-}
-
-.vscode-theme .language-jsx .token.tag .token.attr-name {
-  color: #92c5f8;
-}
-
-.vscode-theme .language-jsx .token.tag .token.attr-value .token.punctuation {
-  color: #ce9178;
-}
-
-.vscode-theme .language-jsx .token.tag .token.attr-value .token.punctuation:first-child {
-  color: #ce9178;
 }
