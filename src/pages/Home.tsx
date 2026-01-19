@@ -1,19 +1,35 @@
 import AcademicLayout from "@/components/layout/AcademicLayout";
+import { User } from "lucide-react";
 
 const Home = () => {
   return (
     <AcademicLayout>
       <div className="space-y-12">
-        {/* Introduction */}
+        {/* Introduction with Profile Picture */}
         <section className="space-y-6">
-          <h1 className="text-3xl font-medium text-foreground">
-            Sheng Yan
-          </h1>
-          <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
-            High school student exploring the intersection of engineering, computer science, 
-            economics, and public policy. I am drawn to research-driven problem-solving and 
-            the application of quantitative methods to real-world challenges.
-          </p>
+          <div className="flex flex-col sm:flex-row gap-6 items-start">
+            {/* Profile Picture Placeholder */}
+            <div className="w-32 h-32 rounded-full bg-muted border border-border flex items-center justify-center flex-shrink-0 overflow-hidden">
+              {/* Replace src with your profile image */}
+              <img 
+                src="/placeholder.svg" 
+                alt="Profile" 
+                className="w-full h-full object-cover hidden"
+              />
+              <User className="w-12 h-12 text-muted-foreground" />
+            </div>
+            
+            <div className="space-y-4">
+              <h1 className="text-3xl font-medium text-foreground">
+                Sheng Yan
+              </h1>
+              <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
+                High school student exploring the intersection of engineering, computer science, 
+                economics, and public policy. I am drawn to research-driven problem-solving and 
+                the application of quantitative methods to real-world challenges.
+              </p>
+            </div>
+          </div>
         </section>
 
         {/* Core Interests */}

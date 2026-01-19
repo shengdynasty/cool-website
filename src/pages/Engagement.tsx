@@ -1,5 +1,6 @@
 import AcademicLayout from "@/components/layout/AcademicLayout";
 import { Separator } from "@/components/ui/separator";
+import { ImageIcon } from "lucide-react";
 
 const engagements = [
   {
@@ -18,7 +19,8 @@ const engagements = [
     relevance: `This experience solidified my interest in pursuing research at the 
     undergraduate level. It demonstrated how theoretical concepts from physics and 
     chemistry apply to practical engineering problems and introduced me to the 
-    collaborative nature of academic research.`
+    collaborative nature of academic research.`,
+    image: "/placeholder.svg" // Replace with actual activity photo
   },
   {
     title: "Robotics Team — Design and Programming",
@@ -35,7 +37,8 @@ const engagements = [
     relevance: `Robotics provides a unique environment for applied learning where 
     abstract programming concepts meet physical reality. This experience has 
     deepened my interest in systems engineering and the integration of software 
-    with hardware.`
+    with hardware.`,
+    image: "/placeholder.svg"
   },
   {
     title: "Model United Nations — Economic Affairs Committee",
@@ -51,7 +54,8 @@ const engagements = [
     event organization as a committee chair.`,
     relevance: `Model UN connects my interest in economics with real-world policy 
     applications. It has exposed me to the complexities of international governance 
-    and the role that quantitative analysis can play in policy debates.`
+    and the role that quantitative analysis can play in policy debates.`,
+    image: "/placeholder.svg"
   },
   {
     title: "Summer Program — Introduction to Econometrics",
@@ -68,7 +72,8 @@ const engagements = [
     relevance: `This program confirmed my interest in quantitative approaches to 
     economics and social science. The skills acquired directly inform my 
     exploration of policy questions and provide a foundation for future 
-    undergraduate coursework.`
+    undergraduate coursework.`,
+    image: "/placeholder.svg"
   },
   {
     title: "Math Competition Team",
@@ -85,7 +90,8 @@ const engagements = [
     relevance: `Competition mathematics has strengthened my quantitative reasoning 
     abilities, which support work across my areas of interest. The discipline 
     required for consistent practice has also been valuable for academic development 
-    more broadly.`
+    more broadly.`,
+    image: "/placeholder.svg"
   },
 ];
 
@@ -107,6 +113,19 @@ const Engagement = () => {
         <div className="space-y-12">
           {engagements.map((engagement, index) => (
             <article key={engagement.title} className="space-y-4">
+              {/* Activity Image */}
+              <div className="aspect-video w-full max-w-sm bg-muted border border-border rounded-lg overflow-hidden flex items-center justify-center">
+                <img 
+                  src={engagement.image} 
+                  alt={`${engagement.title} photo`}
+                  className="w-full h-full object-cover hidden"
+                />
+                <div className="flex flex-col items-center gap-2 text-muted-foreground">
+                  <ImageIcon className="w-8 h-8" />
+                  <span className="text-xs">Activity Photo</span>
+                </div>
+              </div>
+
               <div>
                 <h2 className="text-xl font-medium text-foreground">
                   {engagement.title}
