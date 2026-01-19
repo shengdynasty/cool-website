@@ -1,6 +1,6 @@
 import AcademicLayout from "@/components/layout/AcademicLayout";
 import { Separator } from "@/components/ui/separator";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, ImageIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const projects = [
@@ -16,7 +16,8 @@ const projects = [
       "Modular function design for maintainable, extensible code structure"
     ],
     github: "https://github.com/shengdynasty",
-    detailPage: "/turtle-art"
+    detailPage: "/turtle-art",
+    image: "/placeholder.svg" // Replace with actual project screenshot
   },
   {
     id: "calculator",
@@ -30,7 +31,8 @@ const projects = [
       "Error handling for edge cases like division by zero"
     ],
     github: "https://github.com/shengdynasty",
-    detailPage: "/project/calculator"
+    detailPage: "/project/calculator",
+    image: "/placeholder.svg"
   },
   {
     id: "task-management",
@@ -44,7 +46,8 @@ const projects = [
       "Implementing filtering and sorting functionality"
     ],
     github: "https://github.com/shengdynasty",
-    detailPage: "/task-management"
+    detailPage: "/task-management",
+    image: "/placeholder.svg"
   },
   {
     id: "tic-tac-toe",
@@ -58,7 +61,8 @@ const projects = [
       "Reset and replay functionality implementation"
     ],
     github: "https://github.com/shengdynasty",
-    detailPage: "/project/ai-chat-application"
+    detailPage: "/project/ai-chat-application",
+    image: "/placeholder.svg"
   },
   {
     id: "expense-tracker",
@@ -72,7 +76,8 @@ const projects = [
       "Building summary statistics from raw data"
     ],
     github: "https://github.com/shengdynasty",
-    detailPage: "/expense-tracker"
+    detailPage: "/expense-tracker",
+    image: "/placeholder.svg"
   },
   {
     id: "portfolio-website",
@@ -86,7 +91,8 @@ const projects = [
       "Content organization for academic communication"
     ],
     github: "https://github.com/shengdynasty",
-    live: "https://sheng-yan.lovable.app"
+    live: "https://sheng-yan.lovable.app",
+    image: "/placeholder.svg"
   },
 ];
 
@@ -108,6 +114,19 @@ const Projects = () => {
         <div className="space-y-10">
           {projects.map((project, index) => (
             <article key={project.id} className="space-y-4">
+              {/* Project Image */}
+              <div className="aspect-video w-full max-w-md bg-muted border border-border rounded-lg overflow-hidden flex items-center justify-center">
+                <img 
+                  src={project.image} 
+                  alt={`${project.title} screenshot`}
+                  className="w-full h-full object-cover hidden"
+                />
+                <div className="flex flex-col items-center gap-2 text-muted-foreground">
+                  <ImageIcon className="w-8 h-8" />
+                  <span className="text-xs">Project Screenshot</span>
+                </div>
+              </div>
+
               <div className="flex items-start justify-between gap-4">
                 <h2 className="text-xl font-medium text-foreground">
                   {project.detailPage ? (
