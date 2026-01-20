@@ -31,7 +31,7 @@ const About = () => {
               </Card>
               <Card className="bg-gradient-card border-0 shadow-card">
                 <CardContent className="p-6 text-center">
-                  <div className="text-3xl font-bold text-accent mb-2">20+</div>
+                  <div className="text-3xl font-bold text-accent mb-2">10+</div>
                   <div className="text-sm text-muted-foreground">Projects Completed</div>
                 </CardContent>
               </Card>
