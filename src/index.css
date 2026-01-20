@@ -2,45 +2,120 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Academic minimal design system - All colors MUST be HSL */
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
 
 @layer base {
   :root {
-    /* Dark academic palette - default */
-    --background: 220 10% 8%;
-    --foreground: 220 5% 92%;
+    /* Professional color palette */
+    --background: 220 15% 97%;
+    --foreground: 220 13% 18%;
 
-    --card: 220 10% 10%;
-    --card-foreground: 220 5% 92%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 13% 18%;
 
-    --popover: 220 10% 10%;
-    --popover-foreground: 220 5% 92%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 13% 18%;
 
-    --primary: 220 5% 85%;
-    --primary-foreground: 220 10% 8%;
+    --primary: 220 50% 25%;
+    --primary-foreground: 210 40% 98%;
+    --primary-glow: 220 60% 40%;
 
-    --secondary: 220 8% 15%;
-    --secondary-foreground: 220 5% 92%;
+    --secondary: 220 15% 95%;
+    --secondary-foreground: 220 13% 18%;
 
-    --muted: 220 8% 18%;
-    --muted-foreground: 220 5% 55%;
+    --muted: 220 15% 95%;
+    --muted-foreground: 220 8% 46%;
 
-    --accent: 220 8% 22%;
-    --accent-foreground: 220 5% 92%;
+    --accent: 215 70% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 220 50% 25%;
+
+    /* Design system tokens */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--secondary)) 100%);
+    
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.1);
+    --shadow-card: 0 4px 20px -4px hsl(var(--primary) / 0.1);
+    --shadow-glow: 0 0 40px hsl(var(--accent) / 0.3);
+    
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 220 15% 8%;
+    --foreground: 210 40% 98%;
+
+    --card: 220 15% 10%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 220 15% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 215 70% 60%;
+    --primary-foreground: 220 15% 8%;
+    --primary-glow: 215 80% 70%;
+
+    --secondary: 220 15% 15%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 220 15% 15%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 215 70% 60%;
+    --accent-foreground: 220 15% 8%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 220 8% 20%;
-    --input: 220 8% 20%;
-    --ring: 220 5% 85%;
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 215 70% 60%;
 
-    --radius: 0.375rem;
+    /* Dark mode gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--secondary)) 100%);
+    
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.2);
+    --shadow-card: 0 4px 20px -4px hsl(var(--primary) / 0.15);
+    --shadow-glow: 0 0 40px hsl(var(--accent) / 0.4);
 
-    /* Academic typography */
-    --font-serif: 'Georgia', 'Times New Roman', serif;
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    --sidebar-background: 220 15% 10%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 215 70% 60%;
+    --sidebar-primary-foreground: 220 15% 8%;
+    --sidebar-accent: 220 15% 15%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 220 15% 20%;
+    --sidebar-ring: 215 70% 60%;
   }
 }
 
@@ -50,36 +125,8 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
-    font-family: var(--font-sans);
+    @apply bg-background text-foreground;
   }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-medium tracking-tight;
-  }
-}
-
-/* Academic prose styling */
-.prose-academic {
-  @apply leading-relaxed;
-}
-
-.prose-academic p {
-  @apply mb-4 text-muted-foreground;
-}
-
-.prose-academic h3 {
-  @apply text-lg font-medium text-foreground mb-3;
-}
-
-/* Code block styling */
-.code-block {
-  @apply bg-muted rounded-md p-4 font-mono text-sm overflow-x-auto;
-}
-
-/* Subtle hover effects */
-.hover-lift {
-  @apply transition-transform duration-200 hover:-translate-y-0.5;
 }
 
 /* VSCode-style syntax highlighting */
@@ -194,4 +241,26 @@
 
 .vscode-theme .language-python .token.builtin {
   color: #569cd6;
+}
+
+/* JavaScript/JSX specific highlighting */
+.vscode-theme .language-jsx .token.tag .token.punctuation,
+.vscode-theme .language-jsx .token.tag .token.script-punctuation {
+  color: #808080;
+}
+
+.vscode-theme .language-jsx .token.tag .token.tag {
+  color: #569cd6;
+}
+
+.vscode-theme .language-jsx .token.tag .token.attr-name {
+  color: #92c5f8;
+}
+
+.vscode-theme .language-jsx .token.tag .token.attr-value .token.punctuation {
+  color: #ce9178;
+}
+
+.vscode-theme .language-jsx .token.tag .token.attr-value .token.punctuation:first-child {
+  color: #ce9178;
 }

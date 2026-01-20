@@ -21,7 +21,7 @@ const TaskManagementDetail = () => {
     title: "Task Management App",
     description: "A comprehensive task management application with drag-and-drop functionality",
     fullDescription: "Smart Task Manager is a productivity application designed for organizing and tracking tasks efficiently. It features a Kanban-style board with drag-and-drop functionality, allowing users to move tasks between different status columns (To Do, In Progress, Done). The application includes task creation, editing, priority levels, due dates, and real-time updates. Built with React and modern web technologies for a smooth user experience.",
-    technologies: ["Python", "Tkinter"],
+    technologies: ["React", "JavaScript", "CSS", "HTML"],
     github: "https://github.com/shengdynasty",
     live: "https://github.com/shengdynasty",
     codeSnippet: `import tkinter as tk
