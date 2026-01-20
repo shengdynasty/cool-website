@@ -1,6 +1,7 @@
 import AcademicLayout from "@/components/layout/AcademicLayout";
 import { Separator } from "@/components/ui/separator";
 import { ImageIcon } from "lucide-react";
+import IIT from "C:\Users\sheng\OneDrive\Documents\GitHub\cool-website\src\assets\iit_logo.png";
 
 const engagements = [
   {
@@ -20,7 +21,7 @@ const engagements = [
     undergraduate level. It demonstrated how theoretical concepts from physics and 
     chemistry apply to practical engineering problems and introduced me to the 
     collaborative nature of academic research.`,
-    image: "/placeholder.svg" // Replace with actual activity photo
+    image: IIT // Replace with actual activity photo
   },
   {
     title: "Robotics Team — Design and Programming",
