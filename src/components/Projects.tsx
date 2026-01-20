@@ -27,10 +27,10 @@ const Projects = () => {
       featured: true
     },
     {
-      id: "weather-dashboard",
-      title: "Weather Dashboard",
-      description: "Beautiful weather dashboard with location-based forecasts, interactive maps, and weather alerts using OpenWeather API.",
-      technologies: ["React", "Tailwind CSS", "OpenWeather API"],
+      id: "turtle-art",
+      title: "Python Turtle Art",
+      description: "Creative graphics application using Python Turtle module to generate colorful patterns, shapes, and artistic designs with procedural generation.",
+      technologies: ["Python", "Turtle Graphics"],
       github: "https://github.com",
       live: "https://example.com",
       featured: false
@@ -92,6 +92,8 @@ const Projects = () => {
                       navigate("/task-management");
                     } else if (project.id === "expense-tracker") {
                       navigate("/expense-tracker");
+                    } else if (project.id === "turtle-art") {
+                      navigate("/turtle-art");
                     } else {
                       navigate(`/project/${project.id}`);
                     }
@@ -152,6 +154,8 @@ const Projects = () => {
                           navigate("/task-management");
                         } else if (project.id === "expense-tracker") {
                           navigate("/expense-tracker");
+                        } else if (project.id === "turtle-art") {
+                          navigate("/turtle-art");
                         } else {
                           navigate(`/project/${project.id}`);
                         }
