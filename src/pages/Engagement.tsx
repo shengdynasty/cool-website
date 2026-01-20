@@ -1,5 +1,6 @@
 import AcademicLayout from "@/components/layout/AcademicLayout";
 import { ImageIcon, Calendar, Clock } from "lucide-react";
+import { motion } from "framer-motion";
 
 const engagements = [
   {
@@ -49,29 +50,64 @@ const engagements = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.4 }
+  }
+};
+
 const Engagement = () => {
   return (
     <AcademicLayout>
       <div className="space-y-12">
         {/* Header */}
-        <section className="space-y-4">
+        <motion.section 
+          className="space-y-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <h1 className="text-4xl font-bold tracking-tight">engagement</h1>
           <p className="text-muted-foreground leading-relaxed max-w-2xl">
             A curated selection of academic and intellectual activities that have 
             shaped my learning. Each entry reflects meaningful engagement rather 
             than superficial participation.
           </p>
-        </section>
+        </motion.section>
 
         {/* Engagement Grid */}
-        <div className="grid sm:grid-cols-2 gap-6">
+        <motion.div 
+          className="grid sm:grid-cols-2 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {engagements.map((engagement) => (
-            <article 
+            <motion.article 
               key={engagement.id} 
               className="group border border-border rounded-sm overflow-hidden hover:border-foreground transition-colors"
+              variants={cardVariants}
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
             >
               {/* Activity Image */}
-              <div className="aspect-video w-full bg-muted flex items-center justify-center overflow-hidden">
+              <motion.div 
+                className="aspect-video w-full bg-muted flex items-center justify-center overflow-hidden relative"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
                 <img 
                   src={engagement.image} 
                   alt={`${engagement.title} photo`}
@@ -81,7 +117,9 @@ const Engagement = () => {
                   <ImageIcon className="w-8 h-8" />
                   <span className="text-xs font-mono">photo</span>
                 </div>
-              </div>
+                {/* Overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </motion.div>
 
               {/* Activity Content */}
               <div className="p-5 space-y-3">
@@ -95,23 +133,29 @@ const Engagement = () => {
                 </div>
 
                 <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
-                  <span className="flex items-center gap-1.5">
+                  <motion.span 
+                    className="flex items-center gap-1.5 px-2 py-1 bg-muted rounded-sm border border-border"
+                    whileHover={{ scale: 1.05 }}
+                  >
                     <Calendar className="w-3.5 h-3.5" />
                     {engagement.period}
-                  </span>
-                  <span className="flex items-center gap-1.5">
+                  </motion.span>
+                  <motion.span 
+                    className="flex items-center gap-1.5 px-2 py-1 bg-muted rounded-sm border border-border"
+                    whileHover={{ scale: 1.05 }}
+                  >
                     <Clock className="w-3.5 h-3.5" />
                     {engagement.commitment}
-                  </span>
+                  </motion.span>
                 </div>
 
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {engagement.description}
                 </p>
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </AcademicLayout>
   );
