@@ -80,7 +80,7 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              hey, i'm sheng{" "}
+              hey, i'm shawn{" "}
               <motion.span 
                 className="inline-block"
                 animate={{ rotate: [0, 14, -8, 14, -4, 10, 0] }}
