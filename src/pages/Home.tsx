@@ -161,7 +161,7 @@ const Home = () => {
               {/* Replace src with your profile image */}
               <img 
                 src="/placeholder.svg" 
-                alt="Sheng Yan" 
+                alt="Shawn"
                 className="w-full h-full object-cover hidden" 
               />
               <User className="w-24 h-24 text-muted-foreground" />
