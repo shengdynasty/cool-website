@@ -1,6 +1,7 @@
 import AcademicLayout from "@/components/layout/AcademicLayout";
 import { ExternalLink, Github, ImageIcon } from "lucide-react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const projects = [
   {
@@ -59,29 +60,64 @@ const projects = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.4 }
+  }
+};
+
 const Projects = () => {
   return (
     <AcademicLayout>
       <div className="space-y-12">
         {/* Header */}
-        <section className="space-y-4">
+        <motion.section 
+          className="space-y-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <h1 className="text-4xl font-bold tracking-tight">projects</h1>
           <p className="text-muted-foreground leading-relaxed max-w-2xl">
             A selection of programming and data projects. Each project addresses a 
             specific problem and reflects learning in computational thinking, 
             software design, and applied problem-solving.
           </p>
-        </section>
+        </motion.section>
 
         {/* Project Grid */}
-        <div className="grid sm:grid-cols-2 gap-6">
+        <motion.div 
+          className="grid sm:grid-cols-2 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {projects.map((project) => (
-            <article 
+            <motion.article 
               key={project.id} 
               className="group border border-border rounded-sm overflow-hidden hover:border-foreground transition-colors"
+              variants={cardVariants}
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
             >
               {/* Project Image */}
-              <div className="aspect-video w-full bg-muted flex items-center justify-center overflow-hidden">
+              <motion.div 
+                className="aspect-video w-full bg-muted flex items-center justify-center overflow-hidden relative"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
                 <img 
                   src={project.image} 
                   alt={`${project.title} screenshot`}
@@ -91,7 +127,9 @@ const Projects = () => {
                   <ImageIcon className="w-8 h-8" />
                   <span className="text-xs font-mono">screenshot</span>
                 </div>
-              </div>
+                {/* Overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </motion.div>
 
               {/* Project Content */}
               <div className="p-5 space-y-3">
@@ -110,26 +148,30 @@ const Projects = () => {
                   </h2>
                   <div className="flex gap-3 flex-shrink-0">
                     {project.github && (
-                      <a
+                      <motion.a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-muted-foreground hover:text-foreground transition-colors"
                         aria-label="View on GitHub"
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.9 }}
                       >
                         <Github className="w-4 h-4" />
-                      </a>
+                      </motion.a>
                     )}
                     {project.live && (
-                      <a
+                      <motion.a
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-muted-foreground hover:text-foreground transition-colors"
                         aria-label="View live project"
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.9 }}
                       >
                         <ExternalLink className="w-4 h-4" />
-                      </a>
+                      </motion.a>
                     )}
                   </div>
                 </div>
@@ -140,18 +182,19 @@ const Projects = () => {
 
                 <div className="flex flex-wrap gap-2 pt-2">
                   {project.tools.map((tool) => (
-                    <span 
+                    <motion.span 
                       key={tool} 
-                      className="text-xs font-mono px-2 py-1 bg-muted text-muted-foreground rounded-sm"
+                      className="text-xs font-mono px-2 py-1 bg-muted text-muted-foreground rounded-sm border border-border"
+                      whileHover={{ scale: 1.05, backgroundColor: "hsl(var(--accent))" }}
                     >
                       {tool}
-                    </span>
+                    </motion.span>
                   ))}
                 </div>
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </AcademicLayout>
   );
