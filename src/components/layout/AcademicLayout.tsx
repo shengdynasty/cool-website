@@ -1,35 +1,39 @@
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { Github, Linkedin, Mail } from "lucide-react";
 
 interface AcademicLayoutProps {
   children: React.ReactNode;
 }
 
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Explorations", href: "/explorations" },
-  { name: "Projects", href: "/projects" },
-  { name: "Engagement", href: "/engagement" },
-  { name: "Skills", href: "/skills" },
-  { name: "CV", href: "/cv" },
+  { name: "home", href: "/" },
+  { name: "explorations", href: "/explorations" },
+  { name: "projects", href: "/projects" },
+  { name: "engagement", href: "/engagement" },
+  { name: "skills", href: "/skills" },
+  { name: "cv", href: "/cv" },
 ];
 
 const AcademicLayout = ({ children }: AcademicLayoutProps) => {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-        <div className="max-w-4xl mx-auto px-6 py-4">
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Terminal-style Header */}
+      <header className="border-b border-border">
+        <div className="max-w-6xl mx-auto px-6 py-4">
           <nav className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <Link 
               to="/" 
-              className="text-lg font-medium text-foreground hover:text-muted-foreground transition-colors"
+              className="font-mono text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              Sheng Yan
+              <span className="text-foreground">portfolio</span>
+              <span className="text-muted-foreground">@sheng</span>
+              <span className="text-foreground">:</span>
+              <span className="text-muted-foreground"> $</span>
             </Link>
-            <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            <ul className="flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm">
               {navigation.map((item) => (
                 <li key={item.name}>
                   <Link
@@ -37,7 +41,7 @@ const AcademicLayout = ({ children }: AcademicLayoutProps) => {
                     className={cn(
                       "transition-colors hover:text-foreground",
                       location.pathname === item.href
-                        ? "text-foreground font-medium"
+                        ? "text-foreground"
                         : "text-muted-foreground"
                     )}
                   >
@@ -51,18 +55,44 @@ const AcademicLayout = ({ children }: AcademicLayoutProps) => {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-6 py-12">
+      <main className="max-w-6xl mx-auto px-6 py-16">
         {children}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-border mt-20">
-        <div className="max-w-4xl mx-auto px-6 py-8">
-          <p className="text-xs text-muted-foreground leading-relaxed">
+      {/* Minimal Footer */}
+      <footer className="border-t border-border">
+        <div className="max-w-6xl mx-auto px-6 py-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <a 
+                href="https://github.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Github className="w-5 h-5" />
+              </a>
+              <a 
+                href="https://linkedin.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Linkedin className="w-5 h-5" />
+              </a>
+              <a 
+                href="mailto:contact@example.com"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Mail className="w-5 h-5" />
+              </a>
+            </div>
+            <p className="text-xs text-muted-foreground font-mono">
+              © {new Date().getFullYear()} Sheng Yan
+            </p>
+          </div>
+          <p className="text-xs text-muted-foreground mt-4 leading-relaxed max-w-2xl">
             All research descriptions are high-level and reflective. Technical details, data, and unpublished work remain confidential.
-          </p>
-          <p className="text-xs text-muted-foreground mt-4">
-            © {new Date().getFullYear()} Sheng Yan
           </p>
         </div>
       </footer>
