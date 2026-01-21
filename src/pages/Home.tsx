@@ -123,9 +123,9 @@ const Home = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             {[
-              { href: "https://github.com", icon: Github, label: "GitHub" },
-              { href: "https://linkedin.com", icon: Linkedin, label: "LinkedIn" },
-              { href: "mailto:contact@example.com", icon: Mail, label: "Email" }
+              { href: "https://github.com/shengdynasty", icon: Github, label: "GitHub" },
+              { href: "https://www.linkedin.com/in/sheng-yan-b54305386/", icon: Linkedin, label: "LinkedIn" },
+              { href: "shengyan555@gmail.com", icon: Mail, label: "Email" }
             ].map((social, index) => (
               <motion.a
                 key={social.label}
