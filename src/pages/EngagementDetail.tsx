@@ -2,6 +2,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import AcademicLayout from "@/components/layout/AcademicLayout";
+import IIT from "@/assets/download.png";
+import fox from "@/assets/fox.png";
+import math from "@/assets/math.jpg";
+import uni from "@/assets/cornell.png";
+
 
 const engagementsData: Record<string, {
   title: string;
@@ -31,7 +36,7 @@ const engagementsData: Record<string, {
     undergraduate level. It demonstrated how theoretical concepts from physics and 
     chemistry apply to practical engineering problems and introduced me to the 
     collaborative nature of academic research.`,
-    image: null
+    image: IIT
   },
   "robotics": {
     title: "Robotics Team — Design and Programming",
@@ -50,25 +55,8 @@ const engagementsData: Record<string, {
     abstract programming concepts meet physical reality. This experience has 
     deepened my interest in systems engineering and the integration of software 
     with hardware.`,
-    image: null
-  },
-  "model-un": {
-    title: "Model United Nations — Economic Affairs Committee",
-    role: "Delegate and Committee Chair",
-    period: "2021–Present",
-    timeCommitment: "5 hours/week",
-    work: `Researched and represented country positions on international economic 
-    issues including trade policy, development finance, and sustainable investment. 
-    As committee chair, designed topics, wrote background guides, and facilitated 
-    substantive debate among delegates.`,
-    learned: `Developed research skills for complex policy topics requiring synthesis 
-    of economic, political, and historical perspectives. Improved public speaking 
-    and diplomatic negotiation abilities. Gained experience in leadership and 
-    event organization as a committee chair.`,
-    relevance: `Model UN connects my interest in economics with real-world policy 
-    applications. It has exposed me to the complexities of international governance 
-    and the role that quantitative analysis can play in policy debates.`,
-    image: null
+    image: fox
+  
   },
   "econometrics": {
     title: "Summer Program — Introduction to Econometrics",
@@ -87,7 +75,7 @@ const engagementsData: Record<string, {
     economics and social science. The skills acquired directly inform my 
     exploration of policy questions and provide a foundation for future 
     undergraduate coursework.`,
-    image: null
+    image: uni
   },
   "math-competition": {
     title: "Math Competition Team",
@@ -106,7 +94,7 @@ const engagementsData: Record<string, {
     abilities, which support work across my areas of interest. The discipline 
     required for consistent practice has also been valuable for academic development 
     more broadly.`,
-    image: null
+    image: math
   }
 };
 
