@@ -7,8 +7,12 @@ import "prismjs/components/prism-python";
 import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-jsx";
 import AcademicLayout from "@/components/layout/AcademicLayout";
-import calculatorImage from "@/assets/calculator-app.png";
+import expense from "@/assets/expense.jpg";
+import task from "@/assets/taskmanagement.jpg";
+import turtle from "@/assets/pyturtle.jpg";
+import port from "@/assets/portfolio.jpg";
 import tttImage from "@/assets/ttt-ss.png";
+import calculatorImage from "@/assets/calculator-app.png";
 
 interface ProjectData {
   title: string;
@@ -29,7 +33,7 @@ const projectsData: Record<string, ProjectData> = {
     fullDescription: "Interactive Turtle Art Generator is a creative graphics application using Python's Turtle module to generate colorful patterns, shapes, and artistic designs with procedural generation algorithms. The application allows users to create unique visual art through keyboard controls and features save/load functionality for designs.",
     technologies: ["Python", "Turtle Graphics", "JSON"],
     github: "https://github.com/shengdynasty",
-    image: null,
+    image: turtle,
     features: [
       "Multiple artistic pattern generators (spirals, flowers, geometric shapes)",
       "Procedural generation with random color selection",
@@ -143,7 +147,7 @@ root.mainloop()`
     fullDescription: "Smart Task Manager is a productivity application designed for organizing and tracking tasks efficiently. It features a simple interface allowing users to add, delete, and view tasks with checkbox functionality for tracking completion status.",
     technologies: ["Python", "Tkinter"],
     github: "https://github.com/shengdynasty",
-    image: null,
+    image: task,
     features: [
       "Add and delete tasks dynamically",
       "Checkbox-based completion tracking",
@@ -256,7 +260,7 @@ window.mainloop()`
     fullDescription: "Personal Expense Tracker is a financial management tool that helps users categorize and track their spending habits. It applies data structures for organizing expenses and includes basic data visualization capabilities for spending analysis.",
     technologies: ["Python", "Tkinter", "Data Visualization"],
     github: "https://github.com/shengdynasty",
-    image: null,
+    image: expense,
     features: [
       "Add and categorize expenses",
       "Track spending by category",
@@ -317,7 +321,7 @@ root.mainloop()`
     technologies: ["React", "TypeScript", "Tailwind CSS"],
     github: "https://github.com/shengdynasty",
     live: "https://sheng-yan.lovable.app",
-    image: null,
+    image: port,
     features: [
       "Responsive design for all devices",
       "Smooth Framer Motion animations",
