@@ -101,7 +101,7 @@ const Home = () => {
               <span className="text-foreground font-medium hover:underline underline-offset-4 cursor-default transition-all">engineering</span>,{" "}
               <span className="text-foreground font-medium hover:underline underline-offset-4 cursor-default transition-all">computer science</span>,{" "}
               <span className="text-foreground font-medium hover:underline underline-offset-4 cursor-default transition-all">economics</span>, and{" "}
-              <span className="text-foreground font-medium hover:underline underline-offset-4 cursor-default transition-all">public policy</span>.
+              <span className="text-foreground font-medium hover:underline underline-offset-4 cursor-default transition-all">political Theory</span>.
             </motion.p>
           </div>
 
@@ -242,7 +242,7 @@ const Home = () => {
             <h3 className="text-sm font-medium text-foreground uppercase tracking-wide">Education</h3>
             <div className="flex justify-between items-start">
               <span className="font-medium text-foreground">Freshmen High School</span>
-              <span className="text-sm text-muted-foreground">Expected 2025</span>
+              <span className="text-sm text-muted-foreground">Expected 2029</span>
             </div>
             <p className="text-sm text-muted-foreground">
               Relevant coursework: IB Global Politics, DE Calculus 1, AP Chinese, AP Computer Science Principle, AP Human Geography
@@ -265,8 +265,8 @@ const Home = () => {
             <h3 className="text-sm font-medium text-foreground uppercase tracking-wide">Honors & Recognition</h3>
             <ul className="text-sm text-muted-foreground space-y-1">
               <li>• AIME Qualifier (2023, 2024)</li>
-              <li>• National Merit Semifinalist</li>
-              <li>• AP Scholar with Distinction</li>
+              <li>• Cornell Summer Scholars Program of Economics Research</li>
+              <li>• NASA's Dream With Us Final Quaifier</li>
             </ul>
           </motion.div>
         </div>
