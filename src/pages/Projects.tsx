@@ -2,8 +2,12 @@ import AcademicLayout from "@/components/layout/AcademicLayout";
 import { ExternalLink, Github } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import calculatorImage from "@/assets/calculator-app.png";
+import expense from "@/assets/expense.jpg";
+import task from "@/assets/taskmanagement.jpg";
+import turtle from "@/assets/pyturtle.jpg";
+import port from "@/assets/portfolio.jpg";
 import tttImage from "@/assets/ttt-ss.png";
+import calculatorImage from "@/assets/calculator-app.png";
 
 const projects = [
   {
@@ -13,7 +17,7 @@ const projects = [
     tools: ["Python", "Turtle Graphics", "JSON"],
     github: "https://github.com/shengdynasty",
     detailPage: "/project/turtle-art",
-    image: null
+    image: turtle
   },
   {
     id: "calculator",
@@ -31,7 +35,7 @@ const projects = [
     tools: ["Python", "Tkinter"],
     github: "https://github.com/shengdynasty",
     detailPage: "/project/task-management",
-    image: null
+    image: task
   },
   {
     id: "tic-tac-toe",
@@ -49,7 +53,7 @@ const projects = [
     tools: ["Python", "Tkinter", "Data Visualization"],
     github: "https://github.com/shengdynasty",
     detailPage: "/project/expense-tracker",
-    image: null
+    image: expense
   },
   {
     id: "portfolio-website",
@@ -59,7 +63,7 @@ const projects = [
     github: "https://github.com/shengdynasty",
     live: "https://sheng-yan.lovable.app",
     detailPage: "/project/portfolio-website",
-    image: null
+    image: port
   },
 ];
 
