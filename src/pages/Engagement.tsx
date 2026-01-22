@@ -19,11 +19,11 @@ const engagements = [
   },
   {
     id: "econometrics",
-    title: "Cornell University Summer Program — Introduction to Econometrics",
+    title: "Cornell University Summer Program — On-Campus Econometrics Research",
     role: "Participant",
     period: "Summer 2026",
     timeCommitment: "3 weeks intensive",
-    summary: "Completed rigorous coursework covering regression analysis, hypothesis testing, and causal inference methods.",
+    summary: "Rigorous coursework on New York Main Campus covering regression analysis, hypothesis testing, and other non economics related electives",
     image: uni
   },
   {
