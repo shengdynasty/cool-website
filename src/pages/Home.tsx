@@ -237,7 +237,7 @@ const Home = () => {
               <span className="text-sm text-muted-foreground">Expected 2025</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Relevant coursework: AP Calculus BC, AP Physics C, AP Computer Science A, AP Statistics, AP Microeconomics
+              Relevant coursework: IB Global Politics, DE Calculus 1, AP Chinese, AP Computer Science Principle, AP Human Geography
             </p>
           </motion.div>
 
