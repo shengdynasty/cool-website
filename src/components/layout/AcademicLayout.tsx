@@ -8,11 +8,9 @@ interface AcademicLayoutProps {
 
 const navigation = [
   { name: "home", href: "/" },
-  { name: "explorations", href: "/explorations" },
   { name: "projects", href: "/projects" },
   { name: "engagement", href: "/engagement" },
   { name: "skills", href: "/skills" },
-  { name: "cv", href: "/cv" },
 ];
 
 const AcademicLayout = ({ children }: AcademicLayoutProps) => {
@@ -29,7 +27,7 @@ const AcademicLayout = ({ children }: AcademicLayoutProps) => {
               className="font-mono text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <span className="text-foreground">portfolio</span>
-              <span className="text-muted-foreground">@sheng</span>
+              <span className="text-muted-foreground">@shawn</span>
               <span className="text-foreground">:</span>
               <span className="text-muted-foreground"> $</span>
             </Link>
@@ -65,7 +63,7 @@ const AcademicLayout = ({ children }: AcademicLayoutProps) => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-4">
               <a 
-                href="https://github.com" 
+                href="https://github.com/shengdynasty" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground transition-colors"
@@ -73,7 +71,7 @@ const AcademicLayout = ({ children }: AcademicLayoutProps) => {
                 <Github className="w-5 h-5" />
               </a>
               <a 
-                href="https://linkedin.com" 
+                href="https://www.linkedin.com/in/sheng-yan-b54305386/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground transition-colors"
@@ -81,14 +79,14 @@ const AcademicLayout = ({ children }: AcademicLayoutProps) => {
                 <Linkedin className="w-5 h-5" />
               </a>
               <a 
-                href="mailto:contact@example.com"
+                href="mailto:shengyan555@gmail.com"
                 className="text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Mail className="w-5 h-5" />
               </a>
             </div>
             <p className="text-xs text-muted-foreground font-mono">
-              © {new Date().getFullYear()} Sheng Yan
+              © {new Date().getFullYear()} Shawn Yan
             </p>
           </div>
           <p className="text-xs text-muted-foreground mt-4 leading-relaxed max-w-2xl">

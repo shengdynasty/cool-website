@@ -1,172 +1,167 @@
 import AcademicLayout from "@/components/layout/AcademicLayout";
-import { Separator } from "@/components/ui/separator";
-import { ImageIcon } from "lucide-react";
-import IIT from "@/assets/iit_logo.png";
+import { Calendar, Clock } from "lucide-react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const engagements = [
   {
+    id: "iit-research",
     title: "Research Internship — IIT Materials Science Laboratory",
     role: "Research Assistant",
-    timeCommitment: "2025 Dec - present • 6+ weeks, 30 hours/week",
-    work: `Contributed to a research project investigating the mechanical properties of 
-    composite materials under varying thermal conditions. Responsibilities included 
-    data organization, data collection using testing equipment, and preliminary 
-    data analysis. Participated in weekly lab meetings and presented findings to 
-    the research group.`,
-    learned: `Gained hands-on experience with experimental methodology and the iterative 
-    nature of scientific research. Developed skills in data documentation, statistical 
-    analysis of experimental results, and technical communication. Learned to navigate 
-    uncertainty and troubleshoot when experiments did not produce expected outcomes.`,
-    relevance: `This experience solidified my interest in pursuing research at the 
-    undergraduate level. It demonstrated how theoretical concepts from physics and 
-    chemistry apply to practical engineering problems and introduced me to the 
-    collaborative nature of academic research.`,
-    image: {IIT} // Replace with actual activity photo
+    period: "2025 Dec - present",
+    timeCommitment: "6+ weeks, 30 hours/week",
+    summary: "Contributed to a research project investigating the mechanical properties of composite materials under varying thermal conditions.",
+    image: null
   },
   {
+    id: "robotics",
     title: "Robotics Team — Design and Programming",
     role: "Lead Programmer",
-    timeCommitment: "2022–Present • 10 hours/week during competition season",
-    work: `Responsible for developing control systems and autonomous routines for 
-    competition robots. Work includes sensor integration, motion planning, and 
-    real-time debugging during competitions. Collaborate with mechanical and 
-    electrical subteams to ensure software meets hardware constraints.`,
-    learned: `Applied programming skills to physical systems, understanding the 
-    challenges of real-time computing and sensor noise. Developed project 
-    management skills through deadline-driven competition cycles. Learned to 
-    communicate technical concepts to teammates with different areas of expertise.`,
-    relevance: `Robotics provides a unique environment for applied learning where 
-    abstract programming concepts meet physical reality. This experience has 
-    deepened my interest in systems engineering and the integration of software 
-    with hardware.`,
-    image: "/placeholder.svg"
+    period: "2022–Present",
+    timeCommitment: "10 hours/week during competition season",
+    summary: "Responsible for developing control systems and autonomous routines for competition robots.",
+    image: null
   },
   {
+    id: "model-un",
     title: "Model United Nations — Economic Affairs Committee",
     role: "Delegate and Committee Chair",
-    timeCommitment: "2021–Present • 5 hours/week",
-    work: `Researched and represented country positions on international economic 
-    issues including trade policy, development finance, and sustainable investment. 
-    As committee chair, designed topics, wrote background guides, and facilitated 
-    substantive debate among delegates.`,
-    learned: `Developed research skills for complex policy topics requiring synthesis 
-    of economic, political, and historical perspectives. Improved public speaking 
-    and diplomatic negotiation abilities. Gained experience in leadership and 
-    event organization as a committee chair.`,
-    relevance: `Model UN connects my interest in economics with real-world policy 
-    applications. It has exposed me to the complexities of international governance 
-    and the role that quantitative analysis can play in policy debates.`,
-    image: "/placeholder.svg"
+    period: "2021–Present",
+    timeCommitment: "5 hours/week",
+    summary: "Researched and represented country positions on international economic issues including trade policy and development finance.",
+    image: null
   },
   {
+    id: "econometrics",
     title: "Summer Program — Introduction to Econometrics",
     role: "Participant",
-    timeCommitment: "Summer 2023 • 3 weeks intensive",
-    work: `Completed rigorous coursework covering regression analysis, hypothesis 
-    testing, and causal inference methods. Final project involved analyzing a 
-    public dataset to investigate an economic question using techniques learned 
-    in the program.`,
-    learned: `Gained foundational knowledge in econometric methods that complement 
-    my programming skills. Learned to use statistical software (R) for data 
-    analysis. Developed ability to critically evaluate empirical research and 
-    understand the limitations of different methodological approaches.`,
-    relevance: `This program confirmed my interest in quantitative approaches to 
-    economics and social science. The skills acquired directly inform my 
-    exploration of policy questions and provide a foundation for future 
-    undergraduate coursework.`,
-    image: "/placeholder.svg"
+    period: "Summer 2023",
+    timeCommitment: "3 weeks intensive",
+    summary: "Completed rigorous coursework covering regression analysis, hypothesis testing, and causal inference methods.",
+    image: null
   },
   {
+    id: "math-competition",
     title: "Math Competition Team",
     role: "Team Member",
-    timeCommitment: "2020–Present • 4 hours/week",
-    work: `Prepare for and compete in regional and national mathematics competitions 
-    including AMC, AIME, and math olympiad qualifiers. Regular practice involves 
-    problem-solving sessions, proof writing, and learning advanced topics beyond 
-    the standard curriculum.`,
-    learned: `Developed problem-solving strategies and mathematical maturity through 
-    exposure to challenging, non-routine problems. Learned to approach problems 
-    systematically and persist through difficulty. Built foundational skills in 
-    areas like combinatorics and number theory.`,
-    relevance: `Competition mathematics has strengthened my quantitative reasoning 
-    abilities, which support work across my areas of interest. The discipline 
-    required for consistent practice has also been valuable for academic development 
-    more broadly.`,
-    image: "/placeholder.svg"
+    period: "2020–Present",
+    timeCommitment: "4 hours/week",
+    summary: "Prepare for and compete in regional and national mathematics competitions including AMC, AIME, and math olympiad qualifiers.",
+    image: null
   },
 ];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.4 }
+  }
+};
 
 const Engagement = () => {
   return (
     <AcademicLayout>
-      <div className="space-y-8">
-        <section className="space-y-4">
-          <h1 className="text-3xl font-medium text-foreground">
-            Engagement
-          </h1>
+      <div className="space-y-12">
+        {/* Header */}
+        <motion.section 
+          className="space-y-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="text-4xl font-bold tracking-tight">engagement</h1>
           <p className="text-muted-foreground leading-relaxed max-w-2xl">
             A curated selection of academic and intellectual activities that have 
             shaped my learning. Each entry reflects meaningful engagement rather 
             than superficial participation.
           </p>
-        </section>
+        </motion.section>
 
-        <div className="space-y-12">
-          {engagements.map((engagement, index) => (
-            <article key={engagement.title} className="space-y-4">
-              {/* Activity Image */}
-              <div className="aspect-video w-full max-w-sm bg-muted border border-border rounded-lg overflow-hidden flex items-center justify-center">
-                <img 
-                  src={engagement.image} 
-                  alt={`${engagement.title} photo`}
-                  className="w-full h-full object-cover hidden"
-                />
-                <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                  <ImageIcon className="w-8 h-8" />
-                  <span className="text-xs">Activity Photo</span>
-                </div>
-              </div>
+        {/* Engagement Grid */}
+        <motion.div 
+          className="grid sm:grid-cols-2 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {engagements.map((engagement) => (
+            <motion.article 
+              key={engagement.id} 
+              className="group border border-border rounded-sm overflow-hidden hover:border-foreground transition-colors"
+              variants={cardVariants}
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
+            >
+              {/* Engagement Image */}
+              <Link to={`/engagement/${engagement.id}`}>
+                <motion.div 
+                  className="aspect-video w-full bg-muted flex items-center justify-center overflow-hidden relative"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {engagement.image ? (
+                    <img 
+                      src={engagement.image} 
+                      alt={`${engagement.title} photo`}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex flex-col items-center gap-2 text-muted-foreground">
+                      <div className="w-16 h-16 rounded-full bg-muted-foreground/10 flex items-center justify-center">
+                        <span className="text-2xl font-mono">{engagement.title.charAt(0)}</span>
+                      </div>
+                      <span className="text-xs font-mono">photo</span>
+                    </div>
+                  )}
+                  {/* Overlay on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </motion.div>
+              </Link>
 
-              <div>
-                <h2 className="text-xl font-medium text-foreground">
-                  {engagement.title}
+              {/* Engagement Content */}
+              <div className="p-5 space-y-3">
+                <h2 className="font-semibold text-foreground group-hover:text-foreground transition-colors">
+                  <Link 
+                    to={`/engagement/${engagement.id}`}
+                    className="hover:underline underline-offset-4"
+                  >
+                    {engagement.title}
+                  </Link>
                 </h2>
-                <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1 text-sm text-muted-foreground">
-                  <span>{engagement.role}</span>
-                  <span className="text-muted-foreground/40">|</span>
-                  <span>{engagement.timeCommitment}</span>
+
+                <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
+                  <span className="font-medium text-foreground">{engagement.role}</span>
                 </div>
+
+                <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1">
+                    <Calendar className="w-3 h-3" />
+                    {engagement.period}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Clock className="w-3 h-3" />
+                    {engagement.timeCommitment}
+                  </span>
+                </div>
+
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {engagement.summary}
+                </p>
               </div>
-
-              <div className="space-y-4">
-                <div>
-                  <h3 className="text-sm font-medium text-foreground mb-1">What I Worked On</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {engagement.work}
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-sm font-medium text-foreground mb-1">What I Learned</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {engagement.learned}
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-sm font-medium text-foreground mb-1">Why It Matters</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {engagement.relevance}
-                  </p>
-                </div>
-              </div>
-
-              {index < engagements.length - 1 && (
-                <Separator className="mt-6" />
-              )}
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </AcademicLayout>
   );
