@@ -2,52 +2,47 @@ import AcademicLayout from "@/components/layout/AcademicLayout";
 import { Calendar, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import IIT from "@/assets/expense.jpg";
+import fox from "@/assets/fox.png";
+import math from "@/assets/math.jpg";
+import uni from "@/assets/cornell.png";
 
 const engagements = [
   {
     id: "iit-research",
     title: "Research Internship — IIT Materials Science Laboratory",
     role: "Research Assistant",
-    period: "2025 Dec - present",
+    period: "2025 - present",
     timeCommitment: "6+ weeks, 30 hours/week",
     summary: "Contributed to a research project investigating the mechanical properties of composite materials under varying thermal conditions.",
-    image: null
+    image: IIT
   },
   {
     id: "robotics",
-    title: "Robotics Team — Design and Programming",
+    title: "Fox Valley Robotics Team — Design and Programming",
     role: "Lead Programmer",
-    period: "2022–Present",
+    period: "2024–Present",
     timeCommitment: "10 hours/week during competition season",
     summary: "Responsible for developing control systems and autonomous routines for competition robots.",
-    image: null
-  },
-  {
-    id: "model-un",
-    title: "Model United Nations — Economic Affairs Committee",
-    role: "Delegate and Committee Chair",
-    period: "2021–Present",
-    timeCommitment: "5 hours/week",
-    summary: "Researched and represented country positions on international economic issues including trade policy and development finance.",
-    image: null
+    image: fox
   },
   {
     id: "econometrics",
-    title: "Summer Program — Introduction to Econometrics",
+    title: "Cornell University Summer Program — Introduction to Econometrics",
     role: "Participant",
-    period: "Summer 2023",
+    period: "Summer 2026",
     timeCommitment: "3 weeks intensive",
     summary: "Completed rigorous coursework covering regression analysis, hypothesis testing, and causal inference methods.",
-    image: null
+    image: uni
   },
   {
     id: "math-competition",
     title: "Math Competition Team",
     role: "Team Member",
-    period: "2020–Present",
+    period: "2022–Present",
     timeCommitment: "4 hours/week",
     summary: "Prepare for and compete in regional and national mathematics competitions including AMC, AIME, and math olympiad qualifiers.",
-    image: null
+    image: math
   },
 ];
 
