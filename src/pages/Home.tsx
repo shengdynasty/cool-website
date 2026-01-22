@@ -118,8 +118,8 @@ const Home = () => {
             I'm drawn to research-driven problem-solving and the application of 
             quantitative methods to real-world challenges. Currently focused on 
             learning foundational principles and developing depth in areas that 
-            genuinely interest me.
-            Current engagement - IIT Research Intern, Fox Valley Robotics, 
+            genuinely interest me.                                            
+            Current engagement - Shoolwork, IIT Research Intern, Fox Valley Robotics.
           </motion.p>
 
           {/* Social Links */}
