@@ -1,7 +1,9 @@
 import AcademicLayout from "@/components/layout/AcademicLayout";
-import { ExternalLink, Github, ImageIcon } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import calculatorImage from "@/assets/calculator-app.png";
+import tttImage from "@/assets/ttt-ss.png";
 
 const projects = [
   {
@@ -10,8 +12,8 @@ const projects = [
     description: "Procedural graphics exploration demonstrating fundamental programming concepts through visual, interactive output.",
     tools: ["Python", "Turtle Graphics", "JSON"],
     github: "https://github.com/shengdynasty",
-    detailPage: "/turtle-art",
-    image: "/placeholder.svg"
+    detailPage: "/project/turtle-art",
+    image: null
   },
   {
     id: "calculator",
@@ -20,7 +22,7 @@ const projects = [
     tools: ["Python", "Tkinter"],
     github: "https://github.com/shengdynasty",
     detailPage: "/project/calculator",
-    image: "/placeholder.svg"
+    image: calculatorImage
   },
   {
     id: "task-management",
@@ -28,8 +30,8 @@ const projects = [
     description: "Productivity tool to organize tasks, track progress, and practice database-like data management.",
     tools: ["Python", "Tkinter"],
     github: "https://github.com/shengdynasty",
-    detailPage: "/task-management",
-    image: "/placeholder.svg"
+    detailPage: "/project/task-management",
+    image: null
   },
   {
     id: "tic-tac-toe",
@@ -37,8 +39,8 @@ const projects = [
     description: "Classic two-player game implementing game logic, turn-based systems, and win-condition detection.",
     tools: ["Python", "Tkinter"],
     github: "https://github.com/shengdynasty",
-    detailPage: "/project/ai-chat-application",
-    image: "/placeholder.svg"
+    detailPage: "/project/tic-tac-toe",
+    image: tttImage
   },
   {
     id: "expense-tracker",
@@ -46,8 +48,8 @@ const projects = [
     description: "Tool to categorize and visualize personal spending, applying data structures and basic data analysis.",
     tools: ["Python", "Tkinter", "Data Visualization"],
     github: "https://github.com/shengdynasty",
-    detailPage: "/expense-tracker",
-    image: "/placeholder.svg"
+    detailPage: "/project/expense-tracker",
+    image: null
   },
   {
     id: "portfolio-website",
@@ -56,7 +58,8 @@ const projects = [
     tools: ["React", "TypeScript", "Tailwind CSS"],
     github: "https://github.com/shengdynasty",
     live: "https://sheng-yan.lovable.app",
-    image: "/placeholder.svg"
+    detailPage: "/project/portfolio-website",
+    image: null
   },
 ];
 
@@ -113,38 +116,41 @@ const Projects = () => {
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
             >
               {/* Project Image */}
-              <motion.div 
-                className="aspect-video w-full bg-muted flex items-center justify-center overflow-hidden relative"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-              >
-                <img 
-                  src={project.image} 
-                  alt={`${project.title} screenshot`}
-                  className="w-full h-full object-cover hidden"
-                />
-                <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                  <ImageIcon className="w-8 h-8" />
-                  <span className="text-xs font-mono">screenshot</span>
-                </div>
-                {/* Overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </motion.div>
+              <Link to={project.detailPage}>
+                <motion.div 
+                  className="aspect-video w-full bg-muted flex items-center justify-center overflow-hidden relative"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {project.image ? (
+                    <img 
+                      src={project.image} 
+                      alt={`${project.title} screenshot`}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex flex-col items-center gap-2 text-muted-foreground">
+                      <div className="w-16 h-16 rounded-full bg-muted-foreground/10 flex items-center justify-center">
+                        <span className="text-2xl font-mono">{project.title.charAt(0)}</span>
+                      </div>
+                      <span className="text-xs font-mono">screenshot</span>
+                    </div>
+                  )}
+                  {/* Overlay on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </motion.div>
+              </Link>
 
               {/* Project Content */}
               <div className="p-5 space-y-3">
                 <div className="flex items-start justify-between gap-3">
                   <h2 className="font-semibold text-foreground group-hover:text-foreground transition-colors">
-                    {project.detailPage ? (
-                      <Link 
-                        to={project.detailPage}
-                        className="hover:underline underline-offset-4"
-                      >
-                        {project.title}
-                      </Link>
-                    ) : (
-                      project.title
-                    )}
+                    <Link 
+                      to={project.detailPage}
+                      className="hover:underline underline-offset-4"
+                    >
+                      {project.title}
+                    </Link>
                   </h2>
                   <div className="flex gap-3 flex-shrink-0">
                     {project.github && (

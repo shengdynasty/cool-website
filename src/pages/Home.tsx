@@ -1,7 +1,8 @@
 import AcademicLayout from "@/components/layout/AcademicLayout";
-import { User, Github, Linkedin, Mail, ArrowRight, Code, BookOpen, FileText } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowRight, Code, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import profilePhoto from "@/assets/7D98C95B-C38C-4740-83FD-9B01648F1134.png";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -48,16 +49,10 @@ const quickLinks = [
     icon: Code
   },
   {
-    to: "/explorations",
-    title: "explorations",
-    description: "Research topics I'm exploring",
-    icon: BookOpen
-  },
-  {
-    to: "/cv",
-    title: "cv",
-    description: "Academic background and experience",
-    icon: FileText
+    to: "/engagement",
+    title: "engagement",
+    description: "Academic activities and experiences",
+    icon: Users
   }
 ];
 
@@ -125,8 +120,8 @@ const Home = () => {
             {[
               { href: "https://github.com/shengdynasty", icon: Github, label: "GitHub" },
               { href: "https://www.linkedin.com/in/sheng-yan-b54305386/", icon: Linkedin, label: "LinkedIn" },
-              { href: "shengyan555@gmail.com", icon: Mail, label: "Email" }
-            ].map((social, index) => (
+              { href: "mailto:shengyan555@gmail.com", icon: Mail, label: "Email" }
+            ].map((social) => (
               <motion.a
                 key={social.label}
                 href={social.href}
@@ -157,14 +152,12 @@ const Home = () => {
             {/* Gradient ring */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-muted-foreground/20 via-transparent to-muted-foreground/10 animate-spin" style={{ animationDuration: '8s' }} />
             <div className="absolute inset-1 rounded-full bg-background" />
-            <div className="absolute inset-2 rounded-full bg-muted border border-border flex items-center justify-center overflow-hidden">
-              {/* Replace src with your profile image */}
+            <div className="absolute inset-2 rounded-full bg-muted border border-border overflow-hidden">
               <img 
-                src="/placeholder.svg" 
+                src={profilePhoto} 
                 alt="Shawn"
-                className="w-full h-full object-cover hidden" 
+                className="w-full h-full object-cover" 
               />
-              <User className="w-24 h-24 text-muted-foreground" />
             </div>
           </motion.div>
         </motion.div>
@@ -194,7 +187,7 @@ const Home = () => {
           what i'm interested in
         </motion.h2>
         <div className="grid sm:grid-cols-2 gap-6">
-          {interests.map((interest, index) => (
+          {interests.map((interest) => (
             <motion.div
               key={interest.title}
               className="group p-6 border border-border rounded-sm hover:border-foreground transition-all duration-300 hover:bg-muted/30"
@@ -208,6 +201,66 @@ const Home = () => {
               </p>
             </motion.div>
           ))}
+        </div>
+      </motion.section>
+
+      {/* Divider */}
+      <motion.div 
+        className="border-t border-border my-16"
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      />
+
+      {/* CV Section - Academic Background */}
+      <motion.section 
+        className="space-y-8"
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        variants={staggerContainer}
+      >
+        <motion.h2 
+          className="text-2xl font-bold tracking-tight"
+          variants={fadeInUp}
+        >
+          background
+        </motion.h2>
+
+        <div className="grid gap-8 max-w-3xl">
+          {/* Education */}
+          <motion.div variants={fadeInUp} className="space-y-3">
+            <h3 className="text-sm font-medium text-foreground uppercase tracking-wide">Education</h3>
+            <div className="flex justify-between items-start">
+              <span className="font-medium text-foreground">High School</span>
+              <span className="text-sm text-muted-foreground">Expected 2025</span>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Relevant coursework: AP Calculus BC, AP Physics C, AP Computer Science A, AP Statistics, AP Microeconomics
+            </p>
+          </motion.div>
+
+          {/* Technical Skills */}
+          <motion.div variants={fadeInUp} className="space-y-3">
+            <h3 className="text-sm font-medium text-foreground uppercase tracking-wide">Technical Skills</h3>
+            <div className="text-sm text-muted-foreground space-y-1">
+              <p><span className="text-foreground">Programming:</span> Python, Java, JavaScript/TypeScript, R, MATLAB, SQL</p>
+              <p><span className="text-foreground">Frameworks:</span> React, Tkinter, NumPy, Pandas, Matplotlib</p>
+              <p><span className="text-foreground">Tools:</span> Git, LaTeX, Excel, CAD (Onshape/SolidWorks)</p>
+              <p><span className="text-foreground">Methods:</span> Statistical analysis, regression modeling, data visualization</p>
+            </div>
+          </motion.div>
+
+          {/* Honors */}
+          <motion.div variants={fadeInUp} className="space-y-3">
+            <h3 className="text-sm font-medium text-foreground uppercase tracking-wide">Honors & Recognition</h3>
+            <ul className="text-sm text-muted-foreground space-y-1">
+              <li>• AIME Qualifier (2023, 2024)</li>
+              <li>• National Merit Semifinalist</li>
+              <li>• AP Scholar with Distinction</li>
+            </ul>
+          </motion.div>
         </div>
       </motion.section>
 
@@ -234,7 +287,7 @@ const Home = () => {
         >
           explore
         </motion.h2>
-        <div className="grid sm:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 gap-4">
           {quickLinks.map((link) => (
             <motion.div
               key={link.to}
