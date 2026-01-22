@@ -18,15 +18,6 @@ const engagements = [
     image: IIT
   },
   {
-    id: "robotics",
-    title: "Fox Valley Robotics Team — Design and Programming",
-    role: "Lead Programmer",
-    period: "2024–Present",
-    timeCommitment: "10 hours/week during competition season",
-    summary: "Responsible for developing control systems and autonomous routines for competition robots.",
-    image: fox
-  },
-  {
     id: "econometrics",
     title: "Cornell University Summer Program — Introduction to Econometrics",
     role: "Participant",
@@ -34,6 +25,15 @@ const engagements = [
     timeCommitment: "3 weeks intensive",
     summary: "Completed rigorous coursework covering regression analysis, hypothesis testing, and causal inference methods.",
     image: uni
+  },
+  {
+    id: "robotics",
+    title: "Fox Valley Robotics Team — Design and Programming",
+    role: "Lead Programmer",
+    period: "2024–Present",
+    timeCommitment: "10 hours/week during competition season",
+    summary: "Responsible for developing control systems and autonomous routines for competition robots.",
+    image: fox
   },
   {
     id: "math-competition",
