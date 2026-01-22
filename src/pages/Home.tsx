@@ -2,7 +2,7 @@ import AcademicLayout from "@/components/layout/AcademicLayout";
 import { Github, Linkedin, Mail, ArrowRight, Code, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import profilePhoto from "@/assets/7D98C95B-C38C-4740-83FD-9B01648F1134.png";
+import profilePhoto from "@/assets/pfp_B&W.png";
 const fadeInUp = {
   initial: {
     opacity: 0,
@@ -36,7 +36,7 @@ const interests = [{
   description: "Statistical modeling, econometrics, and rigorous quantitative approaches in social sciences.",
   icon: "📊"
 }, {
-  title: "Public Policy",
+  title: "Political Science",
   description: "Evidence-based analysis informing decision-making on issues affecting communities.",
   icon: "🏛️"
 }];
