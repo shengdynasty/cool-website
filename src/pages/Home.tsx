@@ -101,7 +101,7 @@ const Home = () => {
               <span className="text-foreground font-medium hover:underline underline-offset-4 cursor-default transition-all">engineering</span>,{" "}
               <span className="text-foreground font-medium hover:underline underline-offset-4 cursor-default transition-all">computer science</span>,{" "}
               <span className="text-foreground font-medium hover:underline underline-offset-4 cursor-default transition-all">economics</span>, and{" "}
-              <span className="text-foreground font-medium hover:underline underline-offset-4 cursor-default transition-all">political Theory</span>.
+              <span className="text-foreground font-medium hover:underline underline-offset-4 cursor-default transition-all">political science</span>.
             </motion.p>
           </div>
 
@@ -137,7 +137,7 @@ const Home = () => {
             icon: Github,
             label: "GitHub"
           }, {
-            href: "https://www.linkedin.com/in/sheng-yan-b54305386/",
+            href: "https://www.linkedin.com/in/sheng-yan-b54305386",
             icon: Linkedin,
             label: "LinkedIn"
           }, {
