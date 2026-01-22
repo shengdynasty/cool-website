@@ -2,7 +2,7 @@ import AcademicLayout from "@/components/layout/AcademicLayout";
 import { Calendar, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import IIT from "@/assets/expense.jpg";
+import IIT from "@/assets/download.png";
 import fox from "@/assets/fox.png";
 import math from "@/assets/math.jpg";
 import uni from "@/assets/cornell.png";
