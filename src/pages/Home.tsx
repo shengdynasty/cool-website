@@ -191,6 +191,10 @@ const Home = () => {
                 <span className="w-2 h-2 rounded-full bg-amber-500" />
                 <span className="text-muted-foreground">Robotics Regional Competition — Spring 2026</span>
               </div>
+              <div className="flex items-center gap-3 text-sm">
+                <span className="w-2 h-2 rounded-full bg-amber-500" />
+                <span className="text-muted-foreground">Cornell University Summer Economic Reseach Program</span>
+              </div>
             </div>
           </motion.div>
         </motion.div>
