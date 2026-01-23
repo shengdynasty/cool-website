@@ -118,9 +118,7 @@ const Home = () => {
             I'm drawn to research-driven problem-solving and the application of 
             quantitative methods to real-world challenges. Currently focused on 
             learning foundational principles and developing depth in areas that 
-            genuinely interest me------------------  
-
-            Current engagement - Shoolwork, IIT Research Intern, Fox Valley Robotics.
+            genuinely interest me.
           </motion.p>
 
           {/* Social Links */}
@@ -154,6 +152,46 @@ const Home = () => {
           }}>
                 <social.icon className="w-5 h-5" />
               </motion.a>)}
+          </motion.div>
+
+          {/* Current Work Section */}
+          <motion.div className="pt-6 space-y-4" initial={{
+          opacity: 0,
+          y: 20
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          duration: 0.5,
+          delay: 0.5
+        }}>
+            <h3 className="text-sm font-medium text-foreground uppercase tracking-wide">Currently Working On</h3>
+            <div className="space-y-2">
+              <div className="flex items-center gap-3 text-sm">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-muted-foreground">IIT Research Intern — Materials Science</span>
+              </div>
+              <div className="flex items-center gap-3 text-sm">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-muted-foreground">Fox Valley Robotics — Competition Season</span>
+              </div>
+              <div className="flex items-center gap-3 text-sm">
+                <span className="w-2 h-2 rounded-full bg-blue-500" />
+                <span className="text-muted-foreground">Personal Portfolio Website</span>
+              </div>
+            </div>
+            
+            <h3 className="text-sm font-medium text-foreground uppercase tracking-wide pt-4">Upcoming</h3>
+            <div className="space-y-2">
+              <div className="flex items-center gap-3 text-sm">
+                <span className="w-2 h-2 rounded-full bg-amber-500" />
+                <span className="text-muted-foreground">AMC 10/12 — November 2025</span>
+              </div>
+              <div className="flex items-center gap-3 text-sm">
+                <span className="w-2 h-2 rounded-full bg-amber-500" />
+                <span className="text-muted-foreground">Robotics Regional Competition — Spring 2025</span>
+              </div>
+            </div>
           </motion.div>
         </motion.div>
 
