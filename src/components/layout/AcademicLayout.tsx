@@ -8,8 +8,8 @@ interface AcademicLayoutProps {
 
 const navigation = [
   { name: "home", href: "/" },
-  { name: "projects", href: "/projects" },
   { name: "engagement", href: "/engagement" },
+  { name: "projects", href: "/projects" },
   { name: "skills", href: "/skills" },
 ];
 
