@@ -177,7 +177,7 @@ const Home = () => {
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <span className="w-2 h-2 rounded-full bg-blue-500" />
-                <span className="text-muted-foreground">Personal Portfolio Website</span>
+                <span className="text-muted-foreground">AI powered ​Cloud Sync Student Planner Project                  </span>
               </div>
             </div>
             
