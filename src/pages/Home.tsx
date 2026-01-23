@@ -185,7 +185,7 @@ const Home = () => {
             <div className="space-y-2">
               <div className="flex items-center gap-3 text-sm">
                 <span className="w-2 h-2 rounded-full bg-amber-500" />
-                <span className="text-muted-foreground">AMC 10/12 — November 2025</span>
+                <span className="text-muted-foreground">AMC 10/12 — November 2026</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <span className="w-2 h-2 rounded-full bg-amber-500" />
