@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#0f0f0f"/>
+    </linearGradient>
+    <linearGradient id="screenGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a2a4a"/>
+      <stop offset="100%" stop-color="#0d1a30"/>
+    </linearGradient>
+    <linearGradient id="chartLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4ade80" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#4ade80"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg)"/>
+
+  <!-- Lab bench surface -->
+  <rect x="0" y="340" width="800" height="110" fill="#111" rx="0"/>
+  <rect x="0" y="336" width="800" height="8" fill="#1a1a1a"/>
+
+  <!-- Background grid (lab floor feel) -->
+  <g opacity="0.04">
+    <line x1="0" y1="80" x2="800" y2="80" stroke="#4ade80" stroke-width="1"/>
+    <line x1="0" y1="160" x2="800" y2="160" stroke="#4ade80" stroke-width="1"/>
+    <line x1="0" y1="240" x2="800" y2="240" stroke="#4ade80" stroke-width="1"/>
+    <line x1="0" y1="320" x2="800" y2="320" stroke="#4ade80" stroke-width="1"/>
+    <line x1="100" y1="0" x2="100" y2="450" stroke="#4ade80" stroke-width="1"/>
+    <line x1="200" y1="0" x2="200" y2="450" stroke="#4ade80" stroke-width="1"/>
+    <line x1="300" y1="0" x2="300" y2="450" stroke="#4ade80" stroke-width="1"/>
+    <line x1="400" y1="0" x2="400" y2="450" stroke="#4ade80" stroke-width="1"/>
+    <line x1="500" y1="0" x2="500" y2="450" stroke="#4ade80" stroke-width="1"/>
+    <line x1="600" y1="0" x2="600" y2="450" stroke="#4ade80" stroke-width="1"/>
+    <line x1="700" y1="0" x2="700" y2="450" stroke="#4ade80" stroke-width="1"/>
+  </g>
+
+  <!-- === MICROSCOPE (left) === -->
+  <!-- Base -->
+  <ellipse cx="170" cy="344" rx="64" ry="10" fill="#1e1e1e" stroke="#2a2a2a" stroke-width="1"/>
+  <!-- Arm pillar -->
+  <rect x="158" y="200" width="24" height="148" rx="4" fill="#222" stroke="#2a2a2a" stroke-width="1"/>
+  <!-- Arm horizontal -->
+  <rect x="130" y="196" width="90" height="16" rx="4" fill="#2a2a2a" stroke="#333" stroke-width="1"/>
+  <!-- Stage -->
+  <rect x="128" y="290" width="88" height="10" rx="2" fill="#2a2a2a"/>
+  <rect x="144" y="286" width="56" height="4" rx="1" fill="#333"/>
+  <!-- Objective turret -->
+  <ellipse cx="170" cy="255" rx="18" ry="10" fill="#1e1e1e" stroke="#333" stroke-width="1"/>
+  <!-- Objectives -->
+  <rect x="167" y="255" width="6" height="30" rx="2" fill="#2a2a2a" stroke="#333" stroke-width="1"/>
+  <rect x="155" y="258" width="6" height="22" rx="2" fill="#333" stroke="#3a3a3a" stroke-width="1"/>
+  <rect x="179" y="258" width="6" height="26" rx="2" fill="#333" stroke="#3a3a3a" stroke-width="1"/>
+  <!-- Eyepiece -->
+  <rect x="162" y="176" width="16" height="28" rx="3" fill="#2a2a2a" stroke="#333" stroke-width="1"/>
+  <ellipse cx="170" cy="176" rx="8" ry="4" fill="#333"/>
+  <!-- Light glow under stage -->
+  <ellipse cx="170" cy="296" rx="20" ry="4" fill="#4ade80" opacity="0.08"/>
+  <!-- Focus knobs -->
+  <ellipse cx="134" cy="270" rx="6" ry="10" fill="#2a2a2a" stroke="#333" stroke-width="1"/>
+  <ellipse cx="206" cy="270" rx="6" ry="10" fill="#2a2a2a" stroke="#333" stroke-width="1"/>
+  <!-- Label -->
+  <text x="170" y="420" font-family="monospace" font-size="9" fill="#333" text-anchor="middle">optical microscope</text>
+
+  <!-- === SPECIMEN SLIDES (center-left) === -->
+  <rect x="260" y="328" width="60" height="16" rx="1" fill="#1a2a1a" stroke="#2a3a2a" stroke-width="1" opacity="0.9"/>
+  <rect x="268" y="332" width="44" height="8" rx="1" fill="#223322" opacity="0.6"/>
+  <rect x="264" y="348" width="60" height="16" rx="1" fill="#1a2a1a" stroke="#2a3a2a" stroke-width="1" opacity="0.8"/>
+  <rect x="268" y="352" width="44" height="8" rx="1" fill="#223322" opacity="0.5"/>
+  <text x="290" y="420" font-family="monospace" font-size="9" fill="#333" text-anchor="middle">specimens</text>
+
+  <!-- === MAIN MONITOR (center) === -->
+  <rect x="340" y="100" width="310" height="230" rx="6" fill="#0d1a30" stroke="#1e3a5f" stroke-width="1.5"/>
+  <rect x="352" y="112" width="286" height="206" rx="3" fill="#0a1520"/>
+
+  <!-- Monitor stand -->
+  <rect x="480" y="330" width="30" height="14" rx="2" fill="#1a1a1a"/>
+  <rect x="460" y="340" width="72" height="6" rx="2" fill="#1a1a1a"/>
+
+  <!-- Screen content: stress-strain curve -->
+  <rect x="356" y="116" width="278" height="198" fill="#060d18" rx="2"/>
+
+  <!-- Chart title -->
+  <text x="495" y="136" font-family="monospace" font-size="10" fill="#4ade80" text-anchor="middle" font-weight="bold">STRESS-STRAIN ANALYSIS</text>
+  <text x="495" y="150" font-family="monospace" font-size="8" fill="#2a4a6a" text-anchor="middle">Sample: Ti-6Al-4V Composite · 450°C · Run 07</text>
+
+  <!-- Chart axes -->
+  <line x1="376" y1="160" x2="376" y2="295" stroke="#1e3a5f" stroke-width="1.5"/>
+  <line x1="376" y1="295" x2="620" y2="295" stroke="#1e3a5f" stroke-width="1.5"/>
+
+  <!-- Grid lines -->
+  <line x1="376" y1="228" x2="620" y2="228" stroke="#0e2040" stroke-width="1"/>
+  <line x1="376" y1="194" x2="620" y2="194" stroke="#0e2040" stroke-width="1"/>
+  <line x1="437" y1="160" x2="437" y2="295" stroke="#0e2040" stroke-width="1"/>
+  <line x1="498" y1="160" x2="498" y2="295" stroke="#0e2040" stroke-width="1"/>
+  <line x1="559" y1="160" x2="559" y2="295" stroke="#0e2040" stroke-width="1"/>
+
+  <!-- Axis labels -->
+  <text x="370" y="298" font-family="monospace" font-size="7" fill="#1e4060" text-anchor="end">0</text>
+  <text x="370" y="231" font-family="monospace" font-size="7" fill="#1e4060" text-anchor="end">500</text>
+  <text x="370" y="197" font-family="monospace" font-size="7" fill="#1e4060" text-anchor="end">800</text>
+  <text x="495" y="308" font-family="monospace" font-size="8" fill="#1e4060" text-anchor="middle">Strain (mm/mm)</text>
+  <text x="363" y="230" font-family="monospace" font-size="8" fill="#1e4060" text-anchor="middle" transform="rotate(-90, 363, 230)">Stress (MPa)</text>
+
+  <!-- Stress-strain curve: linear elastic, yield, plastic, fracture -->
+  <path d="M380,292 L400,270 L420,250 L435,230 L445,210 L452,190 L456,173 L459,165 L463,163 L470,160 L480,161 L495,165 L510,172 L525,180 L540,188 L555,196 L568,205 L580,214 L595,224 L610,238"
+        fill="none" stroke="url(#chartLine)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Yield point marker -->
+  <circle cx="459" cy="165" r="3" fill="#4ade80" opacity="0.9"/>
+  <line x1="459" y1="165" x2="459" y2="295" stroke="#4ade80" stroke-width="0.8" stroke-dasharray="3,3" opacity="0.3"/>
+  <text x="462" y="172" font-family="monospace" font-size="7" fill="#4ade80" opacity="0.8">yield pt</text>
+
+  <!-- Ultimate stress marker -->
+  <circle cx="463" cy="163" r="2.5" fill="#fbbf24" opacity="0.9"/>
+
+  <!-- Fracture point -->
+  <circle cx="610" cy="238" r="3" fill="#ef4444" opacity="0.8"/>
+  <text x="608" y="248" font-family="monospace" font-size="7" fill="#ef4444" opacity="0.7">fracture</text>
+
+  <!-- Stats panel on right side of chart -->
+  <rect x="622" y="160" width="10" height="5" rx="1" fill="#4ade80" opacity="0.6"/>
+  <text x="636" y="166" font-family="monospace" font-size="7" fill="#2a6a4a">Run 07 (450°C)</text>
+  <rect x="622" y="170" width="10" height="5" rx="1" fill="#818cf8" opacity="0.6"/>
+  <text x="636" y="176" font-family="monospace" font-size="7" fill="#4a4a8a">Run 05 (380°C)</text>
+  <rect x="622" y="180" width="10" height="5" rx="1" fill="#fb923c" opacity="0.6"/>
+  <text x="636" y="186" font-family="monospace" font-size="7" fill="#8a4a2a">Run 03 (200°C)</text>
+
+  <!-- Readout box -->
+  <rect x="360" y="160" width="12" height="5" rx="1" fill="none" stroke="#1e3a5f" stroke-width="0.8"/>
+
+  <!-- === SMALL DATA DISPLAY (right of monitor) === -->
+  <rect x="664" y="130" width="106" height="176" rx="4" fill="#111" stroke="#1e1e1e" stroke-width="1"/>
+  <text x="717" y="150" font-family="monospace" font-size="9" fill="#4ade80" text-anchor="middle">LIVE DATA</text>
+  <line x1="672" y1="156" x2="762" y2="156" stroke="#1e1e1e" stroke-width="1"/>
+
+  <text x="672" y="172" font-family="monospace" font-size="8" fill="#444">Temp (°C)</text>
+  <text x="762" y="172" font-family="monospace" font-size="10" fill="#fb923c" text-anchor="end">450.2</text>
+
+  <text x="672" y="190" font-family="monospace" font-size="8" fill="#444">Load (N)</text>
+  <text x="762" y="190" font-family="monospace" font-size="10" fill="#e0e0e0" text-anchor="end">8,420</text>
+
+  <text x="672" y="208" font-family="monospace" font-size="8" fill="#444">Stress (MPa)</text>
+  <text x="762" y="208" font-family="monospace" font-size="10" fill="#4ade80" text-anchor="end">724.1</text>
+
+  <text x="672" y="226" font-family="monospace" font-size="8" fill="#444">Strain</text>
+  <text x="762" y="226" font-family="monospace" font-size="10" fill="#e0e0e0" text-anchor="end">0.0082</text>
+
+  <text x="672" y="244" font-family="monospace" font-size="8" fill="#444">E-Mod (GPa)</text>
+  <text x="762" y="244" font-family="monospace" font-size="10" fill="#818cf8" text-anchor="end">114.3</text>
+
+  <line x1="672" y1="252" x2="762" y2="252" stroke="#1e1e1e" stroke-width="1"/>
+  <text x="672" y="266" font-family="monospace" font-size="8" fill="#444">Sample</text>
+  <text x="762" y="266" font-family="monospace" font-size="9" fill="#555" text-anchor="end">Ti-6Al-4V</text>
+
+  <text x="672" y="280" font-family="monospace" font-size="8" fill="#444">Run</text>
+  <text x="762" y="280" font-family="monospace" font-size="9" fill="#555" text-anchor="end">#07 / 12</text>
+
+  <!-- Pulsing indicator -->
+  <circle cx="680" cy="298" r="4" fill="#4ade80" opacity="0.7"/>
+  <text x="690" y="302" font-family="monospace" font-size="8" fill="#4ade80">recording</text>
+
+  <!-- === IIT Logo watermark === -->
+  <text x="40" y="40" font-family="serif" font-size="16" fill="#4ade80" font-weight="bold" opacity="0.6">IIT</text>
+  <text x="40" y="56" font-family="monospace" font-size="8" fill="#2a4a2a">Materials Science Laboratory</text>
+
+  <!-- === Lab notebook (foreground left) === -->
+  <rect x="30" y="310" width="90" height="34" rx="2" fill="#161616" stroke="#222" stroke-width="1" transform="rotate(-4, 75, 327)"/>
+  <line x1="38" y1="315" x2="108" y2="311" stroke="#1e1e1e" stroke-width="1"/>
+  <line x1="38" y1="322" x2="108" y2="318" stroke="#1e1e1e" stroke-width="1"/>
+  <line x1="38" y1="329" x2="108" y2="325" stroke="#1e1e1e" stroke-width="1"/>
+  <text x="52" y="316" font-family="monospace" font-size="6" fill="#333" transform="rotate(-4, 75, 316)">Lab Notebook #3</text>
+</svg>
