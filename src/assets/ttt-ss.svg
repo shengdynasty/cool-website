@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <rect width="800" height="450" fill="#0f0f0f"/>
+  <!-- Top bar -->
+  <rect width="800" height="40" fill="#1a1a1a"/>
+  <circle cx="20" cy="20" r="6" fill="#333"/>
+  <circle cx="40" cy="20" r="6" fill="#333"/>
+  <circle cx="60" cy="20" r="6" fill="#333"/>
+  <text x="400" y="26" font-family="monospace" font-size="12" fill="#555" text-anchor="middle">tic_tac_toe.py</text>
+
+  <!-- Scoreboard left -->
+  <rect x="30" y="60" width="160" height="330" fill="#141414" rx="2"/>
+  <text x="110" y="90" font-family="monospace" font-size="12" fill="#666" text-anchor="middle">SCORE</text>
+  <line x1="46" y1="100" x2="174" y2="100" stroke="#222" stroke-width="1"/>
+
+  <text x="110" y="132" font-family="monospace" font-size="11" fill="#aaa" text-anchor="middle">Player X</text>
+  <text x="110" y="164" font-family="monospace" font-size="40" fill="#818cf8" text-anchor="middle" font-weight="bold">3</text>
+
+  <line x1="60" y1="195" x2="160" y2="195" stroke="#222" stroke-width="1"/>
+  <text x="110" y="216" font-family="monospace" font-size="11" fill="#666" text-anchor="middle">Draws</text>
+  <text x="110" y="244" font-family="monospace" font-size="30" fill="#555" text-anchor="middle" font-weight="bold">1</text>
+  <line x1="60" y1="264" x2="160" y2="264" stroke="#222" stroke-width="1"/>
+
+  <text x="110" y="284" font-family="monospace" font-size="11" fill="#aaa" text-anchor="middle">Player O</text>
+  <text x="110" y="316" font-family="monospace" font-size="40" fill="#f472b6" text-anchor="middle" font-weight="bold">1</text>
+
+  <rect x="46" y="346" width="128" height="28" rx="3" fill="#1e1e1e" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="110" y="365" font-family="monospace" font-size="11" fill="#555" text-anchor="middle">New Game</text>
+
+  <!-- Game board center -->
+  <rect x="214" y="60" width="372" height="330" fill="#111" rx="2"/>
+
+  <!-- Turn indicator -->
+  <rect x="264" y="76" width="272" height="32" rx="3" fill="#1a1a1a"/>
+  <circle cx="284" cy="92" r="8" fill="#818cf8" opacity="0.8"/>
+  <text x="300" y="97" font-family="monospace" font-size="12" fill="#aaa">Player X's turn</text>
+
+  <!-- Grid lines -->
+  <line x1="330" y1="125" x2="330" y2="355" stroke="#2a2a2a" stroke-width="3" stroke-linecap="round"/>
+  <line x1="470" y1="125" x2="470" y2="355" stroke="#2a2a2a" stroke-width="3" stroke-linecap="round"/>
+  <line x1="214" y1="205" x2="586" y2="205" stroke="#2a2a2a" stroke-width="3" stroke-linecap="round"/>
+  <line x1="214" y1="280" x2="586" y2="280" stroke="#2a2a2a" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Cell highlights (hover on center) -->
+  <rect x="334" y="208" width="133" height="69" rx="2" fill="#4ade80" opacity="0.04"/>
+
+  <!-- X marks -->
+  <!-- Top-left X -->
+  <line x1="240" y1="143" x2="306" y2="197" stroke="#818cf8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="306" y1="143" x2="240" y2="197" stroke="#818cf8" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Top-right X -->
+  <line x1="484" y1="143" x2="550" y2="197" stroke="#818cf8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="550" y1="143" x2="484" y2="197" stroke="#818cf8" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Middle-left O -->
+  <circle cx="272" cy="242" r="28" fill="none" stroke="#f472b6" stroke-width="4"/>
+
+  <!-- Bottom-center X -->
+  <line x1="344" y1="296" x2="456" y2="358" stroke="#818cf8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="456" y1="296" x2="344" y2="358" stroke="#818cf8" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Bottom-right O -->
+  <circle cx="528" cy="318" r="28" fill="none" stroke="#f472b6" stroke-width="4"/>
+
+  <!-- Winning line hint (diagonal) - faint suggestion -->
+  <!-- Top-right, middle-center, bottom-left diagonal for X -->
+  <line x1="517" y1="143" x2="272" y2="358" stroke="#818cf8" stroke-width="2" stroke-opacity="0.2" stroke-dasharray="6,4"/>
+
+  <!-- Right stats panel -->
+  <rect x="610" y="60" width="160" height="330" fill="#141414" rx="2"/>
+  <text x="690" y="90" font-family="monospace" font-size="12" fill="#666" text-anchor="middle">HISTORY</text>
+  <line x1="626" y1="100" x2="754" y2="100" stroke="#222" stroke-width="1"/>
+
+  <text x="626" y="122" font-family="monospace" font-size="10" fill="#555">Game 5</text>
+  <text x="754" y="122" font-family="monospace" font-size="10" fill="#818cf8" text-anchor="end">X wins</text>
+  <text x="626" y="140" font-family="monospace" font-size="10" fill="#555">Game 4</text>
+  <text x="754" y="140" font-family="monospace" font-size="10" fill="#f472b6" text-anchor="end">O wins</text>
+  <text x="626" y="158" font-family="monospace" font-size="10" fill="#555">Game 3</text>
+  <text x="754" y="158" font-family="monospace" font-size="10" fill="#818cf8" text-anchor="end">X wins</text>
+  <text x="626" y="176" font-family="monospace" font-size="10" fill="#555">Game 2</text>
+  <text x="754" y="176" font-family="monospace" font-size="10" fill="#555" text-anchor="end">Draw</text>
+  <text x="626" y="194" font-family="monospace" font-size="10" fill="#555">Game 1</text>
+  <text x="754" y="194" font-family="monospace" font-size="10" fill="#818cf8" text-anchor="end">X wins</text>
+
+  <line x1="626" y1="206" x2="754" y2="206" stroke="#1e1e1e" stroke-width="1"/>
+
+  <text x="690" y="232" font-family="monospace" font-size="11" fill="#666" text-anchor="middle">Win Rate</text>
+  <text x="690" y="262" font-family="monospace" font-size="26" fill="#4ade80" text-anchor="middle" font-weight="bold">75%</text>
+
+  <rect x="626" y="278" width="128" height="8" rx="4" fill="#222"/>
+  <rect x="626" y="278" width="96" height="8" rx="4" fill="#4ade80" opacity="0.6"/>
+
+  <text x="690" y="310" font-family="monospace" font-size="10" fill="#444" text-anchor="middle">as Player X</text>
+</svg>
