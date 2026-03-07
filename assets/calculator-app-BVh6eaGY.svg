@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <rect width="800" height="450" fill="#0f0f0f"/>
+  <!-- Top bar -->
+  <rect width="800" height="40" fill="#1a1a1a"/>
+  <circle cx="20" cy="20" r="6" fill="#333"/>
+  <circle cx="40" cy="20" r="6" fill="#333"/>
+  <circle cx="60" cy="20" r="6" fill="#333"/>
+  <text x="400" y="26" font-family="monospace" font-size="12" fill="#555" text-anchor="middle">calculator.py</text>
+
+  <!-- Calculator body -->
+  <rect x="250" y="60" width="300" height="330" rx="6" fill="#141414" stroke="#2a2a2a" stroke-width="1"/>
+
+  <!-- Display area -->
+  <rect x="266" y="76" width="268" height="72" rx="3" fill="#0a0a0a" stroke="#222" stroke-width="1"/>
+  <!-- Secondary/expression display -->
+  <text x="525" y="104" font-family="monospace" font-size="13" fill="#444" text-anchor="end">7 × 24 - 13 =</text>
+  <!-- Main display -->
+  <text x="525" y="136" font-family="monospace" font-size="32" fill="#e0e0e0" text-anchor="end" font-weight="bold">155</text>
+
+  <!-- Button grid -->
+  <!-- Row 1: AC, +/-, %, / -->
+  <rect x="266" y="162" width="58" height="44" rx="3" fill="#2a2a2a"/>
+  <text x="295" y="190" font-family="monospace" font-size="14" fill="#aaa" text-anchor="middle">AC</text>
+
+  <rect x="332" y="162" width="58" height="44" rx="3" fill="#2a2a2a"/>
+  <text x="361" y="190" font-family="monospace" font-size="14" fill="#aaa" text-anchor="middle">+/-</text>
+
+  <rect x="398" y="162" width="58" height="44" rx="3" fill="#2a2a2a"/>
+  <text x="427" y="190" font-family="monospace" font-size="14" fill="#aaa" text-anchor="middle">%</text>
+
+  <rect x="464" y="162" width="70" height="44" rx="3" fill="#4ade80" opacity="0.85"/>
+  <text x="499" y="190" font-family="monospace" font-size="18" fill="#0f0f0f" text-anchor="middle" font-weight="bold">÷</text>
+
+  <!-- Row 2: 7, 8, 9, × -->
+  <rect x="266" y="214" width="58" height="44" rx="3" fill="#1e1e1e" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="295" y="243" font-family="monospace" font-size="18" fill="#e0e0e0" text-anchor="middle">7</text>
+
+  <rect x="332" y="214" width="58" height="44" rx="3" fill="#1e1e1e" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="361" y="243" font-family="monospace" font-size="18" fill="#e0e0e0" text-anchor="middle">8</text>
+
+  <rect x="398" y="214" width="58" height="44" rx="3" fill="#1e1e1e" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="427" y="243" font-family="monospace" font-size="18" fill="#e0e0e0" text-anchor="middle">9</text>
+
+  <rect x="464" y="214" width="70" height="44" rx="3" fill="#4ade80" opacity="0.85"/>
+  <text x="499" y="243" font-family="monospace" font-size="18" fill="#0f0f0f" text-anchor="middle" font-weight="bold">×</text>
+
+  <!-- Row 3: 4, 5, 6, - -->
+  <rect x="266" y="266" width="58" height="44" rx="3" fill="#1e1e1e" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="295" y="295" font-family="monospace" font-size="18" fill="#e0e0e0" text-anchor="middle">4</text>
+
+  <rect x="332" y="266" width="58" height="44" rx="3" fill="#1e1e1e" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="361" y="295" font-family="monospace" font-size="18" fill="#e0e0e0" text-anchor="middle">5</text>
+
+  <rect x="398" y="266" width="58" height="44" rx="3" fill="#1e1e1e" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="427" y="295" font-family="monospace" font-size="18" fill="#e0e0e0" text-anchor="middle">6</text>
+
+  <rect x="464" y="266" width="70" height="44" rx="3" fill="#4ade80" opacity="0.85"/>
+  <text x="499" y="295" font-family="monospace" font-size="22" fill="#0f0f0f" text-anchor="middle" font-weight="bold">−</text>
+
+  <!-- Row 4: 1, 2, 3, + -->
+  <rect x="266" y="318" width="58" height="44" rx="3" fill="#1e1e1e" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="295" y="347" font-family="monospace" font-size="18" fill="#e0e0e0" text-anchor="middle">1</text>
+
+  <rect x="332" y="318" width="58" height="44" rx="3" fill="#1e1e1e" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="361" y="347" font-family="monospace" font-size="18" fill="#e0e0e0" text-anchor="middle">2</text>
+
+  <rect x="398" y="318" width="58" height="44" rx="3" fill="#1e1e1e" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="427" y="347" font-family="monospace" font-size="18" fill="#e0e0e0" text-anchor="middle">3</text>
+
+  <rect x="464" y="318" width="70" height="44" rx="3" fill="#4ade80" opacity="0.85"/>
+  <text x="499" y="347" font-family="monospace" font-size="22" fill="#0f0f0f" text-anchor="middle" font-weight="bold">+</text>
+
+  <!-- Row 5: 0 (wide), ., = -->
+  <rect x="266" y="370" width="124" height="44" rx="3" fill="#1e1e1e" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="307" y="399" font-family="monospace" font-size="18" fill="#e0e0e0" text-anchor="middle">0</text>
+
+  <rect x="398" y="370" width="58" height="44" rx="3" fill="#1e1e1e" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="427" y="399" font-family="monospace" font-size="18" fill="#e0e0e0" text-anchor="middle">.</text>
+
+  <rect x="464" y="370" width="70" height="44" rx="3" fill="#4ade80"/>
+  <text x="499" y="399" font-family="monospace" font-size="18" fill="#0f0f0f" text-anchor="middle" font-weight="bold">=</text>
+</svg>
