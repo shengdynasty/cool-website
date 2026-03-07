@@ -2,12 +2,12 @@ import AcademicLayout from "@/components/layout/AcademicLayout";
 import { ExternalLink, Github } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import expense from "@/assets/expense.jpg";
-import task from "@/assets/taskmanagement.jpg";
-import turtle from "@/assets/pyturtle.jpg";
-import port from "@/assets/portfolio.jpg";
-import tttImage from "@/assets/ttt-ss.png";
-import calculatorImage from "@/assets/calculator-app.png";
+import expense from "@/assets/expense.svg";
+import task from "@/assets/taskmanagement.svg";
+import turtle from "@/assets/turtle-art.svg";
+import port from "@/assets/portfolio.svg";
+import tttImage from "@/assets/ttt-ss.svg";
+import calculatorImage from "@/assets/calculator-app.svg";
 import stockImage from "@/assets/stock-visualizer.svg";
 
 const projects = [
