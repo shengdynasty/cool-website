@@ -8,6 +8,7 @@ import turtle from "@/assets/pyturtle.jpg";
 import port from "@/assets/portfolio.jpg";
 import tttImage from "@/assets/ttt-ss.png";
 import calculatorImage from "@/assets/calculator-app.png";
+import stockImage from "@/assets/stock-visualizer.svg";
 
 const projects = [
   {
@@ -54,6 +55,16 @@ const projects = [
     github: "https://github.com/shengdynasty",
     detailPage: "/project/expense-tracker",
     image: expense
+  },
+  {
+    id: "csv-stock-visualizer",
+    title: "CSV Stock Visualizer",
+    description: "Interactive web app that parses CSV stock data to render dynamic price charts, volume graphs, and key statistics for any uploaded ticker.",
+    tools: ["React", "TypeScript", "CSV Parsing", "Data Visualization"],
+    github: "https://github.com/shengdynasty",
+    live: "https://stock-data-visualizer-v1.lovable.app/",
+    detailPage: "/project/csv-stock-visualizer",
+    image: stockImage
   },
   {
     id: "portfolio-website",

@@ -13,6 +13,7 @@ import turtle from "@/assets/pyturtle.jpg";
 import port from "@/assets/portfolio.jpg";
 import tttImage from "@/assets/ttt-ss.png";
 import calculatorImage from "@/assets/calculator-app.png";
+import stockImage from "@/assets/stock-visualizer.svg";
 
 interface ProjectData {
   title: string;
@@ -313,6 +314,84 @@ category_combo = ttk.Combobox(root, values=categories)
 desc_entry = tk.Entry(root)
 
 root.mainloop()`
+  },
+  "csv-stock-visualizer": {
+    title: "CSV Stock Visualizer",
+    description: "Interactive web app that parses CSV stock data to render dynamic price charts, volume graphs, and key statistics for any uploaded ticker.",
+    fullDescription: "CSV Stock Visualizer is an interactive web application that transforms raw CSV stock data into clear, readable charts and statistics. Users can upload any CSV file containing OHLCV (Open, High, Low, Close, Volume) data and instantly see price history plotted as a line chart alongside volume bars. The app computes key metrics such as 52-week high/low, average volume, and daily percentage change, providing a clean dashboard for quick market analysis.",
+    technologies: ["React", "TypeScript", "CSV Parsing", "Data Visualization"],
+    github: "https://github.com/shengdynasty",
+    live: "https://stock-data-visualizer-v1.lovable.app/",
+    image: stockImage,
+    features: [
+      "CSV file upload and real-time parsing",
+      "Interactive line chart with price history",
+      "Volume bar graph with color-coded gain/loss",
+      "Key statistics panel (open, high, low, close, volume)",
+      "52-week high/low and average volume calculations",
+      "Daily percentage change display"
+    ],
+    codeSnippet: `import { useState } from "react";
+
+interface StockRow {
+  date: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+}
+
+function parseCSV(text: string): StockRow[] {
+  const lines = text.trim().split("\\n");
+  const headers = lines[0].toLowerCase().split(",");
+  return lines.slice(1).map((line) => {
+    const values = line.split(",");
+    return {
+      date:   values[headers.indexOf("date")],
+      open:   parseFloat(values[headers.indexOf("open")]),
+      high:   parseFloat(values[headers.indexOf("high")]),
+      low:    parseFloat(values[headers.indexOf("low")]),
+      close:  parseFloat(values[headers.indexOf("close")]),
+      volume: parseFloat(values[headers.indexOf("volume")]),
+    };
+  });
+}
+
+export default function App() {
+  const [rows, setRows] = useState<StockRow[]>([]);
+
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const text = ev.target?.result as string;
+      setRows(parseCSV(text));
+    };
+    reader.readAsText(file);
+  };
+
+  const latest = rows[rows.length - 1];
+  const prev   = rows[rows.length - 2];
+  const change = latest && prev
+    ? ((latest.close - prev.close) / prev.close) * 100
+    : 0;
+
+  return (
+    <div className="p-6 space-y-6">
+      <input type="file" accept=".csv" onChange={handleFile} />
+      {latest && (
+        <div className="stats-panel">
+          <span className="price">\${latest.close.toFixed(2)}</span>
+          <span className={change >= 0 ? "green" : "red"}>
+            {change >= 0 ? "▲" : "▼"} {Math.abs(change).toFixed(2)}%
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}`
   },
   "portfolio-website": {
     title: "Academic Portfolio Website",
