@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="boardGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a1008"/>
+      <stop offset="100%" stop-color="#070d06"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#111"/>
+      <stop offset="100%" stop-color="#0e0e0e"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="#0a0a0a"/>
+
+  <!-- Chalkboard background (main) -->
+  <rect x="0" y="0" width="800" height="310" fill="url(#boardGrad)"/>
+  <rect x="0" y="306" width="800" height="6" fill="#141814" opacity="0.8"/>
+
+  <!-- Board texture lines (chalk dust feel) -->
+  <line x1="0" y1="80" x2="800" y2="80" stroke="#0e1a0c" stroke-width="0.5" opacity="0.4"/>
+  <line x1="0" y1="160" x2="800" y2="160" stroke="#0e1a0c" stroke-width="0.5" opacity="0.4"/>
+  <line x1="0" y1="240" x2="800" y2="240" stroke="#0e1a0c" stroke-width="0.5" opacity="0.4"/>
+
+  <!-- === AMC / Competition Header === -->
+  <text x="400" y="36" font-family="serif" font-size="13" fill="#4ade80" text-anchor="middle" opacity="0.7" letter-spacing="6">AMC 10/12  ·  AIME  ·  MATH OLYMPIAD</text>
+  <line x1="80" y1="44" x2="720" y2="44" stroke="#1e2e1e" stroke-width="1"/>
+
+  <!-- === LEFT PANEL: Combinatorics === -->
+  <text x="40" y="72" font-family="serif" font-size="12" fill="#4ade80" opacity="0.8">Combinatorics</text>
+
+  <text x="40" y="96" font-family="monospace" font-size="13" fill="#c0e8c0" opacity="0.85">C(n,k) = n! / (k!(n-k)!)</text>
+
+  <text x="40" y="120" font-family="monospace" font-size="11" fill="#888" opacity="0.7">Stars &amp; Bars:</text>
+  <text x="40" y="138" font-family="monospace" font-size="12" fill="#a0d0a0" opacity="0.8">C(n+k-1, k-1)</text>
+
+  <text x="40" y="164" font-family="monospace" font-size="11" fill="#888" opacity="0.7">Inclusion-Exclusion:</text>
+  <text x="40" y="182" font-family="monospace" font-size="11" fill="#a0d0a0" opacity="0.75">|A∪B| = |A|+|B| - |A∩B|</text>
+
+  <text x="40" y="208" font-family="monospace" font-size="11" fill="#888" opacity="0.7">Pigeonhole: n+1 objects</text>
+  <text x="40" y="224" font-family="monospace" font-size="11" fill="#a0d0a0" opacity="0.7">in n holes → one has ≥ 2</text>
+
+  <!-- Worked example box -->
+  <rect x="36" y="238" width="220" height="56" rx="2" fill="#0e1a0c" stroke="#1e2e1e" stroke-width="1"/>
+  <text x="48" y="254" font-family="monospace" font-size="9" fill="#4ade80" opacity="0.8">Problem: 10 students, 3 prizes</text>
+  <text x="48" y="268" font-family="monospace" font-size="9" fill="#7ab87a" opacity="0.7">distinct prizes → P(10,3)</text>
+  <text x="48" y="282" font-family="monospace" font-size="10" fill="#4ade80" opacity="0.9">= 10 × 9 × 8 = 720</text>
+
+  <!-- === CENTER PANEL: Number Theory === -->
+  <text x="296" y="72" font-family="serif" font-size="12" fill="#818cf8" opacity="0.8">Number Theory</text>
+
+  <text x="296" y="96" font-family="monospace" font-size="12" fill="#b0b8e8" opacity="0.85">a ≡ b (mod m)</text>
+  <text x="296" y="114" font-family="monospace" font-size="10" fill="#666" opacity="0.7">Chinese Remainder Theorem</text>
+
+  <text x="296" y="138" font-family="monospace" font-size="12" fill="#b0b8e8" opacity="0.8">φ(n) = n ∏(1 - 1/p)</text>
+  <text x="296" y="154" font-family="monospace" font-size="10" fill="#666" opacity="0.7">Euler's totient function</text>
+
+  <text x="296" y="178" font-family="monospace" font-size="12" fill="#b0b8e8" opacity="0.8">a^φ(m) ≡ 1 (mod m)</text>
+  <text x="296" y="194" font-family="monospace" font-size="10" fill="#666" opacity="0.7">Euler's theorem (gcd(a,m)=1)</text>
+
+  <text x="296" y="218" font-family="monospace" font-size="12" fill="#b0b8e8" opacity="0.8">Fermat: a^p ≡ a (mod p)</text>
+
+  <!-- Prime factorization tree (subtle) -->
+  <text x="296" y="250" font-family="monospace" font-size="10" fill="#444">360 = 2³ × 3² × 5</text>
+  <text x="296" y="266" font-family="monospace" font-size="10" fill="#444">τ(360) = 4 × 3 × 2 = 24</text>
+  <text x="296" y="282" font-family="monospace" font-size="10" fill="#444">σ(360) = 1170</text>
+
+  <!-- === RIGHT PANEL: Geometry + Algebra === -->
+  <text x="558" y="72" font-family="serif" font-size="12" fill="#fb923c" opacity="0.8">Geometry &amp; Algebra</text>
+
+  <text x="558" y="96" font-family="monospace" font-size="11" fill="#e8c8a0" opacity="0.8">Law of Cosines:</text>
+  <text x="558" y="112" font-family="monospace" font-size="11" fill="#d4b080" opacity="0.75">c² = a²+b²- 2ab·cos(C)</text>
+
+  <text x="558" y="136" font-family="monospace" font-size="11" fill="#e8c8a0" opacity="0.8">[ABC] = ½ab·sin(C)</text>
+  <text x="558" y="152" font-family="monospace" font-size="10" fill="#666" opacity="0.6">= r·s  (inradius · semiperimeter)</text>
+
+  <text x="558" y="176" font-family="monospace" font-size="11" fill="#e8c8a0" opacity="0.8">Vieta's: x²+bx+c=0</text>
+  <text x="558" y="192" font-family="monospace" font-size="11" fill="#d4b080" opacity="0.75">r+s = -b,  rs = c</text>
+
+  <text x="558" y="216" font-family="monospace" font-size="11" fill="#e8c8a0" opacity="0.8">AM-GM: (a+b)/2 ≥ √(ab)</text>
+
+  <!-- Triangle diagram -->
+  <polygon points="680,244 630,294 730,294" fill="none" stroke="#fb923c" stroke-width="1.2" opacity="0.5"/>
+  <text x="680" y="240" font-family="monospace" font-size="9" fill="#fb923c" opacity="0.5" text-anchor="middle">C</text>
+  <text x="624" y="304" font-family="monospace" font-size="9" fill="#fb923c" opacity="0.5">A</text>
+  <text x="732" y="304" font-family="monospace" font-size="9" fill="#fb923c" opacity="0.5">B</text>
+  <text x="656" y="286" font-family="monospace" font-size="8" fill="#666" opacity="0.5">b</text>
+  <text x="705" y="286" font-family="monospace" font-size="8" fill="#666" opacity="0.5">a</text>
+  <text x="680" y="306" font-family="monospace" font-size="8" fill="#666" opacity="0.5" text-anchor="middle">c</text>
+
+  <!-- Chalk tray / board bottom detail -->
+  <rect x="0" y="295" width="800" height="12" fill="#0e140c"/>
+  <rect x="20" y="298" width="40" height="6" rx="2" fill="#1a1a1a" opacity="0.6"/>
+  <rect x="70" y="299" width="24" height="4" rx="1" fill="#222" opacity="0.4"/>
+  <rect x="740" y="298" width="40" height="6" rx="2" fill="#1a1a1a" opacity="0.6"/>
+
+  <!-- === DESK / ANSWER SHEET (bottom) === -->
+  <rect x="0" y="312" width="800" height="138" fill="#0c0c0c"/>
+
+  <!-- Answer sheet paper -->
+  <rect x="60" y="322" width="280" height="118" rx="3" fill="url(#paperGrad)" stroke="#1e1e1e" stroke-width="1"/>
+  <text x="200" y="342" font-family="monospace" font-size="10" fill="#333" text-anchor="middle">AMC 10A — ANSWER SHEET</text>
+  <line x1="76" y1="348" x2="324" y2="348" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Answer bubbles -->
+  <g font-family="monospace" font-size="9" fill="#333">
+    <!-- Q1–5 -->
+    <text x="76" y="366">1.</text>
+    <circle cx="98" cy="362" r="5" fill="#4ade80" opacity="0.7"/>
+    <circle cx="114" cy="362" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="130" cy="362" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="146" cy="362" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="162" cy="362" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+
+    <text x="76" y="382">2.</text>
+    <circle cx="98" cy="378" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="114" cy="378" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="130" cy="378" r="5" fill="#4ade80" opacity="0.7"/>
+    <circle cx="146" cy="378" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="162" cy="378" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+
+    <text x="76" y="398">3.</text>
+    <circle cx="98" cy="394" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="114" cy="394" r="5" fill="#4ade80" opacity="0.7"/>
+    <circle cx="130" cy="394" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="146" cy="394" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="162" cy="394" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+
+    <text x="76" y="414">4.</text>
+    <circle cx="98" cy="410" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="114" cy="410" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="130" cy="410" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="146" cy="410" r="5" fill="#818cf8" opacity="0.6"/>
+    <circle cx="162" cy="410" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+
+    <text x="76" y="430">5.</text>
+    <circle cx="98" cy="426" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="114" cy="426" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="130" cy="426" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="146" cy="426" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="162" cy="426" r="5" fill="#4ade80" opacity="0.7"/>
+
+    <!-- A B C D E labels -->
+    <text x="95" y="356" text-anchor="middle">A</text>
+    <text x="111" y="356" text-anchor="middle">B</text>
+    <text x="127" y="356" text-anchor="middle">C</text>
+    <text x="143" y="356" text-anchor="middle">D</text>
+    <text x="159" y="356" text-anchor="middle">E</text>
+
+    <!-- Q6-10 col 2 -->
+    <text x="188" y="366">6.</text>
+    <circle cx="210" cy="362" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="226" cy="362" r="5" fill="#4ade80" opacity="0.5"/>
+    <circle cx="242" cy="362" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="258" cy="362" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="274" cy="362" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+
+    <text x="188" y="382">7.</text>
+    <circle cx="210" cy="378" r="5" fill="#4ade80" opacity="0.5"/>
+    <circle cx="226" cy="378" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="242" cy="378" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="258" cy="378" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="274" cy="378" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+
+    <text x="188" y="398">8.</text>
+    <circle cx="210" cy="394" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="226" cy="394" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="242" cy="394" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+    <circle cx="258" cy="394" r="5" fill="#818cf8" opacity="0.5"/>
+    <circle cx="274" cy="394" r="5" fill="none" stroke="#333" stroke-width="0.8"/>
+  </g>
+
+  <!-- Scratch work paper -->
+  <rect x="380" y="322" width="360" height="118" rx="3" fill="url(#paperGrad)" stroke="#1e1e1e" stroke-width="1"/>
+  <text x="560" y="342" font-family="monospace" font-size="10" fill="#333" text-anchor="middle">SCRATCH WORK</text>
+  <line x1="396" y1="348" x2="724" y2="348" stroke="#1a1a1a" stroke-width="1"/>
+
+  <text x="396" y="368" font-family="monospace" font-size="10" fill="#2a3a2a">Let S = {1,2,...,100}</text>
+  <text x="396" y="384" font-family="monospace" font-size="10" fill="#2a3a2a">Count k with gcd(k,100)=1</text>
+  <text x="396" y="400" font-family="monospace" font-size="10" fill="#2a3a2a">φ(100) = 100(1-½)(1-⅕)</text>
+  <text x="396" y="416" font-family="monospace" font-size="10" fill="#4ade80" opacity="0.8">= 100 × ½ × ⅘ = 40 ✓</text>
+  <text x="396" y="432" font-family="monospace" font-size="9" fill="#333">→ Answer: (D) 40</text>
+
+  <!-- Pencil -->
+  <rect x="700" y="380" width="52" height="8" rx="2" fill="#1e1a0a" transform="rotate(-20, 726, 384)"/>
+  <polygon points="700,382 698,386 704,384" fill="#888" transform="rotate(-20, 726, 384)"/>
+  <rect x="746" y="378" width="8" height="10" rx="1" fill="#2a1a1a" transform="rotate(-20, 726, 384)"/>
+</svg>
