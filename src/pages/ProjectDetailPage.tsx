@@ -14,6 +14,7 @@ import port from "@/assets/portfolio.svg";
 import tttImage from "@/assets/ttt-ss.svg";
 import calculatorImage from "@/assets/calculator-app.svg";
 import stockImage from "@/assets/stock-visualizer.svg";
+import noteImage from "@/assets/note-app.svg";
 
 interface ProjectData {
   title: string;
@@ -322,7 +323,7 @@ root.mainloop()`
     technologies: ["React", "TypeScript", "Vite", "Claude AI"],
     github: "https://github.com/shengdynasty/note-app",
     live: "https://shengdynasty.github.io/note-app",
-    image: null,
+    image: noteImage,
     features: [
       "Freehand drawing canvas with pen, highlighter, eraser, and shape tools",
       "Audio recording with AI-powered transcription via Claude",

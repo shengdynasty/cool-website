@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <!-- Background -->
+  <rect width="800" height="450" fill="#0f0f0f"/>
+
+  <!-- Top bar -->
+  <rect width="800" height="38" fill="#1a1a1a"/>
+  <circle cx="18" cy="19" r="5.5" fill="#ff5f57"/>
+  <circle cx="36" cy="19" r="5.5" fill="#ffbd2e"/>
+  <circle cx="54" cy="19" r="5.5" fill="#28c840"/>
+  <text x="400" y="25" font-family="monospace" font-size="12" fill="#555" text-anchor="middle">Calculus — Chapter 3 · Derivatives</text>
+
+  <!-- Sidebar -->
+  <rect x="0" y="38" width="148" height="412" fill="#141414"/>
+  <line x1="148" y1="38" x2="148" y2="450" stroke="#222" stroke-width="1"/>
+
+  <!-- Sidebar logo -->
+  <rect x="12" y="52" width="28" height="28" rx="6" fill="#4278FF"/>
+  <text x="26" y="71" font-family="monospace" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">N</text>
+
+  <!-- Sidebar nav -->
+  <rect x="8" y="92" width="132" height="24" rx="4" fill="#2a2a2a"/>
+  <text x="20" y="108" font-family="monospace" font-size="11" fill="#e0e0e0">⌂  Home</text>
+  <text x="20" y="131" font-family="monospace" font-size="11" fill="#555">◷  Recents</text>
+  <text x="20" y="153" font-family="monospace" font-size="11" fill="#555">♡  Favorites</text>
+
+  <line x1="12" y1="165" x2="136" y2="165" stroke="#222" stroke-width="1"/>
+  <text x="12" y="181" font-family="monospace" font-size="9" fill="#333" letter-spacing="1">MY LIBRARY</text>
+
+  <circle cx="18" cy="197" r="4" fill="#4278FF"/>
+  <text x="30" y="201" font-family="monospace" font-size="11" fill="#888">Calculus</text>
+  <circle cx="18" cy="218" r="4" fill="#4ade80"/>
+  <text x="30" y="222" font-family="monospace" font-size="11" fill="#555">Biology</text>
+  <circle cx="18" cy="238" r="4" fill="#f472b6"/>
+  <text x="30" y="242" font-family="monospace" font-size="11" fill="#555">History</text>
+  <circle cx="18" cy="258" r="4" fill="#fb923c"/>
+  <text x="30" y="262" font-family="monospace" font-size="11" fill="#555">Physics</text>
+
+  <!-- Editor area -->
+  <rect x="148" y="38" width="390" height="412" fill="#0f0f0f"/>
+
+  <!-- Editor toolbar -->
+  <rect x="148" y="38" width="390" height="36" fill="#1a1a1a"/>
+  <line x1="148" y1="74" x2="538" y2="74" stroke="#222" stroke-width="1"/>
+  <rect x="158" y="46" width="22" height="22" rx="3" fill="#4278FF"/>
+  <text x="169" y="61" font-family="monospace" font-size="12" fill="#fff" text-anchor="middle">✏</text>
+  <text x="196" y="61" font-family="monospace" font-size="12" fill="#555" text-anchor="middle">🖊</text>
+  <text x="218" y="61" font-family="monospace" font-size="12" fill="#555" text-anchor="middle">T</text>
+  <text x="240" y="61" font-family="monospace" font-size="12" fill="#555" text-anchor="middle">⬜</text>
+  <rect x="262" y="48" width="14" height="14" rx="2" fill="#4278FF"/>
+  <circle cx="287" cy="55" r="2" fill="#888"/>
+  <circle cx="296" cy="55" r="3" fill="#888"/>
+  <circle cx="307" cy="55" r="4" fill="#888"/>
+  <rect x="482" y="46" width="48" height="22" rx="3" fill="#4278FF" opacity="0.15"/>
+  <text x="506" y="61" font-family="monospace" font-size="11" fill="#4278FF" text-anchor="middle">✦ AI</text>
+
+  <!-- Ruled lines -->
+  <line x1="148" y1="104" x2="538" y2="104" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="148" y1="122" x2="538" y2="122" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="148" y1="140" x2="538" y2="140" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="148" y1="158" x2="538" y2="158" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="148" y1="176" x2="538" y2="176" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="148" y1="194" x2="538" y2="194" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="148" y1="212" x2="538" y2="212" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="148" y1="230" x2="538" y2="230" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="148" y1="248" x2="538" y2="248" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="148" y1="266" x2="538" y2="266" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="148" y1="284" x2="538" y2="284" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="148" y1="302" x2="538" y2="302" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="148" y1="320" x2="538" y2="320" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="148" y1="338" x2="538" y2="338" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="148" y1="356" x2="538" y2="356" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="148" y1="374" x2="538" y2="374" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="148" y1="392" x2="538" y2="392" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="148" y1="410" x2="538" y2="410" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="148" y1="428" x2="538" y2="428" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Red margin line -->
+  <line x1="178" y1="74" x2="178" y2="450" stroke="#ff5f57" stroke-opacity="0.12" stroke-width="1"/>
+
+  <!-- Note content -->
+  <text x="186" y="97" font-family="Georgia, serif" font-size="15" fill="#d0d0d0" font-style="italic">Chapter 3: Derivatives</text>
+  <text x="186" y="117" font-family="Georgia, serif" font-size="12" fill="#888" font-style="italic">Definition: The derivative f'(x) measures the</text>
+  <text x="186" y="135" font-family="Georgia, serif" font-size="12" fill="#888" font-style="italic">instantaneous rate of change of f(x)</text>
+  <text x="186" y="157" font-family="monospace" font-size="13" fill="#c0c0c0">f'(x) = lim   f(x+h) - f(x)</text>
+  <text x="186" y="173" font-family="monospace" font-size="11" fill="#555">        h→0  _______________</text>
+  <text x="186" y="191" font-family="monospace" font-size="13" fill="#666">                    h</text>
+  <text x="186" y="211" font-family="Georgia, serif" font-size="12" fill="#888" font-style="italic">Power Rule: d/dx [xⁿ] = n·xⁿ⁻¹</text>
+  <rect x="184" y="220" width="228" height="16" rx="2" fill="#4278FF" opacity="0.12"/>
+  <text x="186" y="232" font-family="Georgia, serif" font-size="12" fill="#90aeff" font-style="italic">Chain Rule: d/dx [f(g(x))] = f'(g(x))·g'(x)</text>
+  <text x="186" y="252" font-family="Georgia, serif" font-size="12" fill="#888" font-style="italic">Examples:</text>
+  <text x="186" y="270" font-family="monospace" font-size="12" fill="#c0c0c0">  d/dx [x²] = 2x</text>
+  <text x="186" y="288" font-family="monospace" font-size="12" fill="#c0c0c0">  d/dx [sin x] = cos x</text>
+  <text x="186" y="306" font-family="monospace" font-size="12" fill="#c0c0c0">  d/dx [eˣ] = eˣ</text>
+  <line x1="186" y1="320" x2="192" y2="333" stroke="#4278FF" stroke-width="1.5" opacity="0.8"/>
+
+  <!-- AI Learn panel -->
+  <rect x="538" y="38" width="262" height="412" fill="#141414"/>
+  <line x1="538" y1="38" x2="538" y2="450" stroke="#222" stroke-width="1"/>
+
+  <!-- Panel header -->
+  <rect x="538" y="38" width="262" height="44" fill="#1a1a1a"/>
+  <text x="558" y="57" font-family="monospace" font-size="11" fill="#4278FF">✦</text>
+  <text x="572" y="57" font-family="monospace" font-size="12" fill="#e0e0e0" font-weight="bold">Learn</text>
+  <text x="558" y="74" font-family="monospace" font-size="9" fill="#444">Calculus — Chapter 3</text>
+
+  <!-- Tabs -->
+  <rect x="538" y="82" width="262" height="28" fill="#111"/>
+  <rect x="542" y="85" width="56" height="22" rx="3" fill="#2a2a2a"/>
+  <text x="570" y="100" font-family="monospace" font-size="9" fill="#aaa" text-anchor="middle">Smart</text>
+  <rect x="602" y="85" width="56" height="22" rx="3" fill="#4278FF" opacity="0.18"/>
+  <text x="630" y="100" font-family="monospace" font-size="9" fill="#4278FF" text-anchor="middle">Cards</text>
+  <text x="682" y="100" font-family="monospace" font-size="9" fill="#444" text-anchor="middle">Quiz</text>
+  <text x="752" y="100" font-family="monospace" font-size="9" fill="#444" text-anchor="middle">Chat</text>
+
+  <!-- Flashcard -->
+  <rect x="548" y="118" width="242" height="138" rx="8" fill="#1e1e1e" stroke="#2a2a2a" stroke-width="1"/>
+  <rect x="558" y="128" width="40" height="16" rx="8" fill="#4278FF" opacity="0.2"/>
+  <text x="578" y="140" font-family="monospace" font-size="9" fill="#4278FF" text-anchor="middle">Term</text>
+  <text x="669" y="175" font-family="Georgia, serif" font-size="18" fill="#e0e0e0" text-anchor="middle" font-style="italic">Chain Rule</text>
+  <text x="669" y="197" font-family="monospace" font-size="9" fill="#333" text-anchor="middle">tap to reveal definition</text>
+  <text x="669" y="242" font-family="monospace" font-size="9" fill="#444" text-anchor="middle">card 3 of 8</text>
+
+  <!-- Progress bar -->
+  <rect x="548" y="264" width="242" height="5" rx="2.5" fill="#222"/>
+  <rect x="548" y="264" width="145" height="5" rx="2.5" fill="#4278FF" opacity="0.5"/>
+  <text x="548" y="281" font-family="monospace" font-size="9" fill="#555">5 known</text>
+  <text x="790" y="281" font-family="monospace" font-size="9" fill="#555" text-anchor="end">3 learning</text>
+
+  <!-- Grade buttons -->
+  <rect x="548" y="289" width="114" height="28" rx="4" fill="#ef4444" opacity="0.1" stroke="#ef4444" stroke-opacity="0.25" stroke-width="1"/>
+  <text x="605" y="307" font-family="monospace" font-size="10" fill="#ef4444" text-anchor="middle">✗  Still learning</text>
+  <rect x="670" y="289" width="120" height="28" rx="4" fill="#4ade80" opacity="0.1" stroke="#4ade80" stroke-opacity="0.25" stroke-width="1"/>
+  <text x="730" y="307" font-family="monospace" font-size="10" fill="#4ade80" text-anchor="middle">✓  Know it</text>
+
+  <!-- Nav -->
+  <text x="558" y="338" font-family="monospace" font-size="16" fill="#333">←</text>
+  <text x="782" y="338" font-family="monospace" font-size="16" fill="#555" text-anchor="end">→</text>
+  <text x="669" y="338" font-family="monospace" font-size="9" fill="#333" text-anchor="middle">space to flip · arrows to nav</text>
+
+  <!-- Auto Study footer -->
+  <rect x="548" y="356" width="242" height="68" rx="4" fill="#111" stroke="#1e1e1e" stroke-width="1"/>
+  <text x="558" y="374" font-family="monospace" font-size="9" fill="#4278FF">✦ Auto Study</text>
+  <text x="558" y="390" font-family="monospace" font-size="9" fill="#444">Summary → Flashcards → Quiz</text>
+  <rect x="558" y="400" width="222" height="7" rx="3" fill="#222"/>
+  <rect x="558" y="400" width="133" height="7" rx="3" fill="#4278FF" opacity="0.4"/>
+  <text x="558" y="418" font-family="monospace" font-size="8" fill="#333">In progress… 60%</text>
+</svg>

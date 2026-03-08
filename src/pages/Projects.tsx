@@ -9,53 +9,9 @@ import port from "@/assets/portfolio.svg";
 import tttImage from "@/assets/ttt-ss.svg";
 import calculatorImage from "@/assets/calculator-app.svg";
 import stockImage from "@/assets/stock-visualizer.svg";
+import noteImage from "@/assets/note-app.svg";
 
 const projects = [
-  {
-    id: "turtle-art",
-    title: "Interactive Turtle Art Generator",
-    description: "Procedural graphics exploration demonstrating fundamental programming concepts through visual, interactive output.",
-    tools: ["Python", "Turtle Graphics", "JSON"],
-    github: "https://github.com/shengdynasty",
-    detailPage: "/project/turtle-art",
-    image: turtle
-  },
-  {
-    id: "calculator",
-    title: "Scientific Calculator",
-    description: "Functional calculator with a graphical interface to practice GUI development and event handling in Python.",
-    tools: ["Python", "Tkinter"],
-    github: "https://github.com/shengdynasty",
-    detailPage: "/project/calculator",
-    image: calculatorImage
-  },
-  {
-    id: "task-management",
-    title: "Task Management Application",
-    description: "Productivity tool to organize tasks, track progress, and practice database-like data management.",
-    tools: ["Python", "Tkinter"],
-    github: "https://github.com/shengdynasty",
-    detailPage: "/project/task-management",
-    image: task
-  },
-  {
-    id: "tic-tac-toe",
-    title: "Tic Tac Toe Game",
-    description: "Classic two-player game implementing game logic, turn-based systems, and win-condition detection.",
-    tools: ["Python", "Tkinter"],
-    github: "https://github.com/shengdynasty",
-    detailPage: "/project/tic-tac-toe",
-    image: tttImage
-  },
-  {
-    id: "expense-tracker",
-    title: "Personal Expense Tracker",
-    description: "Tool to categorize and visualize personal spending, applying data structures and basic data analysis.",
-    tools: ["Python", "Tkinter", "Data Visualization"],
-    github: "https://github.com/shengdynasty",
-    detailPage: "/project/expense-tracker",
-    image: expense
-  },
   {
     id: "csv-stock-visualizer",
     title: "CSV Stock Visualizer",
@@ -67,6 +23,15 @@ const projects = [
     image: stockImage
   },
   {
+    id: "expense-tracker",
+    title: "Personal Expense Tracker",
+    description: "Tool to categorize and visualize personal spending, applying data structures and basic data analysis.",
+    tools: ["Python", "Tkinter", "Data Visualization"],
+    github: "https://github.com/shengdynasty",
+    detailPage: "/project/expense-tracker",
+    image: expense
+  },
+  {
     id: "note-app",
     title: "AI Note-Taking App",
     description: "Notability-style note app with AI-powered Smart Notes, Quizlet-style flashcards, quizzes, fill-in-the-blank, and chat — all generated from your own notes using Claude.",
@@ -74,7 +39,7 @@ const projects = [
     github: "https://github.com/shengdynasty/note-app",
     live: "https://shengdynasty.github.io/note-app",
     detailPage: "/project/note-app",
-    image: null
+    image: noteImage
   },
   {
     id: "portfolio-website",
@@ -85,6 +50,42 @@ const projects = [
     live: "https://sheng-yan.lovable.app",
     detailPage: "/project/portfolio-website",
     image: port
+  },
+  {
+    id: "task-management",
+    title: "Task Management Application",
+    description: "Productivity tool to organize tasks, track progress, and practice database-like data management.",
+    tools: ["Python", "Tkinter"],
+    github: "https://github.com/shengdynasty",
+    detailPage: "/project/task-management",
+    image: task
+  },
+  {
+    id: "calculator",
+    title: "Scientific Calculator",
+    description: "Functional calculator with a graphical interface to practice GUI development and event handling in Python.",
+    tools: ["Python", "Tkinter"],
+    github: "https://github.com/shengdynasty",
+    detailPage: "/project/calculator",
+    image: calculatorImage
+  },
+  {
+    id: "turtle-art",
+    title: "Interactive Turtle Art Generator",
+    description: "Procedural graphics exploration demonstrating fundamental programming concepts through visual, interactive output.",
+    tools: ["Python", "Turtle Graphics", "JSON"],
+    github: "https://github.com/shengdynasty",
+    detailPage: "/project/turtle-art",
+    image: turtle
+  },
+  {
+    id: "tic-tac-toe",
+    title: "Tic Tac Toe Game",
+    description: "Classic two-player game implementing game logic, turn-based systems, and win-condition detection.",
+    tools: ["Python", "Tkinter"],
+    github: "https://github.com/shengdynasty",
+    detailPage: "/project/tic-tac-toe",
+    image: tttImage
   },
 ];
 
