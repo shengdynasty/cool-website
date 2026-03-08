@@ -67,6 +67,16 @@ const projects = [
     image: stockImage
   },
   {
+    id: "note-app",
+    title: "AI Note-Taking App",
+    description: "Notability-style note app with AI-powered Smart Notes, Quizlet-style flashcards, quizzes, fill-in-the-blank, and chat — all generated from your own notes using Claude.",
+    tools: ["React", "TypeScript", "Claude AI", "Vite"],
+    github: "https://github.com/shengdynasty/note-app",
+    live: "https://shengdynasty.github.io/note-app",
+    detailPage: "/project/note-app",
+    image: null
+  },
+  {
     id: "portfolio-website",
     title: "Academic Portfolio Website",
     description: "Professional web presence to communicate academic interests and projects to university admissions.",
