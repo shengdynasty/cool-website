@@ -315,6 +315,54 @@ desc_entry = tk.Entry(root)
 
 root.mainloop()`
   },
+  "note-app": {
+    title: "AI Note-Taking App",
+    description: "Notability-style note app with AI-powered Smart Notes, Quizlet-style flashcards, quizzes, fill-in-the-blank, and chat — all generated from your own notes using Claude.",
+    fullDescription: "A full-featured note-taking web app inspired by Notability, built entirely in the browser with no backend. Write notes on a drawing canvas with pen, highlighter, and text tools, record audio with live transcription, and import PDFs. The standout feature is the AI Learn panel powered by Claude: open any note to instantly generate a Smart Notes summary, Quizlet-style flashcards with Know/Still Learning tracking, multiple-choice quizzes with per-question explanations, fill-in-the-blank practice, and a multi-turn chat grounded in your note content.",
+    technologies: ["React", "TypeScript", "Vite", "Claude AI"],
+    github: "https://github.com/shengdynasty/note-app",
+    live: "https://shengdynasty.github.io/note-app",
+    image: null,
+    features: [
+      "Freehand drawing canvas with pen, highlighter, eraser, and shape tools",
+      "Audio recording with AI-powered transcription via Claude",
+      "PDF import and annotation support",
+      "Smart Notes — AI-generated summary and key terms from your notes",
+      "Quizlet-style flashcards with Know it / Still Learning progress tracking",
+      "Multiple-choice quiz with per-question explanations and results review",
+      "Fill-in-the-blank cloze practice generated from note content",
+      "Multi-turn AI chat grounded in the active note",
+      "Multiple themes and local persistence — no account required"
+    ],
+    codeSnippet: `// Claude generates study materials from raw note text
+async function callClaude(prompt: string, apiKey: string) {
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "x-api-key": apiKey,
+      "anthropic-version": "2023-06-01",
+      "anthropic-dangerous-direct-browser-access": "true",
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      model: "claude-haiku-4-5-20251001",
+      max_tokens: 1024,
+      messages: [{ role: "user", content: prompt }],
+    }),
+  });
+  const data = await res.json();
+  return data.content[0].text;
+}
+
+// Generate Quizlet-style flashcards
+const flashcardPrompt = \`
+  Given these notes, generate 8 flashcards as JSON:
+  [{ "term": "...", "definition": "..." }]
+  Notes: \${noteText}
+\`;
+const raw = await callClaude(flashcardPrompt, apiKey);
+const cards = JSON.parse(raw.replace(/\`\`\`json|\\n|\`\`\`/g, "").trim());`
+  },
   "csv-stock-visualizer": {
     title: "CSV Stock Visualizer",
     description: "Interactive web app that parses CSV stock data to render dynamic price charts, volume graphs, and key statistics for any uploaded ticker.",

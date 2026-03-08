@@ -170,7 +170,7 @@ const Home = () => {
               <div className="flex items-center gap-3 text-sm">
                 <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
                 <a
-                  href="https://github.com/shengdynasty/note-app"
+                  href="https://shengdynasty.github.io/note-app"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-foreground hover:underline underline-offset-4 transition-colors"
