@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <!-- Background -->
+  <rect width="800" height="450" fill="#0f0f0f"/>
+
+  <!-- Top bar -->
+  <rect width="800" height="38" fill="#1a1a1a"/>
+  <circle cx="18" cy="19" r="5.5" fill="#ff5f57"/>
+  <circle cx="36" cy="19" r="5.5" fill="#ffbd2e"/>
+  <circle cx="54" cy="19" r="5.5" fill="#28c840"/>
+  <text x="400" y="25" font-family="monospace" font-size="12" fill="#555" text-anchor="middle">mcp-server — claude integration</text>
+
+  <!-- Left panel: server list -->
+  <rect x="0" y="38" width="200" height="412" fill="#111"/>
+  <line x1="200" y1="38" x2="200" y2="450" stroke="#222" stroke-width="1"/>
+
+  <text x="16" y="62" font-family="monospace" font-size="9" fill="#333" letter-spacing="1">MCP SERVERS</text>
+
+  <!-- Server entries -->
+  <rect x="8" y="70" width="184" height="30" rx="4" fill="#1e2a1e"/>
+  <circle cx="22" cy="85" r="4" fill="#4ade80"/>
+  <text x="34" y="89" font-family="monospace" font-size="11" fill="#4ade80">calendar</text>
+  <text x="160" y="89" font-family="monospace" font-size="9" fill="#4ade80" text-anchor="end">●</text>
+
+  <rect x="8" y="106" width="184" height="30" rx="4" fill="#1e2a1e"/>
+  <circle cx="22" cy="121" r="4" fill="#4ade80"/>
+  <text x="34" y="125" font-family="monospace" font-size="11" fill="#4ade80">gmail</text>
+  <text x="160" y="125" font-family="monospace" font-size="9" fill="#4ade80" text-anchor="end">●</text>
+
+  <rect x="8" y="142" width="184" height="30" rx="4" fill="#1e2a1e"/>
+  <circle cx="22" cy="157" r="4" fill="#4ade80"/>
+  <text x="34" y="161" font-family="monospace" font-size="11" fill="#4ade80">notion</text>
+  <text x="160" y="161" font-family="monospace" font-size="9" fill="#4ade80" text-anchor="end">●</text>
+
+  <rect x="8" y="178" width="184" height="30" rx="4" fill="#1e1e2a"/>
+  <circle cx="22" cy="193" r="4" fill="#818cf8"/>
+  <text x="34" y="197" font-family="monospace" font-size="11" fill="#818cf8">spotify</text>
+  <text x="160" y="197" font-family="monospace" font-size="9" fill="#818cf8" text-anchor="end">●</text>
+
+  <rect x="8" y="214" width="184" height="30" rx="4" fill="#1e1e2a"/>
+  <circle cx="22" cy="229" r="4" fill="#818cf8"/>
+  <text x="34" y="233" font-family="monospace" font-size="11" fill="#818cf8">github</text>
+  <text x="160" y="233" font-family="monospace" font-size="9" fill="#818cf8" text-anchor="end">●</text>
+
+  <rect x="8" y="250" width="184" height="30" rx="4" fill="#1e1e2a"/>
+  <circle cx="22" cy="265" r="4" fill="#818cf8"/>
+  <text x="34" y="269" font-family="monospace" font-size="11" fill="#818cf8">notes</text>
+  <text x="160" y="269" font-family="monospace" font-size="9" fill="#818cf8" text-anchor="end">●</text>
+
+  <text x="16" y="302" font-family="monospace" font-size="9" fill="#333" letter-spacing="1">TOOLS REGISTERED</text>
+  <text x="16" y="320" font-family="monospace" font-size="13" fill="#e0e0e0">42</text>
+  <text x="80" y="302" font-family="monospace" font-size="9" fill="#333" letter-spacing="1">UPTIME</text>
+  <text x="80" y="320" font-family="monospace" font-size="13" fill="#4ade80">99.9%</text>
+
+  <!-- Center: terminal/chat -->
+  <rect x="200" y="38" width="400" height="412" fill="#0f0f0f"/>
+
+  <!-- Terminal header -->
+  <rect x="200" y="38" width="400" height="34" fill="#1a1a1a"/>
+  <line x1="200" y1="72" x2="600" y2="72" stroke="#222" stroke-width="1"/>
+  <text x="216" y="59" font-family="monospace" font-size="11" fill="#555">claude@mcp ~</text>
+
+  <!-- Chat messages -->
+  <!-- User bubble -->
+  <rect x="300" y="88" width="284" height="38" rx="6" fill="#1e2a1e"/>
+  <text x="316" y="105" font-family="monospace" font-size="11" fill="#4ade80">user</text>
+  <text x="316" y="120" font-family="monospace" font-size="10" fill="#888">What's on my calendar today?</text>
+
+  <!-- Claude response -->
+  <rect x="216" y="138" width="340" height="58" rx="6" fill="#1a1a2e"/>
+  <text x="228" y="155" font-family="monospace" font-size="11" fill="#818cf8">claude</text>
+  <text x="228" y="170" font-family="monospace" font-size="10" fill="#888">Calling calendar → get_events...</text>
+  <rect x="228" y="178" width="140" height="12" rx="2" fill="#818cf8" opacity="0.15"/>
+  <text x="228" y="188" font-family="monospace" font-size="9" fill="#818cf8">▶ calendar.get_events(today)</text>
+
+  <!-- Tool call result -->
+  <rect x="216" y="208" width="340" height="68" rx="6" fill="#1a1a1a" stroke="#222" stroke-width="1"/>
+  <text x="228" y="225" font-family="monospace" font-size="9" fill="#555">tool result</text>
+  <text x="228" y="242" font-family="monospace" font-size="10" fill="#c0c0c0">• 9:00 AM — Math class</text>
+  <text x="228" y="258" font-family="monospace" font-size="10" fill="#c0c0c0">• 2:00 PM — Robotics meeting</text>
+  <text x="228" y="274" font-family="monospace" font-size="10" fill="#c0c0c0">• 7:00 PM — Study session</text>
+
+  <!-- Claude final reply -->
+  <rect x="216" y="288" width="340" height="48" rx="6" fill="#1a1a2e"/>
+  <text x="228" y="305" font-family="monospace" font-size="11" fill="#818cf8">claude</text>
+  <text x="228" y="320" font-family="monospace" font-size="10" fill="#888">You have 3 events. Robotics at 2 PM</text>
+  <text x="228" y="334" font-family="monospace" font-size="10" fill="#888">is your longest block today.</text>
+
+  <!-- Input bar -->
+  <rect x="216" y="386" width="340" height="36" rx="6" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="232" y="409" font-family="monospace" font-size="11" fill="#333">Ask Claude anything...</text>
+  <rect x="530" y="392" width="20" height="24" rx="4" fill="#818cf8" opacity="0.2"/>
+  <text x="540" y="408" font-family="monospace" font-size="10" fill="#818cf8" text-anchor="middle">↑</text>
+
+  <!-- Right panel: tool registry -->
+  <rect x="600" y="38" width="200" height="412" fill="#111"/>
+  <line x1="600" y1="38" x2="600" y2="450" stroke="#222" stroke-width="1"/>
+
+  <text x="616" y="62" font-family="monospace" font-size="9" fill="#333" letter-spacing="1">TOOL CALLS</text>
+
+  <!-- Tool log entries -->
+  <rect x="608" y="70" width="184" height="26" rx="3" fill="#1a1a1a"/>
+  <circle cx="620" cy="83" r="3" fill="#4ade80"/>
+  <text x="630" y="87" font-family="monospace" font-size="9" fill="#888">calendar.get_events</text>
+  <text x="784" y="87" font-family="monospace" font-size="8" fill="#4ade80" text-anchor="end">12ms</text>
+
+  <rect x="608" y="100" width="184" height="26" rx="3" fill="#1a1a1a"/>
+  <circle cx="620" cy="113" r="3" fill="#4ade80"/>
+  <text x="630" y="117" font-family="monospace" font-size="9" fill="#888">gmail.send</text>
+  <text x="784" y="117" font-family="monospace" font-size="8" fill="#4ade80" text-anchor="end">38ms</text>
+
+  <rect x="608" y="130" width="184" height="26" rx="3" fill="#1a1a1a"/>
+  <circle cx="620" cy="143" r="3" fill="#4ade80"/>
+  <text x="630" y="147" font-family="monospace" font-size="9" fill="#888">notion.create_page</text>
+  <text x="784" y="147" font-family="monospace" font-size="8" fill="#4ade80" text-anchor="end">55ms</text>
+
+  <rect x="608" y="160" width="184" height="26" rx="3" fill="#1a1a1a"/>
+  <circle cx="620" cy="173" r="3" fill="#ffbd2e"/>
+  <text x="630" y="177" font-family="monospace" font-size="9" fill="#888">spotify.now_playing</text>
+  <text x="784" y="177" font-family="monospace" font-size="8" fill="#ffbd2e" text-anchor="end">120ms</text>
+
+  <rect x="608" y="190" width="184" height="26" rx="3" fill="#1a1a1a"/>
+  <circle cx="620" cy="203" r="3" fill="#4ade80"/>
+  <text x="630" y="207" font-family="monospace" font-size="9" fill="#888">github.contributions</text>
+  <text x="784" y="207" font-family="monospace" font-size="8" fill="#4ade80" text-anchor="end">29ms</text>
+
+  <text x="616" y="248" font-family="monospace" font-size="9" fill="#333" letter-spacing="1">LATENCY</text>
+
+  <!-- Mini bar chart -->
+  <rect x="616" y="290" width="8" height="30" rx="2" fill="#4ade80" opacity="0.6"/>
+  <rect x="630" y="302" width="8" height="18" rx="2" fill="#4ade80" opacity="0.6"/>
+  <rect x="644" y="285" width="8" height="35" rx="2" fill="#4ade80" opacity="0.6"/>
+  <rect x="658" y="298" width="8" height="22" rx="2" fill="#ffbd2e" opacity="0.6"/>
+  <rect x="672" y="288" width="8" height="32" rx="2" fill="#4ade80" opacity="0.6"/>
+  <rect x="686" y="295" width="8" height="25" rx="2" fill="#4ade80" opacity="0.6"/>
+  <line x1="608" y1="325" x2="784" y2="325" stroke="#222" stroke-width="1"/>
+  <text x="616" y="338" font-family="monospace" font-size="8" fill="#555">avg 46ms</text>
+
+  <text x="616" y="370" font-family="monospace" font-size="9" fill="#333" letter-spacing="1">TODAY</text>
+  <text x="616" y="390" font-family="monospace" font-size="20" fill="#e0e0e0">148</text>
+  <text x="616" y="406" font-family="monospace" font-size="9" fill="#555">tool invocations</text>
+</svg>
