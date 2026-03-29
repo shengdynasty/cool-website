@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#131325"/>
+      <stop offset="100%" stop-color="#0a0a0f"/>
+    </radialGradient>
+    <radialGradient id="centerFill" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1c1c40"/>
+      <stop offset="100%" stop-color="#0e0e22"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bgGlow)"/>
+
+  <!-- Subtle dot grid -->
+  <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+    <circle cx="1" cy="1" r="0.8" fill="#ffffff" opacity="0.04"/>
+  </pattern>
+  <rect width="800" height="450" fill="url(#dots)"/>
+
+  <!-- ── CONNECTION LINES (drawn first, behind nodes) ── -->
+
+  <!-- Gmail (right, 0°): start(458,225) → end(530,225) -->
+  <line x1="458" y1="225" x2="530" y2="225" stroke="#ea4335" stroke-width="1.5" stroke-opacity="0.4" stroke-dasharray="6,4"/>
+  <!-- MCP pill at (494,225) -->
+  <rect x="479" y="215" width="30" height="14" rx="7" fill="#1a0808" stroke="#ea4335" stroke-width="0.8" stroke-opacity="0.6"/>
+  <text x="494" y="225" font-family="monospace" font-size="8" fill="#ea4335" text-anchor="middle" opacity="0.95">MCP</text>
+
+  <!-- GitHub (top-right, 60°): start(429,175) → end(465,113) -->
+  <line x1="429" y1="175" x2="465" y2="113" stroke="#aaaaaa" stroke-width="1.5" stroke-opacity="0.35" stroke-dasharray="6,4"/>
+  <!-- MCP pill at (447,144) -->
+  <rect x="432" y="134" width="30" height="14" rx="7" fill="#111" stroke="#888" stroke-width="0.8" stroke-opacity="0.6"/>
+  <text x="447" y="144" font-family="monospace" font-size="8" fill="#aaa" text-anchor="middle" opacity="0.95">MCP</text>
+
+  <!-- Calendar (top-left, 120°): start(371,175) → end(335,113) -->
+  <line x1="371" y1="175" x2="335" y2="113" stroke="#4285F4" stroke-width="1.5" stroke-opacity="0.4" stroke-dasharray="6,4"/>
+  <!-- MCP pill at (353,144) -->
+  <rect x="338" y="134" width="30" height="14" rx="7" fill="#08081a" stroke="#4285F4" stroke-width="0.8" stroke-opacity="0.6"/>
+  <text x="353" y="144" font-family="monospace" font-size="8" fill="#4285F4" text-anchor="middle" opacity="0.95">MCP</text>
+
+  <!-- Notion (left, 180°): start(342,225) → end(270,225) -->
+  <line x1="342" y1="225" x2="270" y2="225" stroke="#888888" stroke-width="1.5" stroke-opacity="0.35" stroke-dasharray="6,4"/>
+  <!-- MCP pill at (306,225) -->
+  <rect x="291" y="215" width="30" height="14" rx="7" fill="#111" stroke="#888" stroke-width="0.8" stroke-opacity="0.6"/>
+  <text x="306" y="225" font-family="monospace" font-size="8" fill="#aaa" text-anchor="middle" opacity="0.95">MCP</text>
+
+  <!-- iMessage (bottom-left, 240°): start(371,275) → end(335,337) -->
+  <line x1="371" y1="275" x2="335" y2="337" stroke="#4ade80" stroke-width="1.5" stroke-opacity="0.4" stroke-dasharray="6,4"/>
+  <!-- MCP pill at (353,306) -->
+  <rect x="338" y="296" width="30" height="14" rx="7" fill="#081408" stroke="#4ade80" stroke-width="0.8" stroke-opacity="0.6"/>
+  <text x="353" y="306" font-family="monospace" font-size="8" fill="#4ade80" text-anchor="middle" opacity="0.95">MCP</text>
+
+  <!-- Spotify (bottom-right, 300°): start(429,275) → end(465,337) -->
+  <line x1="429" y1="275" x2="465" y2="337" stroke="#1DB954" stroke-width="1.5" stroke-opacity="0.4" stroke-dasharray="6,4"/>
+  <!-- MCP pill at (447,306) -->
+  <rect x="432" y="296" width="30" height="14" rx="7" fill="#081208" stroke="#1DB954" stroke-width="0.8" stroke-opacity="0.6"/>
+  <text x="447" y="306" font-family="monospace" font-size="8" fill="#1DB954" text-anchor="middle" opacity="0.95">MCP</text>
+
+  <!-- ── CENTER NODE (Claude) ── -->
+  <!-- Outer pulse rings -->
+  <circle cx="400" cy="225" r="72" fill="none" stroke="#4278FF" stroke-width="0.4" stroke-opacity="0.15"/>
+  <circle cx="400" cy="225" r="64" fill="none" stroke="#4278FF" stroke-width="0.6" stroke-opacity="0.25"/>
+  <!-- Main circle -->
+  <circle cx="400" cy="225" r="58" fill="url(#centerFill)" stroke="#4278FF" stroke-width="1.8"/>
+  <!-- Inner ring -->
+  <circle cx="400" cy="225" r="52" fill="none" stroke="#4278FF" stroke-width="0.5" stroke-opacity="0.35"/>
+  <!-- Spark -->
+  <text x="400" y="210" font-family="monospace" font-size="11" fill="#818cf8" text-anchor="middle" opacity="0.7">✦</text>
+  <!-- Claude label -->
+  <text x="400" y="232" font-family="Georgia, serif" font-size="17" fill="#c8d0ff" text-anchor="middle" font-weight="bold" letter-spacing="1">Claude</text>
+  <text x="400" y="248" font-family="monospace" font-size="9" fill="#44446a" text-anchor="middle">AI Application</text>
+
+  <!-- ── SERVICE NODES ── -->
+
+  <!-- GMAIL (568, 225) -->
+  <circle cx="568" cy="225" r="38" fill="#160808" stroke="#ea4335" stroke-width="1.6"/>
+  <!-- Envelope -->
+  <rect x="551" y="213" width="34" height="24" rx="3" fill="none" stroke="#ea4335" stroke-width="1.4"/>
+  <polyline points="551,213 568,226 585,213" stroke="#ea4335" stroke-width="1.4" fill="none"/>
+  <text x="568" y="277" font-family="monospace" font-size="10" fill="#cccccc" text-anchor="middle">Gmail</text>
+
+  <!-- GITHUB (484, 80) -->
+  <circle cx="484" cy="80" r="38" fill="#0d0d0d" stroke="#888888" stroke-width="1.6"/>
+  <!-- Simple cat head: circle + ears -->
+  <circle cx="484" cy="77" r="13" fill="none" stroke="#aaaaaa" stroke-width="1.4"/>
+  <!-- Ears -->
+  <polygon points="475,67 472,59 480,65" fill="#aaaaaa" opacity="0.7"/>
+  <polygon points="493,67 496,59 488,65" fill="#aaaaaa" opacity="0.7"/>
+  <!-- Eyes -->
+  <circle cx="480" cy="74" r="1.8" fill="#aaaaaa"/>
+  <circle cx="488" cy="74" r="1.8" fill="#aaaaaa"/>
+  <!-- Tentacles -->
+  <line x1="479" y1="84" x2="475" y2="91" stroke="#888" stroke-width="1.1"/>
+  <line x1="484" y1="85" x2="484" y2="92" stroke="#888" stroke-width="1.1"/>
+  <line x1="489" y1="84" x2="493" y2="91" stroke="#888" stroke-width="1.1"/>
+  <text x="484" y="132" font-family="monospace" font-size="10" fill="#cccccc" text-anchor="middle">GitHub</text>
+
+  <!-- GOOGLE CALENDAR (316, 80) -->
+  <circle cx="316" cy="80" r="38" fill="#080816" stroke="#4285F4" stroke-width="1.6"/>
+  <!-- Calendar body -->
+  <rect x="300" y="66" width="32" height="28" rx="3" fill="none" stroke="#4285F4" stroke-width="1.4"/>
+  <!-- Top bar -->
+  <rect x="300" y="66" width="32" height="8" rx="3" fill="#4285F4" opacity="0.4"/>
+  <!-- Ring pegs -->
+  <line x1="309" y1="63" x2="309" y2="70" stroke="#4285F4" stroke-width="2" stroke-linecap="round"/>
+  <line x1="323" y1="63" x2="323" y2="70" stroke="#4285F4" stroke-width="2" stroke-linecap="round"/>
+  <!-- Grid cells -->
+  <rect x="303" y="77" width="5" height="5" rx="1" fill="#4285F4" opacity="0.5"/>
+  <rect x="311" y="77" width="5" height="5" rx="1" fill="#4285F4" opacity="0.5"/>
+  <rect x="319" y="77" width="5" height="5" rx="1" fill="#4285F4" opacity="0.9"/>
+  <rect x="303" y="85" width="5" height="5" rx="1" fill="#4285F4" opacity="0.3"/>
+  <rect x="311" y="85" width="5" height="5" rx="1" fill="#4285F4" opacity="0.5"/>
+  <text x="316" y="132" font-family="monospace" font-size="10" fill="#cccccc" text-anchor="middle">Calendar</text>
+
+  <!-- NOTION (232, 225) -->
+  <circle cx="232" cy="225" r="38" fill="#0e0e0e" stroke="#888888" stroke-width="1.6"/>
+  <!-- Bold N letter -->
+  <text x="232" y="234" font-family="Georgia, serif" font-size="30" fill="#e0e0e0" text-anchor="middle" font-weight="bold">N</text>
+  <text x="232" y="277" font-family="monospace" font-size="10" fill="#cccccc" text-anchor="middle">Notion</text>
+
+  <!-- IMESSAGE (316, 370) -->
+  <circle cx="316" cy="370" r="38" fill="#081408" stroke="#4ade80" stroke-width="1.6"/>
+  <!-- Speech bubble -->
+  <rect x="300" y="357" width="32" height="22" rx="5" fill="none" stroke="#4ade80" stroke-width="1.4"/>
+  <!-- Tail -->
+  <path d="M308,379 L304,386 L315,379" fill="#081408" stroke="#4ade80" stroke-width="1.4" stroke-linejoin="round"/>
+  <!-- Dots -->
+  <circle cx="309" cy="368" r="2" fill="#4ade80"/>
+  <circle cx="316" cy="368" r="2" fill="#4ade80"/>
+  <circle cx="323" cy="368" r="2" fill="#4ade80"/>
+  <text x="316" y="422" font-family="monospace" font-size="10" fill="#cccccc" text-anchor="middle">iMessage</text>
+
+  <!-- SPOTIFY (484, 370) -->
+  <circle cx="484" cy="370" r="38" fill="#080e08" stroke="#1DB954" stroke-width="1.6"/>
+  <!-- Waveform bars -->
+  <rect x="468" y="364" width="5" height="14" rx="2.5" fill="#1DB954" opacity="0.7"/>
+  <rect x="476" y="358" width="5" height="20" rx="2.5" fill="#1DB954"/>
+  <rect x="484" y="366" width="5" height="12" rx="2.5" fill="#1DB954" opacity="0.8"/>
+  <rect x="492" y="361" width="5" height="17" rx="2.5" fill="#1DB954" opacity="0.9"/>
+  <text x="484" y="422" font-family="monospace" font-size="10" fill="#cccccc" text-anchor="middle">Spotify</text>
+
+  <!-- Title -->
+  <text x="400" y="22" font-family="monospace" font-size="11" fill="#333" text-anchor="middle" letter-spacing="2">MCP SERVER ARCHITECTURE</text>
+</svg>
