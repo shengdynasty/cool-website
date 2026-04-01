@@ -10,8 +10,18 @@ import tttImage from "@/assets/ttt-ss.svg";
 import calculatorImage from "@/assets/calculator-app.svg";
 import stockImage from "@/assets/stock-visualizer.svg";
 import noteImage from "@/assets/note-app.svg";
+import mcpImage from "@/assets/mcp-server.svg";
 
 const projects = [
+  {
+    id: "mcp-server",
+    title: "Personal AI MCP Server",
+    description: "Custom MCP (Model Context Protocol) server suite connecting Claude to Gmail, Google Calendar, Notion, Spotify, GitHub, and more — enabling natural-language control of real-world tools.",
+    tools: ["TypeScript", "MCP", "Claude AI", "Node.js"],
+    github: "https://github.com/shengdynasty",
+    detailPage: "/project/mcp-server",
+    image: mcpImage
+  },
   {
     id: "csv-stock-visualizer",
     title: "CSV Stock Visualizer",

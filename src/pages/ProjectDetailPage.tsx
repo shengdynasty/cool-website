@@ -15,6 +15,7 @@ import tttImage from "@/assets/ttt-ss.svg";
 import calculatorImage from "@/assets/calculator-app.svg";
 import stockImage from "@/assets/stock-visualizer.svg";
 import noteImage from "@/assets/note-app.svg";
+import mcpImage from "@/assets/mcp-server.svg";
 
 interface ProjectData {
   title: string;
@@ -29,6 +30,55 @@ interface ProjectData {
 }
 
 const projectsData: Record<string, ProjectData> = {
+  "mcp-server": {
+    title: "Personal AI MCP Server",
+    description: "Custom MCP (Model Context Protocol) server suite connecting Claude to Gmail, Google Calendar, Notion, Spotify, GitHub, and more — enabling natural-language control of real-world tools.",
+    fullDescription: "A personal MCP (Model Context Protocol) server that acts as a bridge between Claude and a suite of everyday services. Built in TypeScript and running locally, it exposes tools for Gmail (read, search, send), Google Calendar (events, today's agenda, create), Notion (search, query, create pages), Spotify (now playing, recent, top artists), GitHub (profile, contributions), iMessage, and more. With 42+ registered tools, Claude can answer questions like \"What's on my calendar today?\", \"Send an email to X\", or \"What have I been listening to?\" entirely through natural conversation — no UI required.",
+    technologies: ["TypeScript", "MCP", "Claude AI", "Node.js"],
+    github: "https://github.com/shengdynasty",
+    image: mcpImage,
+    features: [
+      "42+ tools across 10+ services registered via MCP protocol",
+      "Gmail integration: read inbox, search messages, send emails",
+      "Google Calendar: fetch today's events, query by date, create events",
+      "Notion: search pages, query databases, create and append blocks",
+      "Spotify: now playing, recent tracks, and top artists",
+      "GitHub: profile stats and contribution history",
+      "iMessage: read recent chats, search conversations, send messages",
+      "Tool call latency logging and uptime monitoring",
+      "Single Claude chat interface for all services"
+    ],
+    codeSnippet: `import Anthropic from "@anthropic-ai/sdk";
+import { McpClient } from "@anthropic-ai/mcp-client";
+
+const anthropic = new Anthropic();
+const mcp = new McpClient({ serverUrl: "http://localhost:3000" });
+
+async function chat(userMessage: string) {
+  // Fetch all registered tools from the MCP server
+  const { tools } = await mcp.listTools();
+
+  const response = await anthropic.messages.create({
+    model: "claude-opus-4-6",
+    max_tokens: 1024,
+    tools,
+    messages: [{ role: "user", content: userMessage }],
+  });
+
+  // Handle tool use blocks from Claude's response
+  for (const block of response.content) {
+    if (block.type === "tool_use") {
+      const result = await mcp.callTool({
+        name: block.name,
+        arguments: block.input as Record<string, unknown>,
+      });
+      console.log(\`Tool: \${block.name} →\`, result);
+    }
+  }
+}
+
+chat("What's on my calendar today and who emailed me this morning?");`
+  },
   "turtle-art": {
     title: "Interactive Turtle Art Generator",
     description: "Procedural graphics exploration demonstrating fundamental programming concepts through visual, interactive output.",
