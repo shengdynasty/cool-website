@@ -169,6 +169,15 @@ const Home = () => {
             <div className="space-y-2">
               <div className="flex items-center gap-3 text-sm">
                 <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
+                <Link
+                  to="/project/mcp-server"
+                  className="text-muted-foreground hover:text-foreground hover:underline underline-offset-4 transition-colors"
+                >
+                  Personal AI MCP Server
+                </Link>
+              </div>
+              <div className="flex items-center gap-3 text-sm">
+                <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
                 <a
                   href="https://shengdynasty.github.io/note-app"
                   target="_blank"
