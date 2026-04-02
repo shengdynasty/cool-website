@@ -1,392 +1,361 @@
 import AcademicLayout from "@/components/layout/AcademicLayout";
-import { Github, Linkedin, Mail, ArrowRight, Code, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import profilePhoto from "@/assets/pfp_B&W.png";
-const fadeInUp = {
-  initial: {
-    opacity: 0,
-    y: 20
-  },
-  animate: {
-    opacity: 1,
-    y: 0
-  },
-  transition: {
-    duration: 0.5
-  }
-};
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
-const interests = [{
-  title: "Engineering & Applied Sciences",
-  description: "Materials science, aerospace systems, and the design of solutions to complex physical problems.",
-  icon: "🔧"
-}, {
-  title: "Computer Science",
-  description: "Computational thinking, algorithm design, and software development for modeling and simulation.",
-  icon: "💻"
-}, {
-  title: "Economics & Quantitative Analysis",
-  description: "Statistical modeling, econometrics, and rigorous quantitative approaches in social sciences.",
-  icon: "📊"
-}, {
-  title: "Political Science",
-  description: "Evidence-based analysis informing decision-making on issues affecting communities.",
-  icon: "🏛️"
-}];
-const quickLinks = [{
-  to: "/projects",
-  title: "projects",
-  description: "CS and data projects I've built",
-  icon: Code
-}, {
-  to: "/engagement",
-  title: "engagement",
-  description: "Academic activities and experiences",
-  icon: Users
-}];
-const Home = () => {
-  return <AcademicLayout>
-      {/* Hero Section - Two Column Layout */}
-      <section className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center lg:items-start min-h-[60vh]">
-        {/* Left Column - Text */}
-        <motion.div className="flex-1 space-y-8 order-2 lg:order-1" initial={{
-        opacity: 0,
-        x: -30
-      }} animate={{
-        opacity: 1,
-        x: 0
-      }} transition={{
-        duration: 0.6
-      }}>
-          <div className="space-y-4">
-            <motion.h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight" initial={{
-            opacity: 0,
-            y: 20
-          }} animate={{
-            opacity: 1,
-            y: 0
-          }} transition={{
-            duration: 0.5,
-            delay: 0.1
-          }}>
-              hey, i'm shawn{" "}
-              <motion.span className="inline-block" animate={{
-              rotate: [0, 14, -8, 14, -4, 10, 0]
-            }} transition={{
-              duration: 2.5,
-              repeat: Infinity,
-              repeatDelay: 1
-            }}>
-                👋
-              </motion.span>
-            </motion.h1>
-            <motion.p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-xl" initial={{
-            opacity: 0,
-            y: 20
-          }} animate={{
-            opacity: 1,
-            y: 0
-          }} transition={{
-            duration: 0.5,
-            delay: 0.2
-          }}>
-              High school freshman exploring the intersection of{" "}
-              <span className="text-foreground font-medium hover:underline underline-offset-4 cursor-default transition-all">engineering</span>,{" "}
-              <span className="text-foreground font-medium hover:underline underline-offset-4 cursor-default transition-all">computer science</span>,{" "}
-              <span className="text-foreground font-medium hover:underline underline-offset-4 cursor-default transition-all">economics</span>, and{" "}
-              <span className="text-foreground font-medium hover:underline underline-offset-4 cursor-default transition-all">political science</span>.
-            </motion.p>
-          </div>
 
-          <motion.p className="text-muted-foreground leading-relaxed max-w-xl" initial={{
-          opacity: 0,
-          y: 20
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.5,
-          delay: 0.3
+const f = (delay = 0) =>
+  ({
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, delay, ease: "easeOut" },
+  } as const);
+
+const fw = (delay = 0) =>
+  ({
+    initial: { opacity: 0, y: 16 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true },
+    transition: { duration: 0.55, delay, ease: "easeOut" },
+  } as const);
+
+export default function Home() {
+  return (
+    <AcademicLayout>
+
+      {/* ═══════════════════════════════════════
+          HERO — Full bleed, photo + giant name
+      ═══════════════════════════════════════ */}
+      <section style={{ position: "relative", minHeight: "95vh", display: "flex", alignItems: "flex-end", overflow: "hidden" }}>
+
+        {/* Photo — aligned under nav social icons, blends into background */}
+        <div style={{
+          position: "absolute",
+          top: 0,
+          right: "max(2rem, calc((100vw - 1100px) / 2))",
+          width: "clamp(480px, 62vw, 760px)",
+          height: "80vh",
+          zIndex: 0,
+          overflow: "hidden",
         }}>
-            I'm drawn to research-driven problem-solving and the application of 
-            quantitative methods to real-world challenges. Currently focused on 
-            learning foundational principles and developing depth in areas that 
-            genuinely interest me.
+          <img
+            src={profilePhoto}
+            alt="Shawn Yan"
+            style={{
+              position: "absolute",
+              top: "4%",
+              left: "50%",
+              transform: "translateX(-50%)",
+              height: "84%",
+              width: "auto",
+              maxWidth: "none",
+              filter: "brightness(0.65) contrast(1.05)",
+              display: "block",
+            }}
+          />
+          {/* Left blend — strongest, fades into page bg */}
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(to right, #050505 0%, rgba(8,8,8,0.8) 20%, rgba(8,8,8,0.2) 55%, transparent 100%)",
+          }} />
+          {/* Bottom blend */}
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(to top, #050505 0%, rgba(8,8,8,0.85) 18%, rgba(8,8,8,0.3) 42%, transparent 68%)",
+          }} />
+          {/* Top blend */}
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(to bottom, rgba(8,8,8,0.5) 0%, transparent 30%)",
+          }} />
+          {/* Right edge blend */}
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(to left, rgba(8,8,8,0.4) 0%, transparent 18%)",
+          }} />
+        </div>
+
+        {/* Content overlay */}
+        <div style={{ position: "relative", zIndex: 1, width: "100%", maxWidth: 1100, margin: "0 auto", padding: "0 2rem 5rem" }}>
+
+          <motion.p {...f(0.1)} style={{ fontSize: "0.65rem", letterSpacing: "0.2em", color: "#888", marginBottom: "1.5rem", textTransform: "uppercase" }}>
+            Portfolio · {new Date().getFullYear()}
           </motion.p>
 
-          {/* Social Links */}
-          <motion.div className="flex items-center gap-5 pt-4" initial={{
-          opacity: 0,
-          y: 20
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.5,
-          delay: 0.4
-        }}>
-            {[{
-            href: "https://github.com/shengdynasty",
-            icon: Github,
-            label: "GitHub"
-          }, {
-            href: "https://www.linkedin.com/in/sheng-yan-b54305386",
-            icon: Linkedin,
-            label: "LinkedIn"
-          }, {
-            href: "mailto:shengyan555@gmail.com",
-            icon: Mail,
-            label: "Email"
-          }].map(social => <motion.a key={social.label} href={social.href} target={social.href.startsWith("mailto") ? undefined : "_blank"} rel="noopener noreferrer" className="p-2 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground hover:bg-muted transition-all" whileHover={{
-            scale: 1.1,
-            y: -2
-          }} whileTap={{
-            scale: 0.95
-          }}>
-                <social.icon className="w-5 h-5" />
-              </motion.a>)}
-          </motion.div>
+          <motion.h1
+            {...f(0.2)}
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(3.5rem, 11vw, 9rem)",
+              fontWeight: 700,
+              lineHeight: 0.9,
+              color: "#fff",
+              letterSpacing: "-0.02em",
+              marginBottom: "2rem",
+            }}
+          >
+            SHAWN<br />
+            <span style={{ color: "#555", fontStyle: "italic", fontWeight: 400 }}>Yan</span>
+          </motion.h1>
 
-          {/* New Section */}
-          <motion.div className="pt-6 space-y-4" initial={{
-          opacity: 0,
-          y: 20
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.5,
-          delay: 0.5
-        }}>
-            <h3 className="text-sm font-medium text-foreground uppercase tracking-wide">New</h3>
-            <div className="space-y-2">
-              <div className="flex items-center gap-3 text-sm">
-                <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
-                <Link
-                  to="/project/mcp-server"
-                  className="text-muted-foreground hover:text-foreground hover:underline underline-offset-4 transition-colors"
-                >
-                  Personal AI MCP Server
-                </Link>
-              </div>
-              <div className="flex items-center gap-3 text-sm">
-                <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
-                <a
-                  href="https://shengdynasty.github.io/note-app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-foreground hover:underline underline-offset-4 transition-colors"
-                >
-                  AI Note-Taking App
-                </a>
-              </div>
-              <div className="flex items-center gap-3 text-sm">
-                <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
-                <a
-                  href="https://stock-data-visualizer-v1.lovable.app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-foreground hover:underline underline-offset-4 transition-colors"
-                >
-                  CSV Stock Visualizer
-                </a>
-              </div>
-            </div>
-            
-            <h3 className="text-sm font-medium text-foreground uppercase tracking-wide pt-4">Currently Working On</h3>
-            <div className="space-y-2">
-              <div className="flex items-center gap-3 text-sm">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-muted-foreground">IIT Research Intern — Materials Science</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-muted-foreground">Fox Valley Robotics — Competition Season</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm">
-                <span className="w-2 h-2 rounded-full bg-blue-500" />
-                <span className="text-muted-foreground">AI powered ​Cloud Sync Student Planner Project                  </span>
-              </div>
-            </div>
-            
-            <h3 className="text-sm font-medium text-foreground uppercase tracking-wide pt-4">Upcoming</h3>
-            <div className="space-y-2">
-              <div className="flex items-center gap-3 text-sm">
-                <span className="w-2 h-2 rounded-full bg-amber-500" />
-                <span className="text-muted-foreground">AMC 10/12 — November 2026</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm">
-                <span className="w-2 h-2 rounded-full bg-amber-500" />
-                <span className="text-muted-foreground">Robotics State Competition — Spring 2026</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm">
-                <span className="w-2 h-2 rounded-full bg-amber-500" />
-                <span className="text-muted-foreground">Cornell University Summer Economic Reseach Program - Summer 2026</span>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
+          <motion.p
+            {...f(0.3)}
+            style={{ fontSize: "0.95rem", color: "#aaa", maxWidth: "34rem", lineHeight: 1.7, marginBottom: "2.5rem" }}
+          >
+            High school freshman exploring the intersection of engineering,
+            computer science, economics, and political science. Research-driven.
+            Quantitatively minded. Class of 2029.
+          </motion.p>
 
-        {/* Right Column - Profile Picture */}
-        <motion.div className="order-1 lg:order-2 flex-shrink-0" initial={{
-        opacity: 0,
-        scale: 0.8
-      }} animate={{
-        opacity: 1,
-        scale: 1
-      }} transition={{
-        duration: 0.6,
-        delay: 0.2
-      }}>
-          <motion.div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96" whileHover={{
-          scale: 1.02
-        }} transition={{
-          duration: 0.3
-        }}>
-            {/* Gradient ring */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-muted-foreground/20 via-transparent to-muted-foreground/10 animate-spin" style={{
-            animationDuration: '8s'
-          }} />
-            <div className="absolute inset-1 rounded-full bg-background" />
-            <div className="absolute inset-2 rounded-full bg-muted border border-border overflow-hidden">
-              <img src={profilePhoto} alt="Shawn" className="w-full h-full object-cover" />
-            </div>
+          <motion.div {...f(0.4)} style={{ display: "flex", flexWrap: "wrap", gap: "2.5rem" }}>
+            {[
+              { n: "9",    l: "Projects" },
+              { n: "4",    l: "Activities" },
+              { n: "3",    l: "Honors" },
+              { n: "2029", l: "Grad. Year" },
+            ].map(({ n, l }) => (
+              <div key={l}>
+                <p style={{ fontFamily: "var(--font-display)", fontSize: "2rem", fontWeight: 700, color: "#fff", lineHeight: 1 }}>{n}</p>
+                <p style={{ fontSize: "0.65rem", color: "#888", letterSpacing: "0.1em", textTransform: "uppercase", marginTop: 4 }}>{l}</p>
+              </div>
+            ))}
           </motion.div>
-        </motion.div>
+        </div>
+
+        {/* Scroll hint */}
+        <div style={{ position: "absolute", bottom: "2rem", right: "2rem", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+          <div style={{ width: 1, height: 48, background: "linear-gradient(to bottom, transparent, #444)" }} />
+          <p style={{ fontSize: "0.6rem", letterSpacing: "0.15em", color: "#444", writingMode: "vertical-rl", textTransform: "uppercase" }}>Scroll</p>
+        </div>
       </section>
 
-      {/* Divider */}
-      <motion.div className="border-t border-border my-16" initial={{
-      scaleX: 0
-    }} whileInView={{
-      scaleX: 1
-    }} viewport={{
-      once: true
-    }} transition={{
-      duration: 0.8
-    }} />
+      {/* ═══════════════════════════════════════
+          STATUS — New / Currently / Upcoming
+      ═══════════════════════════════════════ */}
+      <section style={{ maxWidth: 1100, margin: "0 auto", padding: "5rem 2rem" }}>
+        <div style={{ borderTop: "1px solid #1C1C1C", paddingTop: "3rem" }}>
 
-      {/* Core Interests Section */}
-      <motion.section className="space-y-8" initial="initial" whileInView="animate" viewport={{
-      once: true
-    }} variants={staggerContainer}>
-        <motion.h2 className="text-2xl font-bold tracking-tight" variants={fadeInUp}>
-          what i'm interested in
-        </motion.h2>
-        <div className="grid sm:grid-cols-2 gap-6">
-          {interests.map(interest => <motion.div key={interest.title} className="group p-6 border border-border rounded-sm hover:border-foreground transition-all duration-300 hover:bg-muted/30" variants={fadeInUp} whileHover={{
-          y: -4,
-          transition: {
-            duration: 0.2
-          }
-        }}>
-              <span className="text-2xl mb-3 block">{interest.icon}</span>
-              <h3 className="font-semibold text-foreground mb-2">{interest.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {interest.description}
+          <motion.p {...fw()} style={{ fontSize: "0.65rem", letterSpacing: "0.2em", color: "#444", textTransform: "uppercase", marginBottom: "3rem" }}>
+            Status
+          </motion.p>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "3rem" }}>
+
+            {/* New */}
+            <motion.div {...fw(0)}>
+              <p style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "#fff", textTransform: "uppercase", marginBottom: "1.25rem", borderBottom: "1px solid #1C1C1C", paddingBottom: "0.75rem" }}>
+                New
               </p>
-            </motion.div>)}
+              {[
+                { label: "Personal AI MCP Server", to: "/project/mcp-server", internal: true },
+                { label: "AI Note-Taking App", href: "https://shengdynasty.github.io/note-app" },
+                { label: "CSV Stock Visualizer", href: "https://stock-data-visualizer-v1.lovable.app/" },
+              ].map(item => (
+                <div key={item.label} style={{ paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
+                  {item.internal ? (
+                    <Link to={item.to!} style={{ fontSize: "0.85rem", color: "#888", textDecoration: "none", transition: "color 150ms" }}
+                      onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
+                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#888"}>
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <a href={item.href} target="_blank" rel="noopener noreferrer"
+                      style={{ fontSize: "0.85rem", color: "#888", textDecoration: "none", transition: "color 150ms" }}
+                      onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
+                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#888"}>
+                      {item.label} ↗
+                    </a>
+                  )}
+                </div>
+              ))}
+            </motion.div>
+
+            {/* Currently */}
+            <motion.div {...fw(0.06)}>
+              <p style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "#fff", textTransform: "uppercase", marginBottom: "1.25rem", borderBottom: "1px solid #1C1C1C", paddingBottom: "0.75rem" }}>
+                Currently
+              </p>
+              {[
+                "IIT Research Intern — Materials Science",
+                "Fox Valley Robotics — Competition Season",
+                "AI Cloud Sync Student Planner",
+              ].map(item => (
+                <p key={item} style={{ fontSize: "0.85rem", color: "#777", paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
+                  {item}
+                </p>
+              ))}
+            </motion.div>
+
+            {/* Upcoming */}
+            <motion.div {...fw(0.12)}>
+              <p style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "#fff", textTransform: "uppercase", marginBottom: "1.25rem", borderBottom: "1px solid #1C1C1C", paddingBottom: "0.75rem" }}>
+                Upcoming
+              </p>
+              {[
+                "AMC 10/12 — November 2026",
+                "Robotics State Competition — Spring 2026",
+                "Cornell Economics Research — Summer 2026",
+              ].map(item => (
+                <p key={item} style={{ fontSize: "0.85rem", color: "#777", paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
+                  {item}
+                </p>
+              ))}
+            </motion.div>
+
+          </div>
         </div>
-      </motion.section>
+      </section>
 
-      {/* Divider */}
-      <motion.div className="border-t border-border my-16" initial={{
-      scaleX: 0
-    }} whileInView={{
-      scaleX: 1
-    }} viewport={{
-      once: true
-    }} transition={{
-      duration: 0.8
-    }} />
+      {/* ═══════════════════════════════════════
+          INTERESTS — editorial grid
+      ═══════════════════════════════════════ */}
+      <section style={{ maxWidth: 1100, margin: "0 auto", padding: "0 2rem 6rem" }}>
+        <div style={{ borderTop: "1px solid #1C1C1C", paddingTop: "3rem", marginBottom: "3rem" }}>
+          <motion.p {...fw()} style={{ fontSize: "0.65rem", letterSpacing: "0.2em", color: "#444", textTransform: "uppercase" }}>
+            Areas of Interest
+          </motion.p>
+        </div>
 
-      {/* CV Section - Academic Background */}
-      <motion.section className="space-y-8" initial="initial" whileInView="animate" viewport={{
-      once: true
-    }} variants={staggerContainer}>
-        <motion.h2 className="text-2xl font-bold tracking-tight" variants={fadeInUp}>
-          background
-        </motion.h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "0" }}>
+          {[
+            { n: "01", title: "Engineering & Applied Sciences", sub: "Materials science, aerospace systems, complex physical design" },
+            { n: "02", title: "Computer Science", sub: "Algorithms, software development, modeling & simulation" },
+            { n: "03", title: "Economics & Quantitative Analysis", sub: "Statistical modeling, econometrics, social-science methods" },
+            { n: "04", title: "Political Science", sub: "Evidence-based analysis informing community decision-making" },
+          ].map((item, i) => (
+            <motion.div
+              key={item.n}
+              {...fw(i * 0.07)}
+              style={{
+                padding: "2.5rem 2rem",
+                borderLeft: i === 0 ? "1px solid #1C1C1C" : "none",
+                borderRight: "1px solid #1C1C1C",
+                borderBottom: "1px solid #1C1C1C",
+                borderTop: "1px solid #1C1C1C",
+                transition: "background 200ms",
+              }}
+              onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#0D0D0D"}
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "transparent"}
+            >
+              <p style={{ fontSize: "0.65rem", color: "#333", letterSpacing: "0.1em", marginBottom: "1.5rem" }}>{item.n}</p>
+              <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.2rem", fontWeight: 500, color: "#fff", lineHeight: 1.3, marginBottom: "1rem" }}>
+                {item.title}
+              </h3>
+              <p style={{ fontSize: "0.8rem", color: "#777", lineHeight: 1.6 }}>{item.sub}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
-        <div className="grid gap-8 max-w-3xl">
-          {/* Education */}
-          <motion.div variants={fadeInUp} className="space-y-3">
-            <h3 className="text-sm font-medium text-foreground uppercase tracking-wide">Education</h3>
-            <div className="flex justify-between items-start">
-              <span className="font-medium text-foreground">Freshmen High School</span>
-              <span className="text-sm text-muted-foreground">Expected 2029</span>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Relevant coursework: IB Global Politics, DE Calculus 1, AP Chinese, AP Computer Science Principle, AP Human Geography
-            </p>
-          </motion.div>
+      {/* ═══════════════════════════════════════
+          BACKGROUND — two-column editorial
+      ═══════════════════════════════════════ */}
+      <section style={{ maxWidth: 1100, margin: "0 auto", padding: "0 2rem 6rem" }}>
+        <div style={{ borderTop: "1px solid #1C1C1C", paddingTop: "3rem", marginBottom: "3rem" }}>
+          <motion.p {...fw()} style={{ fontSize: "0.65rem", letterSpacing: "0.2em", color: "#444", textTransform: "uppercase" }}>
+            Background
+          </motion.p>
+        </div>
 
-          {/* Technical Skills */}
-          <motion.div variants={fadeInUp} className="space-y-3">
-            <h3 className="text-sm font-medium text-foreground uppercase tracking-wide">Technical Skills</h3>
-            <div className="text-sm text-muted-foreground space-y-1">
-              <p><span className="text-foreground">Programming:</span> Python, Java, JavaScript/TypeScript, R, MATLAB, SQL</p>
-              <p><span className="text-foreground">Frameworks:</span> React, Tkinter, NumPy, Pandas, Matplotlib</p>
-              <p><span className="text-foreground">Tools:</span> Git, LaTeX, Excel, CAD (Onshape/SolidWorks)</p>
-              <p><span className="text-foreground">Methods:</span> Statistical analysis, regression modeling, data visualization</p>
-            </div>
-          </motion.div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem" }}>
 
-          {/* Honors */}
-          <motion.div variants={fadeInUp} className="space-y-3">
-            <h3 className="text-sm font-medium text-foreground uppercase tracking-wide">Honors & Recognition</h3>
-            <ul className="text-sm text-muted-foreground space-y-1">
-              <li>• AIME Qualifier (2023, 2024)</li>
-              <li>• Cornell Summer Scholars Program of Economics Research</li>
-              <li>• NASA's Dream With Us Final Quaifier</li>
-            </ul>
+          <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
+            <motion.div {...fw(0)}>
+              <p style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "#444", textTransform: "uppercase", marginBottom: "1rem" }}>Education</p>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
+                <p style={{ fontSize: "0.9rem", color: "#ccc", fontWeight: 500 }}>Freshman High School</p>
+                <p style={{ fontSize: "0.8rem", color: "#444" }}>2029</p>
+              </div>
+              <p style={{ fontSize: "0.8rem", color: "#777", lineHeight: 1.7 }}>
+                IB Global Politics · DE Calculus 1 · AP Chinese · AP CS Principles · AP Human Geography
+              </p>
+            </motion.div>
+
+            <motion.div {...fw(0.06)}>
+              <p style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "#444", textTransform: "uppercase", marginBottom: "1rem" }}>Honors</p>
+              {[
+                "AIME Qualifier (2023, 2024)",
+                "Cornell Summer Scholars — Economics Research",
+                "NASA Dream With Us — Final Qualifier",
+              ].map(h => (
+                <div key={h} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", marginBottom: "0.75rem" }}>
+                  <span style={{ color: "#333", marginTop: 2 }}>—</span>
+                  <p style={{ fontSize: "0.85rem", color: "#888" }}>{h}</p>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          <motion.div {...fw(0.1)}>
+            <p style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "#444", textTransform: "uppercase", marginBottom: "1rem" }}>Technical Skills</p>
+            {[
+              { label: "Languages",  value: "Python · Java · JS/TS · R · MATLAB · SQL" },
+              { label: "Frameworks", value: "React · Tkinter · NumPy · Pandas · Matplotlib" },
+              { label: "Tools",      value: "Git · LaTeX · Excel · CAD (Onshape/SolidWorks)" },
+              { label: "Methods",    value: "Statistical analysis · Regression · Data visualization" },
+            ].map(({ label, value }) => (
+              <div key={label} style={{ paddingBottom: "1.25rem", marginBottom: "1.25rem", borderBottom: "1px solid #141414" }}>
+                <p style={{ fontSize: "0.65rem", color: "#444", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.4rem" }}>{label}</p>
+                <p style={{ fontSize: "0.85rem", color: "#777", lineHeight: 1.6 }}>{value}</p>
+              </div>
+            ))}
           </motion.div>
         </div>
-      </motion.section>
+      </section>
 
-      {/* Divider */}
-      <motion.div className="border-t border-border my-16" initial={{
-      scaleX: 0
-    }} whileInView={{
-      scaleX: 1
-    }} viewport={{
-      once: true
-    }} transition={{
-      duration: 0.8
-    }} />
-
-      {/* Quick Links */}
-      <motion.section className="space-y-6" initial="initial" whileInView="animate" viewport={{
-      once: true
-    }} variants={staggerContainer}>
-        <motion.h2 className="text-2xl font-bold tracking-tight" variants={fadeInUp}>
-          explore
-        </motion.h2>
-        <div className="grid sm:grid-cols-2 gap-4">
-          {quickLinks.map(link => <motion.div key={link.to} variants={fadeInUp} whileHover={{
-          y: -4,
-          transition: {
-            duration: 0.2
-          }
-        }}>
-              <Link to={link.to} className="group flex flex-col p-6 border border-border rounded-sm hover:border-foreground transition-all duration-300 hover:bg-muted/30 h-full">
-                <link.icon className="w-5 h-5 mb-3 text-muted-foreground group-hover:text-foreground transition-colors" />
-                <h3 className="font-semibold mb-2 group-hover:text-foreground transition-colors flex items-center gap-2">
-                  {link.title}
-                  <ArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                </h3>
-                <p className="text-sm text-muted-foreground">{link.description}</p>
+      {/* ═══════════════════════════════════════
+          EXPLORE — minimal text links
+      ═══════════════════════════════════════ */}
+      <section style={{ maxWidth: 1100, margin: "0 auto", padding: "0 2rem 8rem" }}>
+        <div style={{ borderTop: "1px solid #1C1C1C" }}>
+          {[
+            { to: "/projects",   label: "Projects",   sub: "9 software projects" },
+            { to: "/engagement", label: "Engagement", sub: "Research & academic activities" },
+            { to: "/skills",     label: "Skills",     sub: "Technical & analytical" },
+          ].map((link, i) => (
+            <motion.div key={link.to} {...fw(i * 0.06)}>
+              <Link to={link.to} style={{ textDecoration: "none" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "2rem 0",
+                    borderBottom: "1px solid #1C1C1C",
+                    transition: "padding-left 200ms",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.paddingLeft = "1rem";
+                    (e.currentTarget.querySelector(".lbl") as HTMLElement | null)!.style.color = "#fff";
+                    (e.currentTarget.querySelector(".arr") as HTMLElement | null)!.style.opacity = "1";
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.paddingLeft = "0";
+                    (e.currentTarget.querySelector(".lbl") as HTMLElement | null)!.style.color = "#444";
+                    (e.currentTarget.querySelector(".arr") as HTMLElement | null)!.style.opacity = "0";
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "baseline", gap: "2rem" }}>
+                    <span style={{ fontSize: "0.65rem", color: "#333", letterSpacing: "0.1em" }}>0{i + 1}</span>
+                    <span className="lbl" style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
+                      fontWeight: 500,
+                      color: "#444",
+                      transition: "color 200ms",
+                    }}>
+                      {link.label}
+                    </span>
+                    <span style={{ fontSize: "0.75rem", color: "#333" }}>{link.sub}</span>
+                  </div>
+                  <span className="arr" style={{ fontSize: "1.5rem", color: "#fff", opacity: 0, transition: "opacity 200ms" }}>↗</span>
+                </div>
               </Link>
-            </motion.div>)}
+            </motion.div>
+          ))}
         </div>
-      </motion.section>
-    </AcademicLayout>;
-};
-export default Home;
+      </section>
+
+    </AcademicLayout>
+  );
+}
