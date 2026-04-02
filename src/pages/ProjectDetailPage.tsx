@@ -1,6 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, Github, ExternalLink } from "lucide-react";
 import { useEffect } from "react";
 import Prism from "prismjs";
 import "prismjs/components/prism-python";
@@ -17,6 +16,12 @@ import stockImage from "@/assets/stock-visualizer.svg";
 import noteImage from "@/assets/note-app.svg";
 import mcpImage from "@/assets/mcp-server.svg";
 
+const GH = () => (
+  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+    <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
+  </svg>
+);
+
 interface ProjectData {
   title: string;
   description: string;
@@ -32,7 +37,7 @@ interface ProjectData {
 const projectsData: Record<string, ProjectData> = {
   "mcp-server": {
     title: "Personal AI MCP Server",
-    description: "Custom MCP (Model Context Protocol) server suite connecting Claude to Gmail, Google Calendar, Notion, Spotify, GitHub, and more — enabling natural-language control of real-world tools.",
+    description: "Custom MCP server suite connecting Claude to Gmail, Google Calendar, Notion, Spotify, GitHub — natural-language control of real-world tools.",
     fullDescription: "A personal MCP (Model Context Protocol) server that acts as a bridge between Claude and a suite of everyday services. Built in TypeScript and running locally, it exposes tools for Gmail (read, search, send), Google Calendar (events, today's agenda, create), Notion (search, query, create pages), Spotify (now playing, recent, top artists), GitHub (profile, contributions), iMessage, and more. With 42+ registered tools, Claude can answer questions like \"What's on my calendar today?\", \"Send an email to X\", or \"What have I been listening to?\" entirely through natural conversation — no UI required.",
     technologies: ["TypeScript", "MCP", "Claude AI", "Node.js"],
     github: "https://github.com/shengdynasty",
@@ -46,7 +51,7 @@ const projectsData: Record<string, ProjectData> = {
       "GitHub: profile stats and contribution history",
       "iMessage: read recent chats, search conversations, send messages",
       "Tool call latency logging and uptime monitoring",
-      "Single Claude chat interface for all services"
+      "Single Claude chat interface for all services",
     ],
     codeSnippet: `import Anthropic from "@anthropic-ai/sdk";
 import { McpClient } from "@anthropic-ai/mcp-client";
@@ -77,7 +82,7 @@ async function chat(userMessage: string) {
   }
 }
 
-chat("What's on my calendar today and who emailed me this morning?");`
+chat("What's on my calendar today and who emailed me this morning?");`,
   },
   "turtle-art": {
     title: "Interactive Turtle Art Generator",
@@ -91,19 +96,17 @@ chat("What's on my calendar today and who emailed me this morning?");`
       "Procedural generation with random color selection",
       "Keyboard controls for interactive drawing",
       "Save and load design functionality",
-      "Surprise Me feature for random art generation"
+      "Surprise Me feature for random art generation",
     ],
     codeSnippet: `import turtle
 import random
 import json
 
-# Setup screen
 screen = turtle.Screen()
 screen.title("Interactive Turtle Art Generator")
 screen.bgcolor("white")
 screen.setup(width=800, height=800)
 
-# Create turtle
 artist = turtle.Turtle()
 artist.speed(0)
 artist.width(2)
@@ -118,7 +121,7 @@ def draw_shape(shape_type, size, color, x, y):
     artist.goto(x, y)
     artist.pendown()
     artist.color(color)
-    
+
     if shape_type == "circle":
         artist.begin_fill()
         artist.circle(size)
@@ -130,7 +133,7 @@ def draw_shape(shape_type, size, color, x, y):
             artist.right(90)
         artist.end_fill()
 
-screen.mainloop()`
+screen.mainloop()`,
   },
   "calculator": {
     title: "Scientific Calculator",
@@ -144,7 +147,7 @@ screen.mainloop()`
       "Clean graphical user interface",
       "Error handling for division by zero",
       "Clear screen functionality",
-      "Responsive button layout"
+      "Responsive button layout",
     ],
     codeSnippet: `import tkinter as tk
 
@@ -172,7 +175,7 @@ root = tk.Tk()
 root.title("Cool Calculator")
 root.geometry("300x400")
 
-entry = tk.Entry(root, width=20, font=("Arial", 18), 
+entry = tk.Entry(root, width=20, font=("Arial", 18),
                  borderwidth=5, relief="ridge", justify="right")
 entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
 
@@ -185,13 +188,13 @@ buttons = [
 
 for (text, row, col) in buttons:
     if text == "=":
-        tk.Button(root, text=text, width=5, height=2, 
+        tk.Button(root, text=text, width=5, height=2,
                   command=calculate).grid(row=row, column=col)
     else:
         tk.Button(root, text=text, width=5, height=2,
                   command=lambda t=text: click_button(t)).grid(row=row, column=col)
 
-root.mainloop()`
+root.mainloop()`,
   },
   "task-management": {
     title: "Task Management Application",
@@ -205,7 +208,7 @@ root.mainloop()`
       "Checkbox-based completion tracking",
       "View all tasks in a dialog",
       "Input validation for empty tasks",
-      "Clean and intuitive interface"
+      "Clean and intuitive interface",
     ],
     codeSnippet: `import tkinter as tk
 from tkinter import messagebox
@@ -216,7 +219,7 @@ def add_task():
     task_text = task_entry.get().strip()
     if task_text:
         var = tk.BooleanVar()
-        cb = tk.Checkbutton(task_frame, text=task_text, 
+        cb = tk.Checkbutton(task_frame, text=task_text,
                             variable=var, anchor="w")
         cb.pack(fill="x", padx=5, pady=2)
         tasks.append((task_text, var, cb))
@@ -227,7 +230,7 @@ def add_task():
 def delete_task():
     to_remove = [t for t in tasks if t[1].get()]
     if not to_remove:
-        messagebox.showwarning("Selection Error", 
+        messagebox.showwarning("Selection Error",
                                "No task selected to delete.")
         return
     for task_text, var, cb in to_remove:
@@ -247,7 +250,7 @@ add_button.pack(pady=5)
 task_frame = tk.Frame(root)
 task_frame.pack(pady=10, fill="both", expand=True)
 
-root.mainloop()`
+root.mainloop()`,
   },
   "tic-tac-toe": {
     title: "Tic Tac Toe Game",
@@ -261,7 +264,7 @@ root.mainloop()`
       "Win detection for rows, columns, and diagonals",
       "Tie game recognition",
       "Visual feedback with colored squares",
-      "Automatic game reset functionality"
+      "Automatic game reset functionality",
     ],
     codeSnippet: `import tkinter as tk
 from tkinter import messagebox
@@ -304,7 +307,7 @@ for r in range(3):
                                 command=lambda row=r, col=c: handle_click(row, col))
         board[r][c].grid(row=r, column=c)
 
-window.mainloop()`
+window.mainloop()`,
   },
   "expense-tracker": {
     title: "Personal Expense Tracker",
@@ -318,7 +321,7 @@ window.mainloop()`
       "Track spending by category",
       "View expense history",
       "Basic data visualization",
-      "Persistent data storage"
+      "Persistent data storage",
     ],
     codeSnippet: `import tkinter as tk
 from tkinter import ttk, messagebox
@@ -330,11 +333,11 @@ def add_expense():
     amount = amount_entry.get()
     category = category_combo.get()
     description = desc_entry.get()
-    
+
     if not amount or not category:
         messagebox.showwarning("Error", "Please fill all fields")
         return
-    
+
     try:
         amount = float(amount)
         expenses.append({
@@ -364,11 +367,11 @@ amount_entry = tk.Entry(root)
 category_combo = ttk.Combobox(root, values=categories)
 desc_entry = tk.Entry(root)
 
-root.mainloop()`
+root.mainloop()`,
   },
   "note-app": {
     title: "AI Note-Taking App",
-    description: "Notability-style note app with AI-powered Smart Notes, Quizlet-style flashcards, quizzes, fill-in-the-blank, and chat — all generated from your own notes using Claude.",
+    description: "Notability-style app with AI flashcards, quizzes, fill-in-the-blank, and chat generated from your own notes using Claude.",
     fullDescription: "A full-featured note-taking web app inspired by Notability, built entirely in the browser with no backend. Write notes on a drawing canvas with pen, highlighter, and text tools, record audio with live transcription, and import PDFs. The standout feature is the AI Learn panel powered by Claude: open any note to instantly generate a Smart Notes summary, Quizlet-style flashcards with Know/Still Learning tracking, multiple-choice quizzes with per-question explanations, fill-in-the-blank practice, and a multi-turn chat grounded in your note content.",
     technologies: ["React", "TypeScript", "Vite", "Claude AI"],
     github: "https://github.com/shengdynasty/note-app",
@@ -383,7 +386,7 @@ root.mainloop()`
       "Multiple-choice quiz with per-question explanations and results review",
       "Fill-in-the-blank cloze practice generated from note content",
       "Multi-turn AI chat grounded in the active note",
-      "Multiple themes and local persistence — no account required"
+      "Multiple themes and local persistence — no account required",
     ],
     codeSnippet: `// Claude generates study materials from raw note text
 async function callClaude(prompt: string, apiKey: string) {
@@ -412,13 +415,13 @@ const flashcardPrompt = \`
   Notes: \${noteText}
 \`;
 const raw = await callClaude(flashcardPrompt, apiKey);
-const cards = JSON.parse(raw.replace(/\`\`\`json|\\n|\`\`\`/g, "").trim());`
+const cards = JSON.parse(raw.replace(/\`\`\`json|\\n|\`\`\`/g, "").trim());`,
   },
   "csv-stock-visualizer": {
     title: "CSV Stock Visualizer",
-    description: "Interactive web app that parses CSV stock data to render dynamic price charts, volume graphs, and key statistics for any uploaded ticker.",
-    fullDescription: "CSV Stock Visualizer is an interactive web application that transforms raw CSV stock data into clear, readable charts and statistics. Users can upload any CSV file containing OHLCV (Open, High, Low, Close, Volume) data and instantly see price history plotted as a line chart alongside volume bars. The app computes key metrics such as 52-week high/low, average volume, and daily percentage change, providing a clean dashboard for quick market analysis.",
-    technologies: ["React", "TypeScript", "CSV Parsing", "Data Visualization"],
+    description: "Interactive web app that parses CSV stock data into dynamic price charts, volume graphs, and key statistics.",
+    fullDescription: "CSV Stock Visualizer is an interactive web application that transforms raw CSV stock data into clear, readable charts and statistics. Users can upload any CSV file containing OHLCV data and instantly see price history plotted as a line chart alongside volume bars. The app computes key metrics such as 52-week high/low, average volume, and daily percentage change.",
+    technologies: ["React", "TypeScript", "CSV Parsing", "Data Viz"],
     github: "https://github.com/shengdynasty",
     live: "https://stock-data-visualizer-v1.lovable.app/",
     image: stockImage,
@@ -428,7 +431,7 @@ const cards = JSON.parse(raw.replace(/\`\`\`json|\\n|\`\`\`/g, "").trim());`
       "Volume bar graph with color-coded gain/loss",
       "Key statistics panel (open, high, low, close, volume)",
       "52-week high/low and average volume calculations",
-      "Daily percentage change display"
+      "Daily percentage change display",
     ],
     codeSnippet: `import { useState } from "react";
 
@@ -478,19 +481,17 @@ export default function App() {
     : 0;
 
   return (
-    <div className="p-6 space-y-6">
+    <div>
       <input type="file" accept=".csv" onChange={handleFile} />
       {latest && (
-        <div className="stats-panel">
-          <span className="price">\${latest.close.toFixed(2)}</span>
-          <span className={change >= 0 ? "green" : "red"}>
-            {change >= 0 ? "▲" : "▼"} {Math.abs(change).toFixed(2)}%
-          </span>
+        <div>
+          <span>\${latest.close.toFixed(2)}</span>
+          <span>{change >= 0 ? "▲" : "▼"} {Math.abs(change).toFixed(2)}%</span>
         </div>
       )}
     </div>
   );
-}`
+}`,
   },
   "portfolio-website": {
     title: "Academic Portfolio Website",
@@ -503,49 +504,41 @@ export default function App() {
     features: [
       "Responsive design for all devices",
       "Smooth Framer Motion animations",
-      "Dark theme with terminal aesthetic",
+      "Dark theme with editorial aesthetic",
       "Project showcase with detail pages",
-      "Optimized performance"
+      "Optimized performance",
     ],
     codeSnippet: `import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const Projects = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
-    }
-  };
-
   return (
     <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className="grid sm:grid-cols-2 gap-6"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.55 }}
     >
-      {projects.map((project) => (
-        <motion.article
+      {projects.map((project, i) => (
+        <motion.div
           key={project.id}
-          variants={cardVariants}
-          whileHover={{ y: -6 }}
-          className="border border-border rounded-sm"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: i * 0.04 }}
         >
           <Link to={project.detailPage}>
             <h2>{project.title}</h2>
             <p>{project.description}</p>
           </Link>
-        </motion.article>
+        </motion.div>
       ))}
     </motion.div>
   );
-};`
-  }
+};`,
+  },
 };
 
-const ProjectDetailPage = () => {
+export default function ProjectDetailPage() {
   const { projectId } = useParams();
   const navigate = useNavigate();
 
@@ -558,11 +551,11 @@ const ProjectDetailPage = () => {
   if (!project) {
     return (
       <AcademicLayout>
-        <div className="text-center py-20">
-          <h1 className="text-2xl font-bold text-foreground mb-4">Project Not Found</h1>
-          <button 
+        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "5rem 2rem", textAlign: "center" }}>
+          <p style={{ color: "#555", marginBottom: "2rem" }}>Project not found.</p>
+          <button
             onClick={() => navigate("/projects")}
-            className="text-muted-foreground hover:text-foreground transition-colors"
+            style={{ background: "none", border: "none", color: "#888", cursor: "pointer", fontSize: "0.85rem" }}
           >
             ← Back to Projects
           </button>
@@ -573,143 +566,237 @@ const ProjectDetailPage = () => {
 
   return (
     <AcademicLayout>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-4xl"
-      >
-        {/* Back Button */}
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "5rem 2rem 8rem" }}>
+
+        {/* Back */}
         <motion.button
           onClick={() => navigate("/projects")}
-          className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8 font-mono text-sm"
-          initial={{ opacity: 0, x: -20 }}
+          initial={{ opacity: 0, x: -12 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.35 }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            background: "none",
+            border: "none",
+            color: "#444",
+            cursor: "pointer",
+            fontSize: "0.75rem",
+            letterSpacing: "0.08em",
+            fontFamily: "var(--font-mono)",
+            marginBottom: "4rem",
+            padding: 0,
+            transition: "color 150ms",
+          }}
+          onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#ccc"}
+          onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#444"}
         >
-          <ArrowLeft className="w-4 h-4" />
-          back to projects
+          ← PROJECTS
         </motion.button>
 
         {/* Header */}
         <motion.div
-          className="space-y-4 mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.55 }}
+          style={{ marginBottom: "3rem" }}
         >
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">
-              {project.title}
-            </h1>
-            <div className="flex gap-3">
+          <h1 style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(1.8rem, 5vw, 3.5rem)",
+            fontWeight: 700,
+            color: "#fff",
+            lineHeight: 1.05,
+            letterSpacing: "-0.01em",
+            marginBottom: "1.5rem",
+          }}>
+            {project.title}
+          </h1>
+
+          <p style={{ fontSize: "0.9rem", color: "#555", lineHeight: 1.75, maxWidth: "52rem", marginBottom: "1.75rem" }}>
+            {project.fullDescription}
+          </p>
+
+          {/* Tags + links row */}
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "1rem" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6, flex: 1 }}>
+              {project.technologies.map(t => (
+                <span key={t} className="tag">{t}</span>
+              ))}
+            </div>
+
+            <div style={{ display: "flex", gap: "0.75rem", flexShrink: 0 }}>
               <a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 border border-border rounded-sm text-sm font-mono hover:border-foreground hover:bg-muted transition-colors"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.4rem",
+                  padding: "0.4rem 0.9rem",
+                  border: "1px solid #2A2A2A",
+                  borderRadius: 2,
+                  color: "#666",
+                  fontSize: "0.75rem",
+                  fontFamily: "var(--font-mono)",
+                  letterSpacing: "0.06em",
+                  textDecoration: "none",
+                  transition: "color 150ms, border-color 150ms",
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.color = "#ccc";
+                  (e.currentTarget as HTMLElement).style.borderColor = "#555";
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.color = "#666";
+                  (e.currentTarget as HTMLElement).style.borderColor = "#2A2A2A";
+                }}
               >
-                <Github className="w-4 h-4" />
-                code
+                <GH /> code
               </a>
               {project.live && (
                 <a
                   href={project.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2 bg-foreground text-background rounded-sm text-sm font-mono hover:bg-foreground/90 transition-colors"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.4rem",
+                    padding: "0.4rem 0.9rem",
+                    background: "#fff",
+                    borderRadius: 2,
+                    color: "#080808",
+                    fontSize: "0.75rem",
+                    fontFamily: "var(--font-mono)",
+                    letterSpacing: "0.06em",
+                    textDecoration: "none",
+                    transition: "background 150ms",
+                  }}
+                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#ccc"}
+                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#fff"}
                 >
-                  <ExternalLink className="w-4 h-4" />
-                  live
+                  ↗ live
                 </a>
               )}
             </div>
           </div>
-          
-          <p className="text-muted-foreground leading-relaxed">
-            {project.fullDescription}
-          </p>
-
-          <div className="flex flex-wrap gap-2">
-            {project.technologies.map((tech) => (
-              <span 
-                key={tech} 
-                className="text-xs font-mono px-2 py-1 bg-muted text-muted-foreground rounded-sm border border-border"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
         </motion.div>
 
-        {/* Featured Image */}
-        <motion.div
-          className="aspect-video w-full bg-muted border border-border rounded-sm overflow-hidden mb-12 flex items-center justify-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          {project.image ? (
-            <img 
-              src={project.image} 
+        {/* Image */}
+        {project.image && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.1 }}
+            style={{
+              aspectRatio: "16/7",
+              overflow: "hidden",
+              borderRadius: 4,
+              border: "1px solid #1C1C1C",
+              marginBottom: "4rem",
+              background: "#0D0D0D",
+            }}
+          >
+            <img
+              src={project.image}
               alt={project.title}
-              className="w-full h-full object-cover"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                filter: "brightness(0.8)",
+              }}
             />
-          ) : (
-            <div className="flex flex-col items-center gap-2 text-muted-foreground">
-              <div className="w-20 h-20 rounded-full bg-muted-foreground/10 flex items-center justify-center">
-                <span className="text-3xl font-mono">{project.title.charAt(0)}</span>
-              </div>
-              <span className="text-sm font-mono">project screenshot</span>
-            </div>
-          )}
-        </motion.div>
+          </motion.div>
+        )}
 
         {/* Features */}
-        <motion.section
-          className="mb-12"
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.55, delay: 0.2 }}
+          style={{ marginBottom: "4rem" }}
         >
-          <h2 className="text-sm font-medium text-foreground uppercase tracking-wide mb-4">
-            Key Features
-          </h2>
-          <ul className="space-y-2">
-            {project.features.map((feature, index) => (
-              <li key={index} className="flex items-start gap-2 text-muted-foreground">
-                <span className="text-foreground mt-1">•</span>
-                {feature}
-              </li>
-            ))}
-          </ul>
-        </motion.section>
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.75rem" }}>
+            <p style={{ fontSize: "0.6rem", letterSpacing: "0.2em", color: "#444", textTransform: "uppercase", whiteSpace: "nowrap" }}>
+              Key Features
+            </p>
+            <div style={{ flex: 1, height: "1px", background: "#1C1C1C" }} />
+          </div>
 
-        {/* Code Showcase */}
-        <motion.section
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 0 }}>
+            {project.features.map((feature, i) => (
+              <div key={i} style={{
+                padding: "1rem 0",
+                borderBottom: "1px solid #141414",
+                display: "flex",
+                gap: "0.75rem",
+                alignItems: "flex-start",
+              }}>
+                <span style={{ color: "#333", fontFamily: "var(--font-mono)", fontSize: "0.65rem", flexShrink: 0, marginTop: "0.1rem" }}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span style={{ fontSize: "0.83rem", color: "#666", lineHeight: 1.55 }}>{feature}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Code */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ duration: 0.55, delay: 0.3 }}
         >
-          <h2 className="text-sm font-medium text-foreground uppercase tracking-wide mb-4">
-            Code Showcase
-          </h2>
-          <div className="rounded-sm overflow-hidden border border-border">
-            <div className="bg-muted px-4 py-2 border-b border-border">
-              <span className="text-xs font-mono text-muted-foreground">
-                {project.technologies[0] === "React" ? "component.tsx" : "main.py"}
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.75rem" }}>
+            <p style={{ fontSize: "0.6rem", letterSpacing: "0.2em", color: "#444", textTransform: "uppercase", whiteSpace: "nowrap" }}>
+              Code Showcase
+            </p>
+            <div style={{ flex: 1, height: "1px", background: "#1C1C1C" }} />
+          </div>
+
+          <div style={{ border: "1px solid #1C1C1C", borderRadius: 4, overflow: "hidden" }}>
+            {/* Toolbar */}
+            <div style={{
+              background: "#0D0D0D",
+              borderBottom: "1px solid #1C1C1C",
+              padding: "0.6rem 1rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+              <div style={{ display: "flex", gap: 6 }}>
+                {["#2A2A2A", "#2A2A2A", "#2A2A2A"].map((c, i) => (
+                  <span key={i} style={{ width: 10, height: 10, borderRadius: "50%", background: c, display: "inline-block" }} />
+                ))}
+              </div>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", color: "#444", letterSpacing: "0.06em" }}>
+                {project.technologies[0] === "React" || project.technologies[0] === "TypeScript" ? "component.tsx" : "main.py"}
               </span>
             </div>
-            <pre className="p-4 overflow-x-auto bg-[#1a1a1a]">
-              <code className={`language-${project.technologies[0] === "React" ? "typescript" : "python"} text-sm`}>
-                {project.codeSnippet}
-              </code>
-            </pre>
+
+            {/* Code block */}
+            <div className="vscode-theme" style={{ background: "#0A0A0A" }}>
+              <pre style={{ margin: 0, padding: "1.5rem", overflowX: "auto" }}>
+                <code
+                  className={`language-${
+                    project.technologies.includes("React") || project.technologies.includes("TypeScript")
+                      ? "typescript"
+                      : "python"
+                  }`}
+                  style={{ fontSize: "0.78rem", lineHeight: 1.65 }}
+                >
+                  {project.codeSnippet}
+                </code>
+              </pre>
+            </div>
           </div>
-        </motion.section>
-      </motion.div>
+        </motion.div>
+
+      </div>
     </AcademicLayout>
   );
-};
-
-export default ProjectDetailPage;
+}

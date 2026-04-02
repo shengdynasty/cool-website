@@ -1,197 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Academic minimal design system - All colors MUST be HSL */
+/* ─────────────────────────────────────────────
+   DESIGN SYSTEM — Black & White / Editorial
+   No color. Maximum contrast. Cinematic.
+───────────────────────────────────────────── */
 
 @layer base {
   :root {
-    /* Pure black terminal-inspired palette */
-    --background: 0 0% 0%;
-    --foreground: 0 0% 100%;
+    /* Pure monochrome */
+    --black:      0 0% 0%;
+    --white:      0 0% 100%;
+    --gray-950:   0 0% 4%;
+    --gray-900:   0 0% 8%;
+    --gray-800:   0 0% 13%;
+    --gray-700:   0 0% 20%;
+    --gray-600:   0 0% 35%;
+    --gray-400:   0 0% 58%;
+    --gray-200:   0 0% 80%;
+    --gray-100:   0 0% 92%;
 
-    --card: 0 0% 5%;
-    --card-foreground: 0 0% 100%;
+    /* shadcn tokens — all grayscale */
+    --background:         0 0% 3%;
+    --foreground:         0 0% 95%;
+    --card:               0 0% 7%;
+    --card-foreground:    0 0% 95%;
+    --popover:            0 0% 7%;
+    --popover-foreground: 0 0% 95%;
+    --primary:            0 0% 95%;
+    --primary-foreground: 0 0% 3%;
+    --secondary:          0 0% 12%;
+    --secondary-foreground: 0 0% 95%;
+    --muted:              0 0% 12%;
+    --muted-foreground:   0 0% 50%;
+    --accent:             0 0% 95%;
+    --accent-foreground:  0 0% 3%;
+    --destructive:        0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border:             0 0% 15%;
+    --input:              0 0% 15%;
+    --ring:               0 0% 70%;
+    --radius:             0.25rem;
 
-    --popover: 0 0% 5%;
-    --popover-foreground: 0 0% 100%;
-
-    --primary: 0 0% 100%;
-    --primary-foreground: 0 0% 0%;
-
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 0 0% 100%;
-
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 60%;
-
-    --accent: 0 0% 15%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 0 0% 20%;
-    --input: 0 0% 15%;
-    --ring: 0 0% 100%;
-
-    --radius: 0.25rem;
-
-    /* Terminal-inspired typography */
-    --font-serif: 'Georgia', 'Times New Roman', serif;
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+    --font-display: 'EB Garamond', Georgia, 'Times New Roman', serif;
+    --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono:    'JetBrains Mono', 'Fira Code', monospace;
   }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
+  *, *::before, *::after { @apply border-border; }
+  html { scroll-behavior: smooth; }
 
   body {
-    @apply bg-background text-foreground antialiased;
-    font-family: var(--font-sans);
+    /* Deep black base — dot grid + dramatic spotlight + vignette corners */
+    background-color: #050505;
+    background-image:
+      /* Dot grid — editorial / academic paper feel */
+      radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px),
+      /* Top spotlight — main light source */
+      radial-gradient(ellipse 90% 60% at 50% -5%, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.02) 45%, transparent 68%),
+      /* Vignette — top-left corner */
+      radial-gradient(ellipse 55% 45% at 0% 0%, rgba(0,0,0,0.55) 0%, transparent 65%),
+      /* Vignette — bottom-right corner */
+      radial-gradient(ellipse 55% 45% at 100% 100%, rgba(0,0,0,0.55) 0%, transparent 65%),
+      /* Vignette — bottom-left corner */
+      radial-gradient(ellipse 45% 40% at 0% 100%, rgba(0,0,0,0.4) 0%, transparent 55%),
+      /* Vignette — top-right corner */
+      radial-gradient(ellipse 45% 40% at 100% 0%, rgba(0,0,0,0.35) 0%, transparent 55%);
+    background-size:
+      34px 34px,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      100% 100%;
+    background-attachment:
+      fixed, fixed, fixed, fixed, fixed, fixed;
+    color: hsl(var(--foreground));
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-medium tracking-tight;
+  ::selection {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+  }
+
+  /* Film grain overlay — fixed, non-interactive */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.038;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='250'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='250' height='250' filter='url(%23g)'/></svg>");
+    background-size: 180px 180px;
   }
 }
 
-/* Academic prose styling */
-.prose-academic {
-  @apply leading-relaxed;
+/* ── Typography helpers ── */
+.font-display { font-family: var(--font-display); }
+
+/* ── Surfaces ── */
+.surface    { background: #0D0D0D; border: 1px solid #1C1C1C; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+.surface-md { background: #111111; border: 1px solid #222222; border-radius: 4px; box-shadow: 0 4px 16px rgba(0,0,0,0.5); }
+
+/* ── Dividers ── */
+.rule {
+  width: 100%;
+  height: 1px;
+  background: #1C1C1C;
+  margin: 5rem 0;
 }
 
-.prose-academic p {
-  @apply mb-4 text-muted-foreground;
+.rule-fade {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #2A2A2A 30%, #2A2A2A 70%, transparent);
+  margin: 5rem 0;
 }
 
-.prose-academic h3 {
-  @apply text-lg font-medium text-foreground mb-3;
+/* ── Card hover — white border lift ── */
+.card-lift {
+  border: 1px solid #1C1C1C;
+  border-radius: 4px;
+  transition: border-color 200ms ease, transform 220ms ease, box-shadow 220ms ease;
+  cursor: pointer;
+}
+.card-lift:hover {
+  border-color: #3A3A3A;
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 16px 40px rgba(0,0,0,0.8), 0 4px 12px rgba(0,0,0,0.5);
 }
 
-/* Code block styling */
-.code-block {
-  @apply bg-muted rounded-md p-4 font-mono text-sm overflow-x-auto;
+/* ── Tag — monochrome pill ── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+  background: #141414;
+  color: #888;
+  border: 1px solid #262626;
+  white-space: nowrap;
+  transition: color 150ms, border-color 150ms;
 }
+.tag:hover { color: #ccc; border-color: #444; }
 
-/* Subtle hover effects */
-.hover-lift {
-  @apply transition-transform duration-200 hover:-translate-y-0.5;
+/* ── Status dots ── */
+.dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
+.dot-white  { background: #fff; }
+.dot-gray   { background: #555; }
+.dot-dim    { background: #333; }
 
-/* VSCode-style syntax highlighting */
+/* VSCode syntax (kept) */
 .vscode-theme pre[class*="language-"] {
-  background: #1e1e1e;
-  color: #d4d4d4;
-  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-  font-size: 14px;
-  line-height: 1.5;
-  margin: 0;
-  padding: 0;
-  overflow: auto;
+  background:#1e1e1e;color:#d4d4d4;font-family:var(--font-mono);
+  font-size:14px;line-height:1.5;margin:0;padding:0;overflow:auto;
 }
-
 .vscode-theme code[class*="language-"] {
-  color: #d4d4d4;
-  background: none;
-  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-  font-size: 14px;
-  line-height: 1.5;
+  color:#d4d4d4;background:none;font-family:var(--font-mono);font-size:14px;line-height:1.5;
 }
-
-/* Token colors matching VSCode Dark theme */
-.vscode-theme .token.comment,
-.vscode-theme .token.prolog,
-.vscode-theme .token.doctype,
-.vscode-theme .token.cdata {
-  color: #6a9955;
-  font-style: italic;
-}
-
-.vscode-theme .token.punctuation {
-  color: #d4d4d4;
-}
-
-.vscode-theme .token.property,
-.vscode-theme .token.tag,
-.vscode-theme .token.constant,
-.vscode-theme .token.symbol,
-.vscode-theme .token.deleted {
-  color: #569cd6;
-}
-
-.vscode-theme .token.boolean,
-.vscode-theme .token.number {
-  color: #b5cea8;
-}
-
-.vscode-theme .token.selector,
-.vscode-theme .token.attr-name,
-.vscode-theme .token.string,
-.vscode-theme .token.char,
-.vscode-theme .token.builtin,
-.vscode-theme .token.inserted {
-  color: #ce9178;
-}
-
-.vscode-theme .token.operator,
-.vscode-theme .token.entity,
-.vscode-theme .token.url,
-.vscode-theme .language-css .token.string,
-.vscode-theme .style .token.string,
-.vscode-theme .token.variable {
-  color: #d4d4d4;
-}
-
-.vscode-theme .token.atrule,
-.vscode-theme .token.attr-value,
-.vscode-theme .token.function,
-.vscode-theme .token.class-name {
-  color: #dcdcaa;
-}
-
-.vscode-theme .token.keyword {
-  color: #569cd6;
-}
-
-.vscode-theme .token.regex,
-.vscode-theme .token.important {
-  color: #d16969;
-}
-
-.vscode-theme .token.important,
-.vscode-theme .token.bold {
-  font-weight: bold;
-}
-
-.vscode-theme .token.italic {
-  font-style: italic;
-}
-
-.vscode-theme .token.entity {
-  cursor: help;
-}
-
-/* Python specific highlighting */
-.vscode-theme .language-python .token.keyword {
-  color: #569cd6;
-}
-
-.vscode-theme .language-python .token.string {
-  color: #ce9178;
-}
-
-.vscode-theme .language-python .token.function {
-  color: #dcdcaa;
-}
-
-.vscode-theme .language-python .token.class-name {
-  color: #4ec9b0;
-}
-
-.vscode-theme .language-python .token.builtin {
-  color: #569cd6;
-}
+.vscode-theme .token.comment,.vscode-theme .token.prolog,
+.vscode-theme .token.doctype,.vscode-theme .token.cdata{color:#6a9955;font-style:italic}
+.vscode-theme .token.punctuation{color:#d4d4d4}
+.vscode-theme .token.property,.vscode-theme .token.tag,
+.vscode-theme .token.constant,.vscode-theme .token.symbol,
+.vscode-theme .token.deleted{color:#569cd6}
+.vscode-theme .token.boolean,.vscode-theme .token.number{color:#b5cea8}
+.vscode-theme .token.selector,.vscode-theme .token.attr-name,
+.vscode-theme .token.string,.vscode-theme .token.char,
+.vscode-theme .token.builtin,.vscode-theme .token.inserted{color:#ce9178}
+.vscode-theme .token.operator,.vscode-theme .token.entity,
+.vscode-theme .token.url,.vscode-theme .language-css .token.string,
+.vscode-theme .style .token.string,.vscode-theme .token.variable{color:#d4d4d4}
+.vscode-theme .token.atrule,.vscode-theme .token.attr-value,
+.vscode-theme .token.function,.vscode-theme .token.class-name{color:#dcdcaa}
+.vscode-theme .token.keyword{color:#569cd6}
+.vscode-theme .token.regex,.vscode-theme .token.important{color:#d16969}
+.vscode-theme .token.important,.vscode-theme .token.bold{font-weight:bold}
+.vscode-theme .token.italic{font-style:italic}
+.vscode-theme .token.entity{cursor:help}

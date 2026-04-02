@@ -2,7 +2,27 @@
   "permissions": {
     "allow": [
       "Bash(npm run deploy)",
-      "Bash(gh api:*)"
+      "Bash(gh api:*)",
+      "Bash(gh repo:*)",
+      "Bash(npm install:*)",
+      "Bash(uipro init:*)",
+      "Bash(uipro --help)",
+      "Skill(update-config)",
+      "Skill(update-config:*)",
+      "Bash(python3 .claude/skills/ui-ux-pro-max/scripts/search.py \"student academic portfolio high school researcher\" --design-system -p \"Shawn Yan Portfolio\" -f markdown)",
+      "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"student academic portfolio high school researcher\" --design-system -p \"Shawn Yan Portfolio\" -f markdown)",
+      "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"portfolio\" --domain style)",
+      "Bash(npx tsc:*)",
+      "Bash(mkdir -p ~/.claude/skills/playwright-skill)",
+      "Bash(mkdir -p ~/.claude/skills/playwright-skill/lib)",
+      "Bash(mkdir -p ~/.claude/skills/frontend-design)",
+      "Bash(base64 -d gh api repos/lackeyjb/playwright-skill/contents/skills/playwright-skill/package.json --jq '.content')",
+      "Bash(base64 -d gh api repos/lackeyjb/playwright-skill/contents/skills/playwright-skill/lib --jq '.[].name')",
+      "Bash(python skills/ui-ux-pro-max/scripts/search.py \"academic portfolio monochrome editorial cinematic dark minimal\" --design-system -p \"Shawn Portfolio\")",
+      "Bash(python3 skills/ui-ux-pro-max/scripts/search.py \"academic portfolio monochrome editorial cinematic dark minimal\" --design-system -p \"Shawn Portfolio\")",
+      "Bash(python \"C:/Users/sheng/.claude/skills/ui-ux-pro-max/scripts/search.py\" \"academic portfolio monochrome editorial cinematic dark minimal\" --design-system -p \"Shawn Portfolio\")",
+      "Bash(python \"C:/Users/sheng/.claude/skills/ui-ux-pro-max/scripts/search.py\" \"skills portfolio dark monochrome editorial progress bars technical abilities\" --design-system -p \"Skills Page\")",
+      "Bash(python \"C:/Users/sheng/.claude/skills/ui-ux-pro-max/scripts/search.py\" \"skills dashboard inventory data table editorial monochrome\" --domain ux -n 5)"
     ]
   }
 }
