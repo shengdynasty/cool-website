@@ -11,6 +11,7 @@ import stockImage from "@/assets/stock-visualizer.svg";
 import noteImage from "@/assets/note-app.svg";
 import mcpImage from "@/assets/mcp-server.svg";
 import ragImage from "@/assets/rag-chatbot.svg";
+import webResearcherImage from "@/assets/web-researcher.svg";
 
 const GH = () => (
   <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
@@ -27,6 +28,15 @@ const fw = (delay = 0) =>
   } as const);
 
 const projects = [
+  {
+    id: "web-researcher", n: "01",
+    title: "AI Web Researcher",
+    description: "Local-first AI research assistant — type any topic, get live DuckDuckGo search results synthesized into a streaming markdown report via Ollama. No API keys.",
+    tools: ["React", "TypeScript", "Ollama", "Vite"],
+    github: "https://github.com/shengdynasty/web-researcher",
+    detailPage: "/project/web-researcher",
+    image: webResearcherImage, featured: false,
+  },
   {
     id: "rag-chatbot", n: "01",
     title: "Local RAG Chatbot",
@@ -130,7 +140,7 @@ export default function Projects() {
           style={{ marginBottom: "5rem" }}
         >
           <p style={{ fontSize: "0.65rem", letterSpacing: "0.2em", color: "#444", textTransform: "uppercase", marginBottom: "1.5rem" }}>
-            10 Projects
+            11 Projects
           </p>
           <h1 style={{
             fontFamily: "var(--font-display)",
