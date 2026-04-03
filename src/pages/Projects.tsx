@@ -10,6 +10,7 @@ import calculatorImage from "@/assets/calculator-app.svg";
 import stockImage from "@/assets/stock-visualizer.svg";
 import noteImage from "@/assets/note-app.svg";
 import mcpImage from "@/assets/mcp-server.svg";
+import ragImage from "@/assets/rag-chatbot.svg";
 
 const GH = () => (
   <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
@@ -27,13 +28,22 @@ const fw = (delay = 0) =>
 
 const projects = [
   {
+    id: "rag-chatbot", n: "01",
+    title: "Local RAG Chatbot",
+    description: "100% local Retrieval-Augmented Generation chatbot — upload any PDF, ask questions, get answers grounded in your document. No API keys. Runs via Ollama.",
+    tools: ["Node.js", "LangChain.js", "Ollama", "Express"],
+    github: "https://github.com/shengdynasty/rag-chatbot",
+    detailPage: "/project/rag-chatbot",
+    image: ragImage, featured: true,
+  },
+  {
     id: "mcp-server", n: "01",
     title: "Personal AI MCP Server",
     description: "Custom MCP server suite connecting Claude to Gmail, Google Calendar, Notion, Spotify, GitHub — natural-language control of real-world tools.",
     tools: ["TypeScript", "MCP", "Claude AI", "Node.js"],
     github: "https://github.com/shengdynasty",
     detailPage: "/project/mcp-server",
-    image: mcpImage, featured: true,
+    image: mcpImage,
   },
   {
     id: "note-app", n: "02",
@@ -46,6 +56,7 @@ const projects = [
   },
   {
     id: "csv-stock-visualizer", n: "03",
+
     title: "CSV Stock Visualizer",
     description: "Interactive web app that parses CSV stock data into dynamic price charts, volume graphs, and key statistics.",
     tools: ["React", "TypeScript", "CSV Parsing", "Data Viz"],
@@ -119,7 +130,7 @@ export default function Projects() {
           style={{ marginBottom: "5rem" }}
         >
           <p style={{ fontSize: "0.65rem", letterSpacing: "0.2em", color: "#444", textTransform: "uppercase", marginBottom: "1.5rem" }}>
-            {projects.length} Projects
+            10 Projects
           </p>
           <h1 style={{
             fontFamily: "var(--font-display)",

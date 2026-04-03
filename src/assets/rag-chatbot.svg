@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#131325"/>
+      <stop offset="100%" stop-color="#0a0a0f"/>
+    </radialGradient>
+    <marker id="arr-or" markerWidth="7" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 Z" fill="#ea580c" opacity="0.55"/>
+    </marker>
+    <marker id="arr-pu" markerWidth="7" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 Z" fill="#7c3aed" opacity="0.55"/>
+    </marker>
+    <marker id="arr-bl" markerWidth="7" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 Z" fill="#2563eb" opacity="0.55"/>
+    </marker>
+    <marker id="arr-gr" markerWidth="7" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 Z" fill="#059669" opacity="0.55"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bgGlow)"/>
+  <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+    <circle cx="1" cy="1" r="0.8" fill="#fff" opacity="0.04"/>
+  </pattern>
+  <rect width="800" height="450" fill="url(#dots)"/>
+
+  <!-- Title -->
+  <text x="400" y="28" font-family="monospace" font-size="11" fill="#333" text-anchor="middle" letter-spacing="2">RAG PIPELINE ARCHITECTURE</text>
+
+  <!-- ── ARROWS (drawn behind nodes) ── -->
+
+  <!-- 1. PDF → Chunks (horizontal, ingest) -->
+  <line x1="153" y1="155" x2="247" y2="155"
+        stroke="#ea580c" stroke-width="1.5" stroke-opacity="0.4" stroke-dasharray="6,4"
+        marker-end="url(#arr-or)"/>
+  <rect x="178" y="147" width="44" height="14" rx="7" fill="#180a05" stroke="#ea580c" stroke-width="0.8" stroke-opacity="0.6"/>
+  <text x="200" y="157" font-family="monospace" font-size="8" fill="#fb923c" text-anchor="middle">split</text>
+
+  <!-- 2. Chunks → VectorStore (diagonal, embed) -->
+  <line x1="320" y1="169" x2="407" y2="205"
+        stroke="#7c3aed" stroke-width="1.5" stroke-opacity="0.4" stroke-dasharray="6,4"
+        marker-end="url(#arr-pu)"/>
+  <rect x="342" y="177" width="44" height="14" rx="7" fill="#120e2a" stroke="#7c3aed" stroke-width="0.8" stroke-opacity="0.6"/>
+  <text x="364" y="187" font-family="monospace" font-size="8" fill="#a78bfa" text-anchor="middle">embed</text>
+
+  <!-- 3. WebUI → VectorStore (diagonal, query embed) -->
+  <line x1="151" y1="314" x2="405" y2="240"
+        stroke="#2563eb" stroke-width="1.5" stroke-opacity="0.4" stroke-dasharray="6,4"
+        marker-end="url(#arr-bl)"/>
+  <rect x="254" y="270" width="46" height="14" rx="7" fill="#060f1c" stroke="#2563eb" stroke-width="0.8" stroke-opacity="0.6"/>
+  <text x="277" y="280" font-family="monospace" font-size="8" fill="#60a5fa" text-anchor="middle">query</text>
+
+  <!-- 4. VectorStore → LLM (diagonal, retrieve) -->
+  <line x1="501" y1="250" x2="606" y2="307"
+        stroke="#059669" stroke-width="1.5" stroke-opacity="0.4" stroke-dasharray="6,4"
+        marker-end="url(#arr-gr)"/>
+  <rect x="532" y="268" width="50" height="14" rx="7" fill="#071410" stroke="#059669" stroke-width="0.8" stroke-opacity="0.6"/>
+  <text x="557" y="278" font-family="monospace" font-size="8" fill="#34d399" text-anchor="middle">retrieve</text>
+
+  <!-- 5. LLM → WebUI (curved answer path, bottom arc) -->
+  <path d="M 640,363 C 640,415 115,415 115,363"
+        stroke="#2563eb" stroke-width="1.5" stroke-opacity="0.4" stroke-dasharray="6,4" fill="none"
+        marker-end="url(#arr-bl)"/>
+  <rect x="352" y="395" width="46" height="14" rx="7" fill="#060f1c" stroke="#2563eb" stroke-width="0.8" stroke-opacity="0.6"/>
+  <text x="375" y="405" font-family="monospace" font-size="8" fill="#60a5fa" text-anchor="middle">answer</text>
+
+  <!-- ── NODES ── -->
+
+  <!-- PDF Document (115, 155) -->
+  <circle cx="115" cy="155" r="38" fill="#180a05" stroke="#ea580c" stroke-width="1.6"/>
+  <rect x="103" y="140" width="20" height="26" rx="2" fill="none" stroke="#ea580c" stroke-width="1.3"/>
+  <polyline points="113,140 113,147 120,147" stroke="#ea580c" stroke-width="1.3" fill="none" opacity="0.7"/>
+  <line x1="107" y1="152" x2="119" y2="152" stroke="#ea580c" stroke-width="1" opacity="0.6"/>
+  <line x1="107" y1="157" x2="119" y2="157" stroke="#ea580c" stroke-width="1" opacity="0.6"/>
+  <line x1="107" y1="162" x2="115" y2="162" stroke="#ea580c" stroke-width="1" opacity="0.4"/>
+  <text x="115" y="207" font-family="monospace" font-size="10" fill="#ccc" text-anchor="middle">PDF Doc</text>
+  <text x="115" y="219" font-family="monospace" font-size="7.5" fill="#555" text-anchor="middle">pypdf</text>
+
+  <!-- Text Chunks (285, 155) -->
+  <circle cx="285" cy="155" r="38" fill="#181005" stroke="#d97706" stroke-width="1.6"/>
+  <rect x="270" y="141" width="30" height="7" rx="1.5" fill="none" stroke="#d97706" stroke-width="1.3"/>
+  <rect x="270" y="151" width="30" height="7" rx="1.5" fill="none" stroke="#d97706" stroke-width="1.3" opacity="0.7"/>
+  <rect x="270" y="161" width="30" height="7" rx="1.5" fill="none" stroke="#d97706" stroke-width="1.3" opacity="0.45"/>
+  <text x="285" y="207" font-family="monospace" font-size="10" fill="#ccc" text-anchor="middle">Chunks</text>
+  <text x="285" y="219" font-family="monospace" font-size="7.5" fill="#555" text-anchor="middle">512 tok · 128 overlap</text>
+
+  <!-- Vector Store (455, 225) — central, larger -->
+  <circle cx="455" cy="225" r="55" fill="#120e2a" stroke="#7c3aed" stroke-width="1.8"/>
+  <circle cx="455" cy="225" r="49" fill="none" stroke="#7c3aed" stroke-width="0.5" stroke-opacity="0.3"/>
+  <!-- 3×3 vector dot grid -->
+  <circle cx="441" cy="213" r="3.5" fill="#7c3aed" opacity="0.7"/>
+  <circle cx="455" cy="213" r="3.5" fill="#7c3aed" opacity="0.9"/>
+  <circle cx="469" cy="213" r="3.5" fill="#7c3aed" opacity="0.5"/>
+  <circle cx="441" cy="225" r="3.5" fill="#7c3aed" opacity="0.9"/>
+  <circle cx="455" cy="225" r="3.5" fill="#a78bfa"/>
+  <circle cx="469" cy="225" r="3.5" fill="#7c3aed" opacity="0.7"/>
+  <circle cx="441" cy="237" r="3.5" fill="#7c3aed" opacity="0.4"/>
+  <circle cx="455" cy="237" r="3.5" fill="#7c3aed" opacity="0.8"/>
+  <circle cx="469" cy="237" r="3.5" fill="#7c3aed" opacity="0.6"/>
+  <text x="455" y="295" font-family="monospace" font-size="10" fill="#ccc" text-anchor="middle">Vector Store</text>
+  <text x="455" y="308" font-family="monospace" font-size="7.5" fill="#555" text-anchor="middle">MemoryVectorStore</text>
+
+  <!-- Ollama LLM (640, 325) -->
+  <circle cx="640" cy="325" r="38" fill="#071410" stroke="#059669" stroke-width="1.6"/>
+  <text x="640" y="319" font-family="monospace" font-size="14" fill="#34d399" text-anchor="middle" opacity="0.85">✦</text>
+  <text x="640" y="334" font-family="Georgia, serif" font-size="11" fill="#6ee7b7" text-anchor="middle" font-weight="bold">llama3.2</text>
+  <text x="640" y="377" font-family="monospace" font-size="10" fill="#ccc" text-anchor="middle">Ollama LLM</text>
+  <text x="640" y="389" font-family="monospace" font-size="7.5" fill="#555" text-anchor="middle">ChatOllama</text>
+
+  <!-- Web UI (115, 325) -->
+  <circle cx="115" cy="325" r="38" fill="#060f1c" stroke="#2563eb" stroke-width="1.6"/>
+  <rect x="101" y="311" width="28" height="20" rx="3" fill="none" stroke="#2563eb" stroke-width="1.4"/>
+  <rect x="101" y="311" width="28" height="6" rx="3" fill="#2563eb" opacity="0.3"/>
+  <circle cx="107" cy="314" r="1.4" fill="#60a5fa" opacity="0.8"/>
+  <circle cx="112" cy="314" r="1.4" fill="#60a5fa" opacity="0.5"/>
+  <circle cx="117" cy="314" r="1.4" fill="#60a5fa" opacity="0.3"/>
+  <text x="115" y="377" font-family="monospace" font-size="10" fill="#ccc" text-anchor="middle">Web UI</text>
+  <text x="115" y="389" font-family="monospace" font-size="7.5" fill="#555" text-anchor="middle">Express · server.js</text>
+
+</svg>
