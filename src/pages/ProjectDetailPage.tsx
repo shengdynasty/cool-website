@@ -5,6 +5,7 @@ import Prism from "prismjs";
 import "prismjs/components/prism-python";
 import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-jsx";
+import "prismjs/components/prism-javascript";
 import AcademicLayout from "@/components/layout/AcademicLayout";
 import expense from "@/assets/expense.svg";
 import task from "@/assets/taskmanagement.svg";
@@ -15,6 +16,7 @@ import calculatorImage from "@/assets/calculator-app.svg";
 import stockImage from "@/assets/stock-visualizer.svg";
 import noteImage from "@/assets/note-app.svg";
 import mcpImage from "@/assets/mcp-server.svg";
+import ragImage from "@/assets/rag-chatbot.svg";
 
 const GH = () => (
   <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
@@ -32,9 +34,57 @@ interface ProjectData {
   image: string | null;
   codeSnippet: string;
   features: string[];
+  language?: string;
 }
 
 const projectsData: Record<string, ProjectData> = {
+  "rag-chatbot": {
+    title: "Local RAG Chatbot",
+    description: "100% local Retrieval-Augmented Generation chatbot — upload any PDF, ask questions, get answers grounded in your document. No API keys. Runs via Ollama.",
+    fullDescription: "A fully local Retrieval-Augmented Generation chatbot that lets you upload any PDF and immediately have a conversation with its content — no cloud API keys, no external services. Built in Node.js with LangChain.js and served via Express, the system extracts text from uploaded PDFs, splits it into 512-token overlapping chunks, embeds them using Ollama's llama3.2 model running locally, and stores the vectors as JSON for instant reloading. At query time, the user's question is embedded, semantically matched against the stored vectors, and the top-3 most relevant chunks are injected into a grounded prompt sent to the local LLM — eliminating hallucination entirely. The drag-and-drop web UI shows live ingestion status, switches between upload and chat modes seamlessly, and allows hot-swapping documents without restarting the server.",
+    technologies: ["Node.js", "LangChain.js", "Ollama", "Express"],
+    github: "https://github.com/shengdynasty/rag-chatbot",
+    image: ragImage,
+    language: "javascript",
+    features: [
+      "Drag-and-drop PDF upload directly in the browser — no CLI required",
+      "Text extraction with pypdf, split into 512-token chunks with 128-token overlap",
+      "Local embeddings via Ollama llama3.2 — no API keys or internet connection",
+      "Pure-JS MemoryVectorStore with JSON persistence — no native C++ modules",
+      "Top-3 semantic retrieval using cosine similarity at query time",
+      "LLM constrained to document context — says \"I don't know\" if out of scope",
+      "Hot-swap documents via \"Upload new PDF\" without restarting the server",
+      "LangChain.js orchestration: createRetrievalChain + createStuffDocumentsChain",
+    ],
+    codeSnippet: `const { ChatOllama } = require('@langchain/ollama');
+const { ChatPromptTemplate } = require('@langchain/core/prompts');
+const { createStuffDocumentsChain } = require('langchain/chains/combine_documents');
+const { createRetrievalChain } = require('langchain/chains/retrieval');
+
+async function buildChain(retriever) {
+  // Local LLM — runs entirely on your machine via Ollama
+  const llm = new ChatOllama({
+    model: 'llama3.2',
+    baseUrl: 'http://127.0.0.1:11434',
+  });
+
+  // Inline prompt — no hub.pull(), no API key needed
+  // System message constrains LLM to only use retrieved context
+  const prompt = ChatPromptTemplate.fromMessages([
+    ['system',
+      'You are a helpful assistant. Answer using ONLY the context below. ' +
+      'If the answer is not in the context, say ' +
+      '"I don\\'t know based on the provided document."\\n\\nContext: {context}'],
+    ['human', '{input}'],
+  ]);
+
+  // Stuff chain: concatenates top-k chunks into {context}, sends to LLM
+  const combineDocsChain = await createStuffDocumentsChain({ llm, prompt });
+
+  // Retrieval chain: embed query → cosine search → stuff → LLM → { answer }
+  return createRetrievalChain({ retriever, combineDocsChain });
+}`,
+  },
   "mcp-server": {
     title: "Personal AI MCP Server",
     description: "Custom MCP server suite connecting Claude to Gmail, Google Calendar, Notion, Spotify, GitHub — natural-language control of real-world tools.",
@@ -774,7 +824,7 @@ export default function ProjectDetailPage() {
                 ))}
               </div>
               <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", color: "#444", letterSpacing: "0.06em" }}>
-                {project.technologies[0] === "React" || project.technologies[0] === "TypeScript" ? "component.tsx" : "main.py"}
+                {project.language === "javascript" ? "chain.js" : project.technologies[0] === "React" || project.technologies[0] === "TypeScript" ? "component.tsx" : "main.py"}
               </span>
             </div>
 
@@ -783,9 +833,11 @@ export default function ProjectDetailPage() {
               <pre style={{ margin: 0, padding: "1.5rem", overflowX: "auto" }}>
                 <code
                   className={`language-${
-                    project.technologies.includes("React") || project.technologies.includes("TypeScript")
-                      ? "typescript"
-                      : "python"
+                    project.language ?? (
+                      project.technologies.includes("React") || project.technologies.includes("TypeScript")
+                        ? "typescript"
+                        : "python"
+                    )
                   }`}
                   style={{ fontSize: "0.78rem", lineHeight: 1.65 }}
                 >

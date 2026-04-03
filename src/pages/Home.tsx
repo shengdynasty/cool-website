@@ -108,7 +108,7 @@ export default function Home() {
 
           <motion.div {...f(0.4)} style={{ display: "flex", flexWrap: "wrap", gap: "2.5rem" }}>
             {[
-              { n: "9",    l: "Projects" },
+              { n: "10",   l: "Projects" },
               { n: "4",    l: "Activities" },
               { n: "3",    l: "Honors" },
               { n: "2029", l: "Grad. Year" },
@@ -146,9 +146,8 @@ export default function Home() {
                 New
               </p>
               {[
+                { label: "Local RAG Chatbot", to: "/project/rag-chatbot", internal: true },
                 { label: "Personal AI MCP Server", to: "/project/mcp-server", internal: true },
-                { label: "AI Note-Taking App", href: "https://shengdynasty.github.io/note-app" },
-                { label: "CSV Stock Visualizer", href: "https://stock-data-visualizer-v1.lovable.app/" },
               ].map(item => (
                 <div key={item.label} style={{ paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
                   {item.internal ? (
@@ -192,7 +191,6 @@ export default function Home() {
               </p>
               {[
                 "AMC 10/12 — November 2026",
-                "Robotics State Competition — Spring 2026",
                 "Cornell Economics Research — Summer 2026",
               ].map(item => (
                 <p key={item} style={{ fontSize: "0.85rem", color: "#777", paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
@@ -308,7 +306,7 @@ export default function Home() {
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "0 2rem 8rem" }}>
         <div style={{ borderTop: "1px solid #1C1C1C" }}>
           {[
-            { to: "/projects",   label: "Projects",   sub: "9 software projects" },
+            { to: "/projects",   label: "Projects",   sub: "10 software projects" },
             { to: "/engagement", label: "Engagement", sub: "Research & academic activities" },
             { to: "/skills",     label: "Skills",     sub: "Technical & analytical" },
           ].map((link, i) => (
