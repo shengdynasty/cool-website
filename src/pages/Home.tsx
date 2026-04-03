@@ -2,13 +2,6 @@ import AcademicLayout from "@/components/layout/AcademicLayout";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import profilePhoto from "@/assets/pfp_B&W.png";
-import ragStatusImage from "@/assets/rag-chatbot.svg";
-import mcpStatusImage from "@/assets/mcp-server.svg";
-import iitStatusImage from "@/assets/iit-research.svg";
-import roboticsStatusImage from "@/assets/robotics.svg";
-import plannerStatusImage from "@/assets/note-app.svg";
-import mathStatusImage from "@/assets/math-competition.svg";
-import cornellStatusImage from "@/assets/cornell.svg";
 
 const f = (delay = 0) =>
   ({
@@ -145,87 +138,65 @@ export default function Home() {
             Status
           </motion.p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "3rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "3rem" }}>
 
-            {/* ── New ── */}
+            {/* New */}
             <motion.div {...fw(0)}>
               <p style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "#fff", textTransform: "uppercase", marginBottom: "1.25rem", borderBottom: "1px solid #1C1C1C", paddingBottom: "0.75rem" }}>
                 New
               </p>
               {[
-                { label: "Local RAG Chatbot",      to: "/project/rag-chatbot", image: ragStatusImage },
-                { label: "Personal AI MCP Server", to: "/project/mcp-server",  image: mcpStatusImage },
+                { label: "AI Web Researcher", to: "/project/web-researcher", internal: true },
+                { label: "Local RAG Chatbot", to: "/project/rag-chatbot", internal: true },
+                { label: "Personal AI MCP Server", to: "/project/mcp-server", internal: true },
               ].map(item => (
-                <div key={item.label} style={{ marginBottom: "0.75rem" }}>
-                  <Link to={item.to} style={{ textDecoration: "none", display: "block" }}>
-                    <div
-                      style={{ border: "1px solid #1C1C1C", borderRadius: 3, overflow: "hidden", cursor: "pointer", transition: "border-color 200ms" }}
-                      onMouseEnter={e => {
-                        (e.currentTarget as HTMLElement).style.borderColor = "#444";
-                        ((e.currentTarget as HTMLElement).querySelector("img") as HTMLImageElement).style.filter = "brightness(0.65)";
-                        ((e.currentTarget as HTMLElement).querySelector(".slbl") as HTMLElement).style.color = "#fff";
-                      }}
-                      onMouseLeave={e => {
-                        (e.currentTarget as HTMLElement).style.borderColor = "#1C1C1C";
-                        ((e.currentTarget as HTMLElement).querySelector("img") as HTMLImageElement).style.filter = "brightness(0.4)";
-                        ((e.currentTarget as HTMLElement).querySelector(".slbl") as HTMLElement).style.color = "#777";
-                      }}
-                    >
-                      <div style={{ aspectRatio: "16/7", overflow: "hidden", background: "#0A0A0A" }}>
-                        <img src={item.image} alt={item.label} style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.4)", transition: "filter 300ms, transform 400ms" }} />
-                      </div>
-                      <div style={{ padding: "0.6rem 0.85rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                        <span className="slbl" style={{ fontSize: "0.8rem", color: "#777", transition: "color 200ms" }}>{item.label}</span>
-                        <span style={{ fontSize: "0.75rem", color: "#444" }}>↗</span>
-                      </div>
-                    </div>
-                  </Link>
+                <div key={item.label} style={{ paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
+                  {item.internal ? (
+                    <Link to={item.to!} style={{ fontSize: "0.85rem", color: "#888", textDecoration: "none", transition: "color 150ms" }}
+                      onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
+                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#888"}>
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <a href={item.href} target="_blank" rel="noopener noreferrer"
+                      style={{ fontSize: "0.85rem", color: "#888", textDecoration: "none", transition: "color 150ms" }}
+                      onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
+                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#888"}>
+                      {item.label} ↗
+                    </a>
+                  )}
                 </div>
               ))}
             </motion.div>
 
-            {/* ── Currently ── */}
+            {/* Currently */}
             <motion.div {...fw(0.06)}>
               <p style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "#fff", textTransform: "uppercase", marginBottom: "1.25rem", borderBottom: "1px solid #1C1C1C", paddingBottom: "0.75rem" }}>
                 Currently
               </p>
               {[
-                { label: "IIT Research Intern — Materials Science", image: iitStatusImage },
-                { label: "Fox Valley Robotics — Competition Season", image: roboticsStatusImage },
-                { label: "AI Cloud Sync Student Planner",           image: plannerStatusImage },
+                "IIT Research Intern — Materials Science",
+                "Fox Valley Robotics — Competition Season",
+                "AI Cloud Sync Student Planner",
               ].map(item => (
-                <div key={item.label} style={{ marginBottom: "0.75rem" }}>
-                  <div style={{ border: "1px solid #1C1C1C", borderRadius: 3, overflow: "hidden" }}>
-                    <div style={{ aspectRatio: "16/7", overflow: "hidden", background: "#0A0A0A" }}>
-                      <img src={item.image} alt={item.label} style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.35)" }} />
-                    </div>
-                    <div style={{ padding: "0.6rem 0.85rem" }}>
-                      <span style={{ fontSize: "0.8rem", color: "#666" }}>{item.label}</span>
-                    </div>
-                  </div>
-                </div>
+                <p key={item} style={{ fontSize: "0.85rem", color: "#777", paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
+                  {item}
+                </p>
               ))}
             </motion.div>
 
-            {/* ── Upcoming ── */}
+            {/* Upcoming */}
             <motion.div {...fw(0.12)}>
               <p style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "#fff", textTransform: "uppercase", marginBottom: "1.25rem", borderBottom: "1px solid #1C1C1C", paddingBottom: "0.75rem" }}>
                 Upcoming
               </p>
               {[
-                { label: "AMC 10/12 — November 2026",               image: mathStatusImage },
-                { label: "Cornell Economics Research — Summer 2026", image: cornellStatusImage },
+                "AMC 10/12 — November 2026",
+                "Cornell Economics Research — Summer 2026",
               ].map(item => (
-                <div key={item.label} style={{ marginBottom: "0.75rem" }}>
-                  <div style={{ border: "1px solid #1C1C1C", borderRadius: 3, overflow: "hidden" }}>
-                    <div style={{ aspectRatio: "16/7", overflow: "hidden", background: "#0A0A0A" }}>
-                      <img src={item.image} alt={item.label} style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.3)" }} />
-                    </div>
-                    <div style={{ padding: "0.6rem 0.85rem" }}>
-                      <span style={{ fontSize: "0.8rem", color: "#555" }}>{item.label}</span>
-                    </div>
-                  </div>
-                </div>
+                <p key={item} style={{ fontSize: "0.85rem", color: "#777", paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
+                  {item}
+                </p>
               ))}
             </motion.div>
 

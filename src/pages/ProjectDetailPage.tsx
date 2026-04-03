@@ -17,6 +17,7 @@ import stockImage from "@/assets/stock-visualizer.svg";
 import noteImage from "@/assets/note-app.svg";
 import mcpImage from "@/assets/mcp-server.svg";
 import ragImage from "@/assets/rag-chatbot.svg";
+import webResearcherImage from "@/assets/web-researcher.svg";
 
 const GH = () => (
   <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
@@ -38,6 +39,71 @@ interface ProjectData {
 }
 
 const projectsData: Record<string, ProjectData> = {
+  "web-researcher": {
+    title: "AI Web Researcher",
+    description: "Local-first AI research assistant — type any topic, get live DuckDuckGo search results synthesized into a streaming markdown report via Ollama. No API keys.",
+    fullDescription: "A fully local, zero-API-key research tool built in React + TypeScript (Vite). The user enters any research topic, the app proxies a query through Vite's dev server to DuckDuckGo's Instant Answer API to retrieve real search results, then feeds those results as structured context into a local Ollama model (default: llama3.2). The LLM synthesizes a structured markdown report using the streaming endpoint, so the text appears word-by-word in real time. A model selector dropdown auto-populates from Ollama's /api/tags, a depth toggle switches between Quick (3–5 sections) and Deep Dive (6–10 sections), and a collapsible panel exposes the raw search results used as context. The finished report can be exported to PDF via window.print() with dedicated print CSS.",
+    technologies: ["React", "TypeScript", "Ollama", "Vite"],
+    github: "https://github.com/shengdynasty/web-researcher",
+    image: webResearcherImage,
+    language: "typescript",
+    features: [
+      "Live DuckDuckGo web search via Vite proxy — no CORS, no API key",
+      "Ollama streaming endpoint: report text appears token-by-token in real time",
+      "Model selector auto-populated from Ollama's /api/tags endpoint",
+      "Quick (3–5 sections) vs Deep Dive (6–10 sections) depth toggle",
+      "Collapsible sources panel showing raw search results used as context",
+      "Full GFM markdown rendering — tables, code blocks, headers, lists",
+      "PDF export via window.print() with print CSS stripping all UI chrome",
+      "Amber-on-ink 'Archival Intelligence' dark theme with streaming cursor",
+    ],
+    codeSnippet: `// Ollama streaming generator — yields tokens as they arrive
+export async function* streamReport(
+  model: string,
+  topic: string,
+  formattedResults: string,
+  depth: 'quick' | 'deep',
+): AsyncGenerator<string> {
+  const prompt = \`You are a professional research assistant.
+Based on the following search results, write a structured
+research report on the topic: "\${topic}"
+
+Search Results:
+\${formattedResults}
+
+Instructions:
+- Synthesize the information — do not just summarize each result
+- Identify conflicting information or debates
+- Format in clean markdown with headers and bullet points
+- End with a ## Sources section listing URLs
+- \${depth === 'quick' ? 'Write 3-5 focused sections.' : 'Write 6-10 comprehensive sections.'}\`;
+
+  const response = await fetch('http://localhost:11434/api/generate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ model, prompt, stream: true }),
+  });
+
+  const reader = response.body!.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split('\\n');
+    buffer = lines.pop() ?? '';
+    for (const line of lines) {
+      try {
+        const chunk = JSON.parse(line);
+        if (chunk.response) yield chunk.response;
+        if (chunk.done) return;
+      } catch { /* skip */ }
+    }
+  }
+}`,
+  },
   "rag-chatbot": {
     title: "Local RAG Chatbot",
     description: "100% local Retrieval-Augmented Generation chatbot — upload any PDF, ask questions, get answers grounded in your document. No API keys. Runs via Ollama.",
