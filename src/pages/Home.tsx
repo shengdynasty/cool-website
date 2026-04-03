@@ -108,7 +108,7 @@ export default function Home() {
 
           <motion.div {...f(0.4)} style={{ display: "flex", flexWrap: "wrap", gap: "2.5rem" }}>
             {[
-              { n: "10",   l: "Projects" },
+              { n: "11",   l: "Projects" },
               { n: "4",    l: "Activities" },
               { n: "3",    l: "Honors" },
               { n: "2029", l: "Grad. Year" },
@@ -158,7 +158,7 @@ export default function Home() {
                       {item.label}
                     </Link>
                   ) : (
-                    <a href={item.href} target="_blank" rel="noopener noreferrer"
+                    <a href={(item as { href?: string }).href} target="_blank" rel="noopener noreferrer"
                       style={{ fontSize: "0.85rem", color: "#888", textDecoration: "none", transition: "color 150ms" }}
                       onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
                       onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#888"}>
@@ -307,7 +307,7 @@ export default function Home() {
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "0 2rem 8rem" }}>
         <div style={{ borderTop: "1px solid #1C1C1C" }}>
           {[
-            { to: "/projects",   label: "Projects",   sub: "10 software projects" },
+            { to: "/projects",   label: "Projects",   sub: "11 software projects" },
             { to: "/engagement", label: "Engagement", sub: "Research & academic activities" },
             { to: "/skills",     label: "Skills",     sub: "Technical & analytical" },
           ].map((link, i) => (

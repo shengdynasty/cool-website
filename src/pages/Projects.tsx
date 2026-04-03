@@ -47,7 +47,7 @@ const projects = [
     image: ragImage, featured: true,
   },
   {
-    id: "mcp-server", n: "01",
+    id: "mcp-server", n: "02",
     title: "Personal AI MCP Server",
     description: "Custom MCP server suite connecting Claude to Gmail, Google Calendar, Notion, Spotify, GitHub — natural-language control of real-world tools.",
     tools: ["TypeScript", "MCP", "Claude AI", "Node.js"],
@@ -56,7 +56,7 @@ const projects = [
     image: mcpImage,
   },
   {
-    id: "note-app", n: "02",
+    id: "note-app", n: "03",
     title: "AI Note-Taking App",
     description: "Notability-style app with AI flashcards, quizzes, fill-in-the-blank, and chat generated from your own notes using Claude.",
     tools: ["React", "TypeScript", "Claude AI", "Vite"],
@@ -65,7 +65,7 @@ const projects = [
     detailPage: "/project/note-app", image: noteImage,
   },
   {
-    id: "csv-stock-visualizer", n: "03",
+    id: "csv-stock-visualizer", n: "04",
 
     title: "CSV Stock Visualizer",
     description: "Interactive web app that parses CSV stock data into dynamic price charts, volume graphs, and key statistics.",
@@ -75,7 +75,7 @@ const projects = [
     detailPage: "/project/csv-stock-visualizer", image: stockImage,
   },
   {
-    id: "portfolio-website", n: "04",
+    id: "portfolio-website", n: "05",
     title: "Academic Portfolio Website",
     description: "Professional web presence to communicate academic interests and projects to university admissions.",
     tools: ["React", "TypeScript", "Tailwind CSS"],
@@ -84,7 +84,7 @@ const projects = [
     detailPage: "/project/portfolio-website", image: port,
   },
   {
-    id: "expense-tracker", n: "05",
+    id: "expense-tracker", n: "06",
     title: "Personal Expense Tracker",
     description: "Tool to categorize and visualize personal spending, applying data structures and basic analysis.",
     tools: ["Python", "Tkinter", "Data Visualization"],
@@ -92,7 +92,7 @@ const projects = [
     detailPage: "/project/expense-tracker", image: expense,
   },
   {
-    id: "task-management", n: "06",
+    id: "task-management", n: "07",
     title: "Task Management Application",
     description: "Productivity tool to organize tasks, track progress, and practice database-like data management.",
     tools: ["Python", "Tkinter"],
@@ -100,7 +100,7 @@ const projects = [
     detailPage: "/project/task-management", image: task,
   },
   {
-    id: "calculator", n: "07",
+    id: "calculator", n: "08",
     title: "Scientific Calculator",
     description: "Functional calculator with a graphical interface to practice GUI development and event handling.",
     tools: ["Python", "Tkinter"],
@@ -108,7 +108,7 @@ const projects = [
     detailPage: "/project/calculator", image: calculatorImage,
   },
   {
-    id: "turtle-art", n: "08",
+    id: "turtle-art", n: "09",
     title: "Turtle Art Generator",
     description: "Procedural graphics demonstrating fundamental programming concepts through interactive visual output.",
     tools: ["Python", "Turtle Graphics", "JSON"],
@@ -116,7 +116,7 @@ const projects = [
     detailPage: "/project/turtle-art", image: turtle,
   },
   {
-    id: "tic-tac-toe", n: "09",
+    id: "tic-tac-toe", n: "10",
     title: "Tic Tac Toe Game",
     description: "Classic two-player game implementing game logic, turn-based systems, and win-condition detection.",
     tools: ["Python", "Tkinter"],
