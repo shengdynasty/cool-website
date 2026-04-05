@@ -56,6 +56,15 @@ const Navigation = () => {
                 {item.label}
               </button>
             ))}
+            <a
+              href="https://www.overleaf.com/read/dgjsdhjqtptn#2e66ab"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button size="sm" className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-4 shadow-glow transition-all duration-300 hover:scale-105">
+                Resume
+              </Button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -86,6 +95,17 @@ const Navigation = () => {
                   {item.label}
                 </button>
               ))}
+              <div className="px-4 pb-2">
+                <a
+                  href="https://www.overleaf.com/read/dgjsdhjqtptn#2e66ab"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button size="sm" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold shadow-glow">
+                    Resume
+                  </Button>
+                </a>
+              </div>
             </div>
           </div>
         )}
