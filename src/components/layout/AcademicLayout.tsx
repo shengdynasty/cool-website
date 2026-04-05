@@ -14,6 +14,22 @@ const navigation = [
   { name: "SKILLS",     href: "/skills" },
 ];
 
+const DownloadIcon = () => (
+  <>
+    <style>{`
+      @keyframes dl-bounce {
+        0%, 100% { transform: translateY(0); }
+        50%       { transform: translateY(3px); }
+      }
+      .resume-btn:hover .dl-arrow { animation: dl-bounce 0.6s ease-in-out infinite; }
+    `}</style>
+    <svg className="dl-arrow" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M12 3v13M7 11l5 5 5-5"/>
+      <path d="M5 20h14"/>
+    </svg>
+  </>
+);
+
 const GH = () => (
   <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden>
     <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
@@ -110,6 +126,34 @@ export default function AcademicLayout({ children }: AcademicLayoutProps) {
               })}
             </nav>
 
+            {/* Resume — desktop */}
+            <a
+              href="https://www.overleaf.com/read/dgjsdhjqtptn#2e66ab"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:flex resume-btn"
+              style={{
+                padding: "5px 16px",
+                fontSize: "0.7rem",
+                letterSpacing: "0.12em",
+                fontWeight: 500,
+                color: "#aaa",
+                textDecoration: "none",
+                boxShadow: "0 0 0 1px #555",
+                borderRadius: "9999px",
+                border: "none",
+                display: "flex",
+                alignItems: "center",
+                gap: 7,
+                transition: "background 150ms, color 150ms, box-shadow 150ms",
+              }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#aaa"; (e.currentTarget as HTMLElement).style.color = "#050505"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 1px #aaa"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = "#aaa"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 1px #555"; }}
+            >
+              <DownloadIcon />
+              RESUME
+            </a>
+
             {/* Socials — desktop */}
             <div style={{ display: "flex", alignItems: "center", gap: 4 }} className="hidden md:flex">
               {socials.map(({ href, label, Icon }) => (
@@ -161,6 +205,32 @@ export default function AcademicLayout({ children }: AcademicLayoutProps) {
                   {name}
                 </Link>
               ))}
+              <a
+                href="https://www.overleaf.com/read/dgjsdhjqtptn#2e66ab"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="resume-btn"
+                style={{
+                  marginTop: "0.75rem",
+                  padding: "10px 0",
+                  fontSize: "0.75rem",
+                  letterSpacing: "0.12em",
+                  fontWeight: 500,
+                  color: "#aaa",
+                  textDecoration: "none",
+                  boxShadow: "0 0 0 1px #555",
+                  border: "none",
+                  borderRadius: "9999px",
+                  textAlign: "center",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 8,
+                }}
+              >
+                <DownloadIcon />
+                RESUME
+              </a>
             </div>
           </div>
         )}

@@ -24,9 +24,11 @@ const Hero = () => {
           <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8 py-3 shadow-glow transition-all duration-300 hover:shadow-glow hover:scale-105">
             View My Work
           </Button>
-          <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 shadow-elegant transition-all duration-300 hover:scale-105 animate-glow">
-            Download Resume
-          </Button>
+          <a href="https://www.overleaf.com/read/dgjsdhjqtptn#2e66ab" target="_blank" rel="noopener noreferrer">
+            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 shadow-elegant transition-all duration-300 hover:scale-105 animate-glow">
+              Download Resume
+            </Button>
+          </a>
         </div>
       </div>
       
