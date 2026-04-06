@@ -108,7 +108,7 @@ export default function Home() {
 
           <motion.div {...f(0.4)} style={{ display: "flex", flexWrap: "wrap", gap: "2.5rem" }}>
             {[
-              { n: "11",   l: "Projects" },
+              { n: "13",   l: "Projects" },
               { n: "4",    l: "Activities" },
               { n: "3",    l: "Honors" },
               { n: "2029", l: "Grad. Year" },
@@ -177,7 +177,7 @@ export default function Home() {
               {[
                 "IIT Research Intern — Materials Science",
                 "Fox Valley Robotics — Competition Season",
-                "AI Cloud Sync Student Planner",
+                "StudentVue MCP Server",
               ].map(item => (
                 <p key={item} style={{ fontSize: "0.85rem", color: "#777", paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
                   {item}
@@ -307,7 +307,7 @@ export default function Home() {
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "0 2rem 8rem" }}>
         <div style={{ borderTop: "1px solid #1C1C1C" }}>
           {[
-            { to: "/projects",   label: "Projects",   sub: "11 software projects" },
+            { to: "/projects",   label: "Projects",   sub: "13 software projects" },
             { to: "/engagement", label: "Engagement", sub: "Research & academic activities" },
             { to: "/skills",     label: "Skills",     sub: "Technical & analytical" },
           ].map((link, i) => (
