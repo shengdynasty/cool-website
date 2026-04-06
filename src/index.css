@@ -56,30 +56,8 @@
   html { scroll-behavior: smooth; }
 
   body {
-    /* Deep black base — dot grid + dramatic spotlight + vignette corners */
-    background-color: #050505;
-    background-image:
-      /* Dot grid — editorial / academic paper feel */
-      radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px),
-      /* Top spotlight — main light source */
-      radial-gradient(ellipse 90% 60% at 50% -5%, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.02) 45%, transparent 68%),
-      /* Vignette — top-left corner */
-      radial-gradient(ellipse 55% 45% at 0% 0%, rgba(0,0,0,0.55) 0%, transparent 65%),
-      /* Vignette — bottom-right corner */
-      radial-gradient(ellipse 55% 45% at 100% 100%, rgba(0,0,0,0.55) 0%, transparent 65%),
-      /* Vignette — bottom-left corner */
-      radial-gradient(ellipse 45% 40% at 0% 100%, rgba(0,0,0,0.4) 0%, transparent 55%),
-      /* Vignette — top-right corner */
-      radial-gradient(ellipse 45% 40% at 100% 0%, rgba(0,0,0,0.35) 0%, transparent 55%);
-    background-size:
-      34px 34px,
-      100% 100%,
-      100% 100%,
-      100% 100%,
-      100% 100%,
-      100% 100%;
-    background-attachment:
-      fixed, fixed, fixed, fixed, fixed, fixed;
+    background-color: #000000;
+    background-image: none;
     color: hsl(var(--foreground));
     font-family: var(--font-body);
     font-size: 15px;
