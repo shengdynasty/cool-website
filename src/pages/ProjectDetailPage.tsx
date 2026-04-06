@@ -18,6 +18,8 @@ import noteImage from "@/assets/note-app.svg";
 import mcpImage from "@/assets/mcp-server.svg";
 import ragImage from "@/assets/rag-chatbot.svg";
 import webResearcherImage from "@/assets/web-researcher.svg";
+import schoolMcpImage from "@/assets/school-mcp.svg";
+import quantPlatformImage from "@/assets/quant-platform.svg";
 
 const GH = () => (
   <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
@@ -608,6 +610,121 @@ export default function App() {
     </div>
   );
 }`,
+  },
+  "school-mcp": {
+    title: "StudentVue MCP Server",
+    description: "19-tool MCP server that gives Claude natural-language access to your StudentVue gradebook — grades, GPA, attendance, schedule, missing work, and grade simulation.",
+    fullDescription: `A fully local Model Context Protocol (MCP) server written in TypeScript that bridges Claude Desktop to the StudentVue / Synergy school information system used by thousands of US school districts. Every aspect of a student's academic record becomes conversationally accessible: ask Claude "what's my current GPA?", "which assignments am I missing in AP Calc?", or "what score do I need on the final to get an A?" and the server fetches live data, computes the answer, and responds in plain English.
+
+The 19 registered tools span three categories. Grade Analysis tools (7) — get_gradebook, get_grade_summary, get_grade_details, get_grade_needed, simulate_grade_scenario, get_low_grades, get_category_breakdown — parse the raw Points[] arrays from the Synergy SOAP API, compute weighted averages, project hypothetical scores, and convert percentages to letter grades via percentToLetter(). Academic Info tools (6) — get_student_info, get_school_info, get_schedule, get_calendar, get_documents, get_report_cards — surface every piece of institutional data StudentVue exposes. Smart Insights tools (6) — get_gpa, get_assignments_due, get_missing_assignments, ask_about_grades, get_attendance, get_messages — implement a full 4.0-scale GPA calculator, a missing-work detector, and a comprehensive context dump that feeds all course data to Claude for open-ended analysis.
+
+Architecturally, the server uses the @modelcontextprotocol/sdk McpServer class with a StdioServerTransport, communicating over JSON-RPC 2.0 via stdin/stdout. All tool inputs are validated with Zod schemas before execution. A singleton StudentVue client (src/client.ts) lazily authenticates once and reuses the session across all 19 tools, avoiding repeated SOAP handshakes. A custom errFrom() utility handles the studentvue library's unusual behavior of throwing plain JavaScript objects rather than Error instances, serializing them to JSON for readable error messages in Claude.`,
+    technologies: ["TypeScript", "MCP", "Node.js", "Zod", "StudentVue API"],
+    github: "https://github.com/shengdynasty/school-mcp",
+    image: schoolMcpImage,
+    language: "typescript",
+    features: [
+      "19 tools registered via McpServer + StdioServerTransport (JSON-RPC 2.0 over stdin/stdout)",
+      "Grade simulation: project hypothetical assignment scores to see grade impact before submitting",
+      "GPA calculator: 4.0-scale weighted GPA across all scored courses with letterToGpa() mapping",
+      "Missing assignment detector: flags any Score that is blank, 'Not Graded', or contains 'missing'",
+      "ask_about_grades: full context dump of all courses, assignments, and priorities for AI analysis",
+      "Grade needed calculator: computes exact score required on next assignment to hit target grade",
+      "Singleton client pattern: one authenticated StudentVue session shared across all 19 tools",
+      "Custom errFrom() serializer: handles plain-object throws from the studentvue npm library",
+      "Zod input validation on all tool schemas with typed argument destructuring",
+      "Category breakdown: per-category weighted averages (Homework, Tests, Quizzes, etc.)",
+    ],
+    codeSnippet: `// Grade simulation tool — core logic
+async ({ courseName, hypotheticalScores }) => {
+  const client = await getClient();          // singleton
+  const gradebook = await client.gradebook(0);
+  const courses = extractCourses(gradebook);
+  const course = findCourse(courses, courseName);
+
+  // Tally current earned / total points
+  let earnedPoints = 0, totalPoints = 0;
+  for (const a of extractAssignments(extractMarks(course)[0])) {
+    const parts = a.Points?.split('/') ?? [];
+    if (parts.length !== 2) continue;
+    const possible = parsePoints(parts[1]);
+    const earned  = parsePoints(a.Score);
+    if (possible === null || earned === null) continue;
+    earnedPoints += earned;
+    totalPoints  += possible;
+  }
+
+  // Add hypothetical assignments
+  let simEarned = earnedPoints, simTotal = totalPoints;
+  for (const h of hypotheticalScores) {
+    simEarned += h.score;
+    simTotal  += h.outOf;
+  }
+
+  const currentPct   = totalPoints > 0 ? (earnedPoints / totalPoints) * 100 : null;
+  const projectedPct = simTotal   > 0 ? (simEarned   / simTotal)    * 100 : null;
+
+  return ok({
+    currentGrade:    currentPct   !== null ? Math.round(currentPct   * 100) / 100 : null,
+    projectedGrade:  projectedPct !== null ? Math.round(projectedPct * 100) / 100 : null,
+    projectedLetter: projectedPct !== null ? percentToLetter(projectedPct) : 'N/A',
+    change: currentPct !== null && projectedPct !== null
+      ? Math.round((projectedPct - currentPct) * 100) / 100 : null,
+  });
+}`,
+  },
+  "quant-platform": {
+    title: "Quant Research Platform",
+    description: "Full-stack quantitative finance platform with a 7-module React frontend, FastAPI backend, automated data pipeline via APScheduler, SQLite storage, and a local Ollama AI analyst.",
+    fullDescription: `A Bloomberg Terminal–inspired quantitative research platform built entirely from scratch with Python and React. It provides institutional-grade equity analysis tools in a fully local environment — no cloud API keys required beyond optional data sources, no subscription fees, and complete data privacy since everything runs on your own machine.
+
+The React frontend is organized into seven specialized modules, each backed by a dedicated FastAPI endpoint. The Dashboard displays portfolio overview, live price charts (Recharts), and active alerts via a WebSocket connection. The Stock Screener accepts 50+ filter criteria — P/E range, RSI bounds, minimum volume, sector, EPS growth — and returns a ranked list processed server-side via Pandas DataFrames. The Research Panel pulls fundamental data (income statement, balance sheet, cash flow) from yfinance and FRED economic indicators, presenting P/E, EBITDA, ROE, and debt ratios side-by-side. The Risk Calculator runs a Monte Carlo simulation (10,000 paths via NumPy) to compute 95% Value-at-Risk, Sharpe ratio, beta against the S&P 500, and maximum drawdown. The Portfolio Tracker manages a holdings ledger in SQLite, calculating real-time P&L and allocation percentages as prices update. The Options Pricing module implements Black-Scholes from first principles using SciPy's normal CDF, outputting fair value and the full Greeks (Δ, Γ, Θ, Vega, Rho) for any call or put. The AI Analyst module submits a structured prompt containing the stock's key metrics to a local Ollama llama3.2 model and streams the response token-by-token back to the UI.
+
+The data pipeline is automated by APScheduler with three background jobs: a 1-minute interval job fetches live OHLCV data via yfinance and writes to the price_history table; an hourly job refreshes fundamentals and FRED indicators; a nightly 2am job runs the full Monte Carlo risk computation and caches results in the analysis_cache table. Five SQLite tables (stocks, price_history, portfolio, analysis_cache, alerts) form the persistence layer, with INSERT OR REPLACE semantics to handle deduplication automatically.`,
+    technologies: ["Python", "FastAPI", "React", "TypeScript", "SQLite", "Ollama", "NumPy", "yfinance"],
+    github: "https://github.com/shengdynasty/quant-platform",
+    image: quantPlatformImage,
+    language: "python",
+    features: [
+      "7-module React frontend: Dashboard, Screener, Research, Risk, Portfolio, Options, AI Analyst",
+      "FastAPI backend with 8 routes: GET, POST, and WebSocket endpoints for live streaming",
+      "Stock Screener: 50+ filter criteria processed via Pandas DataFrame on the server",
+      "Black-Scholes options pricing from scratch: fair value + full Greeks (Δ Γ Θ Vega Rho)",
+      "Monte Carlo VaR: 10,000 simulation paths via NumPy for 95% confidence risk metrics",
+      "APScheduler: 3 background jobs — 1min live prices, 1hr fundamentals, 02:00 risk metrics",
+      "5 SQLite tables: stocks, price_history, portfolio, analysis_cache, alerts",
+      "Ollama AI Analyst: llama3.2 streaming analysis with bull/bear/risk breakdown, fully local",
+      "FRED API integration: CPI, Fed Funds Rate, GDP, unemployment alongside equity data",
+      "Alert system: threshold-based triggers (PRICE_ABOVE, PRICE_BELOW, RSI) pushed via WebSocket",
+    ],
+    codeSnippet: `# Black-Scholes options pricing — core implementation
+from scipy.stats import norm
+import numpy as np
+
+def black_scholes(S, K, T, r, sigma, option_type="call"):
+    """
+    S: spot price  K: strike  T: time to expiry (years)
+    r: risk-free rate  sigma: implied volatility
+    """
+    d1 = (np.log(S / K) + (r + 0.5 * sigma**2) * T) / (sigma * np.sqrt(T))
+    d2 = d1 - sigma * np.sqrt(T)
+
+    if option_type == "call":
+        price = S * norm.cdf(d1) - K * np.exp(-r * T) * norm.cdf(d2)
+        delta = norm.cdf(d1)
+    else:
+        price = K * np.exp(-r * T) * norm.cdf(-d2) - S * norm.cdf(-d1)
+        delta = -norm.cdf(-d1)
+
+    gamma = norm.pdf(d1) / (S * sigma * np.sqrt(T))
+    theta = (-(S * norm.pdf(d1) * sigma) / (2 * np.sqrt(T))
+             - r * K * np.exp(-r * T) * norm.cdf(d2)) / 365
+    vega  = S * norm.pdf(d1) * np.sqrt(T) / 100
+    rho   = K * T * np.exp(-r * T) * norm.cdf(d2) / 100
+
+    return {"price": round(price, 4), "delta": round(delta, 4),
+            "gamma": round(gamma, 6), "theta": round(theta, 4),
+            "vega":  round(vega,  4), "rho":   round(rho,   4)}`,
   },
   "portfolio-website": {
     title: "Academic Portfolio Website",
