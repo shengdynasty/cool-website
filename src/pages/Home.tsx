@@ -36,6 +36,7 @@ export default function Home() {
           height: "80vh",
           zIndex: 0,
           overflow: "hidden",
+          background: "#000",
         }}>
           <img
             src={profilePhoto}
@@ -48,29 +49,28 @@ export default function Home() {
               height: "84%",
               width: "auto",
               maxWidth: "none",
-              filter: "brightness(0.65) contrast(1.05)",
               display: "block",
             }}
           />
           {/* Left blend — strongest, fades into page bg */}
           <div style={{
             position: "absolute", inset: 0,
-            background: "linear-gradient(to right, #050505 0%, rgba(8,8,8,0.8) 20%, rgba(8,8,8,0.2) 55%, transparent 100%)",
+            background: "linear-gradient(to right, #000 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.2) 55%, transparent 100%)",
           }} />
           {/* Bottom blend */}
           <div style={{
             position: "absolute", inset: 0,
-            background: "linear-gradient(to top, #050505 0%, rgba(8,8,8,0.85) 18%, rgba(8,8,8,0.3) 42%, transparent 68%)",
+            background: "linear-gradient(to top, #000 0%, rgba(0,0,0,0.85) 18%, rgba(0,0,0,0.3) 42%, transparent 68%)",
           }} />
           {/* Top blend */}
           <div style={{
             position: "absolute", inset: 0,
-            background: "linear-gradient(to bottom, rgba(8,8,8,0.5) 0%, transparent 30%)",
+            background: "linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 30%)",
           }} />
           {/* Right edge blend */}
           <div style={{
             position: "absolute", inset: 0,
-            background: "linear-gradient(to left, rgba(8,8,8,0.4) 0%, transparent 18%)",
+            background: "linear-gradient(to left, rgba(0,0,0,0.4) 0%, transparent 18%)",
           }} />
         </div>
 
