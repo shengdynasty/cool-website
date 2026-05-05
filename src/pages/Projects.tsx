@@ -1,6 +1,17 @@
 import AcademicLayout from "@/components/layout/AcademicLayout";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+
+function useIsMobile() {
+  const [mobile, setMobile] = useState(() => window.innerWidth < 640);
+  useEffect(() => {
+    const fn = () => setMobile(window.innerWidth < 640);
+    window.addEventListener("resize", fn, { passive: true });
+    return () => window.removeEventListener("resize", fn);
+  }, []);
+  return mobile;
+}
 import expense from "@/assets/expense.svg";
 import task from "@/assets/taskmanagement.svg";
 import turtle from "@/assets/turtle-art.svg";
@@ -149,9 +160,11 @@ const featured = projects.find(p => p.featured)!;
 const rest = projects.filter(p => !p.featured);
 
 export default function Projects() {
+  const isMobile = useIsMobile();
+
   return (
     <AcademicLayout>
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "5rem 2rem 8rem" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: isMobile ? "3rem 1.25rem 6rem" : "5rem 2rem 8rem" }}>
 
         {/* ── Header ── */}
         <motion.div
@@ -180,7 +193,7 @@ export default function Projects() {
         </motion.div>
 
         {/* ── Featured ── */}
-        <motion.div {...fw(0.1)} style={{ marginBottom: "5rem" }}>
+        <motion.div {...fw(0.1)} style={{ marginBottom: isMobile ? "3rem" : "5rem" }}>
           <p style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "#333", textTransform: "uppercase", marginBottom: "1.5rem" }}>
             Featured
           </p>
@@ -198,7 +211,7 @@ export default function Projects() {
               onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = "#1C1C1C"}
             >
               {/* Image */}
-              <div style={{ aspectRatio: "16/7", overflow: "hidden", background: "#0D0D0D" }}>
+              <div style={{ aspectRatio: isMobile ? "16/9" : "16/7", overflow: "hidden", background: "#0D0D0D" }}>
                 <img
                   src={featured.image}
                   alt={featured.title}
@@ -212,26 +225,39 @@ export default function Projects() {
                     (e.target as HTMLImageElement).style.filter = "brightness(0.6)";
                   }}
                 />
-                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.4) 50%, transparent 100%)" }} />
+                {!isMobile && (
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.4) 50%, transparent 100%)" }} />
+                )}
               </div>
 
-              {/* Content */}
-              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "2.5rem" }}>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: "1rem" }}>
-                  {featured.tools.map(t => (
-                    <span key={t} className="tag">{t}</span>
-                  ))}
+              {/* Content — overlaid on desktop, below image on mobile */}
+              {isMobile ? (
+                <div style={{ padding: "1.25rem", background: "#0D0D0D", borderTop: "1px solid #1C1C1C" }}>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: "0.75rem" }}>
+                    {featured.tools.map(t => <span key={t} className="tag">{t}</span>)}
+                  </div>
+                  <h2 style={{ fontFamily: "var(--font-display)", fontSize: "1.5rem", fontWeight: 600, color: "#fff", marginBottom: "0.5rem", lineHeight: 1.2 }}>
+                    {featured.title}
+                  </h2>
+                  <p style={{ fontSize: "0.8rem", color: "#777", lineHeight: 1.6, marginBottom: "1rem" }}>
+                    {featured.description}
+                  </p>
+                  <span style={{ fontSize: "0.75rem", color: "#ccc", letterSpacing: "0.05em" }}>View project →</span>
                 </div>
-                <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.5rem, 4vw, 2.5rem)", fontWeight: 600, color: "#fff", marginBottom: "0.75rem" }}>
-                  {featured.title}
-                </h2>
-                <p style={{ fontSize: "0.85rem", color: "#888", maxWidth: "36rem", lineHeight: 1.6, marginBottom: "1.25rem" }}>
-                  {featured.description}
-                </p>
-                <span style={{ fontSize: "0.8rem", color: "#ccc", letterSpacing: "0.05em" }}>
-                  View project →
-                </span>
-              </div>
+              ) : (
+                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "2.5rem" }}>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: "1rem" }}>
+                    {featured.tools.map(t => <span key={t} className="tag">{t}</span>)}
+                  </div>
+                  <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.5rem, 4vw, 2.5rem)", fontWeight: 600, color: "#fff", marginBottom: "0.75rem" }}>
+                    {featured.title}
+                  </h2>
+                  <p style={{ fontSize: "0.85rem", color: "#888", maxWidth: "36rem", lineHeight: 1.6, marginBottom: "1.25rem" }}>
+                    {featured.description}
+                  </p>
+                  <span style={{ fontSize: "0.8rem", color: "#ccc", letterSpacing: "0.05em" }}>View project →</span>
+                </div>
+              )}
             </div>
           </Link>
         </motion.div>
@@ -248,10 +274,10 @@ export default function Projects() {
                 <div
                   style={{
                     display: "grid",
-                    gridTemplateColumns: "2.5rem 5.5rem 1fr auto",
-                    alignItems: "center",
-                    gap: "1.5rem",
-                    padding: "1.25rem 0",
+                    gridTemplateColumns: isMobile ? "4.5rem 1fr" : "2.5rem 5.5rem 1fr auto",
+                    alignItems: isMobile ? "flex-start" : "center",
+                    gap: isMobile ? "0.875rem" : "1.5rem",
+                    padding: isMobile ? "1rem 0" : "1.25rem 0",
                     borderBottom: "1px solid #141414",
                     transition: "padding-left 200ms, background 200ms",
                     borderRadius: 2,
@@ -266,13 +292,15 @@ export default function Projects() {
                     (e.currentTarget as HTMLElement).style.background = "transparent";
                   }}
                 >
-                  {/* Number */}
-                  <p style={{ fontSize: "0.65rem", color: "#333", letterSpacing: "0.08em", fontFamily: "var(--font-mono)" }}>{p.n}</p>
+                  {/* Number — desktop only */}
+                  {!isMobile && (
+                    <p style={{ fontSize: "0.65rem", color: "#333", letterSpacing: "0.08em", fontFamily: "var(--font-mono)" }}>{p.n}</p>
+                  )}
 
                   {/* Thumbnail */}
                   <div style={{
-                    width: "5.5rem",
-                    height: "3.5rem",
+                    width: isMobile ? "4.5rem" : "5.5rem",
+                    height: isMobile ? "3rem" : "3.5rem",
                     borderRadius: 3,
                     overflow: "hidden",
                     border: "1px solid #1C1C1C",
@@ -288,37 +316,59 @@ export default function Projects() {
                     />
                   </div>
 
-                  {/* Title + tools */}
+                  {/* Title + tools (+ links on mobile) */}
                   <div>
-                    <p style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: 500, color: "#ccc", marginBottom: "0.3rem", lineHeight: 1.2 }}>
-                      {p.title}
-                    </p>
+                    <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "0.5rem", marginBottom: "0.3rem" }}>
+                      <p style={{ fontFamily: "var(--font-display)", fontSize: isMobile ? "0.95rem" : "1.1rem", fontWeight: 500, color: "#ccc", lineHeight: 1.25 }}>
+                        {p.title}
+                      </p>
+                      {isMobile && (
+                        <div style={{ display: "flex", gap: "0.75rem", alignItems: "center", flexShrink: 0, paddingTop: 2 }}>
+                          {p.github && (
+                            <a href={p.github} target="_blank" rel="noopener noreferrer"
+                              style={{ color: "#555", cursor: "pointer" }}
+                              onClick={e => e.stopPropagation()}>
+                              <GH />
+                            </a>
+                          )}
+                          {p.live && (
+                            <a href={p.live} target="_blank" rel="noopener noreferrer"
+                              style={{ fontSize: "0.75rem", color: "#555", textDecoration: "none", cursor: "pointer" }}
+                              onClick={e => e.stopPropagation()}>
+                              ↗
+                            </a>
+                          )}
+                        </div>
+                      )}
+                    </div>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
                       {p.tools.map(t => <span key={t} className="tag">{t}</span>)}
                     </div>
                   </div>
 
-                  {/* Links */}
-                  <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-                    {p.github && (
-                      <a href={p.github} target="_blank" rel="noopener noreferrer"
-                        style={{ color: "#444", transition: "color 150ms", cursor: "pointer" }}
-                        onClick={e => e.stopPropagation()}
-                        onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#ccc"}
-                        onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#444"}>
-                        <GH />
-                      </a>
-                    )}
-                    {p.live && (
-                      <a href={p.live} target="_blank" rel="noopener noreferrer"
-                        style={{ fontSize: "0.75rem", color: "#444", textDecoration: "none", transition: "color 150ms", cursor: "pointer" }}
-                        onClick={e => e.stopPropagation()}
-                        onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#ccc"}
-                        onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#444"}>
-                        ↗
-                      </a>
-                    )}
-                  </div>
+                  {/* Links — desktop only */}
+                  {!isMobile && (
+                    <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+                      {p.github && (
+                        <a href={p.github} target="_blank" rel="noopener noreferrer"
+                          style={{ color: "#444", transition: "color 150ms", cursor: "pointer" }}
+                          onClick={e => e.stopPropagation()}
+                          onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#ccc"}
+                          onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#444"}>
+                          <GH />
+                        </a>
+                      )}
+                      {p.live && (
+                        <a href={p.live} target="_blank" rel="noopener noreferrer"
+                          style={{ fontSize: "0.75rem", color: "#444", textDecoration: "none", transition: "color 150ms", cursor: "pointer" }}
+                          onClick={e => e.stopPropagation()}
+                          onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#ccc"}
+                          onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#444"}>
+                          ↗
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
               </Link>
             </motion.div>
