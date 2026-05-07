@@ -108,7 +108,7 @@ export default function Home() {
 
           <motion.div {...f(0.4)} style={{ display: "flex", flexWrap: "wrap", gap: "2.5rem" }}>
             {[
-              { n: "13",   l: "Projects" },
+              { n: "14",   l: "Projects" },
               { n: "4",    l: "Activities" },
               { n: "3",    l: "Honors" },
               { n: "2029", l: "Grad. Year" },
@@ -146,9 +146,9 @@ export default function Home() {
                 New
               </p>
               {[
+                { label: "Autonomous Researcher", to: "/project/autonomous-researcher", internal: true },
                 { label: "AI Web Researcher", to: "/project/web-researcher", internal: true },
                 { label: "Local RAG Chatbot", to: "/project/rag-chatbot", internal: true },
-                { label: "Personal AI MCP Server", to: "/project/mcp-server", internal: true },
               ].map(item => (
                 <div key={item.label} style={{ paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
                   {item.internal ? (

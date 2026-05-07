@@ -25,6 +25,7 @@ import ragImage from "@/assets/rag-chatbot.svg";
 import webResearcherImage from "@/assets/web-researcher.svg";
 import schoolMcpImage from "@/assets/school-mcp.svg";
 import quantPlatformImage from "@/assets/quant-platform.svg";
+import autonomousResearcherImage from "@/assets/autonomous-researcher.svg";
 
 const GH = () => (
   <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
@@ -48,10 +49,20 @@ const projects = [
     tools: ["TypeScript", "MCP", "Node.js", "Zod"],
     github: "https://github.com/shengdynasty/school-mcp",
     detailPage: "/project/school-mcp",
-    image: schoolMcpImage, featured: true,
+    image: schoolMcpImage,
   },
   {
-    id: "quant-platform", n: "02",
+    id: "autonomous-researcher", n: "02",
+    title: "Autonomous Research Agent",
+    description: "Agentic research tool that plans its own sub-questions, searches the web, evaluates source relevance, retries bad results, and synthesizes a cited Markdown report — entirely local via Ollama. No API keys.",
+    tools: ["TypeScript", "Node.js", "Ollama", "React", "Express"],
+    github: "https://github.com/shengdynasty/autonomous-researcher",
+    detailPage: "/project/autonomous-researcher",
+    image: autonomousResearcherImage,
+    featured: true,
+  },
+  {
+    id: "quant-platform", n: "03",
     title: "Quant Research Platform",
     description: "Bloomberg Terminal–style quant finance platform: 7-module React frontend, FastAPI backend, Monte Carlo risk engine, Black-Scholes options pricing, and local Ollama AI analyst.",
     tools: ["Python", "FastAPI", "React", "SQLite", "Ollama"],
@@ -60,7 +71,7 @@ const projects = [
     image: quantPlatformImage,
   },
   {
-    id: "web-researcher", n: "03",
+    id: "web-researcher", n: "04",
     title: "AI Web Researcher",
     description: "Local-first AI research assistant — type any topic, get live DuckDuckGo search results synthesized into a streaming markdown report via Ollama. No API keys.",
     tools: ["React", "TypeScript", "Ollama", "Vite"],
@@ -69,7 +80,7 @@ const projects = [
     image: webResearcherImage,
   },
   {
-    id: "rag-chatbot", n: "04",
+    id: "rag-chatbot", n: "05",
     title: "Local RAG Chatbot",
     description: "100% local Retrieval-Augmented Generation chatbot — upload any PDF, ask questions, get answers grounded in your document. No API keys. Runs via Ollama.",
     tools: ["Node.js", "LangChain.js", "Ollama", "Express"],
@@ -78,7 +89,7 @@ const projects = [
     image: ragImage,
   },
   {
-    id: "mcp-server", n: "05",
+    id: "mcp-server", n: "06",
     title: "Personal AI MCP Server",
     description: "Custom MCP server suite connecting Claude to Gmail, Google Calendar, Notion, Spotify, GitHub — natural-language control of real-world tools.",
     tools: ["TypeScript", "MCP", "Claude AI", "Node.js"],
@@ -87,7 +98,7 @@ const projects = [
     image: mcpImage,
   },
   {
-    id: "note-app", n: "06",
+    id: "note-app", n: "07",
     title: "AI Note-Taking App",
     description: "Notability-style app with AI flashcards, quizzes, fill-in-the-blank, and chat generated from your own notes using Claude.",
     tools: ["React", "TypeScript", "Claude AI", "Vite"],
@@ -96,7 +107,7 @@ const projects = [
     detailPage: "/project/note-app", image: noteImage,
   },
   {
-    id: "csv-stock-visualizer", n: "07",
+    id: "csv-stock-visualizer", n: "08",
 
     title: "CSV Stock Visualizer",
     description: "Interactive web app that parses CSV stock data into dynamic price charts, volume graphs, and key statistics.",
@@ -106,7 +117,7 @@ const projects = [
     detailPage: "/project/csv-stock-visualizer", image: stockImage,
   },
   {
-    id: "portfolio-website", n: "08",
+    id: "portfolio-website", n: "09",
     title: "Academic Portfolio Website",
     description: "Professional web presence to communicate academic interests and projects to university admissions.",
     tools: ["React", "TypeScript", "Tailwind CSS"],
@@ -115,7 +126,7 @@ const projects = [
     detailPage: "/project/portfolio-website", image: port,
   },
   {
-    id: "expense-tracker", n: "09",
+    id: "expense-tracker", n: "10",
     title: "Personal Expense Tracker",
     description: "Tool to categorize and visualize personal spending, applying data structures and basic analysis.",
     tools: ["Python", "Tkinter", "Data Visualization"],
@@ -123,7 +134,7 @@ const projects = [
     detailPage: "/project/expense-tracker", image: expense,
   },
   {
-    id: "task-management", n: "10",
+    id: "task-management", n: "11",
     title: "Task Management Application",
     description: "Productivity tool to organize tasks, track progress, and practice database-like data management.",
     tools: ["Python", "Tkinter"],
@@ -131,7 +142,7 @@ const projects = [
     detailPage: "/project/task-management", image: task,
   },
   {
-    id: "calculator", n: "11",
+    id: "calculator", n: "12",
     title: "Scientific Calculator",
     description: "Functional calculator with a graphical interface to practice GUI development and event handling.",
     tools: ["Python", "Tkinter"],
@@ -139,7 +150,7 @@ const projects = [
     detailPage: "/project/calculator", image: calculatorImage,
   },
   {
-    id: "turtle-art", n: "12",
+    id: "turtle-art", n: "13",
     title: "Turtle Art Generator",
     description: "Procedural graphics demonstrating fundamental programming concepts through interactive visual output.",
     tools: ["Python", "Turtle Graphics", "JSON"],
@@ -147,7 +158,7 @@ const projects = [
     detailPage: "/project/turtle-art", image: turtle,
   },
   {
-    id: "tic-tac-toe", n: "13",
+    id: "tic-tac-toe", n: "14",
     title: "Tic Tac Toe Game",
     description: "Classic two-player game implementing game logic, turn-based systems, and win-condition detection.",
     tools: ["Python", "Tkinter"],
@@ -173,7 +184,7 @@ export default function Projects() {
           style={{ marginBottom: "5rem" }}
         >
           <p style={{ fontSize: "0.65rem", letterSpacing: "0.2em", color: "#444", textTransform: "uppercase", marginBottom: "1.5rem" }}>
-            13 Projects
+            14 Projects
           </p>
           <h1 style={{
             fontFamily: "var(--font-display)",

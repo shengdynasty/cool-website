@@ -20,6 +20,7 @@ import ragImage from "@/assets/rag-chatbot.svg";
 import webResearcherImage from "@/assets/web-researcher.svg";
 import schoolMcpImage from "@/assets/school-mcp.svg";
 import quantPlatformImage from "@/assets/quant-platform.svg";
+import autonomousResearcherImage from "@/assets/autonomous-researcher.svg";
 
 const GH = () => (
   <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
@@ -35,12 +36,77 @@ interface ProjectData {
   github: string;
   live?: string;
   image: string | null;
+  video?: string;
   codeSnippet: string;
   features: string[];
   language?: string;
 }
 
 const projectsData: Record<string, ProjectData> = {
+  "autonomous-researcher": {
+    title: "Autonomous Research Agent",
+    description: "Agentic research tool that plans its own sub-questions, searches the web, evaluates sources, retries bad results, and synthesizes a cited Markdown report — entirely local via Ollama. No API keys.",
+    fullDescription: `A fully local, zero-API-key autonomous research agent built in TypeScript and React. Unlike a one-shot search tool, this agent runs a four-stage loop that mirrors how a human researcher actually works: it first asks "what do I need to know?", then searches, reads and evaluates every source, discards low-quality pages, and only writes the final report once it has gathered enough credible evidence.
+
+Stage 1 (Plan): given any topic, the local Ollama LLM generates four targeted sub-questions that together give a comprehensive view. Stage 2 (Search): each sub-question is sent to DuckDuckGo via HTML scraping — no API key, no rate limits for personal use. Stage 3 (Scrape + Evaluate): for each result, the page is fetched with axios, cleaned with cheerio, and scored 0–10 by the LLM for relevance. If the score falls below 5, the agent refines the search query and retries — up to three attempts per sub-question. Stage 4 (Synthesize): once sufficient high-quality sources are collected, the LLM writes a 500–700 word Markdown report with inline citations, saved to ./reports/*.md with a date-stamped filename.
+
+The Express backend streams every agent decision to the React frontend via Server-Sent Events (SSE), producing a real-time terminal-style log — color-coded by stage (PLAN / SRCH / FETCH / EVAL / SYNC). The frontend's ReportViewer tab shows the finished report with full Markdown rendering, and a Saved Reports panel lets you browse all past research sessions.`,
+    technologies: ["TypeScript", "Node.js", "Ollama", "React", "Express", "SSE"],
+    github: "https://github.com/shengdynasty/autonomous-researcher",
+    image: autonomousResearcherImage,
+    video: "/autonomous-researcher-demo.mp4",
+    language: "typescript",
+    features: [
+      "4-stage autonomous loop: Plan → Search → Scrape → Evaluate → Synthesize",
+      "LLM-powered planner breaks any topic into 4 targeted search sub-questions",
+      "DuckDuckGo HTML scraping via axios + cheerio — no API keys, no rate limits",
+      "Per-source relevance scoring: LLM rates each page 0–10, discards below threshold",
+      "Self-correcting retry logic: refines the search query and retries up to 3× per question",
+      "Synthesizer writes 500–700 word Markdown reports with inline [1],[2] citations",
+      "Server-Sent Events (SSE): every agent decision streams live to the UI",
+      "Color-coded terminal log: PLAN / SRCH / FETCH / EVAL / SYNC stages",
+      "Reports persisted to ./reports/*.md with date-stamped filenames",
+      "Model selector for any locally installed Ollama model (llama3.2, mistral, etc.)",
+    ],
+    codeSnippet: `// Agent orchestrator — 4-stage autonomous loop with self-correction
+export async function runResearchLoop(topic, model, onLog) {
+  // Stage 1: LLM breaks topic into 4 targeted sub-questions
+  onLog({ stage: 'plan', message: \`Planning research for: "\${topic}"...\` });
+  const subQuestions = await planResearch(topic, model);
+
+  const goodPages = [];
+
+  for (const sq of subQuestions) {
+    onLog({ stage: 'search', message: \`Searching: "\${sq.searchQuery}"\` });
+    let results = await search(sq.searchQuery);
+    let foundGood = false;
+
+    // Self-correcting retry loop — up to 3 attempts per sub-question
+    for (let attempt = 0; attempt < 3 && !foundGood; attempt++) {
+      for (const result of results.slice(0, 4)) {
+        const content = await scrapeUrl(result.url);
+        const { score, reason } = await evaluatePage(content, sq.question, model);
+
+        if (score >= 5) {  // threshold: discard low-relevance pages
+          onLog({ stage: 'evaluate', message: \`✓ \${score}/10 — \${reason}\` });
+          goodPages.push({ question: sq.question, content, url: result.url });
+          foundGood = true;
+          break;
+        }
+      }
+      if (!foundGood) {
+        // Refine query and search again
+        results = await search(\`\${sq.searchQuery} explained guide\`);
+        onLog({ stage: 'search', message: \`Retrying with refined query...\` });
+      }
+    }
+  }
+
+  // Stage 4: synthesize all sources into a cited Markdown report
+  onLog({ stage: 'synthesize', message: \`Writing report from \${goodPages.length} sources...\` });
+  return synthesize(topic, goodPages, model);
+}`,
+  },
   "web-researcher": {
     title: "AI Web Researcher",
     description: "Local-first AI research assistant — type any topic, get live DuckDuckGo search results synthesized into a streaming markdown report via Ollama. No API keys.",
@@ -918,7 +984,7 @@ export default function ProjectDetailPage() {
           </div>
         </motion.div>
 
-        {/* Image */}
+        {/* Cover image */}
         {project.image && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -929,20 +995,43 @@ export default function ProjectDetailPage() {
               overflow: "hidden",
               borderRadius: 4,
               border: "1px solid #1C1C1C",
-              marginBottom: "4rem",
+              marginBottom: project.video ? "2rem" : "4rem",
               background: "#0D0D0D",
             }}
           >
             <img
               src={project.image}
               alt={project.title}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                filter: "brightness(0.8)",
-              }}
+              style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.8)" }}
             />
+          </motion.div>
+        )}
+
+        {/* Video demo */}
+        {project.video && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.15 }}
+            style={{ marginBottom: "4rem" }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1rem" }}>
+              <p style={{ fontSize: "0.6rem", letterSpacing: "0.2em", color: "#444", textTransform: "uppercase", whiteSpace: "nowrap" }}>
+                Demo
+              </p>
+              <div style={{ flex: 1, height: "1px", background: "#1C1C1C" }} />
+            </div>
+            <div style={{ borderRadius: 4, overflow: "hidden", border: "1px solid #1C1C1C", background: "#000" }}>
+              <video
+                src={project.video}
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls
+                style={{ width: "100%", display: "block" }}
+              />
+            </div>
           </motion.div>
         )}
 
