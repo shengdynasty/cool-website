@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import AcademicLayout from "@/components/layout/AcademicLayout";
@@ -6,16 +7,19 @@ import fox from "@/assets/fox.png";
 import math from "@/assets/math.jpg";
 import uni from "@/assets/cornell.png";
 
-const engagementsData: Record<string, {
-  title: string;
-  role: string;
-  period: string;
-  timeCommitment: string;
-  work: string;
-  learned: string;
-  relevance: string;
-  image: string | null;
-}> = {
+const engagementsData: Record<
+  string,
+  {
+    title: string;
+    role: string;
+    period: string;
+    timeCommitment: string;
+    work: string;
+    learned: string;
+    relevance: string;
+    image: string | null;
+  }
+> = {
   "iit-research": {
     title: "Research Internship — IIT Materials Science Laboratory",
     role: "Research Assistant",
@@ -26,7 +30,7 @@ const engagementsData: Record<string, {
     relevance: `This experience solidified my interest in pursuing research at the undergraduate level. It demonstrated how theoretical concepts from physics and chemistry apply to practical engineering problems and introduced me to the collaborative nature of academic research.`,
     image: IIT,
   },
-  "robotics": {
+  robotics: {
     title: "Robotics Team — Design and Programming",
     role: "Lead Programmer",
     period: "2022–Present",
@@ -36,7 +40,7 @@ const engagementsData: Record<string, {
     relevance: `Robotics provides a unique environment for applied learning where abstract programming concepts meet physical reality. This experience has deepened my interest in systems engineering and the integration of software with hardware.`,
     image: fox,
   },
-  "econometrics": {
+  econometrics: {
     title: "Summer Program — Introduction to Econometrics",
     role: "Participant",
     period: "Summer 2023",
@@ -58,37 +62,162 @@ const engagementsData: Record<string, {
   },
 };
 
-const Section = ({ label, body }: { label: string; body: string }) => (
-  <div style={{ paddingTop: "2.5rem", borderTop: "1px solid #1C1C1C" }}>
-    <p style={{
-      fontSize: "0.6rem",
-      letterSpacing: "0.2em",
-      color: "#444",
-      textTransform: "uppercase",
-      marginBottom: "1rem",
-    }}>
-      {label}
-    </p>
-    <p style={{ fontSize: "0.9rem", color: "#666", lineHeight: 1.8, maxWidth: "52rem" }}>
-      {body}
-    </p>
-  </div>
-);
+const sidebarSections = [
+  { id: "work", label: "What I Worked On" },
+  { id: "learned", label: "What I Learned" },
+  { id: "relevance", label: "Why It Matters" },
+];
+
+function useWindowWidth() {
+  const [width, setWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1200
+  );
+  useEffect(() => {
+    const handler = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, []);
+  return width;
+}
+
+function Section({ id, label, body }: { id: string; label: string; body: string }) {
+  return (
+    <div
+      id={id}
+      style={{
+        paddingTop: "2.5rem",
+        borderTop: "1px solid #1C1C1C",
+        scrollMarginTop: "6rem",
+      }}
+    >
+      <p
+        style={{
+          fontSize: "0.6rem",
+          letterSpacing: "0.2em",
+          color: "#888",
+          textTransform: "uppercase",
+          marginBottom: "1rem",
+        }}
+      >
+        {label}
+      </p>
+      <p style={{ fontSize: "0.9rem", color: "#777", lineHeight: 1.85, maxWidth: "52rem" }}>
+        {body}
+      </p>
+    </div>
+  );
+}
+
+function Sidebar({ activeSection }: { activeSection: string }) {
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  return (
+    <aside
+      style={{
+        position: "sticky",
+        top: "6rem",
+        alignSelf: "flex-start",
+        paddingLeft: "2.5rem",
+        borderLeft: "1px solid #1A1A1A",
+      }}
+    >
+      <p
+        style={{
+          fontSize: "0.55rem",
+          letterSpacing: "0.18em",
+          color: "#555",
+          textTransform: "uppercase",
+          marginBottom: "1.25rem",
+        }}
+      >
+        Contents
+      </p>
+      <nav style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+        {sidebarSections.map(({ id, label }) => {
+          const isActive = activeSection === id;
+          return (
+            <button
+              key={id}
+              onClick={() => scrollTo(id)}
+              style={{
+                background: "none",
+                border: "none",
+                padding: 0,
+                cursor: "pointer",
+                textAlign: "left",
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.68rem",
+                letterSpacing: "0.06em",
+                color: isActive ? "#CCC" : "#444",
+                transition: "color 200ms",
+                lineHeight: 1.5,
+              }}
+              onMouseEnter={(e) => {
+                if (!isActive) (e.currentTarget as HTMLElement).style.color = "#888";
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive) (e.currentTarget as HTMLElement).style.color = "#444";
+              }}
+            >
+              {isActive && (
+                <span style={{ marginRight: "0.4rem", color: "#555" }}>—</span>
+              )}
+              {label}
+            </button>
+          );
+        })}
+      </nav>
+    </aside>
+  );
+}
 
 export default function EngagementDetail() {
   const { engagementId } = useParams();
   const navigate = useNavigate();
+  const width = useWindowWidth();
+  const [activeSection, setActiveSection] = useState("work");
 
   const engagement = engagementId ? engagementsData[engagementId] : null;
+  const showSidebar = width >= 1024;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      for (const { id } of [...sidebarSections].reverse()) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= 160) {
+          setActiveSection(id);
+          return;
+        }
+      }
+      setActiveSection("work");
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   if (!engagement) {
     return (
       <AcademicLayout>
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "5rem 2rem", textAlign: "center" }}>
+        <div
+          style={{
+            maxWidth: 1100,
+            margin: "0 auto",
+            padding: "5rem 2rem",
+            textAlign: "center",
+          }}
+        >
           <p style={{ color: "#555", marginBottom: "2rem" }}>Engagement not found.</p>
           <button
             onClick={() => navigate("/engagement")}
-            style={{ background: "none", border: "none", color: "#888", cursor: "pointer", fontSize: "0.85rem" }}
+            style={{
+              background: "none",
+              border: "none",
+              color: "#888",
+              cursor: "pointer",
+              fontSize: "0.85rem",
+            }}
           >
             ← Back to Engagement
           </button>
@@ -122,8 +251,8 @@ export default function EngagementDetail() {
             padding: 0,
             transition: "color 150ms",
           }}
-          onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#ccc"}
-          onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#444"}
+          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#ccc")}
+          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "#444")}
         >
           ← ENGAGEMENT
         </motion.button>
@@ -135,36 +264,44 @@ export default function EngagementDetail() {
           transition={{ duration: 0.55 }}
           style={{ marginBottom: "3rem" }}
         >
-          <span style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.6rem",
-            letterSpacing: "0.1em",
-            color: "#555",
-            textTransform: "uppercase",
-            display: "inline-block",
-            marginBottom: "1.25rem",
-            padding: "0.25rem 0.6rem",
-            border: "1px solid #333",
-            borderRadius: 2,
-          }}>
+          <span
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.6rem",
+              letterSpacing: "0.1em",
+              color: "#999",
+              textTransform: "uppercase",
+              display: "inline-block",
+              marginBottom: "1.25rem",
+              padding: "0.25rem 0.6rem",
+              border: "1px solid #2A2A2A",
+              borderRadius: 2,
+            }}
+          >
             {engagement.role}
           </span>
 
-          <h1 style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(1.8rem, 5vw, 3.2rem)",
-            fontWeight: 700,
-            color: "#fff",
-            lineHeight: 1.1,
-            letterSpacing: "-0.01em",
-            marginBottom: "1.5rem",
-          }}>
+          <h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(1.8rem, 5vw, 3.2rem)",
+              fontWeight: 700,
+              color: "#fff",
+              lineHeight: 1.1,
+              letterSpacing: "-0.01em",
+              marginBottom: "1.5rem",
+            }}
+          >
             {engagement.title}
           </h1>
 
           <div style={{ display: "flex", gap: "2.5rem", flexWrap: "wrap" }}>
-            <span style={{ fontSize: "0.75rem", color: "#555", letterSpacing: "0.05em" }}>{engagement.period}</span>
-            <span style={{ fontSize: "0.75rem", color: "#444", letterSpacing: "0.05em" }}>{engagement.timeCommitment}</span>
+            <span style={{ fontSize: "0.75rem", color: "#888", letterSpacing: "0.05em" }}>
+              {engagement.period}
+            </span>
+            <span style={{ fontSize: "0.75rem", color: "#666", letterSpacing: "0.05em" }}>
+              {engagement.timeCommitment}
+            </span>
           </div>
         </motion.div>
 
@@ -196,16 +333,26 @@ export default function EngagementDetail() {
           </motion.div>
         )}
 
-        {/* Content */}
+        {/* Content + Sidebar */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.2 }}
-          style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}
+          style={
+            showSidebar
+              ? { display: "grid", gridTemplateColumns: "1fr 200px", gap: "0" }
+              : {}
+          }
         >
-          <Section label="What I Worked On" body={engagement.work} />
-          <Section label="What I Learned" body={engagement.learned} />
-          <Section label="Why It Matters" body={engagement.relevance} />
+          {/* Sections */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
+            <Section id="work" label="What I Worked On" body={engagement.work} />
+            <Section id="learned" label="What I Learned" body={engagement.learned} />
+            <Section id="relevance" label="Why It Matters" body={engagement.relevance} />
+          </div>
+
+          {/* Sticky sidebar */}
+          {showSidebar && <Sidebar activeSection={activeSection} />}
         </motion.div>
 
       </div>
