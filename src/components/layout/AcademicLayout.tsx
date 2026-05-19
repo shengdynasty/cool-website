@@ -247,7 +247,7 @@ export default function AcademicLayout({ children }: AcademicLayoutProps) {
           <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-start", gap: "2rem" }}>
             <div>
               <p style={{ fontFamily: "var(--font-display)", fontSize: "1.5rem", fontWeight: 600, color: "#fff", marginBottom: "0.25rem" }}>
-                Shawn Yan
+                Sheng Yan
               </p>
               <p style={{ fontSize: "0.75rem", color: "#444", letterSpacing: "0.06em" }}>
                 Engineering · CS · Economics · Political Science

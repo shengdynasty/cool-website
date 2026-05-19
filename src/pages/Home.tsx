@@ -40,7 +40,7 @@ export default function Home() {
         }}>
           <img
             src={profilePhoto}
-            alt="Shawn Yan"
+            alt="Sheng Yan"
             style={{
               position: "absolute",
               top: "4%",
