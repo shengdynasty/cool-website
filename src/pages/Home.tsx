@@ -93,7 +93,7 @@ export default function Home() {
               marginBottom: "2rem",
             }}
           >
-            SHAWN<br />
+            SHENG<br />
             <span style={{ color: "#555", fontStyle: "italic", fontWeight: 400 }}>Yan</span>
           </motion.h1>
 
