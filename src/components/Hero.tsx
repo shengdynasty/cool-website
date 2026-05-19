@@ -11,7 +11,7 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 text-center text-white px-4 animate-fade-in mx-4 py-12">
         <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-          Shawn <span className="text-accent">Yan</span>
+          Sheng <span className="text-accent">Yan</span>
         </h1>
         <p className="text-xl md:text-2xl mb-4 text-slate-50">
           Full-Stack Developer
