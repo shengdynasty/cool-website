@@ -21,6 +21,10 @@ import webResearcherImage from "@/assets/web-researcher.svg";
 import schoolMcpImage from "@/assets/school-mcp.svg";
 import quantPlatformImage from "@/assets/quant-platform.svg";
 import autonomousResearcherImage from "@/assets/autonomous-researcher.svg";
+import videoToTextImage from "@/assets/video-to-text.svg";
+import vttTokenFormula from "@/assets/vtt-token-formula.svg";
+import vttLazyLoad from "@/assets/vtt-lazy-load.svg";
+import vttContactSheet from "@/assets/vtt-contact-sheet.svg";
 
 const GH = () => (
   <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
@@ -40,9 +44,90 @@ interface ProjectData {
   codeSnippet: string;
   features: string[];
   language?: string;
+  diagrams?: { src: string; title: string; caption: string }[];
 }
 
 const projectsData: Record<string, ProjectData> = {
+  "video-to-text": {
+    title: "Video-to-Text MCP Server",
+    description: "Token-budgeted MCP server that lets Claude watch video without blowing its context — pixel-cost projection, lazy frame manifests, and contact-sheet montages cut a 10-min clip from ~150k tokens to ~5k.",
+    fullDescription: `An MCP (Model Context Protocol) server that gives Claude the ability to "watch" video — extracting frames, transcribing audio, and building searchable timelines — while keeping a tight leash on the one thing that makes vision expensive: tokens. Naively feeding a 10-minute clip to a vision model can cost ~150,000 tokens; this server delivers the same understanding for roughly 5,000 by treating token budget as a first-class constraint at every stage of the pipeline.
+
+The core insight is that vision cost is driven by pixels, not file size. Anthropic's vision models price an image at roughly (width × height) / 750 tokens, with the long edge auto-capped at 1568px. A raw 1920×1080 frame costs ~2,765 tokens; the same frame resized to 512×288 costs ~196 — a 14× reduction with no loss of the semantic content a model actually needs. The server exposes estimate_frame_tokens() and compute_affordable_frames() so Claude can project the cost of a request before spending a single token, then resize frames to fit a target dimension via _scale_to_fit().
+
+Seven tools form the pipeline: probe_video (ffprobe metadata), extract_frames (fps-sampled, perceptually deduplicated frame extraction that returns a lightweight JSON manifest — not pixels), get_contact_sheet (tiles N frames into one montage image, ~40% cheaper than sending them individually), get_frames (loads specific frames on demand), transcribe (faster-whisper audio→text with timestamps), build_timeline (merges visual + audio events into a unified searchable timeline), and cleanup (purges the job cache). Frames are written to a per-job cache directory with a 24-hour TTL, so extraction happens once and Claude can inspect, re-inspect, and transcribe without re-decoding the video. Lazy loading means the manifest is cheap to read and pixels are only paid for when explicitly requested.`,
+    technologies: ["Python", "FastMCP", "ffmpeg", "faster-whisper", "Pillow"],
+    github: "https://github.com/shengdynasty/video-to-text-mcp",
+    image: videoToTextImage,
+    language: "python",
+    diagrams: [
+      {
+        src: vttTokenFormula,
+        title: "Token Cost Model",
+        caption: "Vision cost scales with pixels, not file size: tokens ≈ (w × h) / 750. Resizing a 1920×1080 frame to 512×288 turns ~2,765 tokens into ~196 — a 14× saving that drops a 10-minute clip from ~150k to ~5k tokens.",
+      },
+      {
+        src: vttLazyLoad,
+        title: "Lazy Loading & Job Lifecycle",
+        caption: "extract_frames() returns a lightweight JSON manifest — not pixels — written to a per-job cache (~/.cache/video-to-text-mcp/<job_id>/) with a 24h TTL. Pixels are only paid for when get_contact_sheet or get_frames is explicitly called.",
+      },
+      {
+        src: vttContactSheet,
+        title: "Contact Sheet vs Per-Frame",
+        caption: "Tiling 12 frames into a single montage costs ~1,440 tokens versus ~2,350 sent individually — roughly 40% fewer tokens for the same visual coverage, because per-image overhead is paid once instead of twelve times.",
+      },
+    ],
+    features: [
+      "7 MCP tools: probe_video, extract_frames, get_contact_sheet, get_frames, transcribe, build_timeline, cleanup",
+      "Pixel-cost projection: estimate_frame_tokens() and compute_affordable_frames() price a request before spending tokens",
+      "Token formula tokens ≈ (w × h) / 750 with long-edge auto-cap at 1568px baked into every cost estimate",
+      "Frame resizing via _scale_to_fit(): a 1920×1080 frame drops from ~2,765 to ~196 tokens (14× cheaper)",
+      "Lazy manifests: extract_frames() returns JSON metadata, not pixels — pixels loaded only on demand",
+      "Contact-sheet montages tile N frames into one image, ~40% cheaper than sending frames individually",
+      "Perceptual deduplication skips near-identical frames so the token budget is spent on distinct content",
+      "fps sampling + token_budget ceiling: 10-min clip drops from ~150k to ~5k tokens",
+      "faster-whisper transcription with timestamps merged into a unified searchable timeline",
+      "Per-job cache directory with 24h TTL — extract once, inspect and transcribe repeatedly without re-decoding",
+    ],
+    codeSnippet: `# Token-budget core — project vision cost before spending a single token
+# Anthropic vision pricing: ~ (width x height) / 750 tokens per image,
+# with the long edge auto-capped at 1568px.
+
+TOKENS_PER_PIXEL_DIVISOR = 750
+MAX_LONG_EDGE = 1568
+
+
+def estimate_frame_tokens(width: int, height: int) -> int:
+    """Project the token cost of a single frame at the given resolution."""
+    w, h = _scale_to_fit(width, height, MAX_LONG_EDGE)
+    return round((w * h) / TOKENS_PER_PIXEL_DIVISOR)
+
+
+def _scale_to_fit(width: int, height: int, max_dim: int) -> tuple[int, int]:
+    """Scale (w, h) down so the long edge <= max_dim, preserving aspect ratio."""
+    long_edge = max(width, height)
+    if long_edge <= max_dim:
+        return width, height
+    scale = max_dim / long_edge
+    return round(width * scale), round(height * scale)
+
+
+def compute_affordable_frames(
+    width: int,
+    height: int,
+    token_budget: int,
+    max_dimension: int = 512,
+) -> int:
+    """How many resized frames fit inside a token budget?"""
+    w, h = _scale_to_fit(width, height, max_dimension)
+    per_frame = max(1, round((w * h) / TOKENS_PER_PIXEL_DIVISOR))
+    return token_budget // per_frame
+
+
+# A 10-min clip sampled at fps=0.5 -> ~25 frames.
+# Naive (full-res, every frame):  25 * 2765  ~= 150,000 tokens
+# Budgeted (resized to 512px):     25 *  196  ~=   5,000 tokens`,
+  },
   "autonomous-researcher": {
     title: "Autonomous Research Agent",
     description: "Agentic research tool that plans its own sub-questions, searches the web, evaluates sources, retries bad results, and synthesizes a cited Markdown report — entirely local via Ollama. No API keys.",
@@ -1031,6 +1116,55 @@ export default function ProjectDetailPage() {
                 controls
                 style={{ width: "100%", display: "block" }}
               />
+            </div>
+          </motion.div>
+        )}
+
+        {/* How It Works — diagrams gallery */}
+        {project.diagrams && project.diagrams.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.18 }}
+            style={{ marginBottom: "4rem" }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.75rem" }}>
+              <p style={{ fontSize: "0.6rem", letterSpacing: "0.2em", color: "#444", textTransform: "uppercase", whiteSpace: "nowrap" }}>
+                How It Works
+              </p>
+              <div style={{ flex: 1, height: "1px", background: "#1C1C1C" }} />
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
+              {project.diagrams.map((d, i) => (
+                <div key={i}>
+                  <div style={{
+                    borderRadius: 4,
+                    overflow: "hidden",
+                    border: "1px solid #1C1C1C",
+                    background: "#07070f",
+                  }}>
+                    <img
+                      src={d.src}
+                      alt={d.title}
+                      style={{ width: "100%", display: "block" }}
+                    />
+                  </div>
+                  <div style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start", marginTop: "1rem" }}>
+                    <span style={{ color: "#333", fontFamily: "var(--font-mono)", fontSize: "0.65rem", flexShrink: 0, marginTop: "0.2rem" }}>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <p style={{ fontSize: "0.82rem", color: "#aaa", fontWeight: 600, marginBottom: "0.4rem" }}>
+                        {d.title}
+                      </p>
+                      <p style={{ fontSize: "0.8rem", color: "#666", lineHeight: 1.65, maxWidth: "48rem" }}>
+                        {d.caption}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </motion.div>
         )}

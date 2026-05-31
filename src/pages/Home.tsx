@@ -108,7 +108,7 @@ export default function Home() {
 
           <motion.div {...f(0.4)} style={{ display: "flex", flexWrap: "wrap", gap: "2.5rem" }}>
             {[
-              { n: "14",   l: "Projects" },
+              { n: "15",   l: "Projects" },
               { n: "4",    l: "Activities" },
               { n: "3",    l: "Honors" },
               { n: "2029", l: "Grad. Year" },
@@ -146,9 +146,9 @@ export default function Home() {
                 New
               </p>
               {[
+                { label: "Video-to-Text MCP Server", to: "/project/video-to-text", internal: true },
                 { label: "Autonomous Researcher", to: "/project/autonomous-researcher", internal: true },
                 { label: "AI Web Researcher", to: "/project/web-researcher", internal: true },
-                { label: "Local RAG Chatbot", to: "/project/rag-chatbot", internal: true },
               ].map(item => (
                 <div key={item.label} style={{ paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
                   {item.internal ? (
@@ -307,7 +307,7 @@ export default function Home() {
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "0 2rem 8rem" }}>
         <div style={{ borderTop: "1px solid #1C1C1C" }}>
           {[
-            { to: "/projects",   label: "Projects",   sub: "13 software projects" },
+            { to: "/projects",   label: "Projects",   sub: "15 software projects" },
             { to: "/engagement", label: "Engagement", sub: "Research & academic activities" },
             { to: "/skills",     label: "Skills",     sub: "Technical & analytical" },
           ].map((link, i) => (
