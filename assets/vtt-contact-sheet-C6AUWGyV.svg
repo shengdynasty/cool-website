@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700">
+  <defs>
+    <radialGradient id="vcs-bg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0e0e1e"/>
+      <stop offset="100%" stop-color="#07070f"/>
+    </radialGradient>
+    <radialGradient id="vcs-glow" cx="600" cy="340" r="380" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="vcs-glow-f" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="700" fill="url(#vcs-bg)"/>
+  <rect width="1200" height="700" fill="url(#vcs-glow)"/>
+
+  <g opacity="0.06">
+    <circle cx="80" cy="50" r="1" fill="#a855f7"/>
+    <circle cx="600" cy="28" r="0.8" fill="#6366f1"/>
+    <circle cx="1140" cy="60" r="1" fill="#22d3ee"/>
+    <circle cx="60" cy="650" r="1" fill="#a855f7"/>
+  </g>
+
+  <text x="600" y="40" font-family="monospace" font-size="9" fill="#2a2a55"
+        text-anchor="middle" letter-spacing="3">CONTACT SHEET  ·  ONE MONTAGE INSTEAD OF N SEPARATE IMAGES</text>
+
+  <!-- ═══════ LEFT: per-frame (expensive) ═══════ -->
+  <text x="300" y="100" font-family="monospace" font-size="10" fill="#c084fc" text-anchor="middle" letter-spacing="2">PER-FRAME · 12 separate images</text>
+
+  <!-- 12 small frame blocks, each its own image -->
+  <g>
+    <!-- row 1 -->
+    <rect x="120" y="120" width="80" height="56" rx="4" fill="#120a1c" stroke="#a855f7" stroke-width="1.1"/>
+    <rect x="212" y="120" width="80" height="56" rx="4" fill="#120a1c" stroke="#a855f7" stroke-width="1.1"/>
+    <rect x="304" y="120" width="80" height="56" rx="4" fill="#120a1c" stroke="#a855f7" stroke-width="1.1"/>
+    <rect x="396" y="120" width="80" height="56" rx="4" fill="#120a1c" stroke="#a855f7" stroke-width="1.1"/>
+    <!-- row 2 -->
+    <rect x="120" y="188" width="80" height="56" rx="4" fill="#120a1c" stroke="#a855f7" stroke-width="1.1"/>
+    <rect x="212" y="188" width="80" height="56" rx="4" fill="#120a1c" stroke="#a855f7" stroke-width="1.1"/>
+    <rect x="304" y="188" width="80" height="56" rx="4" fill="#120a1c" stroke="#a855f7" stroke-width="1.1"/>
+    <rect x="396" y="188" width="80" height="56" rx="4" fill="#120a1c" stroke="#a855f7" stroke-width="1.1"/>
+    <!-- row 3 -->
+    <rect x="120" y="256" width="80" height="56" rx="4" fill="#120a1c" stroke="#a855f7" stroke-width="1.1"/>
+    <rect x="212" y="256" width="80" height="56" rx="4" fill="#120a1c" stroke="#a855f7" stroke-width="1.1"/>
+    <rect x="304" y="256" width="80" height="56" rx="4" fill="#120a1c" stroke="#a855f7" stroke-width="1.1"/>
+    <rect x="396" y="256" width="80" height="56" rx="4" fill="#120a1c" stroke="#a855f7" stroke-width="1.1"/>
+  </g>
+  <text x="300" y="350" font-family="monospace" font-size="9" fill="#5a3a6a" text-anchor="middle">12 × (512×288)/750  ≈  12 × 196 tokens</text>
+  <rect x="180" y="368" width="240" height="44" rx="6" fill="#1a0d22" stroke="#a855f7" stroke-width="1.2" filter="url(#vcs-glow-f)"/>
+  <text x="300" y="396" font-family="monospace" font-size="17" fill="#c084fc" text-anchor="middle">≈ 2,350 tokens</text>
+
+  <!-- arrow center -->
+  <line x1="500" y1="240" x2="600" y2="240" stroke="#6366f1" stroke-width="1.6" stroke-opacity="0.6"/>
+  <polygon points="600,240 590,235 590,245" fill="#6366f1"/>
+  <text x="550" y="230" font-family="monospace" font-size="8" fill="#6366f1" text-anchor="middle">composite</text>
+
+  <!-- ═══════ RIGHT: contact sheet (cheap) ═══════ -->
+  <text x="850" y="100" font-family="monospace" font-size="10" fill="#22d3ee" text-anchor="middle" letter-spacing="2">CONTACT SHEET · 1 montage image</text>
+
+  <!-- one bordered montage containing the 12 tiles -->
+  <rect x="680" y="120" width="344" height="200" rx="6" fill="#06121a" stroke="#22d3ee" stroke-width="1.6" filter="url(#vcs-glow-f)"/>
+  <g opacity="0.85">
+    <rect x="694" y="134" width="74" height="50" rx="2" fill="#0a1a22" stroke="#1e5a6a" stroke-width="0.8"/>
+    <rect x="776" y="134" width="74" height="50" rx="2" fill="#0a1a22" stroke="#1e5a6a" stroke-width="0.8"/>
+    <rect x="858" y="134" width="74" height="50" rx="2" fill="#0a1a22" stroke="#1e5a6a" stroke-width="0.8"/>
+    <rect x="940" y="134" width="74" height="50" rx="2" fill="#0a1a22" stroke="#1e5a6a" stroke-width="0.8"/>
+    <rect x="694" y="190" width="74" height="50" rx="2" fill="#0a1a22" stroke="#1e5a6a" stroke-width="0.8"/>
+    <rect x="776" y="190" width="74" height="50" rx="2" fill="#0a1a22" stroke="#1e5a6a" stroke-width="0.8"/>
+    <rect x="858" y="190" width="74" height="50" rx="2" fill="#0a1a22" stroke="#1e5a6a" stroke-width="0.8"/>
+    <rect x="940" y="190" width="74" height="50" rx="2" fill="#0a1a22" stroke="#1e5a6a" stroke-width="0.8"/>
+    <rect x="694" y="246" width="74" height="50" rx="2" fill="#0a1a22" stroke="#1e5a6a" stroke-width="0.8"/>
+    <rect x="776" y="246" width="74" height="50" rx="2" fill="#0a1a22" stroke="#1e5a6a" stroke-width="0.8"/>
+    <rect x="858" y="246" width="74" height="50" rx="2" fill="#0a1a22" stroke="#1e5a6a" stroke-width="0.8"/>
+    <rect x="940" y="246" width="74" height="50" rx="2" fill="#0a1a22" stroke="#1e5a6a" stroke-width="0.8"/>
+  </g>
+  <!-- index labels on tiles -->
+  <text x="698" y="146" font-family="monospace" font-size="6" fill="#1a6070">t=0s</text>
+  <text x="944" y="258" font-family="monospace" font-size="6" fill="#1a6070">t=…</text>
+
+  <text x="852" y="350" font-family="monospace" font-size="9" fill="#1a6070" text-anchor="middle">1 image, total ≤ 1568px long edge</text>
+  <rect x="732" y="368" width="240" height="44" rx="6" fill="#06121a" stroke="#22d3ee" stroke-width="1.2" filter="url(#vcs-glow-f)"/>
+  <text x="852" y="396" font-family="monospace" font-size="17" fill="#22d3ee" text-anchor="middle">≈ 1,440 tokens</text>
+
+  <!-- savings + how it helps -->
+  <rect x="200" y="460" width="800" height="180" rx="10" fill="#08080f" stroke="#1e1e38" stroke-width="0.7"/>
+  <text x="240" y="492" font-family="monospace" font-size="9" fill="#2a2a55" letter-spacing="2">WHY IT WINS</text>
+
+  <text x="240" y="522" font-family="monospace" font-size="9" fill="#888">› One image = one set of per-image overhead, not twelve.</text>
+  <text x="240" y="546" font-family="monospace" font-size="9" fill="#888">› Whole-clip overview at a glance → model picks indices worth detail.</text>
+  <text x="240" y="570" font-family="monospace" font-size="9" fill="#888">› Legend text returns token + tile counts so cost stays transparent.</text>
+  <text x="240" y="594" font-family="monospace" font-size="9" fill="#888">› Hard cap of 36 tiles/sheet keeps any single call bounded.</text>
+
+  <!-- savings badge -->
+  <rect x="800" y="500" width="170" height="110" rx="10" fill="#0a0f0a" stroke="#34d399" stroke-width="1.3" filter="url(#vcs-glow-f)"/>
+  <text x="885" y="534" font-family="monospace" font-size="9" fill="#1a5a3a" text-anchor="middle">SCAN-FIRST</text>
+  <text x="885" y="572" font-family="monospace" font-size="30" fill="#34d399" text-anchor="middle">~40%</text>
+  <text x="885" y="596" font-family="monospace" font-size="9" fill="#1a5a3a" text-anchor="middle">fewer tokens</text>
+
+</svg>
