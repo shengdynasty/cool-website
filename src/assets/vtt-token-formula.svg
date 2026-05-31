@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700">
+  <defs>
+    <radialGradient id="vtf-bg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0e0e1e"/>
+      <stop offset="100%" stop-color="#07070f"/>
+    </radialGradient>
+    <radialGradient id="vtf-glow" cx="600" cy="300" r="360" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="vtf-node-glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="vtf-small-glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="700" fill="url(#vtf-bg)"/>
+  <rect width="1200" height="700" fill="url(#vtf-glow)"/>
+
+  <g opacity="0.06">
+    <circle cx="80" cy="50" r="1" fill="#6366f1"/>
+    <circle cx="400" cy="30" r="0.8" fill="#6366f1"/>
+    <circle cx="900" cy="40" r="1" fill="#8b5cf6"/>
+    <circle cx="1140" cy="60" r="0.8" fill="#22d3ee"/>
+    <circle cx="40" cy="640" r="1" fill="#a855f7"/>
+    <circle cx="1160" cy="660" r="0.8" fill="#22d3ee"/>
+  </g>
+
+  <text x="600" y="40" font-family="monospace" font-size="9" fill="#2a2a55"
+        text-anchor="middle" letter-spacing="3">TOKEN COST MODEL  ·  PIXELS DRIVE COST, NOT FILE SIZE</text>
+
+  <!-- ═══════ THE FORMULA (center hero) ═══════ -->
+  <rect x="300" y="100" width="600" height="110" rx="10" fill="#0b0b1c" stroke="#6366f1" stroke-width="1.4" filter="url(#vtf-small-glow)"/>
+  <text x="600" y="150" font-family="monospace" font-size="30" fill="#818cf8" text-anchor="middle">tokens ≈ (w × h) / 750</text>
+  <text x="600" y="184" font-family="monospace" font-size="11" fill="#4b4b90" text-anchor="middle">per resized frame · long edge auto-capped at 1568px</text>
+
+  <!-- ═══════ LEFT: source frame (expensive) ═══════ -->
+  <text x="300" y="270" font-family="monospace" font-size="10" fill="#7c3aed" text-anchor="middle" letter-spacing="2">RAW FRAME</text>
+  <rect x="180" y="290" width="240" height="180" rx="6" fill="#120a1c" stroke="#a855f7" stroke-width="1.4" filter="url(#vtf-small-glow)"/>
+  <text x="300" y="350" font-family="monospace" font-size="13" fill="#c084fc" text-anchor="middle">1920 × 1080</text>
+  <text x="300" y="372" font-family="monospace" font-size="9" fill="#5a3a6a" text-anchor="middle">2,073,600 px</text>
+  <line x1="210" y1="392" x2="390" y2="392" stroke="#a855f7" stroke-width="0.5" stroke-opacity="0.3"/>
+  <text x="300" y="420" font-family="monospace" font-size="20" fill="#c084fc" text-anchor="middle">≈ 2,765</text>
+  <text x="300" y="444" font-family="monospace" font-size="10" fill="#5a3a6a" text-anchor="middle">tokens / frame</text>
+
+  <!-- arrow: downscale -->
+  <line x1="430" y1="380" x2="560" y2="380" stroke="#6366f1" stroke-width="1.6" stroke-opacity="0.6"/>
+  <polygon points="560,380 550,375 550,385" fill="#6366f1"/>
+  <rect x="448" y="352" width="96" height="20" rx="4" fill="#0a0a20"/>
+  <text x="496" y="366" font-family="monospace" font-size="8" fill="#6366f1" text-anchor="middle">resize ≤512px</text>
+
+  <!-- ═══════ RIGHT: resized frame (cheap) ═══════ -->
+  <text x="700" y="270" font-family="monospace" font-size="10" fill="#22d3ee" text-anchor="middle" letter-spacing="2">RESIZED FRAME (default)</text>
+  <rect x="610" y="320" width="180" height="120" rx="6" fill="#06121a" stroke="#22d3ee" stroke-width="1.4" filter="url(#vtf-small-glow)"/>
+  <text x="700" y="368" font-family="monospace" font-size="13" fill="#22d3ee" text-anchor="middle">512 × 288</text>
+  <text x="700" y="388" font-family="monospace" font-size="9" fill="#1a6070" text-anchor="middle">147,456 px</text>
+  <line x1="635" y1="404" x2="765" y2="404" stroke="#22d3ee" stroke-width="0.5" stroke-opacity="0.3"/>
+  <text x="700" y="428" font-family="monospace" font-size="18" fill="#22d3ee" text-anchor="middle">≈ 196</text>
+
+  <!-- savings callout -->
+  <rect x="840" y="320" width="160" height="120" rx="8" fill="#0a0f0a" stroke="#34d399" stroke-width="1.2" filter="url(#vtf-small-glow)"/>
+  <text x="920" y="358" font-family="monospace" font-size="9" fill="#1a5a3a" text-anchor="middle">SAME CONTENT</text>
+  <text x="920" y="392" font-family="monospace" font-size="26" fill="#34d399" text-anchor="middle">14×</text>
+  <text x="920" y="418" font-family="monospace" font-size="9" fill="#1a5a3a" text-anchor="middle">cheaper</text>
+
+  <!-- ═══════ BOTTOM: scaling across a video ═══════ -->
+  <rect x="180" y="510" width="820" height="150" rx="8" fill="#08080f" stroke="#1e1e38" stroke-width="0.7"/>
+  <text x="200" y="535" font-family="monospace" font-size="9" fill="#2a2a55" letter-spacing="2">10-MINUTE VIDEO · fps=0.5 · ~25 sampled frames</text>
+
+  <!-- naive bar -->
+  <text x="210" y="568" font-family="monospace" font-size="9" fill="#c084fc">naive (full-res, every frame)</text>
+  <rect x="210" y="576" width="740" height="16" rx="3" fill="#1a0d22"/>
+  <rect x="210" y="576" width="740" height="16" rx="3" fill="#a855f7" opacity="0.55"/>
+  <text x="958" y="589" font-family="monospace" font-size="10" fill="#c084fc" text-anchor="end" transform="translate(0,0)"></text>
+  <text x="210" y="606" font-family="monospace" font-size="11" fill="#c084fc">≈ 150,000 tokens</text>
+
+  <!-- budgeted bar -->
+  <text x="210" y="630" font-family="monospace" font-size="9" fill="#22d3ee">budgeted (resized, sampled)</text>
+  <rect x="210" y="638" width="740" height="16" rx="3" fill="#06121a"/>
+  <rect x="210" y="638" width="26" height="16" rx="3" fill="#22d3ee" opacity="0.8"/>
+  <text x="246" y="651" font-family="monospace" font-size="11" fill="#22d3ee">≈ 5,000 tokens</text>
+
+  <!-- legend pill -->
+  <rect x="1010" y="100" width="170" height="110" rx="6" fill="#08080f" stroke="#1e1e38" stroke-width="0.7"/>
+  <text x="1095" y="124" font-family="monospace" font-size="7.5" fill="#222248" text-anchor="middle">Controls that cut cost</text>
+  <text x="1024" y="146" font-family="monospace" font-size="7.5" fill="#444480">› max_dimension (512/1024)</text>
+  <text x="1024" y="164" font-family="monospace" font-size="7.5" fill="#444480">› fps sampling</text>
+  <text x="1024" y="182" font-family="monospace" font-size="7.5" fill="#444480">› perceptual dedup</text>
+  <text x="1024" y="200" font-family="monospace" font-size="7.5" fill="#444480">› token_budget ceiling</text>
+
+</svg>

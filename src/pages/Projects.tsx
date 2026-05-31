@@ -26,6 +26,7 @@ import webResearcherImage from "@/assets/web-researcher.svg";
 import schoolMcpImage from "@/assets/school-mcp.svg";
 import quantPlatformImage from "@/assets/quant-platform.svg";
 import autonomousResearcherImage from "@/assets/autonomous-researcher.svg";
+import videoToTextImage from "@/assets/video-to-text.svg";
 
 const GH = () => (
   <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
@@ -43,7 +44,16 @@ const fw = (delay = 0) =>
 
 const projects = [
   {
-    id: "school-mcp", n: "01",
+    id: "video-to-text", n: "01",
+    title: "Video-to-Text MCP Server",
+    description: "Token-budgeted MCP server that lets Claude watch video without blowing its context — pixel-cost projection, lazy frame manifests, and contact-sheet montages cut a 10-min clip from ~150k tokens to ~5k.",
+    tools: ["Python", "FastMCP", "ffmpeg", "faster-whisper"],
+    github: "https://github.com/shengdynasty/video-to-text-mcp",
+    detailPage: "/project/video-to-text",
+    image: videoToTextImage, featured: true,
+  },
+  {
+    id: "school-mcp", n: "02",
     title: "StudentVue MCP Server",
     description: "19-tool MCP server giving Claude natural-language access to your StudentVue gradebook — grades, GPA, attendance, missing work, and live grade simulation.",
     tools: ["TypeScript", "MCP", "Node.js", "Zod"],
@@ -52,17 +62,16 @@ const projects = [
     image: schoolMcpImage,
   },
   {
-    id: "autonomous-researcher", n: "02",
+    id: "autonomous-researcher", n: "03",
     title: "Autonomous Research Agent",
     description: "Agentic research tool that plans its own sub-questions, searches the web, evaluates source relevance, retries bad results, and synthesizes a cited Markdown report — entirely local via Ollama. No API keys.",
     tools: ["TypeScript", "Node.js", "Ollama", "React", "Express"],
     github: "https://github.com/shengdynasty/autonomous-researcher",
     detailPage: "/project/autonomous-researcher",
     image: autonomousResearcherImage,
-    featured: true,
   },
   {
-    id: "quant-platform", n: "03",
+    id: "quant-platform", n: "04",
     title: "Quant Research Platform",
     description: "Bloomberg Terminal–style quant finance platform: 7-module React frontend, FastAPI backend, Monte Carlo risk engine, Black-Scholes options pricing, and local Ollama AI analyst.",
     tools: ["Python", "FastAPI", "React", "SQLite", "Ollama"],
@@ -71,7 +80,7 @@ const projects = [
     image: quantPlatformImage,
   },
   {
-    id: "web-researcher", n: "04",
+    id: "web-researcher", n: "05",
     title: "AI Web Researcher",
     description: "Local-first AI research assistant — type any topic, get live DuckDuckGo search results synthesized into a streaming markdown report via Ollama. No API keys.",
     tools: ["React", "TypeScript", "Ollama", "Vite"],
@@ -80,7 +89,7 @@ const projects = [
     image: webResearcherImage,
   },
   {
-    id: "rag-chatbot", n: "05",
+    id: "rag-chatbot", n: "06",
     title: "Local RAG Chatbot",
     description: "100% local Retrieval-Augmented Generation chatbot — upload any PDF, ask questions, get answers grounded in your document. No API keys. Runs via Ollama.",
     tools: ["Node.js", "LangChain.js", "Ollama", "Express"],
@@ -89,7 +98,7 @@ const projects = [
     image: ragImage,
   },
   {
-    id: "mcp-server", n: "06",
+    id: "mcp-server", n: "07",
     title: "Personal AI MCP Server",
     description: "Custom MCP server suite connecting Claude to Gmail, Google Calendar, Notion, Spotify, GitHub — natural-language control of real-world tools.",
     tools: ["TypeScript", "MCP", "Claude AI", "Node.js"],
@@ -98,7 +107,7 @@ const projects = [
     image: mcpImage,
   },
   {
-    id: "note-app", n: "07",
+    id: "note-app", n: "08",
     title: "AI Note-Taking App",
     description: "Notability-style app with AI flashcards, quizzes, fill-in-the-blank, and chat generated from your own notes using Claude.",
     tools: ["React", "TypeScript", "Claude AI", "Vite"],
@@ -107,7 +116,7 @@ const projects = [
     detailPage: "/project/note-app", image: noteImage,
   },
   {
-    id: "csv-stock-visualizer", n: "08",
+    id: "csv-stock-visualizer", n: "09",
 
     title: "CSV Stock Visualizer",
     description: "Interactive web app that parses CSV stock data into dynamic price charts, volume graphs, and key statistics.",
@@ -117,7 +126,7 @@ const projects = [
     detailPage: "/project/csv-stock-visualizer", image: stockImage,
   },
   {
-    id: "portfolio-website", n: "09",
+    id: "portfolio-website", n: "10",
     title: "Academic Portfolio Website",
     description: "Professional web presence to communicate academic interests and projects to university admissions.",
     tools: ["React", "TypeScript", "Tailwind CSS"],
@@ -126,7 +135,7 @@ const projects = [
     detailPage: "/project/portfolio-website", image: port,
   },
   {
-    id: "expense-tracker", n: "10",
+    id: "expense-tracker", n: "11",
     title: "Personal Expense Tracker",
     description: "Tool to categorize and visualize personal spending, applying data structures and basic analysis.",
     tools: ["Python", "Tkinter", "Data Visualization"],
@@ -134,7 +143,7 @@ const projects = [
     detailPage: "/project/expense-tracker", image: expense,
   },
   {
-    id: "task-management", n: "11",
+    id: "task-management", n: "12",
     title: "Task Management Application",
     description: "Productivity tool to organize tasks, track progress, and practice database-like data management.",
     tools: ["Python", "Tkinter"],
@@ -142,7 +151,7 @@ const projects = [
     detailPage: "/project/task-management", image: task,
   },
   {
-    id: "calculator", n: "12",
+    id: "calculator", n: "13",
     title: "Scientific Calculator",
     description: "Functional calculator with a graphical interface to practice GUI development and event handling.",
     tools: ["Python", "Tkinter"],
@@ -150,7 +159,7 @@ const projects = [
     detailPage: "/project/calculator", image: calculatorImage,
   },
   {
-    id: "turtle-art", n: "13",
+    id: "turtle-art", n: "14",
     title: "Turtle Art Generator",
     description: "Procedural graphics demonstrating fundamental programming concepts through interactive visual output.",
     tools: ["Python", "Turtle Graphics", "JSON"],
@@ -158,7 +167,7 @@ const projects = [
     detailPage: "/project/turtle-art", image: turtle,
   },
   {
-    id: "tic-tac-toe", n: "14",
+    id: "tic-tac-toe", n: "15",
     title: "Tic Tac Toe Game",
     description: "Classic two-player game implementing game logic, turn-based systems, and win-condition detection.",
     tools: ["Python", "Tkinter"],
@@ -184,7 +193,7 @@ export default function Projects() {
           style={{ marginBottom: "5rem" }}
         >
           <p style={{ fontSize: "0.65rem", letterSpacing: "0.2em", color: "#444", textTransform: "uppercase", marginBottom: "1.5rem" }}>
-            14 Projects
+            15 Projects
           </p>
           <h1 style={{
             fontFamily: "var(--font-display)",
