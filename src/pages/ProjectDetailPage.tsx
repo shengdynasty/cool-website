@@ -40,10 +40,11 @@ interface ProjectData {
   technologies: string[];
   github: string;
   live?: string;
+  reportUrl?: string;
   image: string | null;
   video?: string;
-  codeSnippet: string;
-  features: string[];
+  codeSnippet?: string;
+  features?: string[];
   language?: string;
   diagrams?: { src: string; title: string; caption: string }[];
 }
@@ -51,78 +52,18 @@ interface ProjectData {
 const projectsData: Record<string, ProjectData> = {
   "eval-guard": {
     title: "EvalGuard",
-    description: "Contamination auditor for LLM evaluations — estimates how much of a reported benchmark score is inflated by training-data leakage, with a four-matcher ensemble, data-driven calibration, and a CI-gate CLI. 34 passing tests.",
-    fullDescription: `EvalGuard is a contamination auditor for LLM evaluations. Given a model's training or fine-tuning corpus D and a benchmark B, it estimates how much of a reported benchmark score is inflated because items of B (or near-duplicates) already appear in D — and shows the evidence trail. It is not a benchmark, an eval harness, or a leaderboard: it sits next to an eval and puts a defensible asterisk on the number.
+    description: "Contamination auditor for LLM evaluations — built as a commercial v1 and positioned for acquisition by eval-infrastructure companies, MLOps platforms, or leaderboard vendors.",
+    fullDescription: `EvalGuard solves a specific, measurable problem: when a model's training or fine-tuning corpus overlaps with a benchmark, the reported evaluation score is inflated — and right now there is no standard tool to quantify by how much. EvalGuard fills that gap. Given a corpus D and a benchmark B, it produces two defensible numbers: contamination rate ρ (the fraction of benchmark items compromised) and score inflation Δ (the points by which the headline score is overstated). Every detection comes with a full evidence trail showing which matcher fired, the matched span, and the reason — not a black-box judgment.
 
-The core design reframes the problem from "catch the labs" to "trust your own score." The target users are teams fine-tuning open-weight models on scraped or semi-public data who need to trust their eval numbers before shipping — they control the corpus, so detection becomes a tractable search rather than contested black-box inference. Because audits run locally, the corpus never leaves the machine.
+The target users are teams fine-tuning open-weight models on scraped or semi-public data who need to trust their eval numbers before shipping. The framing is explicitly self-serve and non-adversarial: the corpus stays on-premise, the CLI drops into CI, and the output is an audit report rather than a public indictment. This survives the five standard objections to contamination detection as a product — the wedge is internal trust, not external accusation.
 
-Two estimands form the headline output: contamination rate ρ (fraction of the benchmark where per-item evidence cᵢ exceeds a calibrated threshold τ) and score inflation Δ (drop contaminated items, re-score; the actionable number analogous to "Sharpe 1.12 → 1.84" in quant backtests). Four matchers produce per-item evidence combined into cᵢ with a transparent weighted rule: n-gram/MinHash-LSH overlap for verbatim copies, TF-IDF retrieval for near-duplicates, a paraphrase judge for reworded items, and an answer-leak detector for the answer_only form. Every flag carries a contamination path — which matcher fired, the matched span, and why — so trust comes from showing the receipt, not a black-box score.
+The v1 implementation covers the open-data regime with a four-matcher ensemble (n-gram/MinHash-LSH, TF-IDF, paraphrase, answer-leak), a ground-truth injection harness for rigorous detector evaluation, data-driven per-form calibration, and 34 passing tests. On real data (OpenBookQA × AG News), three of four contamination forms are recovered at precision 1.00 and recall 1.00; the auditor fails conservatively in all conditions — it under-reports, never fabricates.
 
-The injection harness is the key research artifact: given a clean corpus and a benchmark, it injects items at a controlled rate and form (verbatim, paraphrase, format_shift, answer_only), deterministically, returning ground-truth labels. This manufactures known ρ and Δ, enabling rigorous measurement of whether any detector recovers the truth. Data-driven calibration selects τ to maximize F1 on a TRAIN split; all detection numbers are on the held-out TEST split. On real data (OpenBookQA × AG News, up to 700 corpus docs), three of four contamination forms are recovered with recall 1.00 and precision 1.00. The fourth form (answer_only) collapses under a global threshold but is recovered with per-form calibration — the most important engineering finding of the project. Throughout, the auditor fails conservatively: it under-reports contamination rather than ever fabricating it.`,
+Positioned for acquisition. The near-term returns are the open benchmark, CLI credibility, and the labeled injection harness — a hard-to-reproduce research artifact that compounds as a moat. Most likely acquirers are eval-infrastructure companies adding a trust layer, MLOps/model-registry platforms needing a promotion-gate check, and leaderboard or data vendors wanting a cleanliness certification. Full technical detail, experimental results, and commercial framing are in the project report linked below.`,
     technologies: ["Python", "MinHash-LSH", "TF-IDF", "CLI", "pytest"],
     github: "https://github.com/shengdynasty/evalguard",
-    image: evalGuardImage,
-    language: "python",
-    features: [
-      "Two estimands: contamination rate ρ (fraction of benchmark compromised) and score inflation Δ — the actionable headline number",
-      "Four-matcher ensemble: n-gram/MinHash-LSH (verbatim), TF-IDF retrieval (near-duplicates), paraphrase judge, answer-leak detector",
-      "Every flag carries a contamination path — matched span, matcher name, and reason — no black-box scores",
-      "Injection harness: manufactures ground-truth contamination at controlled rate and form (verbatim, paraphrase, format_shift, answer_only)",
-      "Data-driven calibration: τ and per-matcher operating points selected to maximize F1 on a held-out TRAIN split",
-      "CLI: evalguard audit --benchmark … --corpus …, plus calibrate subcommand and CI-gate mode (non-zero exit over ρ threshold)",
-      "34 passing tests across injection, matchers, estimands, calibration, real-data, scaling, and distinctiveness harnesses",
-      "Real data: OpenBookQA × AG News — precision 1.00, recall 0.67, F1 0.80; fails conservatively, never fabricates",
-      "Scaling study: verbatim/paraphrase/format_shift hold recall 1.00 at every corpus size; answer_only recovered via per-form calibration",
-      "Key finding: global-threshold artifact — calibrating per contamination form recovers most answer_only detectability",
-    ],
-    codeSnippet: `# Four-matcher ensemble — per-item contamination evidence
-# Each matcher fires independently; a transparent weighted rule
-# combines them into c_i ∈ [0, 1], then thresholded by calibrated τ.
-
-from evalguard.matchers import (
-    NgramMinHashMatcher,   # verbatim copy-paste (high precision, low recall)
-    TFIDFMatcher,          # near-duplicate / lightly-edited copies
-    ParaphraseMatcher,     # IDF-weighted lexical overlap for reworded items
-    AnswerLeakMatcher,     # IDF-weighted answer-token match (answer_only form)
-)
-
-def audit(benchmark_items, corpus_docs, tau):
-    matchers = [
-        NgramMinHashMatcher(),
-        TFIDFMatcher(corpus_docs),
-        ParaphraseMatcher(corpus_docs),
-        AnswerLeakMatcher(corpus_docs),
-    ]
-
-    contaminated = []
-    for item in benchmark_items:
-        # Each matcher returns (score, path) — score ∈ [0, 1]
-        scores, paths = zip(*(m.score(item) for m in matchers))
-        c_i = weighted_combine(scores)  # transparent rule, not a black box
-
-        if c_i > tau:
-            contaminated.append({
-                "item": item,
-                "c_i": c_i,
-                "evidence": [p for p in paths if p is not None],
-            })
-
-    rho = len(contaminated) / len(benchmark_items)
-    delta = estimate_score_inflation(benchmark_items, contaminated)
-    return {"rho": rho, "delta": delta, "flagged": contaminated}
-
-
-# Data-driven calibration — τ chosen to maximize F1 on TRAIN split
-# Key finding: calibrate per contamination form, never with one global τ
-# This single change recovers most answer_only detectability.
-def calibrate(injected_train, corpus_docs):
-    best_tau, best_f1 = 0.5, 0.0
-    for tau in [i / 20 for i in range(1, 20)]:
-        preds = audit(injected_train.items, corpus_docs, tau)
-        f1 = compute_f1(preds["flagged"], injected_train.labels)
-        if f1 > best_f1:
-            best_tau, best_f1 = tau, f1
-    return best_tau`,
+    reportUrl: "https://docs.google.com/document/d/1AtuTdvSL2f_m_dmEvNJMM6SG9Dwm2145OunH7kEnN2c/edit?usp=sharing",
+    image: null,
   },
   "video-to-text": {
     title: "Video-to-Text MCP Server",
@@ -1245,7 +1186,58 @@ export default function ProjectDetailPage() {
           </motion.div>
         )}
 
+        {/* Report link */}
+        {project.reportUrl && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.2 }}
+            style={{ marginBottom: "4rem" }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.75rem" }}>
+              <p style={{ fontSize: "0.6rem", letterSpacing: "0.2em", color: "#444", textTransform: "uppercase", whiteSpace: "nowrap" }}>
+                Project Report
+              </p>
+              <div style={{ flex: 1, height: "1px", background: "#1C1C1C" }} />
+            </div>
+            <a
+              href={project.reportUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.75rem",
+                padding: "1rem 1.5rem",
+                border: "1px solid #2A2A2A",
+                borderRadius: 3,
+                textDecoration: "none",
+                transition: "border-color 150ms, background 150ms",
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.borderColor = "#555";
+                (e.currentTarget as HTMLElement).style.background = "#0D0D0D";
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.borderColor = "#2A2A2A";
+                (e.currentTarget as HTMLElement).style.background = "transparent";
+              }}
+            >
+              <span style={{ fontSize: "1rem", color: "#555" }}>↗</span>
+              <div>
+                <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "#ccc", letterSpacing: "0.04em", marginBottom: "0.2rem" }}>
+                  EvalGuard — Consolidated Project Report
+                </p>
+                <p style={{ fontSize: "0.7rem", color: "#444" }}>
+                  Full technical detail, experimental results, and commercial framing
+                </p>
+              </div>
+            </a>
+          </motion.div>
+        )}
+
         {/* Features */}
+        {project.features && project.features.length > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -1276,8 +1268,10 @@ export default function ProjectDetailPage() {
             ))}
           </div>
         </motion.div>
+        )}
 
         {/* Code */}
+        {project.codeSnippet && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -1329,6 +1323,7 @@ export default function ProjectDetailPage() {
             </div>
           </div>
         </motion.div>
+        )}
 
       </div>
     </AcademicLayout>
