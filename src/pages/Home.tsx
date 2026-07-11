@@ -177,7 +177,7 @@ export default function Home() {
               {[
                 "IIT Research Intern — Materials Science",
                 "Cornell Economics Research",
-                "EvalGuard — LLM Contamination Auditor",
+                "EvalGuard v1 — LLM Contamination Auditor",
               ].map(item => (
                 <p key={item} style={{ fontSize: "0.85rem", color: "#777", paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
                   {item}

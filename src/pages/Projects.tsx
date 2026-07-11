@@ -27,7 +27,7 @@ import schoolMcpImage from "@/assets/school-mcp.svg";
 import quantPlatformImage from "@/assets/quant-platform.svg";
 import autonomousResearcherImage from "@/assets/autonomous-researcher.svg";
 import videoToTextImage from "@/assets/video-to-text.svg";
-import evalGuardImage from "@/assets/eval-guard.svg";
+import evalGuardImage from "@/assets/eval-guard-report.png";
 
 const GH = () => (
   <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
@@ -46,7 +46,7 @@ const fw = (delay = 0) =>
 const projects = [
   {
     id: "eval-guard", n: "01",
-    title: "EvalGuard",
+    title: "EvalGuard v1",
     description: "Contamination auditor for LLM evaluations — estimates how much of a reported benchmark score is inflated by training-data leakage, with a four-matcher ensemble, data-driven calibration, and a CI-gate CLI. 34 passing tests.",
     tools: ["Python", "MinHash-LSH", "TF-IDF", "CLI", "pytest"],
     github: "https://github.com/shengdynasty/evalguard",

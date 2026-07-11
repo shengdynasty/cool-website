@@ -22,7 +22,7 @@ import schoolMcpImage from "@/assets/school-mcp.svg";
 import quantPlatformImage from "@/assets/quant-platform.svg";
 import autonomousResearcherImage from "@/assets/autonomous-researcher.svg";
 import videoToTextImage from "@/assets/video-to-text.svg";
-import evalGuardImage from "@/assets/eval-guard.svg";
+import evalGuardReportImage from "@/assets/eval-guard-report.png";
 import vttTokenFormula from "@/assets/vtt-token-formula.svg";
 import vttLazyLoad from "@/assets/vtt-lazy-load.svg";
 import vttContactSheet from "@/assets/vtt-contact-sheet.svg";
@@ -51,7 +51,7 @@ interface ProjectData {
 
 const projectsData: Record<string, ProjectData> = {
   "eval-guard": {
-    title: "EvalGuard",
+    title: "EvalGuard v1",
     description: "Contamination auditor for LLM evaluations — built as a commercial v1 and positioned for acquisition by eval-infrastructure companies, MLOps platforms, or leaderboard vendors.",
     fullDescription: `EvalGuard solves a specific, measurable problem: when a model's training or fine-tuning corpus overlaps with a benchmark, the reported evaluation score is inflated — and right now there is no standard tool to quantify by how much. EvalGuard fills that gap. Given a corpus D and a benchmark B, it produces two defensible numbers: contamination rate ρ (the fraction of benchmark items compromised) and score inflation Δ (the points by which the headline score is overstated). Every detection comes with a full evidence trail showing which matcher fired, the matched span, and the reason — not a black-box judgment.
 
@@ -63,7 +63,7 @@ Positioned for acquisition. The near-term returns are the open benchmark, CLI cr
     technologies: ["Python", "MinHash-LSH", "TF-IDF", "CLI", "pytest"],
     github: "https://github.com/shengdynasty/evalguard",
     reportUrl: "https://docs.google.com/document/d/1AtuTdvSL2f_m_dmEvNJMM6SG9Dwm2145OunH7kEnN2c/edit?usp=sharing",
-    image: null,
+    image: evalGuardReportImage,
   },
   "video-to-text": {
     title: "Video-to-Text MCP Server",
