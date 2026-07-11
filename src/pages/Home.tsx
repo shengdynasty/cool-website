@@ -101,7 +101,7 @@ export default function Home() {
             {...f(0.3)}
             style={{ fontSize: "0.95rem", color: "#aaa", maxWidth: "34rem", lineHeight: 1.7, marginBottom: "2.5rem" }}
           >
-            High school freshman exploring the intersection of engineering,
+            High school sophomore exploring the intersection of engineering,
             computer science, economics, and political science. Research-driven.
             Quantitatively minded. Class of 2029.
           </motion.p>
@@ -176,8 +176,8 @@ export default function Home() {
               </p>
               {[
                 "IIT Research Intern — Materials Science",
-                "Fox Valley Robotics — Competition Season",
-                "StudentVue MCP Server",
+                "Cornell Economics Research",
+                "Prooflab Research Reproducibility OS",
               ].map(item => (
                 <p key={item} style={{ fontSize: "0.85rem", color: "#777", paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
                   {item}
@@ -192,7 +192,7 @@ export default function Home() {
               </p>
               {[
                 "AMC 10/12 — November 2026",
-                "Cornell Economics Research — Summer 2026",
+                "Prooflab Launch",
               ].map(item => (
                 <p key={item} style={{ fontSize: "0.85rem", color: "#777", paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
                   {item}
@@ -261,11 +261,11 @@ export default function Home() {
             <motion.div {...fw(0)}>
               <p style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "#444", textTransform: "uppercase", marginBottom: "1rem" }}>Education</p>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
-                <p style={{ fontSize: "0.9rem", color: "#ccc", fontWeight: 500 }}>Freshman High School</p>
+                <p style={{ fontSize: "0.9rem", color: "#ccc", fontWeight: 500 }}>Sophomore High School</p>
                 <p style={{ fontSize: "0.8rem", color: "#444" }}>2029</p>
               </div>
               <p style={{ fontSize: "0.8rem", color: "#777", lineHeight: 1.7 }}>
-                IB Global Politics · DE Calculus 1 · AP Chinese · AP CS Principles · AP Human Geography
+                IB Global Politics · DE Calculus 1 · AP Chinese · AP CS Principles · AP Human Geography · AP Calculus AB · AP Calculus BC · AP Computer Science A
               </p>
             </motion.div>
 
