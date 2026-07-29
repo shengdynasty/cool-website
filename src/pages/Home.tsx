@@ -146,9 +146,9 @@ export default function Home() {
                 New
               </p>
               {[
+                { label: "1st Place, Business Simulation Competition — Summer Programs, Cornell SC Johnson College of Business", to: "/engagement/econometrics", internal: true },
                 { label: "Video-to-Text MCP Server", to: "/project/video-to-text", internal: true },
                 { label: "Autonomous Researcher", to: "/project/autonomous-researcher", internal: true },
-                { label: "AI Web Researcher", to: "/project/web-researcher", internal: true },
               ].map(item => (
                 <div key={item.label} style={{ paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
                   {item.internal ? (
@@ -176,7 +176,6 @@ export default function Home() {
               </p>
               {[
                 "IIT Research Intern — Materials Science",
-                "Cornell Economics Research",
                 "EvalGuard v1 — LLM Contamination Auditor",
               ].map(item => (
                 <p key={item} style={{ fontSize: "0.85rem", color: "#777", paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
@@ -273,7 +272,7 @@ export default function Home() {
               <p style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "#444", textTransform: "uppercase", marginBottom: "1rem" }}>Honors</p>
               {[
                 "AIME Qualifier (2023, 2024)",
-                "Cornell Summer Scholars — Economics Research",
+                "1st Place, Cornell Business Simulation Competition — Summer Programs, Cornell SC Johnson College of Business (July 2026)",
                 "NASA Dream With Us — Final Qualifier",
               ].map(h => (
                 <div key={h} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", marginBottom: "0.75rem" }}>

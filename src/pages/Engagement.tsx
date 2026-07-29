@@ -33,12 +33,12 @@ const engagements: Engagement[] = [
   {
     id: "econometrics",
     n: "02",
-    title: "Cornell University Summer Program — On-Campus Econometrics Research",
-    role: "Participant",
-    period: "Summer 2026",
+    title: "Summer Programs — Cornell SC Johnson College of Business",
+    role: "1st Place — Business Simulation Competition",
+    period: "July 2026",
     commitment: "3 weeks intensive",
     summary:
-      "Rigorous coursework on New York Main Campus covering regression analysis, hypothesis testing, and elective coursework.",
+      "On-campus summer program at Cornell's SC Johnson College of Business. Won 1st place in the Cornell Business Simulation Competition, alongside rigorous coursework in regression analysis and hypothesis testing.",
     image: uni,
   },
   {
