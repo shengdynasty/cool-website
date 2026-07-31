@@ -14,10 +14,7 @@ function useIsMobile() {
 }
 import expense from "@/assets/expense.svg";
 import task from "@/assets/taskmanagement.svg";
-import turtle from "@/assets/turtle-art.svg";
 import port from "@/assets/portfolio.svg";
-import tttImage from "@/assets/ttt-ss.svg";
-import calculatorImage from "@/assets/calculator-app.svg";
 import stockImage from "@/assets/stock-visualizer.svg";
 import noteImage from "@/assets/note-app.svg";
 import mcpImage from "@/assets/mcp-server.svg";
@@ -160,30 +157,6 @@ const projects = [
     github: "https://github.com/shengdynasty",
     detailPage: "/project/task-management", image: task,
   },
-  {
-    id: "calculator", n: "14",
-    title: "Scientific Calculator",
-    description: "Functional calculator with a graphical interface to practice GUI development and event handling.",
-    tools: ["Python", "Tkinter"],
-    github: "https://github.com/shengdynasty",
-    detailPage: "/project/calculator", image: calculatorImage,
-  },
-  {
-    id: "turtle-art", n: "15",
-    title: "Turtle Art Generator",
-    description: "Procedural graphics demonstrating fundamental programming concepts through interactive visual output.",
-    tools: ["Python", "Turtle Graphics", "JSON"],
-    github: "https://github.com/shengdynasty",
-    detailPage: "/project/turtle-art", image: turtle,
-  },
-  {
-    id: "tic-tac-toe", n: "16",
-    title: "Tic Tac Toe Game",
-    description: "Classic two-player game implementing game logic, turn-based systems, and win-condition detection.",
-    tools: ["Python", "Tkinter"],
-    github: "https://github.com/shengdynasty",
-    detailPage: "/project/tic-tac-toe", image: tttImage,
-  },
 ];
 
 const featured = projects.find(p => p.featured)!;
@@ -203,7 +176,7 @@ export default function Projects() {
           style={{ marginBottom: "5rem" }}
         >
           <p style={{ fontSize: "0.65rem", letterSpacing: "0.2em", color: "#444", textTransform: "uppercase", marginBottom: "1.5rem" }}>
-            16 Projects
+            13 Projects
           </p>
           <h1 style={{
             fontFamily: "var(--font-display)",
