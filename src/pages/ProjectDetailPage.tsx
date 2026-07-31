@@ -9,10 +9,7 @@ import "prismjs/components/prism-javascript";
 import AcademicLayout from "@/components/layout/AcademicLayout";
 import expense from "@/assets/expense.svg";
 import task from "@/assets/taskmanagement.svg";
-import turtle from "@/assets/turtle-art.svg";
 import port from "@/assets/portfolio.svg";
-import tttImage from "@/assets/ttt-ss.svg";
-import calculatorImage from "@/assets/calculator-app.svg";
 import stockImage from "@/assets/stock-visualizer.svg";
 import noteImage from "@/assets/note-app.svg";
 import mcpImage from "@/assets/mcp-server.svg";
@@ -370,118 +367,6 @@ async function chat(userMessage: string) {
 
 chat("What's on my calendar today and who emailed me this morning?");`,
   },
-  "turtle-art": {
-    title: "Interactive Turtle Art Generator",
-    description: "Procedural graphics exploration demonstrating fundamental programming concepts through visual, interactive output.",
-    fullDescription: "Interactive Turtle Art Generator is a creative graphics application using Python's Turtle module to generate colorful patterns, shapes, and artistic designs with procedural generation algorithms. The application allows users to create unique visual art through keyboard controls and features save/load functionality for designs.",
-    technologies: ["Python", "Turtle Graphics", "JSON"],
-    github: "https://github.com/shengdynasty",
-    image: turtle,
-    features: [
-      "Multiple artistic pattern generators (spirals, flowers, geometric shapes)",
-      "Procedural generation with random color selection",
-      "Keyboard controls for interactive drawing",
-      "Save and load design functionality",
-      "Surprise Me feature for random art generation",
-    ],
-    codeSnippet: `import turtle
-import random
-import json
-
-screen = turtle.Screen()
-screen.title("Interactive Turtle Art Generator")
-screen.bgcolor("white")
-screen.setup(width=800, height=800)
-
-artist = turtle.Turtle()
-artist.speed(0)
-artist.width(2)
-
-colors = ["red", "orange", "yellow", "green", "blue", "purple", "pink"]
-
-def random_color():
-    return random.choice(colors)
-
-def draw_shape(shape_type, size, color, x, y):
-    artist.penup()
-    artist.goto(x, y)
-    artist.pendown()
-    artist.color(color)
-
-    if shape_type == "circle":
-        artist.begin_fill()
-        artist.circle(size)
-        artist.end_fill()
-    elif shape_type == "square":
-        artist.begin_fill()
-        for _ in range(4):
-            artist.forward(size)
-            artist.right(90)
-        artist.end_fill()
-
-screen.mainloop()`,
-  },
-  "calculator": {
-    title: "Scientific Calculator",
-    description: "Functional calculator with a graphical interface to practice GUI development and event handling in Python.",
-    fullDescription: "Cool Calculator is designed for addition (+), subtraction (−), multiplication (×), and division (÷). It features a numeric keypad (0–9), decimal point, and function keys for each operation, along with an 'equals' button to compute results. The UI uses a built-in package in the Python library called Tkinter.",
-    technologies: ["Python", "Tkinter"],
-    github: "https://github.com/shengdynasty",
-    image: calculatorImage,
-    features: [
-      "Basic arithmetic operations (add, subtract, multiply, divide)",
-      "Clean graphical user interface",
-      "Error handling for division by zero",
-      "Clear screen functionality",
-      "Responsive button layout",
-    ],
-    codeSnippet: `import tkinter as tk
-
-def click_button(value):
-    current = entry.get()
-    entry.delete(0, tk.END)
-    entry.insert(0, current + value)
-
-def clear_screen():
-    entry.delete(0, tk.END)
-
-def calculate():
-    try:
-        result = str(eval(entry.get()))
-        entry.delete(0, tk.END)
-        entry.insert(0, result)
-    except ZeroDivisionError:
-        entry.delete(0, tk.END)
-        entry.insert(0, "can't divide by 0")
-    except Exception:
-        entry.delete(0, tk.END)
-        entry.insert(0, "error")
-
-root = tk.Tk()
-root.title("Cool Calculator")
-root.geometry("300x400")
-
-entry = tk.Entry(root, width=20, font=("Arial", 18),
-                 borderwidth=5, relief="ridge", justify="right")
-entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
-
-buttons = [
-    ("7", 1, 0), ("8", 1, 1), ("9", 1, 2), ("/", 1, 3),
-    ("4", 2, 0), ("5", 2, 1), ("6", 2, 2), ("*", 2, 3),
-    ("1", 3, 0), ("2", 3, 1), ("3", 3, 2), ("-", 3, 3),
-    ("0", 4, 0), (".", 4, 1), ("+", 4, 2), ("=", 4, 3),
-]
-
-for (text, row, col) in buttons:
-    if text == "=":
-        tk.Button(root, text=text, width=5, height=2,
-                  command=calculate).grid(row=row, column=col)
-    else:
-        tk.Button(root, text=text, width=5, height=2,
-                  command=lambda t=text: click_button(t)).grid(row=row, column=col)
-
-root.mainloop()`,
-  },
   "task-management": {
     title: "Task Management Application",
     description: "Productivity tool to organize tasks, track progress, and practice database-like data management.",
@@ -537,63 +422,6 @@ task_frame = tk.Frame(root)
 task_frame.pack(pady=10, fill="both", expand=True)
 
 root.mainloop()`,
-  },
-  "tic-tac-toe": {
-    title: "Tic Tac Toe Game",
-    description: "Classic two-player game implementing game logic, turn-based systems, and win-condition detection.",
-    fullDescription: "Classic Tic Tac Toe Game is a two-player strategy game built using Python's Tkinter library. The game features a clean 3×3 grid interface where players alternate between X and O markers. It includes win detection for rows, columns, and diagonals, tie game detection, and automatic game reset functionality.",
-    technologies: ["Python", "Tkinter"],
-    github: "https://github.com/shengdynasty",
-    image: tttImage,
-    features: [
-      "Two-player turn-based gameplay",
-      "Win detection for rows, columns, and diagonals",
-      "Tie game recognition",
-      "Visual feedback with colored squares",
-      "Automatic game reset functionality",
-    ],
-    codeSnippet: `import tkinter as tk
-from tkinter import messagebox
-
-window = tk.Tk()
-window.title("Tic Tac Toe")
-
-player = "X"
-board = [[None, None, None],
-         [None, None, None],
-         [None, None, None]]
-
-def check_winner():
-    for r in range(3):
-        if board[r][0]["text"] == board[r][1]["text"] == board[r][2]["text"] != "":
-            return True
-    for c in range(3):
-        if board[0][c]["text"] == board[1][c]["text"] == board[2][c]["text"] != "":
-            return True
-    if board[0][0]["text"] == board[1][1]["text"] == board[2][2]["text"] != "":
-        return True
-    if board[0][2]["text"] == board[1][1]["text"] == board[2][0]["text"] != "":
-        return True
-    return False
-
-def handle_click(r, c):
-    global player
-    if board[r][c]["text"] == "":
-        board[r][c]["text"] = player
-        if check_winner():
-            messagebox.showinfo("Game Over", "Player " + player + " wins!")
-            reset_game()
-        else:
-            player = "O" if player == "X" else "X"
-
-for r in range(3):
-    for c in range(3):
-        board[r][c] = tk.Button(window, text="", width=10, height=3,
-                                font=("Arial", 20),
-                                command=lambda row=r, col=c: handle_click(row, col))
-        board[r][c].grid(row=r, column=c)
-
-window.mainloop()`,
   },
   "expense-tracker": {
     title: "Personal Expense Tracker",
