@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import AcademicLayout from "@/components/layout/AcademicLayout";
+import { useWindowWidth } from "@/hooks/useWindowWidth";
+import { fadeUpView as fw } from "@/utils/animations";
 import IIT from "@/assets/download.png";
 import fox from "@/assets/fox.png";
 import math from "@/assets/math.jpg";
@@ -76,26 +78,6 @@ const engagements: Engagement[] = [
     image: math,
   },
 ];
-
-function useWindowWidth() {
-  const [width, setWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 1200
-  );
-  useEffect(() => {
-    const handler = () => setWidth(window.innerWidth);
-    window.addEventListener("resize", handler);
-    return () => window.removeEventListener("resize", handler);
-  }, []);
-  return width;
-}
-
-const fw = (delay = 0) =>
-  ({
-    initial: { opacity: 0, y: 16 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true },
-    transition: { duration: 0.5, delay, ease: "easeOut" },
-  } as const);
 
 function FeaturedCard({ item, stacked }: { item: Engagement; stacked: boolean }) {
   const [hovered, setHovered] = useState(false);
@@ -286,6 +268,7 @@ function SmallCard({ item }: { item: Engagement }) {
           <img
             src={item.image}
             alt={item.title}
+            loading="lazy"
             style={{
               width: "100%",
               height: "100%",
@@ -396,6 +379,10 @@ export default function Engagement() {
   const width = useWindowWidth();
   const featured = engagements[0];
   const rest = engagements.slice(1);
+
+  useEffect(() => {
+    document.title = "Engagement — Sheng Yan";
+  }, []);
 
   const gridCols =
     width < 640 ? "1fr" : width < 960 ? "repeat(2, 1fr)" : "repeat(3, 1fr)";

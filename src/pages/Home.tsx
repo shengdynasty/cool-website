@@ -1,24 +1,14 @@
 import AcademicLayout from "@/components/layout/AcademicLayout";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import profilePhoto from "@/assets/pfp_B&W.png";
-
-const f = (delay = 0) =>
-  ({
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, delay, ease: "easeOut" },
-  } as const);
-
-const fw = (delay = 0) =>
-  ({
-    initial: { opacity: 0, y: 16 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true },
-    transition: { duration: 0.55, delay, ease: "easeOut" },
-  } as const);
+import { fadeUp as f, fadeUpView as fw } from "@/utils/animations";
 
 export default function Home() {
+  useEffect(() => {
+    document.title = "Sheng Yan";
+  }, []);
   return (
     <AcademicLayout>
 
@@ -153,14 +143,18 @@ export default function Home() {
                   {item.internal ? (
                     <Link to={item.to!} style={{ fontSize: "0.85rem", color: "#888", textDecoration: "none", transition: "color 150ms" }}
                       onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
-                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#888"}>
+                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#888"}
+                      onFocus={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
+                      onBlur={e => (e.currentTarget as HTMLElement).style.color = "#888"}>
                       {item.label}
                     </Link>
                   ) : (
                     <a href={(item as { href?: string }).href} target="_blank" rel="noopener noreferrer"
                       style={{ fontSize: "0.85rem", color: "#888", textDecoration: "none", transition: "color 150ms" }}
                       onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
-                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#888"}>
+                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#888"}
+                      onFocus={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
+                      onBlur={e => (e.currentTarget as HTMLElement).style.color = "#888"}>
                       {item.label} ↗
                     </a>
                   )}
