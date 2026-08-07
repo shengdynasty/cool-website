@@ -1,0 +1,106 @@
+<svg width="1200" height="450" viewBox="0 0 1200 450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#1e2124"/>
+      <stop offset="100%" stop-color="#111315"/>
+    </radialGradient>
+    <radialGradient id="glowGreen" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#2d6a3f" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#2d6a3f" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softBlur">
+      <feGaussianBlur stdDeviation="60"/>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="8" stdDeviation="20" flood-color="#000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="450" fill="url(#bgGrad)"/>
+
+  <!-- Green ambient glow, centered -->
+  <ellipse cx="600" cy="210" rx="300" ry="210" fill="url(#glowGreen)" filter="url(#softBlur)"/>
+
+  <!--
+    Logo unit: icon (170w × 170h) + 28px gap + "MailZoo" text (~290px wide at 72px)
+    Total ≈ 488px → start at x = 600 - 244 = 356
+    Vertical center: icon center at y≈87 → translate to canvas center y=200 → offset = 200-87 = 113
+  -->
+  <g transform="translate(356, 113)" filter="url(#shadow)">
+
+    <!-- ── Frog + Envelope Icon (0,0 to 170,170) ── -->
+    <!-- Envelope body -->
+    <rect x="0" y="55" width="170" height="115" rx="8" fill="#2a5c38"/>
+    <!-- Envelope flap V -->
+    <polygon points="0,55 85,118 170,55" fill="#357a48"/>
+    <!-- Envelope bottom fold -->
+    <line x1="0" y1="170" x2="170" y2="170" stroke="#1e4229" stroke-width="1.5"/>
+
+    <!-- Frog head -->
+    <circle cx="85" cy="46" r="46" fill="#4a9e5c"/>
+    <!-- Eye bumps -->
+    <circle cx="62" cy="22" r="18" fill="#4a9e5c"/>
+    <circle cx="108" cy="22" r="18" fill="#4a9e5c"/>
+    <!-- Eye whites -->
+    <circle cx="62" cy="20" r="12" fill="#e8f5eb"/>
+    <circle cx="108" cy="20" r="12" fill="#e8f5eb"/>
+    <!-- Pupils -->
+    <circle cx="63" cy="21" r="6" fill="#1a1a1a"/>
+    <circle cx="109" cy="21" r="6" fill="#1a1a1a"/>
+    <!-- Pupil shine -->
+    <circle cx="65" cy="19" r="2" fill="#fff"/>
+    <circle cx="111" cy="19" r="2" fill="#fff"/>
+    <!-- Nostrils -->
+    <circle cx="78" cy="46" r="3" fill="#3a8248"/>
+    <circle cx="92" cy="46" r="3" fill="#3a8248"/>
+    <!-- Smile -->
+    <path d="M 66 58 Q 85 70 104 58" stroke="#2d6636" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <!-- Cheek blush -->
+    <ellipse cx="55" cy="54" rx="9" ry="5" fill="#5cb870" opacity="0.4"/>
+    <ellipse cx="115" cy="54" rx="9" ry="5" fill="#5cb870" opacity="0.4"/>
+
+    <!-- ── Wordmark (starts at x=198, vertically centered to icon mid y=85) ── -->
+    <!-- "Mail" -->
+    <text
+      x="198" y="100"
+      font-family="'Helvetica Neue', Arial, sans-serif"
+      font-size="72"
+      font-weight="700"
+      fill="#f0f0f0"
+      text-anchor="start"
+      letter-spacing="-1"
+    >Mail</text>
+    <!-- "Zoo" -->
+    <text
+      x="368" y="100"
+      font-family="'Helvetica Neue', Arial, sans-serif"
+      font-size="72"
+      font-weight="700"
+      fill="#4a9e5c"
+      text-anchor="start"
+      letter-spacing="-1"
+    >Zoo</text>
+    <!-- Tagline below wordmark -->
+    <text
+      x="199" y="124"
+      font-family="monospace"
+      font-size="12"
+      fill="#3a5244"
+      text-anchor="start"
+      letter-spacing="3"
+    >AI APPOINTMENT AUTOMATION</text>
+
+  </g>
+
+  <!-- Bottom stats bar -->
+  <line x1="80" y1="400" x2="1120" y2="400" stroke="#1e2420" stroke-width="1"/>
+  <text
+    x="600" y="426"
+    font-family="monospace"
+    font-size="11"
+    fill="#2d4a36"
+    text-anchor="middle"
+    letter-spacing="2"
+  >LLC  ·  25 TEAM MEMBERS  ·  CORNELL UNIVERSITY  ·  9 NYC CLIENTS  ·  CEO &amp; CO-FOUNDER</text>
+</svg>
