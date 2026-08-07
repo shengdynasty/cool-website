@@ -6,6 +6,7 @@ import IIT from "@/assets/download.png";
 import fox from "@/assets/fox.png";
 import math from "@/assets/math.jpg";
 import uni from "@/assets/cornell.png";
+import mailzooLogo from "@/assets/mailzoo-logo.svg";
 
 type Engagement = {
   id: string;
@@ -20,8 +21,19 @@ type Engagement = {
 
 const engagements: Engagement[] = [
   {
-    id: "iit-research",
+    id: "mailzoo",
     n: "01",
+    title: "MailZoo — AI Appointment Automation",
+    role: "CEO & Co-Founder",
+    period: "2026 – Present",
+    commitment: "Full-time · LLC",
+    summary:
+      "Co-founded and lead MailZoo, a formal LLC building AI-powered appointment automation. 25-person team recruited from Cornell University, 9 contracted firms in NYC, and actively developing the individual SaaS product.",
+    image: mailzooLogo,
+  },
+  {
+    id: "iit-research",
+    n: "02",
     title: "Research Internship — IIT Materials Science Laboratory",
     role: "Research Assistant",
     period: "2025 – present",
@@ -32,7 +44,7 @@ const engagements: Engagement[] = [
   },
   {
     id: "econometrics",
-    n: "02",
+    n: "03",
     title: "Summer Programs — Cornell SC Johnson College of Business",
     role: "1st Place — Business Simulation Competition",
     period: "July 2026",
@@ -43,7 +55,7 @@ const engagements: Engagement[] = [
   },
   {
     id: "robotics",
-    n: "03",
+    n: "04",
     title: "Fox Valley Robotics Team — Design and Programming",
     role: "Lead Programmer",
     period: "2024 – Present",
@@ -54,7 +66,7 @@ const engagements: Engagement[] = [
   },
   {
     id: "math-competition",
-    n: "04",
+    n: "05",
     title: "Math Competition Team",
     role: "Team Member",
     period: "2022 – Present",

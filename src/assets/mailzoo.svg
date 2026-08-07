@@ -1,0 +1,149 @@
+<svg width="1200" height="480" viewBox="0 0 1200 480" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#060809"/>
+    </radialGradient>
+    <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a3a5c" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#1a3a5c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0f2a1a" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#0f2a1a" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur1">
+      <feGaussianBlur stdDeviation="40"/>
+    </filter>
+    <filter id="blur2">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="480" fill="url(#bg)"/>
+
+  <!-- Ambient glows -->
+  <ellipse cx="400" cy="240" rx="300" ry="200" fill="url(#glow1)" filter="url(#blur1)"/>
+  <ellipse cx="800" cy="240" rx="280" ry="180" fill="url(#glow2)" filter="url(#blur1)"/>
+
+  <!-- Grid lines -->
+  <g stroke="#0e1a24" stroke-width="1" opacity="0.6">
+    <line x1="0" y1="80" x2="1200" y2="80"/>
+    <line x1="0" y1="160" x2="1200" y2="160"/>
+    <line x1="0" y1="240" x2="1200" y2="240"/>
+    <line x1="0" y1="320" x2="1200" y2="320"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="150" y1="0" x2="150" y2="480"/>
+    <line x1="300" y1="0" x2="300" y2="480"/>
+    <line x1="450" y1="0" x2="450" y2="480"/>
+    <line x1="600" y1="0" x2="600" y2="480"/>
+    <line x1="750" y1="0" x2="750" y2="480"/>
+    <line x1="900" y1="0" x2="900" y2="480"/>
+    <line x1="1050" y1="0" x2="1050" y2="480"/>
+  </g>
+
+  <!-- Left: pipeline nodes -->
+  <!-- Node: Instagram -->
+  <rect x="60" y="100" width="120" height="40" rx="3" fill="#0a0f14" stroke="#1a3040" stroke-width="1"/>
+  <text x="120" y="124" text-anchor="middle" fill="#4a7a9b" font-family="monospace" font-size="11" letter-spacing="1">INSTAGRAM</text>
+
+  <!-- Node: Facebook -->
+  <rect x="60" y="160" width="120" height="40" rx="3" fill="#0a0f14" stroke="#1a3040" stroke-width="1"/>
+  <text x="120" y="184" text-anchor="middle" fill="#4a7a9b" font-family="monospace" font-size="11" letter-spacing="1">FACEBOOK</text>
+
+  <!-- Node: SMS -->
+  <rect x="60" y="220" width="120" height="40" rx="3" fill="#0a0f14" stroke="#1a3040" stroke-width="1"/>
+  <text x="120" y="244" text-anchor="middle" fill="#4a7a9b" font-family="monospace" font-size="11" letter-spacing="1">SMS</text>
+
+  <!-- Node: Email -->
+  <rect x="60" y="280" width="120" height="40" rx="3" fill="#0a0f14" stroke="#1a3040" stroke-width="1"/>
+  <text x="120" y="304" text-anchor="middle" fill="#4a7a9b" font-family="monospace" font-size="11" letter-spacing="1">EMAIL</text>
+
+  <!-- Connector lines to center -->
+  <g stroke="#1a3040" stroke-width="1" stroke-dasharray="4 4">
+    <line x1="180" y1="120" x2="330" y2="200"/>
+    <line x1="180" y1="180" x2="330" y2="215"/>
+    <line x1="180" y1="240" x2="330" y2="240"/>
+    <line x1="180" y1="300" x2="330" y2="265"/>
+  </g>
+
+  <!-- Animated dots on lines -->
+  <circle cx="250" cy="162" r="2.5" fill="#2a6090" opacity="0.8"/>
+  <circle cx="220" cy="195" r="2" fill="#2a6090" opacity="0.5"/>
+  <circle cx="255" cy="240" r="2.5" fill="#2a6090" opacity="0.8"/>
+  <circle cx="230" cy="280" r="2" fill="#2a6090" opacity="0.5"/>
+
+  <!-- Center: AI Engine -->
+  <rect x="330" y="170" width="200" height="140" rx="4" fill="#080d12" stroke="#1e3a52" stroke-width="1.5"/>
+  <text x="430" y="200" text-anchor="middle" fill="#2a5a7a" font-family="monospace" font-size="9" letter-spacing="2">AI ENGINE</text>
+  <line x1="355" y1="210" x2="505" y2="210" stroke="#0f2030" stroke-width="1"/>
+
+  <!-- AI neural dots -->
+  <circle cx="380" cy="235" r="4" fill="#1a4060" stroke="#2a6090" stroke-width="1"/>
+  <circle cx="430" cy="225" r="4" fill="#1a4060" stroke="#2a6090" stroke-width="1"/>
+  <circle cx="480" cy="235" r="4" fill="#1a4060" stroke="#2a6090" stroke-width="1"/>
+  <circle cx="405" cy="260" r="4" fill="#1a4060" stroke="#2a6090" stroke-width="1"/>
+  <circle cx="455" cy="260" r="4" fill="#1a4060" stroke="#2a6090" stroke-width="1"/>
+  <circle cx="430" cy="285" r="5" fill="#1e4a72" stroke="#3a80b0" stroke-width="1.5"/>
+
+  <!-- Neural connections -->
+  <g stroke="#0f2535" stroke-width="1">
+    <line x1="380" y1="235" x2="430" y2="225"/>
+    <line x1="430" y1="225" x2="480" y2="235"/>
+    <line x1="380" y1="235" x2="405" y2="260"/>
+    <line x1="430" y1="225" x2="405" y2="260"/>
+    <line x1="430" y1="225" x2="455" y2="260"/>
+    <line x1="480" y1="235" x2="455" y2="260"/>
+    <line x1="405" y1="260" x2="430" y2="285"/>
+    <line x1="455" y1="260" x2="430" y2="285"/>
+  </g>
+
+  <text x="430" y="315" text-anchor="middle" fill="#1e3a52" font-family="monospace" font-size="9" letter-spacing="1">&lt;3s RESPONSE</text>
+
+  <!-- Connector: AI to Qualify -->
+  <line x1="530" y1="240" x2="610" y2="200" stroke="#1a3040" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="530" y1="240" x2="610" y2="280" stroke="#1a3040" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Right blocks -->
+  <!-- Qualify -->
+  <rect x="610" y="160" width="130" height="52" rx="3" fill="#07100e" stroke="#0f2a1a" stroke-width="1.5"/>
+  <text x="675" y="182" text-anchor="middle" fill="#2a6a40" font-family="monospace" font-size="10" letter-spacing="1.5">QUALIFY</text>
+  <text x="675" y="200" text-anchor="middle" fill="#1a3a24" font-family="monospace" font-size="8">leads scored 0–100</text>
+
+  <!-- Book -->
+  <rect x="610" y="240" width="130" height="52" rx="3" fill="#07100e" stroke="#0f2a1a" stroke-width="1.5"/>
+  <text x="675" y="262" text-anchor="middle" fill="#2a6a40" font-family="monospace" font-size="10" letter-spacing="1.5">BOOK</text>
+  <text x="675" y="280" text-anchor="middle" fill="#1a3a24" font-family="monospace" font-size="8">calendar integration</text>
+
+  <!-- Arrow to output -->
+  <line x1="740" y1="186" x2="800" y2="210" stroke="#1a3040" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="740" y1="266" x2="800" y2="250" stroke="#1a3040" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Output: Pipeline filled -->
+  <rect x="800" y="185" width="160" height="80" rx="4" fill="#060d08" stroke="#163022" stroke-width="1.5"/>
+  <text x="880" y="212" text-anchor="middle" fill="#3a8a54" font-family="monospace" font-size="10" letter-spacing="1">PIPELINE</text>
+  <line x1="820" y1="222" x2="940" y2="222" stroke="#0f2018" stroke-width="1"/>
+
+  <!-- Mini bar chart inside output box -->
+  <rect x="830" y="248" width="12" height="20" rx="1" fill="#1a4028" opacity="0.7"/>
+  <rect x="847" y="238" width="12" height="30" rx="1" fill="#1a4028" opacity="0.7"/>
+  <rect x="864" y="232" width="12" height="36" rx="1" fill="#2a5a3a" opacity="0.8"/>
+  <rect x="881" y="228" width="12" height="40" rx="1" fill="#2a5a3a" opacity="0.8"/>
+  <rect x="898" y="222" width="12" height="46" rx="1" fill="#3a7a52" opacity="0.9"/>
+  <rect x="915" y="215" width="12" height="53" rx="1" fill="#3a8a5a"/>
+
+  <!-- Bottom stat bar -->
+  <rect x="60" y="390" width="260" height="40" rx="3" fill="#060b0f" stroke="#0f1e2a" stroke-width="1"/>
+  <text x="90" y="415" fill="#2a5a7a" font-family="monospace" font-size="9">24/7  ·  4 CHANNELS  ·  UNLIMITED</text>
+
+  <rect x="340" y="390" width="220" height="40" rx="3" fill="#060b0f" stroke="#0f1e2a" stroke-width="1"/>
+  <text x="450" y="415" text-anchor="middle" fill="#2a6a40" font-family="monospace" font-size="9">$99/mo vs $2,000/mo SETTER</text>
+
+  <rect x="580" y="390" width="200" height="40" rx="3" fill="#060b0f" stroke="#0f1e2a" stroke-width="1"/>
+  <text x="680" y="415" text-anchor="middle" fill="#2a5a7a" font-family="monospace" font-size="9">14-DAY FREE TRIAL</text>
+
+  <!-- Main label -->
+  <text x="600" y="60" text-anchor="middle" fill="#0e1e2c" font-family="monospace" font-size="32" font-weight="bold" letter-spacing="6">MAILZOO</text>
+  <text x="600" y="75" text-anchor="middle" fill="#0a1a28" font-family="monospace" font-size="9" letter-spacing="4">AI APPOINTMENT AUTOMATION</text>
+</svg>

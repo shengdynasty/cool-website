@@ -6,6 +6,7 @@ import IIT from "@/assets/download.png";
 import fox from "@/assets/fox.png";
 import math from "@/assets/math.jpg";
 import uni from "@/assets/cornell.png";
+import mailzooLogo from "@/assets/mailzoo-logo.svg";
 
 const engagementsData: Record<
   string,
@@ -59,6 +60,16 @@ const engagementsData: Record<
     learned: `Developed problem-solving strategies and mathematical maturity through exposure to challenging, non-routine problems. Learned to approach problems systematically and persist through difficulty. Built foundational skills in areas like combinatorics and number theory.`,
     relevance: `Competition mathematics has strengthened my quantitative reasoning abilities, which support work across my areas of interest. The discipline required for consistent practice has also been valuable for academic development more broadly.`,
     image: math,
+  },
+  mailzoo: {
+    title: "MailZoo — AI Appointment Automation",
+    role: "CEO & Co-Founder",
+    period: "2026 – Present",
+    timeCommitment: "Full-time · LLC",
+    work: `Co-founded and lead MailZoo, a formally incorporated LLC building AI-powered appointment automation for businesses. As CEO, responsible for company direction, team leadership, and product strategy. Built and manage a 25-person team recruited from Cornell University, spanning engineering, design, sales, and operations. Contracted and managed 9 client firms in New York City, delivering AI-driven lead qualification and appointment booking solutions. Currently leading development of the individual SaaS product — the consumer-facing version at mailzoo.net — which replaces human appointment setters with an AI agent that responds to inbound leads across Instagram, Facebook, SMS, and email in under three seconds, qualifies them automatically, and books them directly to a calendar. Managing the full product lifecycle: from requirements and architecture to go-to-market strategy and client onboarding.`,
+    learned: `Running a company as a high school student has demanded rapid development across every dimension of business leadership — hiring and managing a team, setting technical direction, negotiating and delivering client contracts, and balancing enterprise client work with building a scalable SaaS product. Learned firsthand how to structure an LLC, manage payroll-equivalent responsibilities across a 25-person team, and maintain operational discipline while simultaneously developing product. The Cornell network has been central to building the team, reinforcing the value of academic community as a talent pipeline. Client work with 9 NYC firms has sharpened project management, stakeholder communication, and delivery under real business pressure.`,
+    relevance: `MailZoo is the direct application of every academic and technical thread I have pursued — the business strategy and quantitative thinking from Cornell SC Johnson, the software engineering from a decade of programming projects, and the analytical rigor from mathematics competitions and research. Running a company at this stage is not something most people my age have the opportunity to do, and it has made every classroom concept immediate and concrete. It has also clarified what I want to study and build: the intersection of technology, business strategy, and systems thinking at scale.`,
+    image: mailzooLogo,
   },
 };
 

@@ -101,15 +101,15 @@ export default function Home() {
             {...f(0.3)}
             style={{ fontSize: "0.95rem", color: "#aaa", maxWidth: "34rem", lineHeight: 1.7, marginBottom: "2.5rem" }}
           >
-            High school sophomore exploring the intersection of engineering,
-            computer science, economics, and political science. Research-driven.
-            Quantitatively minded. Class of 2029.
+            CEO & Co-Founder of MailZoo. High school sophomore exploring the
+            intersection of engineering, computer science, and business strategy.
+            Research-driven. Quantitatively minded. Class of 2029.
           </motion.p>
 
           <motion.div {...f(0.4)} style={{ display: "flex", flexWrap: "wrap", gap: "2.5rem" }}>
             {[
               { n: "13",   l: "Projects" },
-              { n: "4",    l: "Activities" },
+              { n: "5",    l: "Activities" },
               { n: "3",    l: "Honors" },
               { n: "2029", l: "Grad. Year" },
             ].map(({ n, l }) => (
@@ -146,9 +146,8 @@ export default function Home() {
                 New
               </p>
               {[
-                { label: "1st Place, Business Simulation Competition — Summer Programs, Cornell SC Johnson College of Business", to: "/engagement/econometrics", internal: true },
-                { label: "Video-to-Text MCP Server", to: "/project/video-to-text", internal: true },
-                { label: "Autonomous Researcher", to: "/project/autonomous-researcher", internal: true },
+                { label: "MailZoo — CEO & Co-Founder, AI Appointment Automation LLC", to: "/engagement/mailzoo", internal: true },
+                { label: "1st Place, Business Simulation Competition — Cornell SC Johnson College of Business", to: "/engagement/econometrics", internal: true },
               ].map(item => (
                 <div key={item.label} style={{ paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
                   {item.internal ? (
@@ -175,6 +174,7 @@ export default function Home() {
                 Currently
               </p>
               {[
+                "MailZoo CEO — AI Appointment Automation (LLC)",
                 "IIT Research Intern — Materials Science",
                 "EvalGuard v1 — LLM Contamination Auditor",
               ].map(item => (
@@ -307,7 +307,7 @@ export default function Home() {
         <div style={{ borderTop: "1px solid #1C1C1C" }}>
           {[
             { to: "/projects",   label: "Projects",   sub: "13 software projects" },
-            { to: "/engagement", label: "Engagement", sub: "Research & academic activities" },
+            { to: "/engagement", label: "Engagement", sub: "5 activities" },
             { to: "/skills",     label: "Skills",     sub: "Technical & analytical" },
           ].map((link, i) => (
             <motion.div key={link.to} {...fw(i * 0.06)}>
