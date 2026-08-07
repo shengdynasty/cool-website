@@ -1,20 +1,7 @@
 import AcademicLayout from "@/components/layout/AcademicLayout";
 import { motion } from "framer-motion";
-
-const f = (delay = 0) =>
-  ({
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, delay, ease: "easeOut" },
-  } as const);
-
-const fw = (delay = 0) =>
-  ({
-    initial: { opacity: 0, y: 16 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true },
-    transition: { duration: 0.55, delay, ease: "easeOut" },
-  } as const);
+import { useEffect } from "react";
+import { fadeUp as f, fadeUpView as fw } from "@/utils/animations";
 
 const categories = [
   {
@@ -106,6 +93,10 @@ const levels = [
 ];
 
 export default function Skills() {
+  useEffect(() => {
+    document.title = "Skills — Sheng Yan";
+  }, []);
+
   return (
     <AcademicLayout>
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "5rem 2rem 8rem" }}>

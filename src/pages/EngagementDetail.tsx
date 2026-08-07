@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import AcademicLayout from "@/components/layout/AcademicLayout";
+import { useWindowWidth } from "@/hooks/useWindowWidth";
 import IIT from "@/assets/download.png";
 import fox from "@/assets/fox.png";
 import math from "@/assets/math.jpg";
@@ -78,18 +79,6 @@ const sidebarSections = [
   { id: "learned", label: "What I Learned" },
   { id: "relevance", label: "Why It Matters" },
 ];
-
-function useWindowWidth() {
-  const [width, setWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 1200
-  );
-  useEffect(() => {
-    const handler = () => setWidth(window.innerWidth);
-    window.addEventListener("resize", handler);
-    return () => window.removeEventListener("resize", handler);
-  }, []);
-  return width;
-}
 
 function Section({ id, label, body }: { id: string; label: string; body: string }) {
   return (
@@ -192,6 +181,10 @@ export default function EngagementDetail() {
 
   const engagement = engagementId ? engagementsData[engagementId] : null;
   const showSidebar = width >= 1024;
+
+  useEffect(() => {
+    document.title = `${engagement?.title ?? "Engagement"} — Sheng Yan`;
+  }, [engagement?.title]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -334,6 +327,7 @@ export default function EngagementDetail() {
             <img
               src={engagement.image}
               alt={engagement.title}
+              loading="lazy"
               style={{
                 width: "100%",
                 height: "100%",

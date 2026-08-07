@@ -1,31 +1,30 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme-provider";
-import Home from "./pages/Home";
-import Projects from "./pages/Projects";
-import Engagement from "./pages/Engagement";
-import EngagementDetail from "./pages/EngagementDetail";
-import Skills from "./pages/Skills";
-import ProjectDetailPage from "./pages/ProjectDetailPage";
-import NotFound from "./pages/NotFound";
+import { lazy, Suspense } from "react";
 
-const queryClient = new QueryClient();
+const Home = lazy(() => import("./pages/Home"));
+const Projects = lazy(() => import("./pages/Projects"));
+const ProjectDetailPage = lazy(() => import("./pages/ProjectDetailPage"));
+const Engagement = lazy(() => import("./pages/Engagement"));
+const EngagementDetail = lazy(() => import("./pages/EngagementDetail"));
+const Skills = lazy(() => import("./pages/Skills"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="light"
-      enableSystem={false}
-      disableTransitionOnChange
-    >
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
+  <ThemeProvider
+    attribute="class"
+    defaultTheme="light"
+    enableSystem={false}
+    disableTransitionOnChange
+  >
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <Suspense fallback={null}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
@@ -36,10 +35,10 @@ const App = () => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </ThemeProvider>
-  </QueryClientProvider>
+        </Suspense>
+      </BrowserRouter>
+    </TooltipProvider>
+  </ThemeProvider>
 );
 
 export default App;
