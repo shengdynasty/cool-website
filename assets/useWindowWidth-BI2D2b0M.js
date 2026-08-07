@@ -1,0 +1,1 @@
+import{h as e,u as t}from"./dist-CwlN6XwQ.js";var n=e(t(),1);function r(){let[e,t]=(0,n.useState)(typeof window<`u`?window.innerWidth:1200);return(0,n.useEffect)(()=>{let e=()=>t(window.innerWidth);return window.addEventListener(`resize`,e,{passive:!0}),()=>window.removeEventListener(`resize`,e)},[]),e}function i(){return r()<640}export{r as n,i as t};
