@@ -99,7 +99,7 @@ export default function Home() {
           <motion.div {...f(0.4)} style={{ display: "flex", flexWrap: "wrap", gap: "2.5rem" }}>
             {[
               { n: "13",   l: "Projects" },
-              { n: "5",    l: "Activities" },
+              { n: "6",    l: "Activities" },
               { n: "3",    l: "Honors" },
               { n: "2029", l: "Grad. Year" },
             ].map(({ n, l }) => (
@@ -136,7 +136,8 @@ export default function Home() {
                 New
               </p>
               {[
-                { label: "MailZoo — CEO & Co-Founder, AI Appointment Automation LLC", to: "/engagement/mailzoo", internal: true },
+                { label: "Y Combinator Startup School 2026 — Invited to YC's SF Conference (Jensen Huang, Sam Altman)", to: "/engagement/yc-startup-school", internal: true },
+                { label: "MailZoo — CEO & Co-Founder, Personalized AI Ecosystems for Enterprise (LLC)", to: "/engagement/mailzoo", internal: true },
                 { label: "1st Place, Business Simulation Competition — Cornell SC Johnson College of Business", to: "/engagement/econometrics", internal: true },
               ].map(item => (
                 <div key={item.label} style={{ paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
@@ -168,7 +169,7 @@ export default function Home() {
                 Currently
               </p>
               {[
-                "MailZoo CEO — AI Appointment Automation (LLC)",
+                "MailZoo CEO — Personalized AI Ecosystems for Enterprise (LLC)",
                 "IIT Research Intern — Materials Science",
                 "EvalGuard v1 — LLM Contamination Auditor",
               ].map(item => (
@@ -301,7 +302,7 @@ export default function Home() {
         <div style={{ borderTop: "1px solid #1C1C1C" }}>
           {[
             { to: "/projects",   label: "Projects",   sub: "13 software projects" },
-            { to: "/engagement", label: "Engagement", sub: "5 activities" },
+            { to: "/engagement", label: "Engagement", sub: "6 activities" },
             { to: "/skills",     label: "Skills",     sub: "Technical & analytical" },
           ].map((link, i) => (
             <motion.div key={link.to} {...fw(i * 0.06)}>
