@@ -145,5 +145,5 @@
 
   <!-- Main label -->
   <text x="600" y="60" text-anchor="middle" fill="#0e1e2c" font-family="monospace" font-size="32" font-weight="bold" letter-spacing="6">MAILZOO</text>
-  <text x="600" y="75" text-anchor="middle" fill="#0a1a28" font-family="monospace" font-size="9" letter-spacing="4">AI APPOINTMENT AUTOMATION</text>
+  <text x="600" y="75" text-anchor="middle" fill="#0a1a28" font-family="monospace" font-size="9" letter-spacing="4">PERSONALIZED AI ECOSYSTEMS FOR ENTERPRISE</text>
 </svg>

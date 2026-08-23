@@ -8,7 +8,8 @@ import IIT from "@/assets/download.png";
 import fox from "@/assets/fox.png";
 import math from "@/assets/math.jpg";
 import uni from "@/assets/cornell.png";
-import mailzooLogo from "@/assets/mailzoo-logo.svg";
+import mailzooOffice from "@/assets/mailzoo-office.jpg";
+import ycLogo from "@/assets/yc-startup-school.svg";
 
 type Engagement = {
   id: string;
@@ -25,20 +26,31 @@ const engagements: Engagement[] = [
   {
     id: "mailzoo",
     n: "01",
-    title: "MailZoo — AI Appointment Automation",
+    title: "MailZoo — Personalized AI Ecosystems for Enterprise",
     role: "CEO & Co-Founder",
     period: "2026 – Present",
     commitment: "Full-time · LLC",
     summary:
-      "Co-founded and lead MailZoo, a formal LLC building AI-powered appointment automation. 25-person team recruited from Cornell University, 9 contracted firms in NYC, and actively developing the individual SaaS product.",
-    image: mailzooLogo,
+      "Co-founded and lead MailZoo, a formal LLC building personalized AI ecosystems for large enterprises — a bespoke intelligence layer per client that learns the company's operations, handles conversations, qualifies leads, and runs top-of-funnel around the clock. 40+ team members recruited from Cornell, NYU, and Columbia, 10+ contracted enterprise clients in NYC.",
+    image: mailzooOffice,
+  },
+  {
+    id: "yc-startup-school",
+    n: "02",
+    title: "Y Combinator Startup School 2026 — San Francisco",
+    role: "Invited Attendee — Founder Conference",
+    period: "June 2026",
+    commitment: "Invite-only · In-person · San Francisco",
+    summary:
+      "Attended Y Combinator's invite-only Startup School conference in San Francisco — two days of keynotes and fireside sessions with the founders, operators, and researchers shaping this generation of AI companies, including Jensen Huang (NVIDIA) and Sam Altman (OpenAI). Attendance is by invitation from YC.",
+    image: ycLogo,
   },
   {
     id: "iit-research",
-    n: "02",
+    n: "03",
     title: "Research Internship — IIT Materials Science Laboratory",
     role: "Research Assistant",
-    period: "2025 – present",
+    period: "September 2025 – May 2026",
     commitment: "6+ weeks · 30 hrs/week",
     summary:
       "Contributed to a research project investigating the mechanical properties of composite materials under varying thermal conditions.",
@@ -46,7 +58,7 @@ const engagements: Engagement[] = [
   },
   {
     id: "econometrics",
-    n: "03",
+    n: "04",
     title: "Summer Programs — Cornell SC Johnson College of Business",
     role: "1st Place — Business Simulation Competition",
     period: "July 2026",
@@ -57,10 +69,10 @@ const engagements: Engagement[] = [
   },
   {
     id: "robotics",
-    n: "04",
+    n: "05",
     title: "Fox Valley Robotics Team — Design and Programming",
     role: "Lead Programmer",
-    period: "2024 – Present",
+    period: "2024 – 2026",
     commitment: "10 hrs/week during competition season",
     summary:
       "Responsible for developing control systems and autonomous routines for competition robots.",
@@ -68,10 +80,10 @@ const engagements: Engagement[] = [
   },
   {
     id: "math-competition",
-    n: "05",
+    n: "06",
     title: "Math Competition Team",
     role: "Team Member",
-    period: "2022 – Present",
+    period: "2022 – 2026",
     commitment: "4 hrs/week",
     summary:
       "Prepare for and compete in regional and national mathematics competitions including AMC, AIME, and math olympiad qualifiers.",

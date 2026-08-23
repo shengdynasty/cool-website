@@ -7,7 +7,8 @@ import IIT from "@/assets/download.png";
 import fox from "@/assets/fox.png";
 import math from "@/assets/math.jpg";
 import uni from "@/assets/cornell.png";
-import mailzooLogo from "@/assets/mailzoo-logo.svg";
+import mailzooOffice from "@/assets/mailzoo-office.jpg";
+import ycLogo from "@/assets/yc-startup-school.svg";
 
 const engagementsData: Record<
   string,
@@ -25,7 +26,7 @@ const engagementsData: Record<
   "iit-research": {
     title: "Research Internship — IIT Materials Science Laboratory",
     role: "Research Assistant",
-    period: "2025 Dec - present",
+    period: "September 2025 – May 2026",
     timeCommitment: "6+ weeks, 30 hours/week",
     work: `Contributed to a research project investigating the mechanical properties of composite materials under varying thermal conditions. Responsibilities included data organization, data collection using testing equipment, and preliminary data analysis. Participated in weekly lab meetings and presented findings to the research group.`,
     learned: `Gained hands-on experience with experimental methodology and the iterative nature of scientific research. Developed skills in data documentation, statistical analysis of experimental results, and technical communication. Learned to navigate uncertainty and troubleshoot when experiments did not produce expected outcomes.`,
@@ -35,7 +36,7 @@ const engagementsData: Record<
   robotics: {
     title: "Robotics Team — Design and Programming",
     role: "Lead Programmer",
-    period: "2022–Present",
+    period: "2024 – 2026",
     timeCommitment: "10 hours/week during competition season",
     work: `Responsible for developing control systems and autonomous routines for competition robots. Work includes sensor integration, motion planning, and real-time debugging during competitions. Collaborate with mechanical and electrical subteams to ensure software meets hardware constraints.`,
     learned: `Applied programming skills to physical systems, understanding the challenges of real-time computing and sensor noise. Developed project management skills through deadline-driven competition cycles. Learned to communicate technical concepts to teammates with different areas of expertise.`,
@@ -55,22 +56,32 @@ const engagementsData: Record<
   "math-competition": {
     title: "Math Competition Team",
     role: "Team Member",
-    period: "2020–Present",
+    period: "2022 – 2026",
     timeCommitment: "4 hours/week",
     work: `Prepare for and compete in regional and national mathematics competitions including AMC, AIME, and math olympiad qualifiers. Regular practice involves problem-solving sessions, proof writing, and learning advanced topics beyond the standard curriculum.`,
     learned: `Developed problem-solving strategies and mathematical maturity through exposure to challenging, non-routine problems. Learned to approach problems systematically and persist through difficulty. Built foundational skills in areas like combinatorics and number theory.`,
     relevance: `Competition mathematics has strengthened my quantitative reasoning abilities, which support work across my areas of interest. The discipline required for consistent practice has also been valuable for academic development more broadly.`,
     image: math,
   },
+  "yc-startup-school": {
+    title: "Y Combinator Startup School 2026 — San Francisco",
+    role: "Invited Attendee — Founder Conference",
+    period: "June 2026",
+    timeCommitment: "Invite-only · In-person · San Francisco",
+    work: `Attended Y Combinator's Startup School 2026 in San Francisco — YC's flagship in-person conference bringing together founders from around the world for two days of keynotes, fireside conversations, and workshops with the operators, investors, and researchers shaping the current wave of AI and technology companies. Attendance is invite-only: seats are allocated directly by YC to a limited group of founders, and admission is not open to the general public. Sessions included talks and fireside conversations from Jensen Huang (NVIDIA), Sam Altman (OpenAI), and a broader lineup of founders, investors, and researchers from across the AI and startup ecosystem. Attended as an early-stage founder actively running MailZoo, using the conference to pressure-test our positioning and roadmap against the frontier of what's currently possible with generative AI, and to talk directly with other founders solving adjacent problems in enterprise AI, agents, and infrastructure.`,
+    learned: `The recurring theme across the sessions was that the ceiling on what a small team can build is now higher than at any prior moment in the industry — and the founders who compound in the next five years will be the ones moving fastest at the intersection of model capability and real customer workflows. Jensen Huang's framing of compute as the new infrastructure layer, Sam Altman's arguments about where value accrues around foundation models, and repeated hallway conversations with early-stage founders all reinforced how important it is to build with a clear thesis about which parts of the stack will commoditize versus compound. Also came away with concrete tactical notes on hiring, distribution, and pricing that I've fed directly into MailZoo's operating plan.`,
+    relevance: `Being in the room for these conversations at this age is not something I take for granted. For a high school founder running an early-stage company, direct exposure to the operators actually setting the direction of the AI industry compresses years of pattern-matching into a weekend. It has directly influenced how I think about MailZoo's positioning, the pace we need to move at, and what kind of company I'm trying to build over the next decade.`,
+    image: ycLogo,
+  },
   mailzoo: {
-    title: "MailZoo — AI Appointment Automation",
+    title: "MailZoo — Personalized AI Ecosystems for Enterprise",
     role: "CEO & Co-Founder",
     period: "2026 – Present",
     timeCommitment: "Full-time · LLC",
-    work: `Co-founded and lead MailZoo, a formally incorporated LLC building AI-powered appointment automation for businesses. As CEO, responsible for company direction, team leadership, and product strategy. Built and manage a 25-person team recruited from Cornell University, spanning engineering, design, sales, and operations. Contracted and managed 9 client firms in New York City, delivering AI-driven lead qualification and appointment booking solutions. Currently leading development of the individual SaaS product — the consumer-facing version at mailzoo.net — which replaces human appointment setters with an AI agent that responds to inbound leads across Instagram, Facebook, SMS, and email in under three seconds, qualifies them automatically, and books them directly to a calendar. Managing the full product lifecycle: from requirements and architecture to go-to-market strategy and client onboarding.`,
-    learned: `Running a company as a high school student has demanded rapid development across every dimension of business leadership — hiring and managing a team, setting technical direction, negotiating and delivering client contracts, and balancing enterprise client work with building a scalable SaaS product. Learned firsthand how to structure an LLC, manage payroll-equivalent responsibilities across a 25-person team, and maintain operational discipline while simultaneously developing product. The Cornell network has been central to building the team, reinforcing the value of academic community as a talent pipeline. Client work with 9 NYC firms has sharpened project management, stakeholder communication, and delivery under real business pressure.`,
+    work: `Co-founded and lead MailZoo, a formally incorporated LLC building personalized AI ecosystems for large enterprises. Rather than shipping one-size-fits-all software, MailZoo designs and deploys a custom intelligence layer for each client — an AI that learns the company's operations, handles its conversations, qualifies its leads, books its meetings, and runs its top-of-funnel around the clock. Think of it as a Jarvis built to order: no two deployments are the same, because each is architected around how that specific company works. As CEO, responsible for company direction, team leadership, and product strategy. Built and manage a 40+ person team recruited from Cornell, NYU, and Columbia, spanning engineering, design, sales, and operations, operating out of MailZoo's headquarters — a dedicated office designed around engineering-heavy execution and in-person collaboration. Contracted and delivered custom AI systems for 10+ enterprise clients in New York City. Managing the full lifecycle for each engagement — discovery of the client's operational surface area, architecture of the bespoke agent stack, deployment, and ongoing optimization — while setting the technical direction and go-to-market strategy for the company overall.`,
+    learned: `Running a company as a high school student has demanded rapid development across every dimension of business leadership — hiring and managing a team, setting technical direction, negotiating and delivering enterprise contracts, and balancing bespoke client engagements with building a repeatable delivery model. Learned firsthand how to structure an LLC, manage payroll-equivalent responsibilities across a 40+ person team, and maintain operational discipline while shipping custom AI systems on client timelines. The university networks across Cornell, NYU, and Columbia have been central to building the team, reinforcing the value of academic community as a talent pipeline. Deploying tailored intelligence layers for 10+ NYC enterprises has sharpened project management, stakeholder communication, and the discipline of designing around each client's actual operations rather than a generic playbook.`,
     relevance: `MailZoo is the direct application of every academic and technical thread I have pursued — the business strategy and quantitative thinking from Cornell SC Johnson, the software engineering from a decade of programming projects, and the analytical rigor from mathematics competitions and research. Running a company at this stage is not something most people my age have the opportunity to do, and it has made every classroom concept immediate and concrete. It has also clarified what I want to study and build: the intersection of technology, business strategy, and systems thinking at scale.`,
-    image: mailzooLogo,
+    image: mailzooOffice,
   },
 };
 
