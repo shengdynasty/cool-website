@@ -21,7 +21,7 @@ const routes = {
   },
   "engagement/mailzoo": {
     title: "MailZoo — CEO & Co-Founder | Sheng Yan",
-    desc: "Sheng Yan is the CEO and Co-Founder of MailZoo, an LLC building personalized AI ecosystems for enterprise with a 40+ person team and 10+ NYC clients.",
+    desc: "MailZoo is an LLC founded and led by CEO Sheng Yan, building personalized AI ecosystems for large enterprises — a custom intelligence layer per client that learns the company's operations, handles conversations, qualifies leads, and runs top-of-funnel around the clock. 40+ team members from Cornell, NYU, and Columbia; 10+ enterprise clients in NYC.",
   },
   "engagement/yc-startup-school": {
     title: "Y Combinator Startup School 2026 | Sheng Yan",
