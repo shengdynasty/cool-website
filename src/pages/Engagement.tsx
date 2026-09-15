@@ -10,6 +10,8 @@ import math from "@/assets/math.jpg";
 import uni from "@/assets/cornell.png";
 import mailzooOffice from "@/assets/mailzoo-office.jpg";
 import ycLogo from "@/assets/yc-startup-school.svg";
+import wharton from "@/assets/wharton.avif";
+import nasaDwu from "@/assets/nasa-dream-with-us.jpg";
 
 type Engagement = {
   id: string;
@@ -46,15 +48,15 @@ const engagements: Engagement[] = [
     image: ycLogo,
   },
   {
-    id: "iit-research",
+    id: "wharton-investment",
     n: "03",
-    title: "Research Internship — IIT Materials Science Laboratory",
-    role: "Research Assistant",
-    period: "September 2025 – May 2026",
-    commitment: "6+ weeks · 30 hrs/week",
+    title: "Wharton Global High School Investment Competition",
+    role: "Team Leader",
+    period: "2026 – Present",
+    commitment: "Team of 6 · 10-week season",
     summary:
-      "Contributed to a research project investigating the mechanical properties of composite materials under varying thermal conditions.",
-    image: IIT,
+      "Leading a six-person team in Wharton Global Youth's flagship investment competition — managing a $300,000 simulated fund on the Wharton Investment Simulator, synced 1:1 in real time with the live market, and building a client-aligned investment strategy judged on research depth and process rather than returns.",
+    image: wharton,
   },
   {
     id: "econometrics",
@@ -68,8 +70,30 @@ const engagements: Engagement[] = [
     image: uni,
   },
   {
-    id: "robotics",
+    id: "nasa-dream-with-us",
     n: "05",
+    title: "NASA Aeronautics — Dream with Us Design Challenge",
+    role: "Finals Qualifier — Solo Competitor",
+    period: "2025 – 2026",
+    commitment: "Solo entry · National challenge",
+    summary:
+      "Qualified for the finals of NASA Aeronautics' 2025–2026 Dream with Us Design Challenge as a solo competitor, designing an uncrewed agricultural drone to monitor crop health, detect damaging pests, and collect physical samples under the Advanced Air Mobility in Agriculture brief.",
+    image: nasaDwu,
+  },
+  {
+    id: "iit-research",
+    n: "06",
+    title: "Research Internship — IIT Materials Science Laboratory",
+    role: "Research Assistant",
+    period: "September 2025 – May 2026",
+    commitment: "6+ weeks · 30 hrs/week",
+    summary:
+      "Contributed to a research project investigating the mechanical properties of composite materials under varying thermal conditions.",
+    image: IIT,
+  },
+  {
+    id: "robotics",
+    n: "07",
     title: "Fox Valley Robotics Team — Design and Programming",
     role: "Lead Programmer",
     period: "2024 – 2026",
@@ -80,7 +104,7 @@ const engagements: Engagement[] = [
   },
   {
     id: "math-competition",
-    n: "06",
+    n: "08",
     title: "Math Competition Team",
     role: "Team Member",
     period: "2022 – 2026",

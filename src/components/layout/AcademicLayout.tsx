@@ -11,24 +11,7 @@ const navigation = [
   { name: "HOME",       href: "/" },
   { name: "ENGAGEMENT", href: "/engagement" },
   { name: "PROJECTS",   href: "/projects" },
-  { name: "SKILLS",     href: "/skills" },
 ];
-
-const DownloadIcon = () => (
-  <>
-    <style>{`
-      @keyframes dl-bounce {
-        0%, 100% { transform: translateY(0); }
-        50%       { transform: translateY(3px); }
-      }
-      .resume-btn:hover .dl-arrow { animation: dl-bounce 0.6s ease-in-out infinite; }
-    `}</style>
-    <svg className="dl-arrow" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <path d="M12 3v13M7 11l5 5 5-5"/>
-      <path d="M5 20h14"/>
-    </svg>
-  </>
-);
 
 const GH = () => (
   <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden>
@@ -126,34 +109,6 @@ export default function AcademicLayout({ children }: AcademicLayoutProps) {
               })}
             </nav>
 
-            {/* Resume — desktop */}
-            <a
-              href="https://www.overleaf.com/read/dgjsdhjqtptn#2e66ab"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:flex resume-btn"
-              style={{
-                padding: "5px 16px",
-                fontSize: "0.7rem",
-                letterSpacing: "0.12em",
-                fontWeight: 500,
-                color: "#aaa",
-                textDecoration: "none",
-                boxShadow: "0 0 0 1px #555",
-                borderRadius: "9999px",
-                border: "none",
-                display: "flex",
-                alignItems: "center",
-                gap: 7,
-                transition: "background 150ms, color 150ms, box-shadow 150ms",
-              }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#aaa"; (e.currentTarget as HTMLElement).style.color = "#050505"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 1px #aaa"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = "#aaa"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 1px #555"; }}
-            >
-              <DownloadIcon />
-              RESUME
-            </a>
-
             {/* Socials — desktop */}
             <div style={{ display: "flex", alignItems: "center", gap: 4 }} className="hidden md:flex">
               {socials.map(({ href, label, Icon }) => (
@@ -205,32 +160,6 @@ export default function AcademicLayout({ children }: AcademicLayoutProps) {
                   {name}
                 </Link>
               ))}
-              <a
-                href="https://www.overleaf.com/read/dgjsdhjqtptn#2e66ab"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="resume-btn"
-                style={{
-                  marginTop: "0.75rem",
-                  padding: "10px 0",
-                  fontSize: "0.75rem",
-                  letterSpacing: "0.12em",
-                  fontWeight: 500,
-                  color: "#aaa",
-                  textDecoration: "none",
-                  boxShadow: "0 0 0 1px #555",
-                  border: "none",
-                  borderRadius: "9999px",
-                  textAlign: "center",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 8,
-                }}
-              >
-                <DownloadIcon />
-                RESUME
-              </a>
             </div>
           </div>
         )}

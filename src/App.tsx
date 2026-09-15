@@ -10,7 +10,6 @@ const Projects = lazy(() => import("./pages/Projects"));
 const ProjectDetailPage = lazy(() => import("./pages/ProjectDetailPage"));
 const Engagement = lazy(() => import("./pages/Engagement"));
 const EngagementDetail = lazy(() => import("./pages/EngagementDetail"));
-const Skills = lazy(() => import("./pages/Skills"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const App = () => (
@@ -31,7 +30,6 @@ const App = () => (
             <Route path="/project/:projectId" element={<ProjectDetailPage />} />
             <Route path="/engagement" element={<Engagement />} />
             <Route path="/engagement/:engagementId" element={<EngagementDetail />} />
-            <Route path="/skills" element={<Skills />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

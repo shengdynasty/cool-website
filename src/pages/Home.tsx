@@ -91,15 +91,16 @@ export default function Home() {
             {...f(0.3)}
             style={{ fontSize: "0.95rem", color: "#aaa", maxWidth: "34rem", lineHeight: 1.7, marginBottom: "2.5rem" }}
           >
-            CEO & Co-Founder of MailZoo. High school sophomore exploring the
-            intersection of engineering, computer science, and business strategy.
-            Research-driven. Quantitatively minded. Class of 2029.
+            CEO & Co-Founder of MailZoo. NASA Dream with Us finals qualifier,
+            Wharton Investment Competition team leader, 1st place at Cornell's
+            Business Simulation Competition, two-time AIME qualifier. Building at
+            the intersection of engineering, computer science, and business strategy.
           </motion.p>
 
           <motion.div {...f(0.4)} style={{ display: "flex", flexWrap: "wrap", gap: "2.5rem" }}>
             {[
               { n: "13",   l: "Projects" },
-              { n: "6",    l: "Activities" },
+              { n: "8",    l: "Activities" },
               { n: "3",    l: "Honors" },
               { n: "2029", l: "Grad. Year" },
             ].map(({ n, l }) => (
@@ -136,9 +137,9 @@ export default function Home() {
                 New
               </p>
               {[
+                { label: "Wharton Investment Competition — Leading a Team of 6, $300K Simulated Fund", to: "/engagement/wharton-investment", internal: true },
                 { label: "Y Combinator Startup School 2026 — Invited to YC's SF Conference (Jensen Huang, Sam Altman)", to: "/engagement/yc-startup-school", internal: true },
                 { label: "MailZoo — CEO & Co-Founder, Personalized AI Ecosystems for Enterprise (LLC)", to: "/engagement/mailzoo", internal: true },
-                { label: "1st Place, Business Simulation Competition — Cornell SC Johnson College of Business", to: "/engagement/econometrics", internal: true },
               ].map(item => (
                 <div key={item.label} style={{ paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
                   {item.internal ? (
@@ -169,13 +170,18 @@ export default function Home() {
                 Currently
               </p>
               {[
-                "MailZoo CEO — Personalized AI Ecosystems for Enterprise (LLC)",
-                "IIT Research Intern — Materials Science",
-                "EvalGuard v1 — LLM Contamination Auditor",
+                { label: "MailZoo CEO — Personalized AI Ecosystems for Enterprise (LLC)", to: "/engagement/mailzoo" },
+                { label: "Wharton Investment Competition — Team Leader, $300K Simulated Fund", to: "/engagement/wharton-investment" },
               ].map(item => (
-                <p key={item} style={{ fontSize: "0.85rem", color: "#777", paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
-                  {item}
-                </p>
+                <div key={item.label} style={{ paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
+                  <Link to={item.to} style={{ fontSize: "0.85rem", color: "#777", textDecoration: "none", transition: "color 150ms" }}
+                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
+                    onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#777"}
+                    onFocus={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
+                    onBlur={e => (e.currentTarget as HTMLElement).style.color = "#777"}>
+                    {item.label}
+                  </Link>
+                </div>
               ))}
             </motion.div>
 
@@ -185,12 +191,32 @@ export default function Home() {
                 Upcoming
               </p>
               {[
-                "AMC 10/12 — November 2026",
-                "EvalGuard v1 Launch",
-              ].map(item => (
-                <p key={item} style={{ fontSize: "0.85rem", color: "#777", paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
-                  {item}
-                </p>
+                { label: "Wharton Investment Competition — Submission", to: "/engagement/wharton-investment" },
+                { label: "Conrad Challenge", href: "https://www.conradchallenge.org/" },
+                { label: "Stealth Startups" },
+              ].map((item: { label: string; to?: string; href?: string }) => (
+                <div key={item.label} style={{ paddingBottom: "0.75rem", marginBottom: "0.75rem", borderBottom: "1px solid #141414" }}>
+                  {item.to ? (
+                    <Link to={item.to} style={{ fontSize: "0.85rem", color: "#777", textDecoration: "none", transition: "color 150ms" }}
+                      onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
+                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#777"}
+                      onFocus={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
+                      onBlur={e => (e.currentTarget as HTMLElement).style.color = "#777"}>
+                      {item.label}
+                    </Link>
+                  ) : item.href ? (
+                    <a href={item.href} target="_blank" rel="noopener noreferrer"
+                      style={{ fontSize: "0.85rem", color: "#777", textDecoration: "none", transition: "color 150ms" }}
+                      onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
+                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#777"}
+                      onFocus={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
+                      onBlur={e => (e.currentTarget as HTMLElement).style.color = "#777"}>
+                      {item.label} ↗
+                    </a>
+                  ) : (
+                    <p style={{ fontSize: "0.85rem", color: "#777" }}>{item.label}</p>
+                  )}
+                </div>
               ))}
             </motion.div>
 
@@ -266,9 +292,9 @@ export default function Home() {
             <motion.div {...fw(0.06)}>
               <p style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "#444", textTransform: "uppercase", marginBottom: "1rem" }}>Honors</p>
               {[
-                "AIME Qualifier (2023, 2024)",
+                "AIME Qualifier (2024, 2025)",
                 "1st Place, Cornell Business Simulation Competition — Summer Programs, Cornell SC Johnson College of Business (July 2026)",
-                "NASA Dream With Us — Final Qualifier",
+                "NASA Dream With Us — Final Qualifier (2025–2026)",
               ].map(h => (
                 <div key={h} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", marginBottom: "0.75rem" }}>
                   <span style={{ color: "#333", marginTop: 2 }}>—</span>
@@ -281,10 +307,9 @@ export default function Home() {
           <motion.div {...fw(0.1)}>
             <p style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "#444", textTransform: "uppercase", marginBottom: "1rem" }}>Technical Skills</p>
             {[
-              { label: "Languages",  value: "Python · Java · JS/TS · R · MATLAB · SQL" },
-              { label: "Frameworks", value: "React · Tkinter · NumPy · Pandas · Matplotlib" },
-              { label: "Tools",      value: "Git · LaTeX · Excel · CAD (Onshape/SolidWorks)" },
-              { label: "Methods",    value: "Statistical analysis · Regression · Data visualization" },
+              { label: "Software", value: "Python · Java · JS/TS · React · SQL · R · MATLAB · LLM agents & RAG · MCP servers · NumPy/Pandas · Git" },
+              { label: "Hardware", value: "Robotics control systems · Sensor integration · UAS/drone design · CAD (Onshape/SolidWorks) · Materials testing" },
+              { label: "Business", value: "Company leadership · Team management · Enterprise client delivery · Investment strategy & portfolio management · Econometrics · Statistical analysis" },
             ].map(({ label, value }) => (
               <div key={label} style={{ paddingBottom: "1.25rem", marginBottom: "1.25rem", borderBottom: "1px solid #141414" }}>
                 <p style={{ fontSize: "0.65rem", color: "#444", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.4rem" }}>{label}</p>
@@ -298,12 +323,11 @@ export default function Home() {
       {/* ═══════════════════════════════════════
           EXPLORE — minimal text links
       ═══════════════════════════════════════ */}
-      <section style={{ maxWidth: 1100, margin: "0 auto", padding: "0 2rem 8rem" }}>
+      <section style={{ maxWidth: 1100, margin: "0 auto", padding: "0 2rem" }}>
         <div style={{ borderTop: "1px solid #1C1C1C" }}>
           {[
             { to: "/projects",   label: "Projects",   sub: "13 software projects" },
-            { to: "/engagement", label: "Engagement", sub: "6 activities" },
-            { to: "/skills",     label: "Skills",     sub: "Technical & analytical" },
+            { to: "/engagement", label: "Engagement", sub: "8 activities" },
           ].map((link, i) => (
             <motion.div key={link.to} {...fw(i * 0.06)}>
               <Link to={link.to} style={{ textDecoration: "none" }}>
@@ -329,7 +353,6 @@ export default function Home() {
                   }}
                 >
                   <div style={{ display: "flex", alignItems: "baseline", gap: "2rem" }}>
-                    <span style={{ fontSize: "0.65rem", color: "#333", letterSpacing: "0.1em" }}>0{i + 1}</span>
                     <span className="lbl" style={{
                       fontFamily: "var(--font-display)",
                       fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
