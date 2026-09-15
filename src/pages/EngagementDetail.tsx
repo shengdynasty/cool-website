@@ -9,6 +9,8 @@ import math from "@/assets/math.jpg";
 import uni from "@/assets/cornell.png";
 import mailzooOffice from "@/assets/mailzoo-office.jpg";
 import ycLogo from "@/assets/yc-startup-school.svg";
+import wharton from "@/assets/wharton.avif";
+import nasaDwu from "@/assets/nasa-dream-with-us.jpg";
 
 const engagementsData: Record<
   string,
@@ -23,6 +25,26 @@ const engagementsData: Record<
     image: string | null;
   }
 > = {
+  "wharton-investment": {
+    title: "Wharton Global High School Investment Competition",
+    role: "Team Leader",
+    period: "2026 – Present",
+    timeCommitment: "Team of 6 · 10-week competition season",
+    work: `Leading a six-person team in the Wharton Global High School Investment Competition, the flagship investment competition run by the Wharton Global Youth Program at the University of Pennsylvania. Our team manages a $300,000 simulated fund on the Wharton Investment Simulator (WInS), a Stock-Trak-based platform synced 1:1 in real time with the live market — real prices, real market hours, real fill mechanics, and a hard 200-trade budget for the season. The competition is anchored to a case study featuring a real Wharton alum as the client: every trade must trace back to a clause of the Investment Policy Statement we draft for that client, and teams are judged on strategy quality, client alignment, research depth, and communication — explicitly not on portfolio returns. As team leader, I designed the team structure and assigned specialist roles (research lead, portfolio and risk manager, IPS and compliance owner, trading and notes manager, editor and communications), built the operating system for the season — a practice-week training program, twice-weekly evening trading sessions with limit orders queued for next-open fills, a one-line-per-decision log, and real-time trading notes on every order — and coordinate the four written deliverables that determine which 50 teams advance to semifinals and which 10 reach the Global Finale at Wharton in Philadelphia. Alongside the competition itself, I built a 20-tool investment analytics suite (screening, factor exposure, liquidity and trading-cost estimation, macro regime detection, ESG scoring) to give our research process reproducible, data-driven exhibits.`,
+    learned: `Leading a team of six through a season-long competition has been as much an exercise in management as in finance. I learned to assign roles by matching each member's experience, commitment, and available time rather than by preference alone, to design burst workloads for members with less bandwidth, and to build processes — shared-account sign-off rules, documentation-at-trade-time discipline, structured decision logs — that keep a distributed team consistent. On the finance side, the competition forced genuine fluency in portfolio construction: writing an Investment Policy Statement, sizing positions, budgeting a limited number of trades across a season, and evaluating securities through the lens of a specific client's goals rather than raw performance. The judging structure taught the deepest lesson: because returns don't score, the entire discipline shifts to process quality — research you can defend, decisions you can trace, and writing that communicates strategy clearly.`,
+    relevance: `This competition sits directly at the intersection I care most about: quantitative analysis, business strategy, and leading a team under real constraints. It extends the strategic decision-making from the Cornell business simulation into a longer, deeper season with real market data, and the leadership demands mirror what I practice daily running MailZoo — delegation, process design, and owning the final call. The analytics tooling I built for our research also connects my software engineering directly to financial analysis, a combination I intend to keep building on.`,
+    image: wharton,
+  },
+  "nasa-dream-with-us": {
+    title: "NASA Aeronautics — Dream with Us Design Challenge",
+    role: "Finals Qualifier — Solo Competitor",
+    period: "2025 – 2026",
+    timeCommitment: "Solo entry · National design challenge",
+    work: `Competed solo in the 2025–2026 Dream with Us Design Challenge, a national student design competition run by NASA's Aeronautics Research Mission Directorate that asks students to solve real problems NASA is working on to make aviation safer, more sustainable, and more accessible. The 2025–2026 high school engineering brief centered on Advanced Air Mobility in agriculture: design an uncrewed aerial system capable of monitoring plant health, detecting pests damaging to crops, and collecting physical samples from the field. Working alone against largely team-based entries, I carried the full design cycle myself — researching agricultural monitoring needs and existing UAS approaches, defining mission requirements, and designing a drone concept covering the airframe, the sensor payload for plant-health monitoring, the sample-collection mechanism, and the mission profile for operating over farmland. My submission advanced through judging to qualify for the finals of the national competition.`,
+    learned: `Designing an aircraft concept end-to-end taught me how aerospace engineering actually proceeds: requirements first, then trade-offs — payload capacity against endurance, sensor capability against weight, mechanical complexity against reliability in field conditions. Competing solo meant there was no subteam to hand anything to; I had to develop working knowledge across aerodynamics, sensing, mechanism design, and agricultural operations, and then compress all of it into a submission that communicated the design's reasoning clearly to NASA judges. It sharpened both my systems-engineering instincts and my ability to present technical work.`,
+    relevance: `This challenge connected my engineering and applied-sciences interests to a real aviation problem set defined by NASA itself. It built directly on the hardware intuition from robotics — sensors, control, physical constraints — and pushed it into aerospace design, an area I want to keep exploring. Qualifying for the finals as a solo competitor against team entries was strong validation that I can carry a complex technical design from blank page to national-level submission independently.`,
+    image: nasaDwu,
+  },
   "iit-research": {
     title: "Research Internship — IIT Materials Science Laboratory",
     role: "Research Assistant",
