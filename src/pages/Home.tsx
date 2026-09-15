@@ -91,7 +91,7 @@ export default function Home() {
             {...f(0.3)}
             style={{ fontSize: "0.95rem", color: "#aaa", maxWidth: "34rem", lineHeight: 1.7, marginBottom: "2.5rem" }}
           >
-            CEO & Co-Founder of MailZoo. NASA Dream with Us finals qualifier,
+            CEO & Co-Founder of MailZoo. Young entrepreneur. NASA Dream with Us finals qualifier,
             Wharton Investment Competition team leader, 1st place at Cornell's
             Business Simulation Competition, two-time AIME qualifier. Building at
             the intersection of engineering, computer science, and business strategy.
