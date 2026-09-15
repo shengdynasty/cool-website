@@ -6,7 +6,7 @@
   "homepage": "https://sheng-yan.com",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && cp dist/index.html dist/404.html",
+    "build": "vite build && node scripts/postbuild-seo.mjs",
     "build:dev": "vite build --mode development",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
