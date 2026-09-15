@@ -109,7 +109,7 @@ const esc = (s) => s.replaceAll("&", "&amp;").replaceAll('"', "&quot;");
 const base = readFileSync(join(DIST, "index.html"), "utf8");
 
 function pageHtml(path, { title, desc }) {
-  const url = `${SITE}/${path}`;
+  const url = path === "" ? `${SITE}/` : `${SITE}/${path}/`;
   return base
     .replace(/<title>[^<]*<\/title>/, `<title>${esc(title)}</title>`)
     .replace(/(<meta name="description" content=")[^"]*(")/, `$1${esc(desc)}$2`)
@@ -135,10 +135,10 @@ writeFileSync(join(DIST, "404.html"), pageHtml("", routes[""]));
 // sitemap.xml
 const today = new Date().toISOString().slice(0, 10);
 const urls = Object.keys(routes)
-  .map(
-    (p) =>
-      `  <url>\n    <loc>${SITE}/${p}</loc>\n    <lastmod>${today}</lastmod>\n  </url>`
-  )
+  .map((p) => {
+    const loc = p === "" ? `${SITE}/` : `${SITE}/${p}/`;
+    return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${today}</lastmod>\n  </url>`;
+  })
   .join("\n");
 writeFileSync(
   join(DIST, "sitemap.xml"),
