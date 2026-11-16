@@ -5,4 +5,4 @@
 :HL["/home/hero-photo.webp","image",{"fetchPriority":"high"}]
 :HL["/home/hero-code.webp","image",{"fetchPriority":"high"}]
 :HL["/images/experience/mailzoo-bg.jpg","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4224,"slots":null}}},"staleTime":300,"buildId":"SKHiPq0eAL7ZBwCb7Usq0"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4224,"slots":null}}},"staleTime":300,"buildId":"lckxDeMNUjvZ3bT3prLwh"}
