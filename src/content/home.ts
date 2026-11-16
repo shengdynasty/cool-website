@@ -65,7 +65,7 @@ export const hero = {
   },
   status: {
     reply: "Replies within a few days",
-    videos: "13 projects",
+    videos: "14 projects",
     followers: "8 activities",
     guides: "3 honors",
   },
@@ -101,7 +101,7 @@ export const ways = {
   a: {
     branch: "engineering",
     title: "I write the code",
-    body: "Thirteen software projects: MCP servers that let Claude watch video and read a gradebook, local AI agents and RAG with no API keys, a Bloomberg-style quant platform. Plus robotics control systems and a NASA drone design.",
+    body: "Fourteen software projects: a NASA Space Apps tool that hunts a distant planet's parallax in SPHEREx sky maps, MCP servers that let Claude watch video and read a gradebook, local AI agents and RAG with no API keys, a Bloomberg-style quant platform. Plus robotics control systems and a NASA drone design.",
   },
   b: {
     branch: "business",
@@ -134,7 +134,7 @@ export interface ProjectCard {
 export const projects = {
   headingWords: ["Projects,", "written", "up"],
   headingAria: "Projects, written up",
-  all: { label: "All 13 projects", href: "/projects" },
+  all: { label: "All 14 projects", href: "/projects" },
   lead: {
     href: `/project/eval-guard`,
     cover: "/images/projects/eval-guard.webp",
@@ -142,6 +142,7 @@ export const projects = {
     meta: "34 passing tests",
   } satisfies ProjectCard,
   rows: [
+    { href: `/project/planet-x`, cover: "/images/projects/planet-x.webp", title: "Planet X: hunting a distant planet's parallax in NASA's SPHEREx sky survey", meta: "NASA Space Apps 2026" },
     { href: `/project/video-to-text`, cover: "/images/projects/video-to-text.webp", title: "Video-to-Text MCP server: let Claude watch video without blowing its context", meta: "~150k → ~5k tokens" },
     { href: `/project/school-mcp`, cover: "/images/projects/school-mcp.webp", title: "StudentVue MCP server: your gradebook in natural language", meta: "19 tools" },
     { href: `/project/autonomous-researcher`, cover: "/images/projects/autonomous-researcher.webp", title: "Autonomous Research Agent: plans, searches, checks, and writes, all locally", meta: "no API keys" },

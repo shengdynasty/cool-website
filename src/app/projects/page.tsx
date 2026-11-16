@@ -16,7 +16,7 @@ export default function ProjectsPage() {
     <Subpage active="/projects">
       <ListPage
         title="Projects"
-        lede="Thirteen projects, written up in full, with the code on GitHub."
+        lede="Fourteen projects, written up in full, with the code on GitHub."
         featuredTitle="Start with these three."
         featured={featured}
         everyTitle="Every project"

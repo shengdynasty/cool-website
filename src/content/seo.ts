@@ -54,6 +54,10 @@ export const routes: Record<string, { title: string; description: string }> = {
     title: "EvalGuard v1 — LLM Contamination Auditor | Sheng Yan",
     description: "Contamination auditor for LLM evaluations — estimates benchmark score inflation from training-data leakage with a four-matcher ensemble and CI-gate CLI.",
   },
+  "project/planet-x": {
+    title: "Planet X — SPHEREx Parallax Search | Sheng Yan",
+    description: "NASA Space Apps Challenge 2026 entry: a browser app that searches SPHEREx's infrared sky survey for the parallax a distant planet cannot hide, checked against JPL and Gaia.",
+  },
   "project/video-to-text": {
     title: "Video-to-Text MCP Server | Sheng Yan",
     description: "Token-budgeted MCP server that lets Claude watch video without blowing its context — cuts a 10-minute clip from ~150k tokens to ~5k.",

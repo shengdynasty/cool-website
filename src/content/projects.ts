@@ -7,7 +7,7 @@ export interface Diagram { src: string; tone: CoverTone; title: string; caption:
 export type ProjectCategory = "AI" | "MCP" | "Finance" | "Apps";
 export interface Project {
   id: string;              // slug, e.g. "eval-guard"
-  n: string;               // "01".."13", list order from Projects.tsx
+  n: string;               // "01".."14", list order (the previous site's Projects.tsx; Planet X added after EvalGuard)
   title: string;           // detail title
   category: ProjectCategory;
   excerpt: string;         // list description (Projects.tsx)
@@ -23,7 +23,7 @@ export interface Project {
   diagrams: Diagram[];     // [] when absent
 }
 export const projectCategories = ["All", "AI", "MCP", "Finance", "Apps"] as const;
-export const featuredProjectIds = ["eval-guard", "video-to-text", "quant-platform"] as const;
+export const featuredProjectIds = ["eval-guard", "planet-x", "quant-platform"] as const;
 export const projects: Project[] = [
   {
     "id": "eval-guard",
@@ -62,8 +62,68 @@ export const projects: Project[] = [
     ]
   },
   {
-    "id": "video-to-text",
+    "id": "planet-x",
     "n": "02",
+    "title": "Planet X",
+    "category": "Apps",
+    "excerpt": "NASA Space Apps Challenge 2026 entry: a browser app that searches SPHEREx's repeated infrared maps of the sky for the parallax a distant planet cannot hide, checks every change against JPL's known asteroids and Gaia's stars, and leaves the rest for a person to vet — candidates, never detections. Measured by planting synthetic movers into real SPHEREx frames.",
+    "description": "A NASA Space Apps Challenge 2026 entry, built with a six-person team in three weeks: a browser tool that compares the same patch of sky across SPHEREx's passes, flags what moved, appeared, vanished or brightened, explains the known causes, and hands only the honest leftovers to a human reviewer.",
+    "paragraphs": [
+      "A distant, undiscovered planet would be faint, and in a single image it looks exactly like a faint star. What gives it away is motion, and not the slow crawl along its orbit: at 500 AU a body moves only 58″ along its orbit in six months, but Earth's own motion swings it back and forth by 2 AU divided by its distance. SPHEREx looks about 90° from the Sun and re-maps the whole sky every six months, so its two passes over any patch see it from opposite sides of Earth's orbit. A body at 500 AU jumps 825″ between them, 134 pixels, and drifts 7″ a day between the re-visits within one pass, while the stars stay put. Planet X is built around that signal.",
+      "The product is one browser app on NASA's Deep Star Maps 2020 all-sky image, written in plain ES modules with no build step. Sky is a 3D view of the whole sky that stays sharp when zoomed in, streamed as tiles at up to 182 pixels per degree, with a scan timeline and every flagged mover marked. Compare blinks, wipes or subtracts two passes of a mover. Field runs the detection pipeline on one patch: it loads every SPHEREx pass at a matching wavelength, plays them like a little video, lists what changed (uncatalogued mover, known object, variable star, artifact, vanished source) and opens a vetting panel with stamps, the catalogue checks, the same spot in DSS2, 2MASS and AllWISE, a spectrum measured from every exposure that covers a star, and a one-page follow-up report with ADES, CSV and JSON files. A badge in the top bar always says whether the data is live from the server, real saved frames, or simulation.",
+      "A small Node server with no dependencies finds every SPHEREx exposure of a position in NASA/IPAC IRSA, reads each file's own spectral WCS to pair frames at the same wavelength (SPHEREx's filters vary across the detector, so only same-wavelength frames can be compared), downloads and aligns cutouts with the project's own FITS and WCS readers, and asks JPL which known bodies were in the field at each frame's time, using the spacecraft's own position from the image header. Detection runs in the browser on the real frames: robust median-and-MAD noise, 5σ detection with 3σ hysteresis, a PSF-width test that rejects cosmic rays and bad pixels, the SPHEREx pipeline's own flag plane, Gaia DR3 stars propagated along their proper motions, and brightness changes judged on aperture flux because a one-pixel PSF makes peak values unreliable. A JPL Horizons match always wins: the source is labelled a known object with its offset.",
+      "Everything is measured on real data and stated plainly. On a 300″ field from 15 February 2026 the pipeline flags asteroid 16 Psyche as a known object 1.3″ from its Horizons position and files the field's cosmic rays and bad pixels as artifacts. Synthetic movers planted into six real fields (720 trials per cell) are recovered 80–91% of the time from 12σ up, with a median position error of 0.9″ and zero false movers on the un-injected pairs; the test itself found and fixed two detector bugs. A cross-field linker joins the two halves of a between-pass parallax signature, and a distance estimator turns the measured shift into a distance with an error bar that contained the truth in all 500 random trials. And the honest answer the challenge deserved: a Planet Nine-class body sits 1.3 to 6.5 magnitudes below SPHEREx's single-exposure depth depending on the model, so the tool's real reach is nearer, larger or warmer bodies, and the write-up says so with the arithmetic.",
+      "Planet X was a six-person team entry (Sheng Yan, Aaryan Jain, Arko Ganguly, Nidhish Senthilkumar, Tejas Konduru and Hardik Jain) for the hackathon on 14–15 November 2026; Sheng led the build, with 171 of its 231 commits. Nearly thirty test suites, in Node and in headless Chrome, cover the pipeline, the data module, the injection and stacking tables behind the write-up, and every feature of the app in both its Advanced and Simple modes. A chat helper answers common questions from a hand-written knowledge base, offline, and only sends a question it has no entry for to Gemini through Firebase AI Logic, with the reply tagged as an AI answer. The code is MIT-licensed, and the hosted copy on GitHub Pages shows real saved SPHEREx data for six targets with no server needed."
+    ],
+    "technologies": [
+      "JavaScript",
+      "three.js",
+      "Node.js",
+      "SPHEREx via IRSA",
+      "JPL Horizons",
+      "Gaia DR3",
+      "Firebase AI Logic",
+      "Playwright"
+    ],
+    "github": "https://github.com/shengdynasty/planet-x",
+    "live": "https://shengdynasty.github.io/planet-x/",
+    "reportUrl": "https://github.com/shengdynasty/planet-x/blob/main/docs/WRITEUP.md",
+    "cover": {
+      "src": "/images/projects/planet-x.webp",
+      "tone": "original"
+    },
+    "features": [
+      "Sky, Compare and Field views on NASA's Deep Star Maps 2020, with the whole sky streamed as 512-pixel tiles at up to 182 pixels per degree",
+      "Every SPHEREx pass of a patch, paired at matching wavelength from each file's own spectral WCS; blink, difference, track and stack any two",
+      "Detection in the browser: median/MAD noise, 5σ detection with 3σ hysteresis, and a PSF-width artifact test measured from each field's own stars",
+      "Cross-matching with JPL Small-Body Identification and Horizons, Gaia DR3 stars propagated to each frame time, and the SPHEREx pipeline's own bad-pixel flags",
+      "Vetting panel with stamps, DSS2, 2MASS and AllWISE imagery through Aladin Lite, SIMBAD names, and a spectrum measured from every exposure that covers a star",
+      "One-page candidate report carried entirely in its link: astrometry with uncertainties, motion, predictions, ADES, CSV and JSON files, and a QR code to the field",
+      "Cross-field linker that predicts where a vanished source reappears for each assumed distance, and a parallax-distance estimator with an error bar",
+      "A data badge (Live · SPHEREx, Saved SPHEREx data, Simulated data), new data releases typed in the day IRSA publishes them, fields saved as one file, and a Simple mode in plain words"
+    ],
+    "code": {
+      "language": "javascript",
+      "source": "/** Robust sky level and noise: median and 1.4826·MAD of a fixed 4000-pixel sample. */\nexport const stats = memo(function stats(img) {\n  const L = img.length, s = new Float32Array(4000);\n  for (let k = 0; k < 4000; k++) s[k] = img[(k * 25733) % L];\n  s.sort();\n  const med = s[2000], d = new Float32Array(4000);\n  for (let k = 0; k < 4000; k++) d[k] = Math.abs(s[k] - med);\n  d.sort();\n  return { med, sig: 1.4826 * d[2000] };\n});\n\n// The \"single-pixel spike\" test compares a peak with the mean of its 8 neighbours. What counts as too\n// sharp depends on how well the PSF is sampled: the simulation's σ = 1.15 px Gaussian gives ≈ 1.7 for a\n// centred star, but real SPHEREx stars (FWHM ≈ 6.6″ ≈ 1.07 px at 6.15″/px) give 3–8. So the limit is\n// scaled by the PSF: spikeLimit(σ) = 3.2 · S(σ) / S(1.15), where S(σ) is the spike ratio of a centred,\n// point-sampled Gaussian.\nexport const SIM_PSF_SIGMA = 1.15;\nexport const SPIKE_LIMIT_SIM = 3.2;\n\n/** Spike ratio (peak / mean of the 8 neighbours) of a centred, point-sampled Gaussian of width σ px. */\nexport function spikeOf(sigma) {\n  const u = Math.exp(-1 / (2 * sigma * sigma));\n  return 2 / (u + u * u);\n}\n\n/** Spike limit for a PSF of width σ px. */\nexport function spikeLimit(sigma) {\n  return sigma === SIM_PSF_SIGMA ? SPIKE_LIMIT_SIM : SPIKE_LIMIT_SIM * spikeOf(sigma) / spikeOf(SIM_PSF_SIGMA);\n}\n"
+    },
+    "diagrams": [
+      {
+        "src": "/images/projects/planet-x-sky.webp",
+        "tone": "original",
+        "title": "Sky view",
+        "caption": "The Sky view on NASA's Deep Star Maps 2020: the scan timeline along the bottom, the Movers panel listing what JPL and Gaia put in the saved fields, and the badge reading Saved SPHEREx data."
+      },
+      {
+        "src": "/images/projects/planet-x-field.webp",
+        "tone": "original",
+        "title": "Field view",
+        "caption": "The Field view on the saved 16 Psyche field: two SPHEREx passes 163 days apart at 1.86 µm, the asteroid flagged Known · 16 Psyche 1.3″ from its JPL Horizons position, and the field's cosmic rays and bad pixels filed as artifacts."
+      }
+    ]
+  },
+  {
+    "id": "video-to-text",
+    "n": "03",
     "title": "Video-to-Text MCP Server",
     "category": "MCP",
     "excerpt": "Token-budgeted MCP server that lets Claude watch video without blowing its context — pixel-cost projection, lazy frame manifests, and contact-sheet montages cut a 10-min clip from ~150k tokens to ~5k.",
@@ -124,7 +184,7 @@ export const projects: Project[] = [
   },
   {
     "id": "school-mcp",
-    "n": "03",
+    "n": "04",
     "title": "StudentVue MCP Server",
     "category": "MCP",
     "excerpt": "19-tool MCP server giving Claude natural-language access to your StudentVue gradebook — grades, GPA, attendance, missing work, and live grade simulation.",
@@ -166,7 +226,7 @@ export const projects: Project[] = [
   },
   {
     "id": "autonomous-researcher",
-    "n": "04",
+    "n": "05",
     "title": "Autonomous Research Agent",
     "category": "AI",
     "excerpt": "Agentic research tool that plans its own sub-questions, searches the web, evaluates source relevance, retries bad results, and synthesizes a cited Markdown report — entirely local via Ollama. No API keys.",
@@ -209,7 +269,7 @@ export const projects: Project[] = [
   },
   {
     "id": "quant-platform",
-    "n": "05",
+    "n": "06",
     "title": "Quant Research Platform",
     "category": "Finance",
     "excerpt": "Bloomberg Terminal–style quant finance platform: 7-module React frontend, FastAPI backend, Monte Carlo risk engine, Black-Scholes options pricing, and local Ollama AI analyst.",
@@ -254,7 +314,7 @@ export const projects: Project[] = [
   },
   {
     "id": "web-researcher",
-    "n": "06",
+    "n": "07",
     "title": "AI Web Researcher",
     "category": "AI",
     "excerpt": "Local-first AI research assistant — type any topic, get live DuckDuckGo search results synthesized into a streaming markdown report via Ollama. No API keys.",
@@ -291,7 +351,7 @@ export const projects: Project[] = [
   },
   {
     "id": "rag-chatbot",
-    "n": "07",
+    "n": "08",
     "title": "Local RAG Chatbot",
     "category": "AI",
     "excerpt": "100% local Retrieval-Augmented Generation chatbot — upload any PDF, ask questions, get answers grounded in your document. No API keys. Runs via Ollama.",
@@ -328,7 +388,7 @@ export const projects: Project[] = [
   },
   {
     "id": "mcp-server",
-    "n": "08",
+    "n": "09",
     "title": "Personal AI MCP Server",
     "category": "MCP",
     "excerpt": "Custom MCP server suite connecting Claude to Gmail, Google Calendar, Notion, Spotify, GitHub — natural-language control of real-world tools.",
@@ -366,7 +426,7 @@ export const projects: Project[] = [
   },
   {
     "id": "note-app",
-    "n": "09",
+    "n": "10",
     "title": "AI Note-Taking App",
     "category": "Apps",
     "excerpt": "Notability-style app with AI flashcards, quizzes, fill-in-the-blank, and chat generated from your own notes using Claude.",
@@ -405,7 +465,7 @@ export const projects: Project[] = [
   },
   {
     "id": "csv-stock-visualizer",
-    "n": "10",
+    "n": "11",
     "title": "CSV Stock Visualizer",
     "category": "Finance",
     "excerpt": "Interactive web app that parses CSV stock data into dynamic price charts, volume graphs, and key statistics.",
@@ -441,7 +501,7 @@ export const projects: Project[] = [
   },
   {
     "id": "portfolio-website",
-    "n": "11",
+    "n": "12",
     "title": "Academic Portfolio Website",
     "category": "Apps",
     "excerpt": "Professional web presence to communicate academic interests and projects to university admissions.",
@@ -475,7 +535,7 @@ export const projects: Project[] = [
   },
   {
     "id": "expense-tracker",
-    "n": "12",
+    "n": "13",
     "title": "Personal Expense Tracker",
     "category": "Apps",
     "excerpt": "Tool to categorize and visualize personal spending, applying data structures and basic analysis.",
@@ -508,7 +568,7 @@ export const projects: Project[] = [
   },
   {
     "id": "task-management",
-    "n": "13",
+    "n": "14",
     "title": "Task Management Application",
     "category": "Apps",
     "excerpt": "Productivity tool to organize tasks, track progress, and practice database-like data management.",
