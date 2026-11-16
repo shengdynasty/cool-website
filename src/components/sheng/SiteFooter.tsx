@@ -19,7 +19,9 @@ export function SiteFooter({ seamed = false }: { seamed?: boolean }) {
       </div>
       <canvas className="mark" id="mark" role="img" aria-label={site.name} />
       <div className="end-legal">
-        <span>{footer.legal}</span>
+        <span>
+          {footer.legal} <SmartLink href="/credits">Photo credits</SmartLink>
+        </span>
         <span>{footer.handle}</span>
       </div>
     </footer>

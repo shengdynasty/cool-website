@@ -48,7 +48,7 @@ export const projects: Project[] = [
     "github": "https://github.com/shengdynasty/evalguard",
     "reportUrl": "https://docs.google.com/document/d/1AtuTdvSL2f_m_dmEvNJMM6SG9Dwm2145OunH7kEnN2c/edit?usp=sharing",
     "cover": {
-      "src": "/images/projects/eval-guard.svg",
+      "src": "/images/projects/eval-guard.webp",
       "tone": "original"
     },
     "features": [],
@@ -82,7 +82,7 @@ export const projects: Project[] = [
     ],
     "github": "https://github.com/shengdynasty/video-to-text-mcp",
     "cover": {
-      "src": "/images/projects/video-to-text.svg",
+      "src": "/images/projects/video-to-text.webp",
       "tone": "original"
     },
     "features": [
@@ -143,7 +143,7 @@ export const projects: Project[] = [
     ],
     "github": "https://github.com/shengdynasty/school-mcp",
     "cover": {
-      "src": "/images/projects/school-mcp.svg",
+      "src": "/images/projects/school-mcp.webp",
       "tone": "original"
     },
     "features": [
@@ -186,7 +186,7 @@ export const projects: Project[] = [
     ],
     "github": "https://github.com/shengdynasty/autonomous-researcher",
     "cover": {
-      "src": "/images/projects/autonomous-researcher.svg",
+      "src": "/images/projects/autonomous-researcher.webp",
       "tone": "original"
     },
     "features": [
@@ -231,7 +231,7 @@ export const projects: Project[] = [
     ],
     "github": "https://github.com/shengdynasty/quant-platform",
     "cover": {
-      "src": "/images/projects/quant-platform.svg",
+      "src": "/images/projects/quant-platform.webp",
       "tone": "original"
     },
     "features": [
@@ -270,7 +270,7 @@ export const projects: Project[] = [
     ],
     "github": "https://github.com/shengdynasty/web-researcher",
     "cover": {
-      "src": "/images/projects/web-researcher.svg",
+      "src": "/images/projects/web-researcher.webp",
       "tone": "original"
     },
     "features": [
@@ -307,7 +307,7 @@ export const projects: Project[] = [
     ],
     "github": "https://github.com/shengdynasty/rag-chatbot",
     "cover": {
-      "src": "/images/projects/rag-chatbot.svg",
+      "src": "/images/projects/rag-chatbot.webp",
       "tone": "original"
     },
     "features": [
@@ -344,7 +344,7 @@ export const projects: Project[] = [
     ],
     "github": "https://github.com/shengdynasty",
     "cover": {
-      "src": "/images/projects/mcp-server.svg",
+      "src": "/images/projects/mcp-server.webp",
       "tone": "original"
     },
     "features": [
@@ -383,7 +383,7 @@ export const projects: Project[] = [
     "github": "https://github.com/shengdynasty/note-app",
     "live": "https://shengdynasty.github.io/note-app",
     "cover": {
-      "src": "/images/projects/note-app.svg",
+      "src": "/images/projects/note-app.webp",
       "tone": "original"
     },
     "features": [
@@ -422,7 +422,7 @@ export const projects: Project[] = [
     "github": "https://github.com/shengdynasty",
     "live": "https://stock-data-visualizer-v1.lovable.app/",
     "cover": {
-      "src": "/images/projects/csv-stock-visualizer.svg",
+      "src": "/images/projects/csv-stock-visualizer.webp",
       "tone": "original"
     },
     "features": [
@@ -457,7 +457,7 @@ export const projects: Project[] = [
     "github": "https://github.com/shengdynasty",
     "live": "https://sheng-yan.lovable.app",
     "cover": {
-      "src": "/images/projects/portfolio-website.svg",
+      "src": "/images/projects/portfolio-website.webp",
       "tone": "original"
     },
     "features": [
@@ -490,7 +490,7 @@ export const projects: Project[] = [
     ],
     "github": "https://github.com/shengdynasty",
     "cover": {
-      "src": "/images/projects/expense-tracker.svg",
+      "src": "/images/projects/expense-tracker.webp",
       "tone": "original"
     },
     "features": [
@@ -522,7 +522,7 @@ export const projects: Project[] = [
     ],
     "github": "https://github.com/shengdynasty",
     "cover": {
-      "src": "/images/projects/task-management.svg",
+      "src": "/images/projects/task-management.webp",
       "tone": "original"
     },
     "features": [

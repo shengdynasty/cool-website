@@ -80,13 +80,18 @@ Every "get in touch" and "Send me a note" link lands on the hero card (`#contact
 
 Inside the claude.ai artifact there is no server. There, the card stores notes in the artifact's own database when the viewer is allowed to write (members of your organization at Contributor or above, and people you invite by email as editors); anyone else gets the note copied to their clipboard. You, as the owner, see an inbox of received notes above the status section; nobody else can read them.
 
-## Experience row
+## Photos: project covers and experience panels
 
-The accordion on the home page (design after aumsuthar.com) is generated from the engagement data. Its images come from the portfolio repo:
+`src/content/covers.json` lists every photograph used for the 13 project covers and for the Cornell, IIT, robotics and math-team panels: source URL, author and license (public domain, CC0, or CC BY). It is also the data behind `/credits`, linked from the footer.
 
 ```bash
-node scripts/build-experience-assets.mjs   # writes public/images/experience/<id>-bg.* and <id>-logo.png
+node scripts/build-covers.mjs              # downloads any missing source to docs/research/downloads/covers/, then renders:
+                                           #   public/images/projects/<id>.webp      (1200×800 three-tone dither, green highlights)
+                                           #   public/images/experience/<id>-bg.jpg  (1400px wide photo)
+node scripts/build-experience-assets.mjs   # the MailZoo/Wharton/NASA panels, the YC illustration, and the logo badges
 ```
+
+To swap a photo, change its entry in `covers.json` (any CC0/public-domain/CC BY image URL), delete the old source file, and re-run the script. Covers are normalised to the same dark key automatically; `focus: "attention"` crops to the busiest part of the photo instead of the centre, and `gamma`/`contrast` override the automatic tone.
 
 ## Publish the artifact
 

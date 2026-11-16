@@ -25,8 +25,8 @@ const NAMES: Record<string, string> = {
   robotics: "Fox Valley Robotics",
   "math-competition": "Math Team",
 };
-/** Photos (resized) for the three with real photos, the portfolio's own illustrations for the rest. */
-const PHOTO_BACKGROUNDS = new Set(["mailzoo", "wharton-investment", "nasa-dream-with-us"]);
+/** Every panel has a photo (scripts/build-covers.mjs, scripts/build-experience-assets.mjs) except YC, which keeps its illustration. */
+const SVG_BACKGROUNDS = new Set(["yc-startup-school"]);
 
 const firstSentence = (text: string): string => text.match(/^.*?[.!?](?=\s|$)/)?.[0] ?? text;
 
@@ -37,6 +37,6 @@ export const experiences: Experience[] = engagements.map((e) => ({
   role: `${e.role} · ${e.commitment}`,
   blurb: firstSentence(e.summary),
   href: `/engagement/${e.id}`,
-  background: `/images/experience/${e.id}-bg.${PHOTO_BACKGROUNDS.has(e.id) ? "jpg" : "svg"}`,
+  background: `/images/experience/${e.id}-bg.${SVG_BACKGROUNDS.has(e.id) ? "svg" : "jpg"}`,
   logo: `/images/experience/${e.id}-logo.png`,
 }));

@@ -137,15 +137,15 @@ export const projects = {
   all: { label: "All 13 projects", href: "/projects" },
   lead: {
     href: `/project/eval-guard`,
-    cover: "/images/projects/eval-guard.svg",
+    cover: "/images/projects/eval-guard.webp",
     title: "EvalGuard: a contamination auditor for LLM evaluations",
     meta: "34 passing tests",
   } satisfies ProjectCard,
   rows: [
-    { href: `/project/video-to-text`, cover: "/images/projects/video-to-text.svg", title: "Video-to-Text MCP server: let Claude watch video without blowing its context", meta: "~150k → ~5k tokens" },
-    { href: `/project/school-mcp`, cover: "/images/projects/school-mcp.svg", title: "StudentVue MCP server: your gradebook in natural language", meta: "19 tools" },
-    { href: `/project/autonomous-researcher`, cover: "/images/projects/autonomous-researcher.svg", title: "Autonomous Research Agent: plans, searches, checks, and writes, all locally", meta: "no API keys" },
-    { href: `/project/quant-platform`, cover: "/images/projects/quant-platform.svg", title: "Quant Research Platform: a Bloomberg-style terminal with an AI analyst", meta: "7 modules" },
+    { href: `/project/video-to-text`, cover: "/images/projects/video-to-text.webp", title: "Video-to-Text MCP server: let Claude watch video without blowing its context", meta: "~150k → ~5k tokens" },
+    { href: `/project/school-mcp`, cover: "/images/projects/school-mcp.webp", title: "StudentVue MCP server: your gradebook in natural language", meta: "19 tools" },
+    { href: `/project/autonomous-researcher`, cover: "/images/projects/autonomous-researcher.webp", title: "Autonomous Research Agent: plans, searches, checks, and writes, all locally", meta: "no API keys" },
+    { href: `/project/quant-platform`, cover: "/images/projects/quant-platform.webp", title: "Quant Research Platform: a Bloomberg-style terminal with an AI analyst", meta: "7 modules" },
   ] satisfies ProjectCard[],
   more: {
     text: "Want the rest? Eight activities, from NASA to Wharton, written up the same way.",

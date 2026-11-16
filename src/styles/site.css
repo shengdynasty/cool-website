@@ -510,3 +510,14 @@ html.js .posts .post-wrap.enter { opacity: 0; transform: translateY(14px); }
 .facts dt { color: var(--zoo-ink); }
 
 .read .demo-video { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--paper-line); background: #000; }
+
+/* footer credit link + the /credits page */
+.end-legal a { color: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(245, 242, 234, .35); }
+.end-legal a:hover { color: var(--zoo); }
+.credits { list-style: none; margin: 0; padding: 0; max-width: 760px; }
+.credits li { padding: 14px 0; border-top: 1px solid var(--paper-line); display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); gap: 4px 20px; align-items: baseline; }
+.credits li:last-child { border-bottom: 1px solid var(--paper-line); }
+.credits b { font-family: var(--mono); font-weight: 500; font-size: 13px; color: var(--ink-dim); }
+.credits a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(10, 10, 10, .3); }
+.credits a:hover { color: var(--accent); }
+@media (max-width: 640px) { .credits li { grid-template-columns: 1fr; } }

@@ -1,0 +1,160 @@
+[
+  {
+    "id": "eval-guard",
+    "kind": "project",
+    "title": "Antique microscope",
+    "author": "The Metropolitan Museum of Art",
+    "license": "CC0 1.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Microscope_MET_DP108688.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/50/Microscope_MET_DP108688.jpg/1920px-Microscope_MET_DP108688.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "focus": "attention"
+  },
+  {
+    "id": "video-to-text",
+    "kind": "project",
+    "title": "Vintage cinema projector",
+    "author": "rawpixel",
+    "license": "CC0 1.0",
+    "page": "https://www.rawpixel.com/image/5905433/photo-image-background-public-domain-vintage",
+    "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9zdGF0aWMvaW1hZ2Uvd2Vic2l0ZS8yMDIyLTA0L2xyL3B4ODA0OTc1LWltYWdlLWt3dnV6ZnR4LmpwZw.jpg"
+  },
+  {
+    "id": "school-mcp",
+    "kind": "project",
+    "title": "School hallway with blue lockers",
+    "author": "Erwin Brouwer",
+    "license": "CC0 1.0",
+    "page": "https://wordpress.org/photos/photo/4606711089/",
+    "url": "https://pd.w.org/2024/10/46067110890a84cc4.17148655-2048x1536.jpeg"
+  },
+  {
+    "id": "autonomous-researcher",
+    "kind": "project",
+    "title": "Library shelves",
+    "author": "rawpixel",
+    "license": "CC0 1.0",
+    "page": "https://www.rawpixel.com/image/5921092/photo-image-book-public-domain-wood",
+    "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHg4MzE2MjMtaW1hZ2Uta3d2eGZuNXMuanBn.jpg"
+  },
+  {
+    "id": "quant-platform",
+    "kind": "project",
+    "title": "New York Stock Exchange trading floor",
+    "author": "Bernard Gotfryd, Library of Congress",
+    "license": "CC0 1.0",
+    "page": "https://www.rawpixel.com/image/6307170/ny-stock-exchange-bernard-gotfryd-1924-2016",
+    "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvbG9jMjAyMDczODI4MC1pbWFnZS5qcGc.jpg"
+  },
+  {
+    "id": "web-researcher",
+    "kind": "project",
+    "title": "Antique globe",
+    "author": "rawpixel",
+    "license": "CC0 1.0",
+    "page": "https://www.rawpixel.com/image/5904413/photo-image-background-public-domain-wooden",
+    "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9zdGF0aWMvaW1hZ2Uvd2Vic2l0ZS8yMDIyLTA0L2xyL3B4ODkyMzMyLWltYWdlLWt3dnV1aHo3LmpwZw.jpg",
+    "focus": "attention"
+  },
+  {
+    "id": "rag-chatbot",
+    "kind": "project",
+    "title": "Wooden card catalog",
+    "author": "Mark Buckawicki",
+    "license": "CC0 1.0",
+    "page": "https://commons.wikimedia.org/w/index.php?curid=68147692",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Wooden_Card_Catalog_Furniture.jpg"
+  },
+  {
+    "id": "mcp-server",
+    "kind": "project",
+    "title": "Patch panel (Historic American Engineering Record)",
+    "author": "Martin Brown",
+    "license": "Public domain",
+    "page": "https://commons.wikimedia.org/wiki/File:PATCH_PANEL_-_TRANSDUCERS_-_2_RAKES_MOUNTING_BOARDS_-_DPLA_-_8c9001a6da323dcc30d55757a3a39588.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/PATCH_PANEL_-_TRANSDUCERS_-_2_RAKES_MOUNTING_BOARDS_-_DPLA_-_8c9001a6da323dcc30d55757a3a39588.jpg/1920px-PATCH_PANEL_-_TRANSDUCERS_-_2_RAKES_MOUNTING_BOARDS_-_DPLA_-_8c9001a6da323dcc30d55757a3a39588.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
+  {
+    "id": "note-app",
+    "kind": "project",
+    "title": "Fountain pen writing in a notebook",
+    "author": "rawpixel",
+    "license": "CC0 1.0",
+    "page": "https://www.rawpixel.com/image/3284166/free-photo-image-fountain-pen-writer-writing",
+    "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdXB3azYxODA3MDQyLXdpa2ltZWRpYS1pbWFnZS1rb3didThnei5qcGc.jpg",
+    "focus": "attention"
+  },
+  {
+    "id": "csv-stock-visualizer",
+    "kind": "project",
+    "title": "Stocks graph",
+    "author": "50Fish",
+    "license": "CC0 1.0",
+    "page": "https://stocksnap.io/photo/stocks-graph-MEDIALY3UV",
+    "url": "https://cdn.stocksnap.io/img-thumbs/960w/MEDIALY3UV.jpg"
+  },
+  {
+    "id": "portfolio-website",
+    "kind": "project",
+    "title": "Vintage typewriter keys",
+    "author": "Markus Spiske",
+    "license": "CC0 1.0",
+    "page": "https://www.rawpixel.com/image/432973/old-typewriter",
+    "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvYTAxMC1tYXJrdXNzLTEzNDguanBn.jpg"
+  },
+  {
+    "id": "expense-tracker",
+    "kind": "project",
+    "title": "Calculator, coins and ledger",
+    "author": "Artsy Crafty",
+    "license": "CC0 1.0",
+    "page": "https://stocksnap.io/photo/bank-finance-OLL4BSGLBE",
+    "url": "https://cdn.stocksnap.io/img-thumbs/960w/OLL4BSGLBE.jpg",
+    "focus": "attention"
+  },
+  {
+    "id": "task-management",
+    "kind": "project",
+    "title": "To-do list",
+    "author": "freestocks.org",
+    "license": "CC0 1.0",
+    "page": "https://www.flickr.com/photos/135396164@N05/28123133694",
+    "url": "https://live.staticflickr.com/8789/28123133694_5e8f2c3b07_b.jpg",
+    "focus": "attention"
+  },
+  {
+    "id": "econometrics",
+    "kind": "experience",
+    "title": "Nightly Uris (McGraw Tower)",
+    "author": "Justin Tung",
+    "license": "CC BY 2.0",
+    "page": "https://www.flickr.com/photos/65077953@N08/7640989318",
+    "url": "https://live.staticflickr.com/7122/7640989318_5909fc1259_b.jpg"
+  },
+  {
+    "id": "iit-research",
+    "kind": "experience",
+    "title": "S. R. Crown Hall",
+    "author": "Joe Ravi",
+    "license": "Public domain",
+    "page": "https://commons.wikimedia.org/wiki/File:Crown_Hall_2.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/89/Crown_Hall_2.jpg/1920px-Crown_Hall_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
+  {
+    "id": "robotics",
+    "kind": "experience",
+    "title": "FIRST Robotics 2022 San Diego Regional",
+    "author": "U.S. Navy",
+    "license": "Public domain",
+    "page": "https://commons.wikimedia.org/wiki/File:U.S._Navy_2022_San_Diego_Regional.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/U.S._Navy_2022_San_Diego_Regional.jpg/1920px-U.S._Navy_2022_San_Diego_Regional.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
+  {
+    "id": "math-competition",
+    "kind": "experience",
+    "title": "Formulas on an old blackboard",
+    "author": "Roman Mager",
+    "license": "CC0 1.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Formulas_on_an_old_blackboard_(Unsplash).jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/Formulas_on_an_old_blackboard_%28Unsplash%29.jpg/1920px-Formulas_on_an_old_blackboard_%28Unsplash%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  }
+]

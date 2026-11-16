@@ -38,7 +38,8 @@ const badge = (input, options, region, to) =>
 await photo(A("mailzoo-office.jpg"), path.join(OUT, "mailzoo-bg.jpg"));
 await photo(A("wharton.avif"), path.join(OUT, "wharton-investment-bg.jpg"));
 await photo(A("nasa-dream-with-us.jpg"), path.join(OUT, "nasa-dream-with-us-bg.jpg"));
-for (const [id, file] of [["econometrics", "cornell.svg"], ["yc-startup-school", "yc-startup-school.svg"], ["iit-research", "iit-research.svg"], ["robotics", "robotics.svg"], ["math-competition", "math-competition.svg"]]) {
+// Cornell, IIT, robotics and the math team use photographs from scripts/build-covers.mjs; YC keeps the illustration.
+for (const [id, file] of [["yc-startup-school", "yc-startup-school.svg"]]) {
   await copyFile(A(file), path.join(OUT, `${id}-bg.svg`));
 }
 
