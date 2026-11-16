@@ -18,7 +18,7 @@ const rootStyle = { "--mono": jetbrainsMono.style.fontFamily } as CSSProperties;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${switzer.variable} ${jetbrainsMono.variable}`} style={rootStyle} suppressHydrationWarning>
+    <html lang="en" className={`${switzer.variable} ${jetbrainsMono.variable}`} style={rootStyle} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         {/* Same as the source: flag JS before first paint so no-JS fallbacks never flash. */}
         <script dangerouslySetInnerHTML={{ __html: 'document.documentElement.classList.add("js")' }} />

@@ -17,7 +17,7 @@ const MARK_JS = 'document.currentScript.parentElement.classList.add("js")';
 
 export default function Home() {
   return (
-    <>
+    <div className="page">
       <a className="skip" href="#main">
         Skip to content
       </a>
@@ -35,6 +35,6 @@ export default function Home() {
           <HomeMotion mono={MONO} />
         </div>
       </main>
-    </>
+    </div>
   );
 }

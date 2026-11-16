@@ -8,7 +8,7 @@ import { SubpageMotion } from "./SubpageMotion";
 /** Chrome shared by the list and detail pages: progress bar, nav, CTA band, footer, effects. */
 export function Subpage({ active, children }: { active?: string; children: ReactNode }) {
   return (
-    <>
+    <div className="page">
       <a className="skip" href="#main">
         Skip to content
       </a>
@@ -20,6 +20,6 @@ export function Subpage({ active, children }: { active?: string; children: React
       </main>
       <SiteFooter seamed />
       <SubpageMotion mono={jetbrainsMono.style.fontFamily} />
-    </>
+    </div>
   );
 }
