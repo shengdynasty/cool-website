@@ -10,16 +10,6 @@
     "focus": "attention"
   },
   {
-    "id": "planet-x",
-    "kind": "project",
-    "title": "SPHEREx's concentric cones (photon shields at BAE Systems, Boulder)",
-    "author": "NASA/JPL-Caltech/BAE Systems",
-    "license": "Public domain",
-    "page": "https://commons.wikimedia.org/wiki/File:SPHEREx%E2%80%99s_Concentric_Cones.jpg",
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/SPHEREx%E2%80%99s_Concentric_Cones.jpg/1920px-SPHEREx%E2%80%99s_Concentric_Cones.jpg",
-    "focus": "attention"
-  },
-  {
     "id": "video-to-text",
     "kind": "project",
     "title": "Vintage cinema projector",

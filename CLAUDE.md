@@ -8,4 +8,5 @@ murphmaxxing.com (black, cream, MailZoo green); all motion is hand-written canva
 - `NEXT_OUTPUT=standalone npm run build` adds the note API (`src/app/api/note/route.node.ts`), which static hosting can't run.
 - Copy lives in `src/content/`. `projects.ts` / `engagement.ts` were generated from the previous Vite site (git tag `vite-site`)
   by `scripts/extract-portfolio.mjs`; edit them directly now, or check out the tag elsewhere and point the script at it.
-- Hero and portrait assets are generated: see README "Change the photos".
+- Hero and portrait assets are generated: see README "Change the photos". Project scenes (`iso-engine.ts`, import-free so the
+  artifact bundle and `npm run posters` can load it) render their own cover stills: see README "Project scenes".

@@ -61,6 +61,7 @@ const moduleFiles = {
   portrait: "src/components/sheng/portrait-engine.ts",
   subpage: "src/components/sheng/subpage-effects.ts",
   homeExtras: "src/components/sheng/home-extras.ts",
+  isoEngine: "src/components/sheng/iso-engine.ts",
   content: "src/content/home.ts",
 };
 const moduleCode = {};
@@ -197,6 +198,7 @@ const subBootstrap = `
   var mono = getComputedStyle(document.documentElement).getPropertyValue("--mono").trim();
   __mods.restEffects.initRestEffects(document.body, mono, { markText: __mods.content.footer.mark });
   __mods.subpage.initSubpageEffects(document.body);
+  __mods.isoEngine.initIsoScenes(document.body, mono);
 })();
 `;
 

@@ -66,6 +66,7 @@ src/components/sheng/hero-engine.ts hero intro, ASCII stage, card tilt, typewrit
 src/components/sheng/rest-effects.ts seams, ways graph, CTA glyph field, footer mark, decrypt, covers
 src/components/sheng/PortraitMark.tsx ASCII portrait canvas
 src/components/sheng/home-extras.ts  experience accordion (+ its rise-in, develop and autoplay motion), contact links
+src/components/sheng/iso-engine.ts   isometric project scenes (engine + storyboards) and their posters
 src/styles/                         ported CSS (recoloured) + black-and-white overrides
 docs/research/                      design tokens, behaviors, topology, component specs
 ```
@@ -92,6 +93,20 @@ node scripts/build-experience-assets.mjs   # the MailZoo/Wharton/NASA panels, th
 ```
 
 To swap a photo, change its entry in `covers.json` (any CC0/public-domain/CC BY image URL), delete the old source file, and re-run the script. Covers are normalised to the same dark key automatically; `focus: "attention"` crops to the busiest part of the photo instead of the centre, and `gamma`/`contrast` override the automatic tone.
+
+## Project scenes
+
+Some projects have an animated isometric visual instead of a photo (design after aumsuthar.com's project cards): a
+looping storyboard of low-poly parts, labels and captions, drawn on a canvas over the cover wherever JS runs. The
+engine and the scenes are in `src/components/sheng/iso-engine.ts`; a project opts in with `cover.scene` naming a
+scene id. Add a scene to `SCENES` there (parts from `box`, `frustum` and `circle`, a `frame(t)` for the loop, `beats`
+for the captions), then render its still:
+
+```bash
+npm run posters   # writes public/images/projects/<scene id>.webp from the scene's `poster` time
+```
+
+That still is the cover image everywhere the scene can't play (before JS, reduced motion, link previews).
 
 ## Publish the artifact
 

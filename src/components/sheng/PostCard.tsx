@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element -- a canvas sits over each cover and dissolves on scroll; plain <img> matches the source */
+// A cover with a `scene` also gets a `canvas.iso`: the animated isometric scene (iso-engine.ts) plays over the still.
 import type { Cover } from "@/content/projects";
 import { SmartLink } from "./SmartLink";
 
@@ -15,8 +16,9 @@ export interface PostCardProps {
 export function PostCard({ href, cover, label, meta, title, excerpt }: PostCardProps) {
   return (
     <SmartLink className="post" href={href}>
-      <span className={`cover tone-${cover.tone}${cover.fit ? ` fit-${cover.fit}` : ""}`}>
+      <span className={`cover tone-${cover.tone}${cover.fit ? ` fit-${cover.fit}` : ""}`} data-scene={cover.scene}>
         <img src={cover.src} width={1200} height={800} alt="" loading="lazy" decoding="async" />
+        {cover.scene ? <canvas className="iso" aria-hidden="true" /> : null}
         <canvas aria-hidden="true" />
       </span>
       <span className="post-meta">

@@ -812,7 +812,7 @@ export function initRestEffects(root: HTMLElement, mono: string, options: RestEf
     onEnter(askField.canvas, () => askField.show());
   }
 
-  const covers = [...root.querySelectorAll<HTMLCanvasElement>(".cover canvas")];
+  const covers = [...root.querySelectorAll<HTMLCanvasElement>(".cover canvas:not(.iso)")];
   /** Paints a cover solid (ink blocks, sparse glyphs), then dissolves it over 760ms once it enters view. */
   const dissolveCover = (canvas: HTMLCanvasElement, delay: number): void => {
     if (reducedMotion) {

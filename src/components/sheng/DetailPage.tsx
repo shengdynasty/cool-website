@@ -47,12 +47,13 @@ export function DetailPage({ back, meta, title, lede, cover, children, contact, 
               <p className="head-lede">{lede}</p>
             </div>
           </div>
-          <span className={`cover tone-${cover.tone}${cover.fit ? ` fit-${cover.fit}` : ""}`}>
+          <span className={`cover tone-${cover.tone}${cover.fit ? ` fit-${cover.fit}` : ""}`} data-scene={cover.scene}>
             {/* <picture> keeps React from emitting a preload hint, which otherwise rides along with route prefetches
                 and downloads every cover onto whichever page links here */}
             <picture>
               <img src={cover.src} width={1200} height={800} alt="" fetchPriority="high" decoding="async" />
             </picture>
+            {cover.scene ? <canvas className="iso" aria-hidden="true" /> : null}
             <canvas aria-hidden="true" />
           </span>
         </div>

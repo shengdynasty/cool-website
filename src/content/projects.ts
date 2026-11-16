@@ -2,7 +2,7 @@
 /** "original": shown exactly as in the portfolio. ("invert" / "photo" are kept for the CSS but no longer generated.) */
 export type CoverTone = "original" | "invert" | "photo";
 /** fit "contain": a small logo, shown whole on white instead of cropped to fill (its text would be cut off). */
-export interface Cover { src: string; tone: CoverTone; fit?: "contain" }
+export interface Cover { src: string; tone: CoverTone; fit?: "contain"; /** an animated scene (iso-engine.ts) drawn over the cover where JS runs */ scene?: string }
 export interface Diagram { src: string; tone: CoverTone; title: string; caption: string }
 export type ProjectCategory = "AI" | "MCP" | "Finance" | "Apps";
 export interface Project {
@@ -90,7 +90,8 @@ export const projects: Project[] = [
     "reportUrl": "https://github.com/shengdynasty/planet-x/blob/main/docs/WRITEUP.md",
     "cover": {
       "src": "/images/projects/planet-x.webp",
-      "tone": "original"
+      "tone": "original",
+      "scene": "planet-x"
     },
     "features": [
       "Sky, Compare and Field views on NASA's Deep Star Maps 2020, with the whole sky streamed as 512-pixel tiles at up to 182 pixels per degree",
