@@ -49,7 +49,8 @@ export const projects: Project[] = [
     "reportUrl": "https://docs.google.com/document/d/1AtuTdvSL2f_m_dmEvNJMM6SG9Dwm2145OunH7kEnN2c/edit?usp=sharing",
     "cover": {
       "src": "/images/projects/eval-guard.webp",
-      "tone": "original"
+      "tone": "original",
+      "scene": "eval-guard"
     },
     "features": [],
     "diagrams": [

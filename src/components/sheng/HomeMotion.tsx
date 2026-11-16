@@ -4,6 +4,7 @@ import { useEffect, useLayoutEffect } from "react";
 import { createHeroNote, postNote, scrollToTopAfterNavigation } from "./contact";
 import { HeroEngine } from "./hero-engine";
 import { initExperience, wireContactLinks } from "./home-extras";
+import { initIsoScenes } from "./iso-engine";
 import { initRestEffects } from "./rest-effects";
 import { footer, hero } from "@/content/home";
 
@@ -35,6 +36,7 @@ export function HomeMotion({ mono }: { mono: string }) {
     const disposeRest = initRestEffects(restEl, mono, { markText: footer.mark });
     const disposeExperience = initExperience(home, mono);
     const disposeContact = wireContactLinks(document.body, "#idea-code");
+    const disposeScenes = initIsoScenes(home, mono);
 
     return () => {
       engine.destroy();
@@ -42,6 +44,7 @@ export function HomeMotion({ mono }: { mono: string }) {
       disposeRest();
       disposeExperience();
       disposeContact();
+      disposeScenes();
     };
   }, [mono]);
 

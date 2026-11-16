@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element -- each cover has a canvas laid over it that dissolves on scroll; plain <img> matches the source */
+// A cover with a `scene` also gets a `canvas.iso`: its animated isometric scene (iso-engine.ts) plays over the still.
 import { projects } from "@/content/home";
 import { ArrowRightIcon } from "./icons";
 import { external, Words } from "./markup";
@@ -24,8 +25,9 @@ export function ProjectsSection() {
 
       <div className="guides-list">
         <SmartLink className="lead" href={lead.href}>
-          <span className="cover tone-original">
+          <span className="cover tone-original" data-scene={lead.scene}>
             <img src={lead.cover} width={1200} height={800} alt="" loading="lazy" decoding="async" />
+            {lead.scene ? <canvas className="iso" aria-hidden="true" /> : null}
             <canvas aria-hidden="true" />
           </span>
           <span className="g-title">{lead.title}</span>
@@ -34,8 +36,9 @@ export function ProjectsSection() {
         <div className="rows">
           {rows.map((row) => (
             <SmartLink className="row" href={row.href} key={row.href}>
-              <span className="cover tone-original">
+              <span className="cover tone-original" data-scene={row.scene}>
                 <img src={row.cover} width={300} height={200} alt="" loading="lazy" decoding="async" />
+                {row.scene ? <canvas className="iso" aria-hidden="true" /> : null}
                 <canvas aria-hidden="true" />
               </span>
               <span className="row-text">

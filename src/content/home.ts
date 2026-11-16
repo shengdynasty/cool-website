@@ -127,6 +127,8 @@ export const experience = {
 export interface ProjectCard {
   href: string;
   cover: string;
+  /** an animated scene (iso-engine.ts) that plays over the cover where JS runs */
+  scene?: string;
   title: string;
   meta: string;
 }
@@ -138,11 +140,12 @@ export const projects = {
   lead: {
     href: `/project/eval-guard`,
     cover: "/images/projects/eval-guard.webp",
+    scene: "eval-guard",
     title: "EvalGuard: a contamination auditor for LLM evaluations",
     meta: "34 passing tests",
   } satisfies ProjectCard,
   rows: [
-    { href: `/project/planet-x`, cover: "/images/projects/planet-x.webp", title: "Planet X: hunting a distant planet's parallax in NASA's SPHEREx sky survey", meta: "NASA Space Apps 2026" },
+    { href: `/project/planet-x`, cover: "/images/projects/planet-x.webp", scene: "planet-x", title: "Planet X: hunting a distant planet's parallax in NASA's SPHEREx sky survey", meta: "NASA Space Apps 2026" },
     { href: `/project/video-to-text`, cover: "/images/projects/video-to-text.webp", title: "Video-to-Text MCP server: let Claude watch video without blowing its context", meta: "~150k → ~5k tokens" },
     { href: `/project/school-mcp`, cover: "/images/projects/school-mcp.webp", title: "StudentVue MCP server: your gradebook in natural language", meta: "19 tools" },
     { href: `/project/autonomous-researcher`, cover: "/images/projects/autonomous-researcher.webp", title: "Autonomous Research Agent: plans, searches, checks, and writes, all locally", meta: "no API keys" },

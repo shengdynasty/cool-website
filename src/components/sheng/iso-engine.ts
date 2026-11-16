@@ -188,8 +188,8 @@ interface Camera {
   oy: number;
 }
 
-/** Fits the scene's bounds into the canvas, leaving a band at the bottom for the caption. */
-function fitCamera(scene: Scene, w: number, h: number): Camera {
+/** Fits the scene's bounds into the canvas, leaving a band at the bottom for the caption (none when compact). */
+function fitCamera(scene: Scene, w: number, h: number, compact: boolean): Camera {
   const { min, max } = scene.bounds;
   let x0 = Infinity;
   let y0 = Infinity;
@@ -208,7 +208,7 @@ function fitCamera(scene: Scene, w: number, h: number): Camera {
   }
   const padX = 0.04 * w;
   const padTop = 0.05 * h;
-  const padBottom = 0.17 * h;
+  const padBottom = (compact ? 0.06 : 0.17) * h;
   const scale = Math.min((w - 2 * padX) / (x1 - x0), (h - padTop - padBottom) / (y1 - y0));
   return {
     scale,
@@ -360,10 +360,14 @@ export function captionAt(scene: Scene, t: number): string {
   return caption;
 }
 
+/** Below this width (the home page's rows) the scene plays without its labels and caption. */
+const COMPACT_WIDTH = 220;
+
 /** Draws the scene at time `t` into a `w`×`h` canvas (CSS pixels). `caption` overrides the beat's text (scrambles). */
 export function drawFrame(painter: Painter, scene: Scene, w: number, h: number, t: number, caption?: string): void {
   painter.clear(w, h, BG);
-  const cam = fitCamera(scene, w, h);
+  const compact = w < COMPACT_WIDTH;
+  const cam = fitCamera(scene, w, h, compact);
   const frame = scene.frame(t);
   const fontPx = Math.min(30, Math.max(9, w / 42));
   const lineW = Math.max(1, w / 420);
@@ -401,6 +405,7 @@ export function drawFrame(painter: Painter, scene: Scene, w: number, h: number, 
   }
   items.sort((a, b) => a.depth - b.depth);
   for (const item of items) item.draw();
+  if (compact) return;
   const labelPx = fontPx * 0.92;
   for (const label of frame.labels) {
     const [x, y] = toScreen(cam, label.at);
@@ -678,5 +683,107 @@ const planetX: Scene = {
   },
 };
 
+
+/**
+ * EvalGuard: a corpus and a benchmark. Four matchers sweep every benchmark item and light the ones the corpus already
+ * contains, each with a line back to the document that leaks it; the panel reports the two numbers that come out.
+ */
+const DOC: Rgb = [168, 166, 158];
+const TILE: Rgb = [54, 54, 58];
+const BAR: Rgb = [150, 148, 142];
+const DOCS = 10;
+const DOC_STEP = 0.15;
+const COLS = 6;
+const ROWS = 4;
+/** Benchmark items the corpus leaks (row-major index), and the document each one traces back to. */
+const HITS = [2, 5, 9, 12, 14, 19, 22];
+const hitDoc = (i: number): number => (i * 3) % DOCS;
+const docAt = (i: number): Vec3 => [-3.6 + 0.3 * (hash2(i, 3.1) - 0.5), -2.1 + 0.3 * (hash2(i, 5.7) - 0.5), 0.3 + i * DOC_STEP];
+const tileAt = (i: number): Point => [0.9 + (i % COLS) * 0.8, -1.2 + Math.floor(i / COLS) * 0.8];
+
+const evalGuard: Scene = {
+  id: "eval-guard",
+  duration: 14,
+  poster: 6.2,
+  bounds: { min: [-6, -4.2, 0], max: [6, 4.2, 3] },
+  beats: [
+    { at: 0, caption: "A CORPUS AND A BENCHMARK" },
+    { at: 3.4, caption: "FOUR MATCHERS SWEEP EVERY ITEM" },
+    { at: 8, caption: "TWO NUMBERS OUT: RATE ρ AND INFLATION Δ" },
+    { at: 11, caption: "EACH HIT WITH ITS EVIDENCE · NEVER FABRICATED" },
+  ],
+  frame(t) {
+    const shapes: Shape[] = [];
+    const lines: Line3[] = [];
+    const marks: Mark[] = [];
+    const labels: Label[] = [];
+    shapes.push(box(-5.8, -4, 0, 5.8, 4, 0.3, SLAB));
+
+    // the corpus: documents dropping onto a stack
+    for (let i = 0; i < DOCS; i++) {
+      const a = easeOut(span(t, 0.15 + i * 0.2, 0.55 + i * 0.2));
+      if (a <= 0) continue;
+      const [x, y, z] = docAt(i);
+      const lift = (1 - a) * 1.2;
+      shapes.push(box(x - 1.1, y - 0.8, z + lift, x + 1.1, y + 0.8, z + lift + 0.12, DOC, EDGE_SOFT));
+    }
+    if (t >= 2.4) labels.push({ at: [-3.6, -2.1, 0.3 + DOCS * DOC_STEP + 0.1], text: "CORPUS", dy: -6 });
+
+    // the benchmark: a tray of items popping into place
+    shapes.push(box(0.4, -1.7, 0.3, 5.4, 1.7, 0.4, DARK));
+    if (t >= 1.2) labels.push({ at: [5.4, 1.7, 0.4], text: "BENCHMARK", dy: 8 });
+    const sweeping = t >= 3.4;
+    const gx = lerp(0.3, 5.5, easeInOut(span(t, 3.4, 7.6)));
+    const pulse = t >= 11 ? 0.5 + 0.5 * Math.sin((t - 11) * 3) : 1;
+    for (let i = 0; i < COLS * ROWS; i++) {
+      const [tx, ty] = tileAt(i);
+      const a = easeOut(span(t, 0.9 + ((i % COLS) + Math.floor(i / COLS)) * 0.1, 1.25 + ((i % COLS) + Math.floor(i / COLS)) * 0.1));
+      if (a <= 0) continue;
+      const lit = HITS.includes(i) && sweeping ? clamp01((gx - tx + 0.1) / 0.35) : 0;
+      const s = 0.3 * a;
+      const h = 0.18 * a + 0.08 * lit;
+      shapes.push(box(tx - s, ty - s, 0.4, tx + s, ty + s, 0.4 + h, mix(TILE, GREEN, lit * (0.7 + 0.3 * pulse)), lit > 0.5 ? GREEN_EDGE : EDGE_SOFT));
+      if (lit > 0) {
+        // the evidence trail: the item back to the document that leaks it
+        const [dx, dy, dz] = docAt(hitDoc(i));
+        lines.push({ pts: [[tx, ty, 0.4 + h], [dx + 1.1, dy, dz + 0.06]], color: `rgba(44,169,66,${0.75 * lit * (0.6 + 0.4 * pulse)})`, dash: [3, 4], depth: 100 });
+      }
+    }
+
+    // the gantry: four matcher heads on a bar that sweeps the tray, then parks at its end
+    if (sweeping) {
+      const bar = box(gx - 0.15, -2.05, 1.3, gx + 0.15, 2.05, 1.45, SLATE);
+      shapes.push(box(gx - 0.12, -2.05, 0.3, gx + 0.12, -1.85, 1.45, SLATE));
+      for (const hy of [-1.35, -0.45, 0.45, 1.35]) {
+        const head = box(gx - 0.15, hy - 0.15, 0.95, gx + 0.15, hy + 0.15, 1.3, SLATE, GREEN_EDGE);
+        head.depth = bar.depth - 0.01; // hangs under the bar, which hides its top
+        shapes.push(head);
+      }
+      shapes.push(bar);
+      shapes.push(box(gx - 0.12, 1.85, 0.3, gx + 0.12, 2.05, 1.45, SLATE));
+      if (t < 8) labels.push({ at: [gx, 0, 1.55], text: "4 MATCHERS", dy: -6 });
+    }
+
+    // the panel: contamination rate and score inflation
+    shapes.push(box(2.2, -3.7, 0.3, 5.6, -3.5, 2.6, DARK));
+    lines.push({ pts: [[2.5, -3.44, 1.9], [5.3, -3.44, 1.9]], color: EDGE_SOFT, depth: 100 });
+    lines.push({ pts: [[2.5, -3.44, 1], [5.3, -3.44, 1]], color: EDGE_SOFT, depth: 100 });
+    const rho = 0.55 * easeOut(span(t, 8.2, 9.6));
+    const delta = 0.35 * easeOut(span(t, 8.6, 10));
+    if (rho > 0) shapes.push(box(2.5, -3.5, 1.9, 2.5 + 2.8 * rho, -3.38, 2.15, GREEN, GREEN_EDGE));
+    if (delta > 0) shapes.push(box(2.5, -3.5, 1, 2.5 + 2.8 * delta, -3.38, 1.25, BAR, EDGE_SOFT));
+    if (t >= 8.2) {
+      labels.push({ at: [2.5, -3.4, 2.02], text: "ρ", dx: -4, align: "right" });
+      labels.push({ at: [2.5, -3.4, 1.12], text: "Δ", dx: -4, align: "right" });
+    }
+    if (t >= 11) {
+      const [tx, ty] = tileAt(HITS[0]);
+      const [dx, dy, dz] = docAt(hitDoc(HITS[0]));
+      labels.push({ at: [(tx + dx + 1.1) / 2, (ty + dy) / 2, (0.66 + dz) / 2], text: "EVIDENCE", dy: -8, color: GREEN_LABEL });
+    }
+    return { shapes, lines, marks, labels };
+  },
+};
+
 /** Every scene by id; a project's `cover.scene` names one. */
-export const SCENES: Record<string, Scene> = { [planetX.id]: planetX };
+export const SCENES: Record<string, Scene> = { [planetX.id]: planetX, [evalGuard.id]: evalGuard };
