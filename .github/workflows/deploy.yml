@@ -16,18 +16,19 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
-      - run: npm ci --legacy-peer-deps
+      - run: npm ci
 
+      # Static export → out/ (next.config.ts: output "export", trailing slashes, public/CNAME + .nojekyll)
       - run: npm run build
 
       # Deploy to sheng-yan.com (cool-website repo)
       - name: Deploy to sheng-yan.com
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist
+          folder: out
           branch: gh-pages
           token: ${{ secrets.GH_TOKEN }}
           git-config-name: github-actions[bot]
@@ -35,12 +36,12 @@ jobs:
 
       # Swap CNAME and deploy to shawnyan-com repo
       - name: Swap CNAME for shawnyan.com
-        run: echo "shawnyan.com" > dist/CNAME
+        run: echo "shawnyan.com" > out/CNAME
 
       - name: Deploy to shawnyan.com
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist
+          folder: out
           branch: gh-pages
           repository-name: shengdynasty/shawnyan-com
           token: ${{ secrets.GH_TOKEN }}

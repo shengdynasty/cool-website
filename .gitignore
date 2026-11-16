@@ -1,29 +1,71 @@
-# Logs
-logs
-*.log
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build
+.next/
+out/
+build/
+dist/
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# OS
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db
 
-# Secrets & local config
-.env
-.env.*
-.claude/
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Vercel
+.vercel
+
+# Local settings (not project config)
+.claude/settings.local.json
+
+# User-specific skills (not part of the template)
+.claude/skills/customize/
+.claude/skills/release/
+
+# Local temp files
+temp/
+
+# font cache for poster rendering
+scripts/fonts/.cache/
+
+# third-party research material from the source site (kept locally, never committed)
+docs/research/source/
+docs/design-references/*.jpg
+
+# agent worktrees
+.claude/worktrees/
+
+# static artifact build output
+artifact/
+
+# raw third-party downloads (build inputs are composed into scripts/assets)
+docs/research/downloads/
+
+# notes received by /api/note when no email provider is configured
+data/
+
+# static export
+out/

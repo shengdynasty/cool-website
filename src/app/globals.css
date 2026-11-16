@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+/* Tailwind provides the preflight the source site was built on (it shipped Tailwind v4 too).
+   All page styling lives in src/styles/*.css, which is unlayered and therefore wins over these layers. */
+@theme inline {
+  --font-sans: var(--font-sans-face), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-mono-face), ui-monospace, monospace;
+  --color-night: #000000;
+  --color-paper: #F5F2EA;
+  /* the source's paper-side tokens, recoloured (used by the article markup's utility classes) */
+  --color-bg: #F5F2EA;
+  --color-bg-soft: #EBE8E1;
+  --color-bg-raise: #FBFAF6;
+  --color-ink: #0A0A0A;
+  --color-ink-soft: #4D4D4D;
+  --color-ink-dim: #666666;
+  --color-accent: #1F7A30; /* = --zoo-ink */
+  --color-line: rgba(0, 0, 0, .14);
+  --color-line-strong: rgba(0, 0, 0, .24);
+}

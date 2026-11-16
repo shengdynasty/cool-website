@@ -1,0 +1,154 @@
+/* ---------------------------------------------------------------
+   Base styles + black-and-white adjustments on top of the ported CSS.
+   In the source, --accent (#2F6B4A green) worked on both the dark and
+   the paper sections. In B&W the accent is cream (#F5F2EA), which
+   disappears on paper, so paper-side uses of it switch to ink here.
+   --------------------------------------------------------------- */
+:root { color-scheme: dark; }
+* { -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; background-color: #000; }
+body {
+  margin: 0;
+  background-color: #000;
+  color: #F5F2EA;
+  font-family: var(--font-sans-face), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+::selection { color: #0A0A0A; background-color: #F5F2EA; }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ways graph + checklist sit on paper: the paper-side green (the source used its green here too) */
+.home .g-base { stroke: rgba(31, 122, 48, .3); }
+.home .g-line { stroke: var(--zoo-ink); }
+.home .branch { color: var(--zoo-ink); }
+.home .branch:before, .home .ships li:before { border-color: var(--zoo-ink); }
+.home .ships li.on:before { background: var(--zoo-ink); }
+.home .ships .live, .home .ships li.live.on { color: var(--zoo-ink); }
+
+/* the blinking cursor after the name, and the hero card's focus ring, in MailZoo green */
+.home .caret { background: var(--zoo); }
+.home .card.space .well:focus-within {
+  box-shadow: inset 0 2px 5px var(--press), inset 0 0 0 1px var(--zoo), 0 1px 0 var(--lip);
+}
+
+/* paper card: ink prompt + focus ring */
+.home .card.paper { --prompt: var(--zoo-ink); }
+.home .card.paper .well:focus-within {
+  box-shadow: inset 0 2px 5px var(--press), inset 0 0 0 1px var(--zoo-ink), 0 1px 0 var(--lip);
+}
+
+/* the green CTA band becomes dark grey so it still separates paper (above) from black (below) */
+.home .ask { background: #1F1F1F; }
+.home .ask ::selection { background: #F5F2EA; color: #1F1F1F; }
+
+/* the hero button is MailZoo green with cream text (the source's was its green) */
+.home #hero-go { --accent: var(--zoo); background: var(--zoo); color: #F5F2EA; }
+.home .word.accent { color: var(--zoo); }
+.home .ultra-parts dt { color: var(--zoo); }
+.home .g-time { color: var(--zoo); }
+/* the last paper section carries the projects seam that follows it */
+.home .sheet > section:last-child { padding-bottom: clamp(180px, 17vw, 260px); }
+
+/* struck word: cream line through dimmed text instead of red */
+.home .del.on { color: #9A9A9A; }
+
+/* ASCII portrait in the status section (replaces the 5:1 "ultrastack" wordmark canvas) */
+.home .ultra.ascii-portrait { max-width: 520px; margin-bottom: 28px; }
+.home .ultra.ascii-portrait canvas { aspect-ratio: 3 / 2; }
+.home .ultra.ascii-portrait .ultra-plain { width: 100%; height: auto; border-radius: 10px; }
+@media (max-width: 560px) {
+  .home .ultra.ascii-portrait { max-width: 100%; }
+  .home .ultra.ascii-portrait canvas { aspect-ratio: 3 / 2; }
+}
+
+/* link rows that stand in for the newsletter signup forms */
+.home .links-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.home .links-row a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 52px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  border: 1px solid rgba(245, 242, 234, .4);
+  border-radius: 10px;
+  color: #F5F2EA;
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 15px;
+  white-space: pre;
+  text-decoration: none;
+  transition: color .15s, border-color .15s;
+}
+.home .links-row a:hover { border-color: var(--lit); color: var(--lit); }
+.home .links-row a:focus-visible { outline: 2px solid var(--lit); outline-offset: 2px; }
+.home .links-row a svg { transition: transform .15s; }
+.home .links-row a:hover svg { transform: translateX(3px); }
+.home .links-note { margin: 10px 0 0; font-size: 14px; line-height: 1.5; color: #BDBDBD; }
+
+/* covers: 3:2 like the source, cropped to fill like the old portfolio site. Project and engagement images
+   are shown in their original colours (tone "original"); the invert/photo treatments are kept but unused. */
+.cover img { aspect-ratio: 3 / 2; object-fit: cover; }
+.cover.tone-invert img { filter: grayscale(1) invert(1) sepia(.12) contrast(1.06); }
+.cover.tone-photo img { filter: grayscale(1) contrast(1.04); }
+/* small logos (white backgrounds) are shown whole instead of cropped to fill */
+.cover.fit-contain { background: #FFFFFF; }
+.cover.fit-contain img { object-fit: contain; padding: 6% 12%; box-sizing: border-box; }
+
+/* hero card: the email field (same treatment as the idea input) and the status line */
+.home #idea-email {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 44px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 15px;
+}
+.home .ask-go:disabled { opacity: .7; cursor: default; }
+
+
+.home .idea-status { position: relative; margin: 10px 0 0; font-size: 14px; line-height: 1.45; color: var(--muted); transform: translateZ(6px); }
+.home .idea-status:empty { display: none; }
+.home .idea-status.ok { color: var(--zoo); }
+
+/* MailZoo link under the status lede */
+.home .mz-link {
+  display: inline-flex; align-items: center; gap: 14px; margin-top: 28px; padding: 10px 16px 10px 12px;
+  border: 1px solid var(--night-line); border-radius: 12px; color: #BDBDBD;
+  font-family: var(--mono); font-size: 13px; text-decoration: none; transition: border-color .15s, color .15s;
+}
+.home .mz-link:hover { border-color: var(--zoo); color: #F5F2EA; }
+.home .mz-logo { display: block; line-height: 0; }
+.home .mz-logo svg { height: 34px; width: auto; display: block; }
+
+/* section transitions: each section sits above the one before it so its seam canvas can paint over it */
+.home .ultra-home { z-index: 1; padding-bottom: clamp(170px, 13vw, 220px); }
+.home .xp-section { z-index: 2; background: #141414; color: #F5F2EA; }
+.home .sheet { z-index: 3; }
+.home .guides { z-index: 4; }
+.home .end { z-index: 5; }
+
+/* artifact only: the owner's inbox of notes sent through the hero card */
+.home .inbox { padding-top: 48px; padding-bottom: 24px; }
+.home .inbox-label { margin: 0 0 12px; font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--zoo); }
+.home .inbox-list { list-style: none; margin: 0; padding: 0; max-width: 720px; }
+.home .inbox-list li { padding: 14px 0; border-top: 1px solid var(--night-line); }
+.home .inbox-list p { margin: 0; font-size: 16px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; color: #F5F2EA; }
+.home .inbox-list span { display: block; margin-top: 6px; font-family: var(--mono); font-size: 13px; color: #BDBDBD; }
+.home .inbox-empty { margin: 0; font-size: 14px; color: #BDBDBD; }
