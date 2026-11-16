@@ -186,7 +186,7 @@ const homeBootstrap = `
   });
   engine.start();
   __mods.restEffects.initRestEffects(restEl, mono, { markText: content.footer.mark });
-  __mods.homeExtras.initExperience(home);
+  __mods.homeExtras.initExperience(home, mono);
   __mods.homeExtras.wireContactLinks(document.body, "#idea-code");
   if (portraitCanvas) __mods.portrait.initPortraitMark(portraitCanvas, { src: PORTRAIT, mono: mono });
 })();

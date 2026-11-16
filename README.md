@@ -65,7 +65,7 @@ src/components/sheng/Hero.tsx …     one server component per section (markup m
 src/components/sheng/hero-engine.ts hero intro, ASCII stage, card tilt, typewriter
 src/components/sheng/rest-effects.ts seams, ways graph, CTA glyph field, footer mark, decrypt, covers
 src/components/sheng/PortraitMark.tsx ASCII portrait canvas
-src/components/sheng/home-extras.ts  experience accordion + contact links
+src/components/sheng/home-extras.ts  experience accordion (+ its rise-in, develop and autoplay motion), contact links
 src/styles/                         ported CSS (recoloured) + black-and-white overrides
 docs/research/                      design tokens, behaviors, topology, component specs
 ```

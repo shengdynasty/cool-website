@@ -33,7 +33,7 @@ export function HomeMotion({ mono }: { mono: string }) {
     });
     engine.start();
     const disposeRest = initRestEffects(restEl, mono, { markText: footer.mark });
-    const disposeExperience = initExperience(home);
+    const disposeExperience = initExperience(home, mono);
     const disposeContact = wireContactLinks(document.body, "#idea-code");
 
     return () => {

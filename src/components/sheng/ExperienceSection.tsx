@@ -7,6 +7,8 @@ import { SmartLink } from "./SmartLink";
 /**
  * Experience accordion, after aumsuthar.com: a row of tall panels, each a blurred photo with a
  * white logo badge and a vertical label; the selected one grows 7×, sharpens, and shows its details.
+ * Motion (home-extras.ts): the panels rise in when the row scrolls into view, an opening panel's photo develops
+ * out of a glyph field drawn on its canvas, and the row advances by itself with the countdown line until clicked.
  */
 export function ExperienceSection() {
   return (
@@ -26,6 +28,7 @@ export function ExperienceSection() {
             tabIndex={i === 0 ? 0 : -1}
           >
             <img className="xp-bg" src={item.background} alt="" loading={i === 0 ? "eager" : "lazy"} decoding="async" />
+            <canvas className="xp-dev" aria-hidden="true" hidden />
             <span className="xp-badge" aria-hidden="true">
               <img src={item.logo} alt="" width={64} height={64} loading="lazy" decoding="async" />
             </span>
@@ -45,6 +48,7 @@ export function ExperienceSection() {
                 </SmartLink>
               </div>
             </div>
+            <span className="xp-timer" aria-hidden="true" />
           </div>
         ))}
       </div>

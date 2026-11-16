@@ -472,7 +472,7 @@ html.js .posts .post-wrap.enter { opacity: 0; transform: translateY(14px); }
   writing-mode: vertical-rl; padding: 6px 2px; border-radius: 4px;
   background: rgba(0, 0, 0, .85); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
   font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .2em; color: #F5F2EA;
-  white-space: nowrap; pointer-events: none; transition: opacity .3s;
+  white-space: nowrap; pointer-events: none; transition: opacity .3s, color .2s;
 }
 .xp[aria-selected=true] .xp-tag { opacity: 0; }
 .xp-info {
@@ -492,6 +492,21 @@ html.js .posts .post-wrap.enter { opacity: 0; transform: translateY(14px); }
 .xp-blurb { margin: 0; font-size: 14px; line-height: 1.4; color: #BDBDBD; }
 .xp-more { align-self: flex-start; margin-top: 6px; font-family: var(--mono); font-size: 12px; color: #F5F2EA; text-decoration: none; transition: color .15s; }
 .xp-more:hover { color: var(--zoo); }
+/* Motion (home-extras.ts). The row waits hidden until it scrolls into view, then its panels rise in one by one. */
+.xp-row[data-pending] .xp { opacity: 0; }
+/* An opening panel's photo develops out of an ink-and-glyph field drawn on this canvas. It is laid out at the
+   panel's open size (--xp-open, set by the script) and clipped by the panel while that grows, so it never stretches. */
+.xp-dev { position: absolute; top: 0; left: 0; width: var(--xp-open, 100%); height: 100%; pointer-events: none; }
+/* Countdown to the next panel: a green line along the open panel's bottom edge, filled left to right by the script.
+   Gone once the visitor has taken over. */
+.xp-timer { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--zoo); transform: scaleX(0); transform-origin: left; pointer-events: none; }
+.xp-row.manual .xp-timer { display: none; }
+/* Hovering a closed panel brings its photo a little into focus and lights its label (also holds the countdown). */
+@media (hover: hover) {
+  .xp:not([aria-selected=true]):hover { border-color: rgba(245, 242, 234, .4); }
+  .xp:not([aria-selected=true]):hover .xp-bg { filter: blur(1.5px); transform: scale(1.05); }
+  .xp:not([aria-selected=true]):hover .xp-tag { color: var(--zoo); }
+}
 @media (max-width: 640px) {
   .xp-row { flex-direction: column; height: auto; }
   .xp { flex: none; height: 56px; transition: height .5s cubic-bezier(.3, .7, .2, 1), border-color .5s; }
@@ -499,6 +514,7 @@ html.js .posts .post-wrap.enter { opacity: 0; transform: translateY(14px); }
   .xp-tag { left: 8px; bottom: auto; top: 50%; transform: translateY(-50%); writing-mode: horizontal-tb; padding: 2px 6px; font-size: 10px; }
   .xp-badge { top: 50%; transform: translateY(-50%); width: 24px; height: 24px; }
   .xp-box { min-width: 0; }
+  .xp-dev { width: 100%; height: 22rem; }
 }
 
 /* more MailZoo green: primary buttons (the source's were green), nav button border, meta labels */
