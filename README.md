@@ -108,6 +108,11 @@ npm run posters   # writes public/images/projects/<scene id>.webp from the scene
 
 That still is the cover image everywhere the scene can't play (before JS, reduced motion, link previews).
 
+Flat scenes (`FlatScene` in the same file) are 2D explainers drawn in a 600×400 design space with the same painters;
+a figure in `project.diagrams` plays one by naming it in `scene`, and `after: n` puts the figure right under paragraph
+`n` instead of in "How it works". The poster script renders text as JetBrains Mono outlines (opentype.js), so the
+stills look the same on any machine.
+
 ## Publish the artifact
 
 ```bash

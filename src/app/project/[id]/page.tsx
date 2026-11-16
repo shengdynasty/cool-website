@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Fragment } from "react";
 import { Callout, CodeBlock, Figure, Heading, LinkList, Paragraphs, RowList, type LinkRow } from "@/components/sheng/Article";
 import { DetailPage } from "@/components/sheng/DetailPage";
 import { Subpage } from "@/components/sheng/Subpage";
@@ -56,7 +57,17 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
         related={nextAfter(projects, index).map(projectItem)}
       >
         <Callout>Built with {listJoin(project.technologies)}. The code is on GitHub.</Callout>
-        <Paragraphs items={project.paragraphs} />
+        {/* figures with `after` sit right under the paragraph they illustrate; the rest wait for "How it works" */}
+        {project.paragraphs.map((text, i) => (
+          <Fragment key={i}>
+            <Paragraphs items={[text]} />
+            {project.diagrams
+              .filter((diagram) => diagram.after === i)
+              .map(({ src, tone, title, caption, scene }) => (
+                <Figure key={src} src={src} tone={tone} title={title} caption={caption} scene={scene} />
+              ))}
+          </Fragment>
+        ))}
         <LinkList links={links} />
         {project.features.length ? (
           <>
@@ -64,12 +75,14 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
             <RowList items={project.features} />
           </>
         ) : null}
-        {project.diagrams.length ? (
+        {project.diagrams.some((diagram) => diagram.after === undefined) ? (
           <>
             <Heading>How it works</Heading>
-            {project.diagrams.map((diagram) => (
-              <Figure key={diagram.src} {...diagram} />
-            ))}
+            {project.diagrams
+              .filter((diagram) => diagram.after === undefined)
+              .map(({ src, tone, title, caption, scene }) => (
+                <Figure key={src} src={src} tone={tone} title={title} caption={caption} scene={scene} />
+              ))}
           </>
         ) : null}
         {projectVideos[project.id] ? (

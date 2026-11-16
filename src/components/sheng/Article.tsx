@@ -95,11 +95,13 @@ export function CodeBlock({ id, label, source }: { id: string; label: string; so
   );
 }
 
-export function Figure({ src, tone, title, caption }: Cover & { title: string; caption: string }) {
+/** A figure in the reading column; with `scene`, its animated scene (iso-engine.ts) plays over the still. */
+export function Figure({ src, tone, title, caption, scene }: Cover & { title: string; caption: string; scene?: string }) {
   return (
     <figure>
-      <span className={`cover tone-${tone}`}>
+      <span className={`cover tone-${tone}`} data-scene={scene}>
         <img src={src} width={1200} height={800} alt={title} loading="lazy" decoding="async" />
+        {scene ? <canvas className="iso" aria-hidden="true" /> : null}
         <canvas aria-hidden="true" />
       </span>
       <figcaption>

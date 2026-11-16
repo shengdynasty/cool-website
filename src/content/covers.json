@@ -1,5 +1,16 @@
 [
   {
+    "id": "eval-guard-microscope",
+    "for": "eval-guard",
+    "kind": "project",
+    "title": "Antique microscope",
+    "author": "The Metropolitan Museum of Art",
+    "license": "CC0 1.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Microscope_MET_DP108688.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/50/Microscope_MET_DP108688.jpg/1920px-Microscope_MET_DP108688.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "focus": "attention"
+  },
+  {
     "id": "video-to-text",
     "kind": "project",
     "title": "Vintage cinema projector",

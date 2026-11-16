@@ -46,7 +46,7 @@ export default function CreditsPage() {
               <ul className="credits">
                 {group.items.map((c) => (
                   <li key={c.id}>
-                    <b>{nameOf(c.id)}</b>
+                    <b>{nameOf(("for" in c && c.for) || c.id)}</b>
                     <span>
                       {c.page ? (
                         <SmartLink href={c.page}>{c.title}</SmartLink>

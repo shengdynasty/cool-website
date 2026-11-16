@@ -7,6 +7,9 @@
  * view, at 30 fps, and shows one still frame under reduced motion. The same frame renders to SVG for the build-time
  * posters (`renderSvg`, used by scripts/render-scene-posters.mjs). The scenes live at the bottom of this file, so
  * neither the artifact bundle nor the poster script needs a cross-module import.
+ *
+ * Besides the isometric scenes there are flat scenes (`FlatScene`): 2D explainers drawn with the same painters in a
+ * 600×400 design space (the detail pages' "how it works" figures).
  */
 
 export type Vec3 = readonly [number, number, number];
@@ -73,6 +76,17 @@ export interface Scene {
   beats: Beat[];
   frame(t: number): Frame;
 }
+/** A 2D explainer: draws itself in a FLAT_W × FLAT_H design space, scaled to the canvas. */
+export interface FlatScene {
+  id: string;
+  duration: number;
+  poster: number;
+  draw(p: Painter, t: number): void;
+}
+export type AnyScene = Scene | FlatScene;
+const isFlat = (scene: AnyScene): scene is FlatScene => "draw" in scene;
+export const FLAT_W = 600;
+export const FLAT_H = 400;
 
 // ---------------------------------------------------------------- palette
 export const BG = "#000000";
@@ -229,8 +243,9 @@ export interface Painter {
   clear(w: number, h: number, color: string): void;
   polygon(pts: readonly Point[], fill: string, stroke: string | null, width: number): void;
   polyline(pts: readonly Point[], stroke: string, width: number, dash?: readonly number[]): void;
-  circle(x: number, y: number, r: number, stroke: string, width: number, dash?: readonly number[]): void;
-  text(x: number, y: number, text: string, color: string, size: number, align: Align): void;
+  circle(x: number, y: number, r: number, stroke: string | null, width: number, dash?: readonly number[], fill?: string): void;
+  /** `spacing` is letter spacing in em (the labels' default is 0.14; terminal text uses 0). */
+  text(x: number, y: number, text: string, color: string, size: number, align: Align, spacing?: number): void;
 }
 
 export class CanvasPainter implements Painter {
@@ -280,23 +295,29 @@ export class CanvasPainter implements Painter {
     ctx.setLineDash([]);
   }
 
-  circle(x: number, y: number, r: number, stroke: string, width: number, dash: readonly number[] = []): void {
+  circle(x: number, y: number, r: number, stroke: string | null, width: number, dash: readonly number[] = [], fill?: string): void {
     const { ctx } = this;
     ctx.beginPath();
     ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.strokeStyle = stroke;
-    ctx.lineWidth = width;
-    ctx.setLineDash(dash as number[]);
-    ctx.stroke();
-    ctx.setLineDash([]);
+    if (fill) {
+      ctx.fillStyle = fill;
+      ctx.fill();
+    }
+    if (stroke) {
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = width;
+      ctx.setLineDash(dash as number[]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
   }
 
-  text(x: number, y: number, text: string, color: string, size: number, align: Align): void {
+  text(x: number, y: number, text: string, color: string, size: number, align: Align, spacing = 0.14): void {
     const { ctx } = this;
     ctx.font = `500 ${size}px ${this.mono}`;
     ctx.textAlign = align;
     ctx.textBaseline = "middle";
-    if ("letterSpacing" in ctx) ctx.letterSpacing = "0.14em";
+    if ("letterSpacing" in ctx) ctx.letterSpacing = `${spacing}em`;
     ctx.lineJoin = "round";
     ctx.lineWidth = Math.max(2, size * 0.3);
     ctx.strokeStyle = BG;
@@ -310,13 +331,19 @@ const escapeXml = (s: string): string => s.replace(/&/g, "&amp;").replace(/</g, 
 const num = (v: number): string => (Math.round(v * 100) / 100).toString();
 const pointList = (pts: readonly Point[]): string => pts.map(([x, y]) => `${num(x)},${num(y)}`).join(" ");
 
-/** Collects the frame as SVG markup (the build-time poster). */
+/** Turns a run of text into SVG path data, already positioned for `align` (the poster script supplies one from the font file). */
+export type TextToPath = (text: string, x: number, y: number, size: number, align: Align, spacing: number) => string;
+
+/** Collects the frame as SVG markup (the build-time poster). With `toPath`, text becomes glyph outlines, so the result
+ * doesn't depend on the fonts the renderer can see. */
 export class SvgPainter implements Painter {
   private readonly font: string;
+  private readonly toPath: TextToPath | null;
   private readonly parts: string[] = [];
 
-  constructor(font: string) {
+  constructor(font: string, toPath: TextToPath | null = null) {
     this.font = font;
+    this.toPath = toPath;
   }
 
   clear(w: number, h: number, color: string): void {
@@ -335,15 +362,21 @@ export class SvgPainter implements Painter {
     );
   }
 
-  circle(x: number, y: number, r: number, stroke: string, width: number, dash?: readonly number[]): void {
+  circle(x: number, y: number, r: number, stroke: string | null, width: number, dash?: readonly number[], fill?: string): void {
     const d = dash && dash.length ? ` stroke-dasharray="${dash.map(num).join(" ")}"` : "";
-    this.parts.push(`<circle cx="${num(x)}" cy="${num(y)}" r="${num(r)}" fill="none" stroke="${stroke}" stroke-width="${num(width)}"${d}/>`);
+    const edge = stroke ? ` stroke="${stroke}" stroke-width="${num(width)}"${d}` : "";
+    this.parts.push(`<circle cx="${num(x)}" cy="${num(y)}" r="${num(r)}" fill="${fill ?? "none"}"${edge}/>`);
   }
 
-  text(x: number, y: number, text: string, color: string, size: number, align: Align): void {
+  text(x: number, y: number, text: string, color: string, size: number, align: Align, spacing = 0.14): void {
+    const halo = `stroke="${BG}" stroke-width="${num(Math.max(2, size * 0.3))}" stroke-linejoin="round" paint-order="stroke"`;
+    if (this.toPath) {
+      this.parts.push(`<path d="${this.toPath(text, x, y, size, align, spacing)}" fill="${color}" ${halo}/>`);
+      return;
+    }
     const anchor = align === "left" ? "start" : align === "right" ? "end" : "middle";
     this.parts.push(
-      `<text x="${num(x)}" y="${num(y)}" fill="${color}" font-family="${escapeXml(this.font)}" font-weight="500" font-size="${num(size)}" letter-spacing="${num(size * 0.14)}" text-anchor="${anchor}" dominant-baseline="central" stroke="${BG}" stroke-width="${num(Math.max(2, size * 0.3))}" stroke-linejoin="round" paint-order="stroke">${escapeXml(text)}</text>`,
+      `<text x="${num(x)}" y="${num(y)}" fill="${color}" font-family="${escapeXml(this.font)}" font-weight="500" font-size="${num(size)}" letter-spacing="${num(size * spacing)}" text-anchor="${anchor}" dominant-baseline="central" xml:space="preserve" ${halo}>${escapeXml(text)}</text>`,
     );
   }
 
@@ -352,9 +385,45 @@ export class SvgPainter implements Painter {
   }
 }
 
+/** Draws through another painter with every coordinate and size scaled: the flat scenes' design space. */
+class ScaledPainter implements Painter {
+  private readonly inner: Painter;
+  private readonly s: number;
+
+  constructor(inner: Painter, s: number) {
+    this.inner = inner;
+    this.s = s;
+  }
+
+  private pts(pts: readonly Point[]): Point[] {
+    return pts.map(([x, y]) => [x * this.s, y * this.s]);
+  }
+
+  clear(w: number, h: number, color: string): void {
+    this.inner.clear(w * this.s, h * this.s, color);
+  }
+
+  polygon(pts: readonly Point[], fill: string, stroke: string | null, width: number): void {
+    this.inner.polygon(this.pts(pts), fill, stroke, Math.max(0.75, width * this.s));
+  }
+
+  polyline(pts: readonly Point[], stroke: string, width: number, dash?: readonly number[]): void {
+    this.inner.polyline(this.pts(pts), stroke, Math.max(0.75, width * this.s), dash?.map((d) => d * this.s));
+  }
+
+  circle(x: number, y: number, r: number, stroke: string | null, width: number, dash?: readonly number[], fill?: string): void {
+    this.inner.circle(x * this.s, y * this.s, r * this.s, stroke, Math.max(0.75, width * this.s), dash?.map((d) => d * this.s), fill);
+  }
+
+  text(x: number, y: number, text: string, color: string, size: number, align: Align, spacing?: number): void {
+    this.inner.text(x * this.s, y * this.s, text, color, size * this.s, align, spacing);
+  }
+}
+
 // ---------------------------------------------------------------- drawing a frame
-/** The caption in force at `t`. */
-export function captionAt(scene: Scene, t: number): string {
+/** The caption in force at `t` (flat scenes draw their own: none). */
+export function captionAt(scene: AnyScene, t: number): string {
+  if (isFlat(scene)) return "";
   let caption = scene.beats[0]?.caption ?? "";
   for (const beat of scene.beats) if (t >= beat.at) caption = beat.caption;
   return caption;
@@ -364,8 +433,12 @@ export function captionAt(scene: Scene, t: number): string {
 const COMPACT_WIDTH = 220;
 
 /** Draws the scene at time `t` into a `w`×`h` canvas (CSS pixels). `caption` overrides the beat's text (scrambles). */
-export function drawFrame(painter: Painter, scene: Scene, w: number, h: number, t: number, caption?: string): void {
+export function drawFrame(painter: Painter, scene: AnyScene, w: number, h: number, t: number, caption?: string): void {
   painter.clear(w, h, BG);
+  if (isFlat(scene)) {
+    scene.draw(new ScaledPainter(painter, w / FLAT_W), t);
+    return;
+  }
   const compact = w < COMPACT_WIDTH;
   const cam = fitCamera(scene, w, h, compact);
   const frame = scene.frame(t);
@@ -411,12 +484,13 @@ export function drawFrame(painter: Painter, scene: Scene, w: number, h: number, 
     const [x, y] = toScreen(cam, label.at);
     painter.text(x + ((label.dx ?? 0) * labelPx) / 10, y + ((label.dy ?? 0) * labelPx) / 10, label.text, label.color ?? LABEL, labelPx, label.align ?? "center");
   }
-  painter.text(w * 0.045, h - fontPx * 1.6, caption ?? captionAt(scene, t), CAPTION, fontPx, "left");
+  const text = caption ?? captionAt(scene, t);
+  if (text) painter.text(w * 0.045, h - fontPx * 1.6, text, CAPTION, fontPx, "left");
 }
 
 /** The scene at time `t` as an SVG document (the poster). */
-export function renderSvg(scene: Scene, w: number, h: number, t = scene.poster, font = "JetBrains Mono"): string {
-  const painter = new SvgPainter(font);
+export function renderSvg(scene: AnyScene, w: number, h: number, t = scene.poster, font = "JetBrains Mono", toPath: TextToPath | null = null): string {
+  const painter = new SvgPainter(font, toPath);
   drawFrame(painter, scene, w, h, t);
   return painter.toString(w, h);
 }
@@ -435,7 +509,7 @@ function scrambleText(text: string, progress: number, tick: number): string {
 
 class IsoPlayer {
   private readonly canvas: HTMLCanvasElement;
-  private readonly scene: Scene;
+  private readonly scene: AnyScene;
   private readonly ctx: CanvasRenderingContext2D;
   private readonly painter: CanvasPainter;
   private readonly still: boolean;
@@ -454,7 +528,7 @@ class IsoPlayer {
   private readonly resizer: ResizeObserver | null = null;
   private readonly watcher: IntersectionObserver | null = null;
 
-  constructor(canvas: HTMLCanvasElement, scene: Scene, ctx: CanvasRenderingContext2D, mono: string) {
+  constructor(canvas: HTMLCanvasElement, scene: AnyScene, ctx: CanvasRenderingContext2D, mono: string) {
     this.canvas = canvas;
     this.scene = scene;
     this.ctx = ctx;
@@ -785,5 +859,293 @@ const evalGuard: Scene = {
   },
 };
 
-/** Every scene by id; a project's `cover.scene` names one. */
-export const SCENES: Record<string, Scene> = { [planetX.id]: planetX, [evalGuard.id]: evalGuard };
+
+// ================================================================ flat scenes (EvalGuard's "how it works" figures)
+const PANEL = "rgb(16, 16, 18)";
+const PANEL_LINE = "rgba(245, 242, 234, 0.25)";
+const GREY_BAR = "rgb(52, 52, 56)";
+const DIM_TEXT = "rgba(245, 242, 234, 0.5)";
+const SOFT_TEXT = "rgba(245, 242, 234, 0.75)";
+const GREEN_FILL = "rgb(44, 169, 66)";
+
+const rect = (p: Painter, x: number, y: number, w: number, h: number, fill: string, stroke: string | null = null, width = 1): void =>
+  p.polygon([[x, y], [x + w, y], [x + w, y + h], [x, y + h]], fill, stroke, width);
+const line = (p: Painter, x0: number, y0: number, x1: number, y1: number, color: string, width = 1, dash?: readonly number[]): void =>
+  p.polyline([[x0, y0], [x1, y1]], color, width, dash);
+/** Small-caps style label with the site's letter spacing. */
+const label = (p: Painter, x: number, y: number, text: string, color = LABEL, size = 10, align: Align = "left"): void =>
+  p.text(x, y, text, color, size, align, 0.14);
+/** Plain monospace text (terminal lines, numbers). */
+const mono = (p: Painter, x: number, y: number, text: string, color = CAPTION, size = 11.5, align: Align = "left"): void =>
+  p.text(x, y, text, color, size, align, 0);
+/** Width of `n` characters of plain mono text at `size` (JetBrains Mono's 0.6em advance). */
+const monoWidth = (n: number, size: number): number => n * size * 0.6;
+
+// ---- two numbers out: ρ and Δ
+const MATCHERS = ["n-gram", "tf-idf", "paraphrase", "answer-leak"];
+/** The 14 of 50 benchmark items the (illustrative) corpus leaks. */
+const LEAKED = [3, 7, 11, 14, 19, 22, 26, 29, 31, 36, 40, 43, 47, 49];
+const numbersScene: FlatScene = {
+  id: "eval-guard-numbers",
+  duration: 12,
+  poster: 8,
+  draw(p, t) {
+    const T0 = 1;
+    const PER_ROW = 1.1;
+    label(p, 30, 34, "BENCHMARK · 50 ITEMS", DIM_TEXT, 9.5);
+    const hits: number[] = [];
+    for (let i = 0; i < 50; i++) {
+      const r = Math.floor(i / 10);
+      const c = i % 10;
+      const x = 30 + c * 28;
+      const y = 54 + r * 28;
+      const scanned = clamp01((t - (T0 + r * PER_ROW + c * 0.08)) / 0.25);
+      const hot = LEAKED.includes(i) ? scanned : 0;
+      if (hot >= 1) hits.push(i);
+      const fill = hot > 0 ? `rgba(44,169,66,${0.25 + 0.75 * hot})` : scanned > 0 ? "rgb(46,46,50)" : "rgb(28,28,31)";
+      rect(p, x, y, 22, 22, fill, hot > 0.5 ? GREEN_EDGE : "rgba(245,242,234,0.16)");
+    }
+    const rowF = (t - T0) / PER_ROW;
+    if (rowF >= 0 && rowF < 5) {
+      const y = 54 + rowF * 28;
+      line(p, 30, y, 306, y, "rgba(245,242,234,0.6)");
+    }
+    const n = hits.length;
+    mono(p, 30, 214, `ρ = ${String(n).padStart(2, " ")} / 50 = ${String(Math.round((n / 50) * 100)).padStart(2, " ")}%`, CAPTION, 13);
+    label(p, 30, 234, "CONTAMINATION RATE", DIM_TEXT, 9);
+    label(p, 30, 262, "EVIDENCE", DIM_TEXT, 9);
+    hits.slice(-4).forEach((i, k) => {
+      const a = (i * 7) % 40;
+      mono(p, 30, 282 + k * 18, `item ${String(i).padStart(2, "0")} ← doc ${1000 + ((i * 37) % 900)} · ${MATCHERS[i % 4]} · ${a}–${a + 20 + (i % 9)}`, SOFT_TEXT, 10.5);
+    });
+    // the reported score, with the slice the leaked items account for
+    const bx = 400;
+    const bw = 70;
+    const base = 330;
+    const scale = 3;
+    const reported = 71.4;
+    const delta = 5.1 * (n / LEAKED.length);
+    const top = base - reported * scale;
+    label(p, bx + bw / 2, 34, "REPORTED SCORE", DIM_TEXT, 9.5, "center");
+    line(p, 360, base, 570, base, "rgba(245,242,234,0.35)");
+    rect(p, bx, top, bw, reported * scale, "rgb(40,40,43)", "rgba(245,242,234,0.35)");
+    mono(p, bx + bw / 2, top - 12, reported.toFixed(1), CAPTION, 12, "center");
+    if (delta > 0) {
+      const h = delta * scale;
+      rect(p, bx, top, bw, h, "rgba(44,169,66,0.3)", GREEN_EDGE);
+      for (let k = 4; k < h; k += 5) line(p, bx, top + k, bx + bw, top + k, "rgba(44,169,66,0.5)");
+      mono(p, bx + bw + 10, top + h / 2, `Δ = +${delta.toFixed(1)} pts`, GREEN_LABEL, 12);
+      const honestY = base - (reported - delta) * scale;
+      line(p, bx - 28, honestY, bx + bw, honestY, "rgba(245,242,234,0.6)", 1, [3, 3]);
+      mono(p, bx - 32, honestY, (reported - delta).toFixed(1), SOFT_TEXT, 11, "right");
+    }
+    label(p, bx + bw / 2, base + 14, "SCORE INFLATION", DIM_TEXT, 9, "center");
+    label(p, 30, 384, "ILLUSTRATIVE AUDIT · EVERY HIT CARRIES ITS SPAN", DIM_TEXT, 9.5);
+  },
+};
+
+// ---- four matchers, one verdict
+const LANES = [
+  { name: "N-GRAM · MINHASH-LSH", fire: 3, note: "EXACT SPAN 12–58" },
+  { name: "TF-IDF", fire: 4.3, note: "COSINE 0.91" },
+  { name: "PARAPHRASE", fire: 5.8, note: "SAME MEANING, NEW WORDS" },
+  { name: "ANSWER-LEAK", fire: 7.4, note: "ANSWER TOKEN IN TEXT" },
+];
+/** Ten corpus documents per lane, laid out with gaps; the sixth is the one that matches. */
+const laneBlocks = (k: number): { x: number; w: number }[] => {
+  const out: { x: number; w: number }[] = [];
+  let x = 0;
+  for (let j = 0; j < 10; j++) {
+    const w = 28 + 46 * hash2(k + 1, j + 1);
+    out.push({ x, w });
+    x += w + 12 + 10 * hash2(k + 3, j);
+  }
+  const m = out[5].x;
+  return out.map((b) => ({ x: b.x - m, w: b.w }));
+};
+const matchersScene: FlatScene = {
+  id: "eval-guard-matchers",
+  duration: 12,
+  poster: 8.8,
+  draw(p, t) {
+    const HX = 385;
+    const SPEED = 42;
+    label(p, 30, 30, "BENCHMARK ITEM 07", DIM_TEXT, 9.5);
+    rect(p, 30, 40, 540, 46, "rgb(20,20,23)", PANEL_LINE);
+    mono(p, 42, 57, "Which gas do plants take in from the air for photosynthesis?", CAPTION, 11.5);
+    mono(p, 42, 74, "A) oxygen   B) carbon dioxide   C) nitrogen   D) argon", SOFT_TEXT, 11);
+    if (t >= LANES[3].fire) line(p, 42 + monoWidth(15, 11), 81, 42 + monoWidth(29, 11), 81, GREEN_EDGE, 1.5);
+    let fired = 0;
+    LANES.forEach((lane, k) => {
+      const y0 = 104 + k * 66;
+      label(p, 30, y0 + 22, lane.name, LABEL, 9.5);
+      rect(p, 200, y0, 370, 44, PANEL, "rgba(245,242,234,0.18)");
+      const hot = clamp01((t - lane.fire) / 0.3);
+      if (hot >= 1) fired++;
+      const blocks = laneBlocks(k);
+      const shift = HX - blocks[5].w / 2 + (lane.fire - Math.min(t, lane.fire)) * SPEED;
+      blocks.forEach((b, j) => {
+        const x0 = Math.max(200, shift + b.x);
+        const x1 = Math.min(570, shift + b.x + b.w);
+        if (x1 <= x0) return;
+        const match = j === 5 && hot > 0;
+        rect(p, x0, y0 + 12, x1 - x0, 20, match ? `rgba(44,169,66,${0.25 + 0.6 * hot})` : "rgb(44,44,48)", match ? GREEN_EDGE : null);
+      });
+      line(p, HX, y0 - 4, HX, y0 + 48, "rgba(245,242,234,0.5)", 1, [3, 3]);
+      if (hot > 0) label(p, 570, y0 - 9, lane.note, GREEN_LABEL, 9, "right");
+    });
+    if (t >= 8.3) {
+      mono(p, 30, 372, `${fired} OF 4 FIRED  →  CONTAMINATED`, GREEN_LABEL, 12.5);
+      label(p, 570, 372, "WHICH MATCHER · THE SPAN · THE REASON", DIM_TEXT, 9, "right");
+    } else {
+      label(p, 30, 372, "FOUR INDEPENDENT MATCHERS · EACH HIT KEEPS ITS SPAN AND REASON", DIM_TEXT, 9.5);
+    }
+  },
+};
+
+// ---- the injection harness
+const FORMS = [
+  { row: 1, name: "verbatim" },
+  { row: 3, name: "near-dup" },
+  { row: 5, name: "paraphrase" },
+  { row: 7, name: "answer leak" },
+];
+const harnessScene: FlatScene = {
+  id: "eval-guard-harness",
+  duration: 12,
+  poster: 9.5,
+  draw(p, t) {
+    label(p, 30, 30, "CLEAN CORPUS", DIM_TEXT, 9.5);
+    rect(p, 30, 40, 250, 250, PANEL, PANEL_LINE);
+    const rowY = (r: number): number => 56 + r * 25;
+    const sweepY = 44 + ((t - 3.6) / 2.8) * 246;
+    const recoveredAt = (yc: number): number => 3.6 + ((yc - 44) / 246) * 2.8;
+    for (let r = 0; r < 9; r++) {
+      const w = 110 + 60 * hash2(r, 2);
+      rect(p, 44, rowY(r), w, 8, GREY_BAR);
+      const form = FORMS.findIndex((f) => f.row === r);
+      if (form < 0) continue;
+      const planted = easeOut(span(t, 0.6 + form * 0.6, 0.95 + form * 0.6));
+      if (planted <= 0) continue;
+      rect(p, 44 + w + 6, rowY(r), 56 * planted, 8, GREEN_FILL);
+      mono(p, 35, rowY(r) + 4, "+", GREEN_LABEL, 11, "center");
+      const yc = rowY(r) + 4;
+      const found = easeOut(span(t, recoveredAt(yc), recoveredAt(yc) + 0.3));
+      if (found > 0) p.circle(36, yc, 8 * found, form === 3 ? "rgba(44,169,66,0.6)" : GREEN_EDGE, 1, form === 3 ? [2, 2] : undefined);
+    }
+    if (t >= 3.6 && t <= 6.4) {
+      line(p, 32, sweepY, 278, sweepY, "rgba(245,242,234,0.6)");
+      label(p, 276, sweepY - 8, "DETECTOR", DIM_TEXT, 8.5, "right");
+    }
+    // what came back
+    label(p, 310, 30, "RECOVERY ON REAL DATA", DIM_TEXT, 9.5);
+    mono(p, 310, 46, "OpenBookQA × AG News", DIM_TEXT, 10.5);
+    label(p, 310, 68, "FORM", DIM_TEXT, 9);
+    label(p, 440, 68, "PRECISION", DIM_TEXT, 9, "center");
+    label(p, 525, 68, "RECALL", DIM_TEXT, 9, "center");
+    line(p, 310, 78, 570, 78, PANEL_LINE);
+    FORMS.forEach((form, k) => {
+      const y = 94 + k * 32;
+      mono(p, 310, y, form.name, SOFT_TEXT, 11);
+      const at = recoveredAt(rowY(form.row) + 4);
+      const v = easeOut(span(t, at + 0.2, at + 1));
+      const shown = t >= at;
+      mono(p, 440, y, shown ? v.toFixed(2) : "—", shown && v >= 1 ? GREEN_LABEL : SOFT_TEXT, 11.5, "center");
+      if (k < 3) mono(p, 525, y, shown ? v.toFixed(2) : "—", shown && v >= 1 ? GREEN_LABEL : SOFT_TEXT, 11.5, "center");
+      else label(p, 525, y, shown ? "UNDER-REPORTS" : "—", DIM_TEXT, 8.5, "center");
+    });
+    const tests = Math.round(34 * easeOut(span(t, 7.6, 9)));
+    mono(p, 310, 250, `${tests} / 34 TESTS PASSING`, tests === 34 ? GREEN_LABEL : SOFT_TEXT, 13);
+    if (tests === 34) mono(p, 310 + monoWidth(21, 13) + 10, 250, "✓", GREEN_LABEL, 14);
+    label(p, 310, 272, "PYTEST · CALIBRATION PER FORM", DIM_TEXT, 9);
+    label(p, 30, 384, "PLANT KNOWN LEAKS, SCORE WHAT COMES BACK · UNDER-REPORTS, NEVER FABRICATES", DIM_TEXT, 9.5);
+  },
+};
+
+// ---- the CI gate (a terminal)
+type Segment = readonly [string, string];
+interface TermLine {
+  at: number;
+  segments: Segment[];
+  typed?: boolean;
+  boxed?: boolean;
+}
+const TYPE_RATE = 48;
+const matcherLine = (name: string, took: string): Segment[] => [[`  ${name.padEnd(23)}`, SOFT_TEXT], ["✓", GREEN_LABEL], [`   ${took}`, DIM_TEXT]];
+const TERMINAL: TermLine[] = (() => {
+  const runs = [
+    {
+      cmd: "evalguard audit --corpus train.jsonl --benchmark obqa --fail-above 0.05",
+      result: [["ρ 2.8%   Δ +0.9 pts   evidence 14 spans → audit.json", CAPTION]] as Segment[],
+      gate: { segments: [["gate  PASS   ρ under 5%   exit 0", GREEN_LABEL]] as Segment[], boxed: false },
+    },
+    {
+      cmd: "evalguard audit --corpus train+scraped.jsonl --benchmark obqa --fail-above 0.05",
+      result: [["ρ 12.0%   Δ +4.6 pts   evidence 60 spans → audit.json", CAPTION]] as Segment[],
+      gate: { segments: [["gate  BLOCK  ρ over 5%   exit 1   promotion halted", CAPTION]] as Segment[], boxed: true },
+    },
+  ];
+  const out: TermLine[] = [];
+  let clock = 0.3;
+  for (const run of runs) {
+    out.push({ at: clock, segments: [["$ " + run.cmd, CAPTION]], typed: true });
+    clock += run.cmd.length / TYPE_RATE + 0.45;
+    const body: { segments: Segment[]; boxed?: boolean }[] = [
+      { segments: [["scanning 48,212 docs × 500 items", DIM_TEXT]] },
+      { segments: matcherLine("n-gram · minhash-lsh", "231 ms") },
+      { segments: matcherLine("tf-idf", "1.2 s") },
+      { segments: matcherLine("paraphrase", "3.8 s") },
+      { segments: matcherLine("answer-leak", "410 ms") },
+      { segments: run.result },
+      run.gate,
+    ];
+    for (const item of body) {
+      out.push({ at: clock, ...item });
+      clock += 0.45;
+    }
+    clock += 0.7;
+  }
+  out.push({ at: clock, segments: [["$ ", CAPTION]], typed: true });
+  return out;
+})();
+const gateScene: FlatScene = {
+  id: "eval-guard-gate",
+  duration: 14,
+  poster: 13.2,
+  draw(p, t) {
+    rect(p, 30, 28, 540, 340, "rgb(14,14,16)", PANEL_LINE);
+    for (const x of [46, 60, 74]) p.circle(x, 42, 3.5, null, 1, undefined, "rgb(60,60,64)");
+    mono(p, 300, 42, "ci · promotion gate", DIM_TEXT, 10.5, "center");
+    line(p, 30, 56, 570, 56, PANEL_LINE);
+    const size = 11;
+    let y = 72;
+    let last: TermLine | undefined;
+    for (const item of TERMINAL) {
+      if (t < item.at) break;
+      last = item;
+      let x = 44;
+      if (item.boxed) rect(p, 40, y - 9, monoWidth(item.segments[0][0].length, size) + 8, 18, "rgba(245,242,234,0.06)", "rgba(245,242,234,0.55)");
+      for (const [text, color] of item.segments) {
+        const shown = item.typed ? text.slice(0, 2 + Math.floor((t - item.at) * TYPE_RATE)) : text;
+        mono(p, x, y, shown, color, size);
+        x += monoWidth(shown.length, size);
+      }
+      const typing = item.typed && t - item.at < item.segments[0][0].length / TYPE_RATE;
+      const prompt = item === TERMINAL[TERMINAL.length - 1];
+      if ((typing || prompt) && Math.floor(t * 2) % 2 === 0) rect(p, x + 1, y - 6, 6, 12, "rgba(245,242,234,0.8)");
+      y += 16;
+    }
+    if (!last) rect(p, 45, 66, 6, 12, "rgba(245,242,234,0.8)");
+    label(p, 30, 386, "ILLUSTRATIVE RUNS · EXIT CODE 1 ABOVE THE THRESHOLD STOPS THE PIPELINE", DIM_TEXT, 9.5);
+  },
+};
+
+/** Every scene by id; a project's `cover.scene` or a figure's `scene` names one. */
+export const SCENES: Record<string, AnyScene> = {
+  [planetX.id]: planetX,
+  [evalGuard.id]: evalGuard,
+  [numbersScene.id]: numbersScene,
+  [matchersScene.id]: matchersScene,
+  [harnessScene.id]: harnessScene,
+  [gateScene.id]: gateScene,
+};

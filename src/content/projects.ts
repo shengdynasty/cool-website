@@ -3,7 +3,16 @@
 export type CoverTone = "original" | "invert" | "photo";
 /** fit "contain": a small logo, shown whole on white instead of cropped to fill (its text would be cut off). */
 export interface Cover { src: string; tone: CoverTone; fit?: "contain"; /** an animated scene (iso-engine.ts) drawn over the cover where JS runs */ scene?: string }
-export interface Diagram { src: string; tone: CoverTone; title: string; caption: string }
+export interface Diagram {
+  src: string;
+  tone: CoverTone;
+  title: string;
+  caption: string;
+  /** an animated scene (iso-engine.ts) that plays over the still where JS runs */
+  scene?: string;
+  /** index of the paragraph this figure follows; without it the figure goes in "How it works" */
+  after?: number;
+}
 export type ProjectCategory = "AI" | "MCP" | "Finance" | "Apps";
 export interface Project {
   id: string;              // slug, e.g. "eval-guard"
@@ -55,10 +64,43 @@ export const projects: Project[] = [
     "features": [],
     "diagrams": [
       {
-        "src": "/images/projects/eval-guard-report.webp",
+        "src": "/images/projects/eval-guard-numbers.webp",
         "tone": "original",
-        "title": "Project report",
-        "caption": "The consolidated project report: design, calibration, and results on real data."
+        "scene": "eval-guard-numbers",
+        "after": 0,
+        "title": "Two numbers out",
+        "caption": "An audit of a benchmark against a corpus, with illustrative numbers: every leaked item raises the contamination rate ρ, and the score inflation Δ is the slice of the reported score those items account for. Each hit arrives with its span."
+      },
+      {
+        "src": "/images/projects/eval-guard-gate.webp",
+        "tone": "original",
+        "scene": "eval-guard-gate",
+        "after": 1,
+        "title": "The CI gate",
+        "caption": "The CLI drops into a pipeline: it scans, prints ρ and Δ with the evidence file, and exits non-zero above the threshold, so a contaminated model never gets promoted. Illustrative runs."
+      },
+      {
+        "src": "/images/projects/eval-guard-matchers.webp",
+        "tone": "original",
+        "scene": "eval-guard-matchers",
+        "after": 2,
+        "title": "Four matchers, one verdict",
+        "caption": "Each benchmark item is checked four ways against the corpus: exact spans (n-gram and MinHash-LSH), lexical similarity (TF-IDF), paraphrase, and answer leakage. A hit names which matcher fired, the span, and the reason."
+      },
+      {
+        "src": "/images/projects/eval-guard-harness.webp",
+        "tone": "original",
+        "scene": "eval-guard-harness",
+        "after": 2,
+        "title": "The injection harness",
+        "caption": "Known contamination is planted into a clean corpus and the detector is scored on what it recovers. On OpenBookQA × AG News, three of four forms come back at precision 1.00 and recall 1.00; the fourth is under-reported, never fabricated. 34 tests guard it."
+      },
+      {
+        "src": "/images/projects/eval-guard-microscope.webp",
+        "tone": "original",
+        "after": 3,
+        "title": "The instrument",
+        "caption": "An antique microscope from The Met's collection, CC0, in the site's three tones with a green accent. EvalGuard does the same job for a reported score: put it under the glass and show what is actually there."
       }
     ]
   },
