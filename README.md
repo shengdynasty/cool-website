@@ -1,6 +1,6 @@
 # sheng-yan.com
 
-Sheng Yan's personal site, rebuilt from the design of [murphmaxxing.com](https://www.murphmaxxing.com/) in black, cream and MailZoo green. The previous Vite site is kept at the git tag `vite-site`.
+Sheng Yan's personal site
 
 Next.js 16 (App Router), React 19, TypeScript. All motion is hand-written canvas, `requestAnimationFrame` and `IntersectionObserver`, ported from the source site. There are no animation libraries.
 
