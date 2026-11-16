@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <radialGradient id="bg-eg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#0e1117"/>
+      <stop offset="100%" stop-color="#080810"/>
+    </radialGradient>
+    <filter id="glow-r" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-g" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-o" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid-eg" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40,0 L0,0 L0,40" fill="none" stroke="#ffffff" stroke-width="0.3" opacity="0.04"/>
+    </pattern>
+    <linearGradient id="bar-clean" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#059669" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="bar-cont" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#dc2626" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="score-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="72%" stop-color="#10b981"/>
+      <stop offset="72%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bg-eg)"/>
+  <rect width="800" height="450" fill="url(#grid-eg)"/>
+
+  <!-- Subtle ambient glow -->
+  <ellipse cx="400" cy="225" rx="320" ry="180" fill="#1a1a3a" opacity="0.25"/>
+
+  <!-- ─── LEFT PANEL: Corpus Documents ─── -->
+  <text x="58" y="68" font-family="monospace" font-size="9" fill="#333" letter-spacing="2">CORPUS  D</text>
+  <!-- Doc cards -->
+  <g opacity="0.85">
+    <!-- Doc 1 clean -->
+    <rect x="50" y="82" width="130" height="54" rx="3" fill="#111" stroke="#1e1e1e" stroke-width="1"/>
+    <rect x="60" y="93" width="80" height="4" rx="1" fill="#2a2a2a"/>
+    <rect x="60" y="102" width="95" height="3" rx="1" fill="#222"/>
+    <rect x="60" y="110" width="70" height="3" rx="1" fill="#222"/>
+    <rect x="60" y="118" width="85" height="3" rx="1" fill="#222"/>
+    <text x="155" y="112" font-family="monospace" font-size="7" fill="#333">clean</text>
+
+    <!-- Doc 2 contaminated -->
+    <rect x="50" y="147" width="130" height="54" rx="3" fill="#180a0a" stroke="#3a1111" stroke-width="1"/>
+    <rect x="60" y="158" width="80" height="4" rx="1" fill="#2a2a2a"/>
+    <rect x="60" y="167" width="95" height="3" rx="1" fill="#2a1a1a"/>
+    <rect x="60" y="175" width="70" height="3" rx="1" fill="#2a1a1a"/>
+    <rect x="60" y="183" width="85" height="3" rx="1" fill="#2a1a1a"/>
+    <circle cx="162" cy="112" r="4" fill="#ef4444" opacity="0.9" filter="url(#glow-r)"/>
+
+    <!-- Doc 3 clean -->
+    <rect x="50" y="212" width="130" height="54" rx="3" fill="#111" stroke="#1e1e1e" stroke-width="1"/>
+    <rect x="60" y="223" width="80" height="4" rx="1" fill="#2a2a2a"/>
+    <rect x="60" y="232" width="95" height="3" rx="1" fill="#222"/>
+    <rect x="60" y="240" width="70" height="3" rx="1" fill="#222"/>
+    <rect x="60" y="248" width="85" height="3" rx="1" fill="#222"/>
+
+    <!-- Doc 4 contaminated -->
+    <rect x="50" y="277" width="130" height="54" rx="3" fill="#180a0a" stroke="#3a1111" stroke-width="1"/>
+    <rect x="60" y="288" width="80" height="4" rx="1" fill="#2a2a2a"/>
+    <rect x="60" y="297" width="95" height="3" rx="1" fill="#2a1a1a"/>
+    <rect x="60" y="305" width="70" height="3" rx="1" fill="#2a1a1a"/>
+    <rect x="60" y="313" width="85" height="3" rx="1" fill="#2a1a1a"/>
+    <circle cx="162" cy="177" r="4" fill="#ef4444" opacity="0.9" filter="url(#glow-r)"/>
+
+    <!-- Doc 5 clean -->
+    <rect x="50" y="342" width="130" height="54" rx="3" fill="#111" stroke="#1e1e1e" stroke-width="1"/>
+    <rect x="60" y="353" width="80" height="4" rx="1" fill="#2a2a2a"/>
+    <rect x="60" y="362" width="95" height="3" rx="1" fill="#222"/>
+    <rect x="60" y="370" width="70" height="3" rx="1" fill="#222"/>
+    <rect x="60" y="378" width="55" height="3" rx="1" fill="#222"/>
+  </g>
+
+  <!-- ─── CENTER: Matcher Engine ─── -->
+  <text x="280" y="68" font-family="monospace" font-size="9" fill="#333" letter-spacing="2">MATCHER  ENSEMBLE</text>
+
+  <!-- Engine box -->
+  <rect x="265" y="82" width="270" height="300" rx="4" fill="#0d0d14" stroke="#1a1a2e" stroke-width="1"/>
+
+  <!-- Four matcher rows -->
+  <!-- n-gram / MinHash -->
+  <rect x="281" y="102" width="238" height="56" rx="3" fill="#0a0a12" stroke="#1e1e30" stroke-width="1"/>
+  <text x="295" y="119" font-family="monospace" font-size="8.5" fill="#6366f1">N-GRAM · MINHASH-LSH</text>
+  <text x="295" y="132" font-family="monospace" font-size="7.5" fill="#333">verbatim copy-paste detection</text>
+  <rect x="295" y="141" width="170" height="5" rx="2" fill="#1a1a2a"/>
+  <rect x="295" y="141" width="158" height="5" rx="2" fill="#6366f1" opacity="0.7"/>
+  <text x="471" y="148" font-family="monospace" font-size="7" fill="#6366f1">0.93</text>
+
+  <!-- TF-IDF -->
+  <rect x="281" y="166" width="238" height="56" rx="3" fill="#0a0a12" stroke="#1e1e30" stroke-width="1"/>
+  <text x="295" y="183" font-family="monospace" font-size="8.5" fill="#3b82f6">TF-IDF  RETRIEVAL</text>
+  <text x="295" y="196" font-family="monospace" font-size="7.5" fill="#333">near-duplicate / edited copies</text>
+  <rect x="295" y="205" width="170" height="5" rx="2" fill="#1a1a2a"/>
+  <rect x="295" y="205" width="130" height="5" rx="2" fill="#3b82f6" opacity="0.7"/>
+  <text x="471" y="212" font-family="monospace" font-size="7" fill="#3b82f6">0.77</text>
+
+  <!-- Paraphrase -->
+  <rect x="281" y="230" width="238" height="56" rx="3" fill="#0a0a12" stroke="#1e1e30" stroke-width="1"/>
+  <text x="295" y="247" font-family="monospace" font-size="8.5" fill="#f59e0b">PARAPHRASE  JUDGE</text>
+  <text x="295" y="260" font-family="monospace" font-size="7.5" fill="#333">IDF-weighted lexical overlap</text>
+  <rect x="295" y="269" width="170" height="5" rx="2" fill="#1a1a2a"/>
+  <rect x="295" y="269" width="112" height="5" rx="2" fill="#f59e0b" opacity="0.7"/>
+  <text x="471" y="276" font-family="monospace" font-size="7" fill="#f59e0b">0.66</text>
+
+  <!-- Answer leak -->
+  <rect x="281" y="294" width="238" height="56" rx="3" fill="#0a0a12" stroke="#1e1e30" stroke-width="1"/>
+  <text x="295" y="311" font-family="monospace" font-size="8.5" fill="#ec4899">ANSWER-LEAK  DETECTOR</text>
+  <text x="295" y="324" font-family="monospace" font-size="7.5" fill="#333">answer-token IDF match</text>
+  <rect x="295" y="333" width="170" height="5" rx="2" fill="#1a1a2a"/>
+  <rect x="295" y="333" width="55" height="5" rx="2" fill="#ec4899" opacity="0.7"/>
+  <text x="471" y="340" font-family="monospace" font-size="7" fill="#ec4899">0.33</text>
+
+  <!-- Combine label -->
+  <text x="340" y="375" font-family="monospace" font-size="7.5" fill="#444" letter-spacing="1">WEIGHTED COMBINE → c_i</text>
+
+  <!-- τ threshold line -->
+  <line x1="295" y1="387" x2="490" y2="387" stroke="#2a2a2a" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="295" y="397" font-family="monospace" font-size="7" fill="#333">τ = 0.62  (calibrated on TRAIN)</text>
+
+  <!-- ─── RIGHT PANEL: Results ─── -->
+  <text x="572" y="68" font-family="monospace" font-size="9" fill="#333" letter-spacing="2">AUDIT  OUTPUT</text>
+
+  <!-- ρ and Δ cards -->
+  <rect x="560" y="82" width="180" height="70" rx="3" fill="#0a110a" stroke="#1a2e1a" stroke-width="1"/>
+  <text x="574" y="103" font-family="monospace" font-size="9" fill="#444">contamination rate</text>
+  <text x="574" y="123" font-family="monospace" font-size="26" fill="#10b981" filter="url(#glow-g)" font-weight="700">ρ = 0.20</text>
+  <text x="574" y="142" font-family="monospace" font-size="7.5" fill="#333">20% of benchmark flagged</text>
+
+  <rect x="560" y="162" width="180" height="70" rx="3" fill="#0a110a" stroke="#1a2e1a" stroke-width="1"/>
+  <text x="574" y="183" font-family="monospace" font-size="9" fill="#444">score inflation</text>
+  <text x="574" y="203" font-family="monospace" font-size="26" fill="#10b981" filter="url(#glow-g)" font-weight="700">Δ = +0.08</text>
+  <text x="574" y="222" font-family="monospace" font-size="7.5" fill="#333">reported score inflated by 8pp</text>
+
+  <!-- Precision / Recall / F1 -->
+  <rect x="560" y="242" width="180" height="88" rx="3" fill="#111" stroke="#1e1e1e" stroke-width="1"/>
+  <text x="574" y="262" font-family="monospace" font-size="8.5" fill="#555">real data: OBQ × AG News</text>
+  <line x1="574" y1="269" x2="726" y2="269" stroke="#1e1e1e" stroke-width="1"/>
+  <text x="574" y="285" font-family="monospace" font-size="8" fill="#666">precision</text>
+  <text x="690" y="285" font-family="monospace" font-size="8" fill="#10b981">1.00</text>
+  <text x="574" y="300" font-family="monospace" font-size="8" fill="#666">recall</text>
+  <text x="690" y="300" font-family="monospace" font-size="8" fill="#f59e0b">0.67</text>
+  <text x="574" y="315" font-family="monospace" font-size="8" fill="#666">F1</text>
+  <text x="690" y="315" font-family="monospace" font-size="8" fill="#6366f1">0.80</text>
+  <text x="574" y="322" font-family="monospace" font-size="7" fill="#2a2a2a">conservative failure · never fabricates</text>
+
+  <!-- CLI block -->
+  <rect x="560" y="340" width="180" height="60" rx="3" fill="#080808" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="574" y="360" font-family="monospace" font-size="7.5" fill="#555">$ evalguard audit \</text>
+  <text x="574" y="374" font-family="monospace" font-size="7.5" fill="#555">    --benchmark obqa \</text>
+  <text x="574" y="388" font-family="monospace" font-size="7.5" fill="#555">    --corpus ag_news</text>
+
+  <!-- Connecting arrows corpus → engine -->
+  <line x1="182" y1="109" x2="263" y2="150" stroke="#1e1e2e" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="182" y1="174" x2="263" y2="200" stroke="#3a1111" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="182" y1="239" x2="263" y2="253" stroke="#1e1e2e" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="182" y1="304" x2="263" y2="318" stroke="#3a1111" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+
+  <!-- Connecting arrow engine → results -->
+  <line x1="537" y1="230" x2="558" y2="230" stroke="#10b981" stroke-width="1.5" opacity="0.5"/>
+  <polygon points="556,226 564,230 556,234" fill="#10b981" opacity="0.5"/>
+
+  <!-- Title watermark -->
+  <text x="400" y="432" font-family="monospace" font-size="10" fill="#1a1a2a" text-anchor="middle" letter-spacing="6">EVALGUARD · LLM CONTAMINATION AUDITOR</text>
+</svg>
