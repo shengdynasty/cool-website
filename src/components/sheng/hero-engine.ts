@@ -181,6 +181,9 @@ export class HeroEngine {
   private raf = 0;
   private disposed = false;
   private io: IntersectionObserver | null = null;
+  /** Latest pointer event, applied in the next frame so layout is read once per frame, not per event. */
+  private pendingAim: PointerEvent | null = null;
+  private deckPad: number | null = null;
   private ro: ResizeObserver | null = null;
   private readonly listeners = new AbortController();
   private readonly timers = new Set<number>();
@@ -640,6 +643,7 @@ export class HeroEngine {
   }
 
   private resized() {
+    this.deckPad = null;
     if (!this.ctx || this.canvas.offsetWidth === this.sizeW) return;
     this.build();
     this.pen = null;
@@ -653,6 +657,10 @@ export class HeroEngine {
   private readonly frame = (now: number) => {
     this.raf = requestAnimationFrame(this.frame);
     if (!this.visible) return;
+    if (this.pendingAim) {
+      this.aim(this.pendingAim);
+      this.pendingAim = null;
+    }
     this.stepText(now);
     this.stepPlaceholder(now);
     this.stepCard();
@@ -858,7 +866,7 @@ export class HeroEngine {
   private aim(e: PointerEvent) {
     const t = this.tilt;
     const rect = this.deck.getBoundingClientRect();
-    const padTop = parseFloat(getComputedStyle(this.deck).paddingTop) || 0;
+    const padTop = (this.deckPad ??= parseFloat(getComputedStyle(this.deck).paddingTop) || 0);
     const top = rect.top + padTop;
     const height = rect.height - padTop;
     const nx = Math.max(-1, Math.min(1, (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2)));
@@ -905,7 +913,7 @@ export class HeroEngine {
       row: ((e.clientY - rect.top) / rect.height) * this.rows,
       at: performance.now(),
     };
-    if (e.pointerType !== "touch") this.aim(e);
+    if (e.pointerType !== "touch") this.pendingAim = e; // measured once per frame, in frame()
   };
 
   private readonly onLeave = () => {

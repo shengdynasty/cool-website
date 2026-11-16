@@ -32,7 +32,7 @@ async function bbox(input, options, test) {
 
 const photo = (from, to) => sharp(from).resize({ width: 1400, withoutEnlargement: true }).jpeg({ quality: 82, mozjpeg: true }).toFile(to);
 const badge = (input, options, region, to) =>
-  sharp(input, options).extract(region).resize(256, 256, { fit: "contain", background: "#ffffff" }).flatten({ background: "#ffffff" }).png().toFile(to);
+  sharp(input, options).extract(region).resize(96, 96, { fit: "contain", background: "#ffffff" }).flatten({ background: "#ffffff" }).png().toFile(to);
 
 // backgrounds
 await photo(A("mailzoo-office.jpg"), path.join(OUT, "mailzoo-bg.jpg"));

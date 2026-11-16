@@ -28,7 +28,6 @@ const OUTLINE_RAMP: ColorRamp = [
 /** Drop-shadow cells pulse between these two greys. */
 const SHADOW_DARK: Rgb = [34, 34, 34];
 const SHADOW_LIGHT: Rgb = [64, 64, 64];
-const WHITE: Rgb = [255, 255, 255];
 const FILL_TINT: Rgb = [118, 118, 118];
 const GLYPH_LAYER_COLOR = "#F5F2EA";
 const GLYPHS = "{}[]<>/=#:;+*";
@@ -37,32 +36,32 @@ const SWEEP_MS = 1700;
 const SWEEP_DELAY_MS = 250;
 const WAVE_MS = 1100;
 const AMBIENT_PERIOD_S = 8.2;
-/** Once the sweep is over, frames are spaced at least this far apart (about 33fps). */
-const MIN_FRAME_GAP_MS = 30;
+/** Frames are spaced at least this far apart (about 60fps, also on 120Hz displays). */
+const MIN_FRAME_GAP_MS = 16;
 /** While sweeping, every cell's glyph re-rolls at this interval. */
 const GLYPH_TICK_MS = 70;
 /** Layer values below this are treated as empty. */
 const MIN_LAYER = 0.04;
 
-const mix = (from: Rgb, to: Rgb, amount: number): Rgb => [
-  from[0] + (to[0] - from[0]) * amount,
-  from[1] + (to[1] - from[1]) * amount,
-  from[2] + (to[2] - from[2]) * amount,
-];
-
-const toCss = (color: Rgb) => `rgb(${color[0] | 0},${color[1] | 0},${color[2] | 0})`;
-
-/** Looks a colour up on a ramp, wrapping `position` into [0, 1) so ramps can scroll forever. */
-function sampleRamp(ramp: ColorRamp, position: number): Rgb {
+/** Looks a colour up on a ramp, wrapping `position` into [0, 1) so ramps can scroll forever; written into `out`
+ * so the per-frame cell loop allocates nothing. */
+function sampleRampInto(ramp: ColorRamp, position: number, out: Float64Array): void {
   const wrapped = position - Math.floor(position);
   for (let stop = 1; stop < ramp.length; stop++) {
     if (wrapped <= ramp[stop][0]) {
-      const [fromAt, fromColor] = ramp[stop - 1];
-      const [toAt, toColor] = ramp[stop];
-      return mix(fromColor, toColor, (wrapped - fromAt) / (toAt - fromAt));
+      const fromAt = ramp[stop - 1][0], from = ramp[stop - 1][1];
+      const toAt = ramp[stop][0], to = ramp[stop][1];
+      const amount = (wrapped - fromAt) / (toAt - fromAt);
+      out[0] = from[0] + (to[0] - from[0]) * amount;
+      out[1] = from[1] + (to[1] - from[1]) * amount;
+      out[2] = from[2] + (to[2] - from[2]) * amount;
+      return;
     }
   }
-  return ramp[ramp.length - 1][1];
+  const last = ramp[ramp.length - 1][1];
+  out[0] = last[0];
+  out[1] = last[1];
+  out[2] = last[2];
 }
 
 /** Deterministic per-cell noise in [0, 1) (the classic sin-fract hash). */
@@ -97,7 +96,13 @@ export function initPortraitMark(canvas: HTMLCanvasElement, { src, mono }: Portr
   // One pixel per cell: the cutout is resampled here and read back as the cell layers.
   const sampler = document.createElement("canvas");
   const samplerCtx = sampler.getContext("2d", { willReadFrequently: true });
-  if (!ctx || !glyphCtx || !samplerCtx) return () => {};
+  // One pixel per cell again, for drawing: each frame's cell colours are written into this image and blitted
+  // up to the canvas with smoothing off, so a frame costs one putImageData and one drawImage instead of a
+  // fillRect (and a colour string) per cell.
+  const cells = document.createElement("canvas");
+  const cellsCtx = cells.getContext("2d");
+  if (!ctx || !glyphCtx || !samplerCtx || !cellsCtx) return () => {};
+  let cellImage: ImageData | null = null;
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let portrait: HTMLImageElement | null = null;
@@ -109,6 +114,9 @@ export function initPortraitMark(canvas: HTMLCanvasElement, { src, mono }: Portr
   let fill = new Float32Array(0);
   let outline = new Float32Array(0);
   let shadow = new Float32Array(0);
+  /** When each cell appears during the sweep (0–1 across the grid, jittered per cell); static per layout. */
+  let revealAt = new Float32Array(0);
+  const ramp = new Float64Array(3);
   let frameId = 0;
   let lastFrameAt = 0;
   let visible = false;
@@ -165,6 +173,8 @@ export function initPortraitMark(canvas: HTMLCanvasElement, { src, mono }: Portr
     }
     outline = new Float32Array(cellCount);
     shadow = new Float32Array(cellCount);
+    revealAt = new Float32Array(cellCount);
+    for (let row = 0; row < rows; row++) for (let col = 0; col < cols; col++) revealAt[row * cols + col] = 0.22 * hash(col, row) + 0.78 * (col / cols);
     for (let index = 0; index < cellCount; index++) {
       // Outline: the one-cell ring the dilation adds around the silhouette.
       outline[index] = Math.max(0, stroke[index] - mask[index]);
@@ -176,6 +186,10 @@ export function initPortraitMark(canvas: HTMLCanvasElement, { src, mono }: Portr
       }
       shadow[index] = Math.max(0, above - stroke[index]);
     }
+
+    cells.width = cols;
+    cells.height = rows;
+    cellImage = cellsCtx.createImageData(cols, rows);
 
     glyphLayer.width = canvas.width;
     glyphLayer.height = canvas.height;
@@ -200,6 +214,7 @@ export function initPortraitMark(canvas: HTMLCanvasElement, { src, mono }: Portr
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
     ctx.clearRect(0, 0, width, height);
+    if (!cellImage) return false;
     const sweepProgress = reducedMotion ? 1 : clamp01((now - sweepStart) / SWEEP_MS);
     const sweeping = sweepProgress < 1;
     // Reveal front; it overshoots to 1.04 so the most-jittered cells on the right still land.
@@ -212,22 +227,27 @@ export function initPortraitMark(canvas: HTMLCanvasElement, { src, mono }: Portr
     const waveProgress = (now - waveStart) / WAVE_MS;
     const waveActive = waveProgress >= 0 && waveProgress < 1;
     const glyphTick = sweeping ? Math.floor(now / GLYPH_TICK_MS) : 0;
-    ctx.font = `700 ${1.02 * cellHeight}px ${mono}`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    // Cell edges snap to device pixels so neighbouring blocks tile without seams.
-    const snapX = (col: number) => Math.round(col * cellWidth * pixelRatio) / pixelRatio;
-    const snapY = (row: number) => Math.round(row * cellHeight * pixelRatio) / pixelRatio;
-    const paintCell = (col: number, row: number, color: Rgb, glyphWhiten: number, alpha: number, glyph: string) => {
-      const left = snapX(col);
-      const top = snapY(row);
-      ctx.globalAlpha = 0.9 * alpha;
-      ctx.fillStyle = toCss(color);
-      ctx.fillRect(left, top, snapX(col + 1) - left, snapY(row + 1) - top);
+    const px = cellImage.data;
+    px.fill(0);
+    // While sweeping, each painted layer also draws its glyph over the cell (as the source did); collected
+    // here and drawn after the blocks so they sit on top.
+    const glyphs: { x: number; y: number; css: string; alpha: number; glyph: string }[] = [];
+
+    // Composites one layer onto the current cell (source-over, like the fillRect it replaces).
+    let cellR = 0, cellG = 0, cellB = 0, cellA = 0;
+    const paintCell = (col: number, row: number, r: number, g: number, b: number, glyphWhiten: number, alpha: number, glyph: string) => {
+      const a = 0.9 * alpha;
+      const outA = a + cellA * (1 - a);
+      if (outA > 0) {
+        const keep = (cellA * (1 - a)) / outA;
+        cellR = (r * a) / outA + cellR * keep;
+        cellG = (g * a) / outA + cellG * keep;
+        cellB = (b * a) / outA + cellB * keep;
+        cellA = outA;
+      }
       if (sweeping) {
-        ctx.globalAlpha = alpha;
-        ctx.fillStyle = toCss(mix(color, WHITE, glyphWhiten));
-        ctx.fillText(glyph, col * cellWidth + cellWidth / 2, row * cellHeight + cellHeight / 2);
+        const css = `rgb(${(r + (255 - r) * glyphWhiten) | 0},${(g + (255 - g) * glyphWhiten) | 0},${(b + (255 - b) * glyphWhiten) | 0})`;
+        glyphs.push({ x: col * cellWidth + cellWidth / 2, y: row * cellHeight + cellHeight / 2, css, alpha, glyph });
       }
     };
 
@@ -241,35 +261,59 @@ export function initPortraitMark(canvas: HTMLCanvasElement, { src, mono }: Portr
         if (fillAlpha < MIN_LAYER && outlineAlpha < MIN_LAYER && shadowAlpha < MIN_LAYER) continue;
         const colFraction = col / cols;
         // A cell appears once the front passes its column, jittered per cell.
-        const revealAt = 0.22 * hash(col, row) + 0.78 * colFraction;
-        if (revealAt > front) continue;
+        const appears = revealAt[index];
+        if (appears > front) continue;
         const glyph = sweeping ? glyphAt(col + glyphTick, row) : "";
         // Distance to the slanted pointerenter wave, which travels from -0.2 to 1.2 across the grid.
         const waveDistance = waveActive ? Math.abs(colFraction + 0.06 * rowFraction - (1.4 * waveProgress - 0.2)) : 1;
         // Cells on the sweep's leading edge, or under the wave, flash towards white.
-        const highlight = sweeping && front - revealAt < 0.04 ? 1 : clamp01(1 - waveDistance / 0.09) ** 2;
+        const highlight = sweeping && front - appears < 0.04 ? 1 : clamp01(1 - waveDistance / 0.09) ** 2;
         const pulse =
           ambient * (0.5 + 0.5 * Math.sin((ambientSeconds * Math.PI * 2) / AMBIENT_PERIOD_S - 3.2 * colFraction - 0.8 * rowFraction));
+        cellR = cellG = cellB = cellA = 0;
         if (shadowAlpha > MIN_LAYER) {
-          paintCell(col, row, mix(SHADOW_DARK, SHADOW_LIGHT, 0.5 * pulse), 0.18, shadowAlpha, glyph);
+          // mix(SHADOW_DARK, SHADOW_LIGHT, 0.5 * pulse)
+          const m = 0.5 * pulse;
+          paintCell(col, row, SHADOW_DARK[0] + (SHADOW_LIGHT[0] - SHADOW_DARK[0]) * m, SHADOW_DARK[1] + (SHADOW_LIGHT[1] - SHADOW_DARK[1]) * m, SHADOW_DARK[2] + (SHADOW_LIGHT[2] - SHADOW_DARK[2]) * m, 0.18, shadowAlpha, glyph);
         }
         if (outlineAlpha > MIN_LAYER) {
           const wobble = 0.035 * ambient * Math.sin(0.7 * ambientSeconds + 5 * rowFraction);
-          const rampColor = sampleRamp(OUTLINE_RAMP, 0.92 * colFraction + 0.05 * rowFraction + rampShift + wobble);
-          paintCell(col, row, mix(rampColor, WHITE, highlight), 0.45, Math.min(1, 1.25 * outlineAlpha), glyph);
+          sampleRampInto(OUTLINE_RAMP, 0.92 * colFraction + 0.05 * rowFraction + rampShift + wobble, ramp);
+          // mix(rampColor, WHITE, highlight)
+          paintCell(col, row, ramp[0] + (255 - ramp[0]) * highlight, ramp[1] + (255 - ramp[1]) * highlight, ramp[2] + (255 - ramp[2]) * highlight, 0.45, Math.min(1, 1.25 * outlineAlpha), glyph);
         }
         if (fillAlpha > MIN_LAYER) {
           const drift = 0.09 * ambient * Math.sin(0.42 * ambientSeconds + 5 * colFraction + 1.5 * rowFraction);
-          const lifted = mix(
-            sampleRamp(FILL_RAMP, 0.999 * clamp01(colFraction + drift)),
-            WHITE,
-            clamp01(0.2 * (1 - rowFraction) + 0.16 * pulse + 0.7 * highlight),
-          );
-          paintCell(col, row, mix(lifted, FILL_TINT, 0.1 + (1 - pulse) * ambient * 0.06), 0.5, fillAlpha, glyph);
+          sampleRampInto(FILL_RAMP, 0.999 * clamp01(colFraction + drift), ramp);
+          // lifted = mix(ramp, WHITE, lift); then mix(lifted, FILL_TINT, tint)
+          const lift = clamp01(0.2 * (1 - rowFraction) + 0.16 * pulse + 0.7 * highlight);
+          const tint = 0.1 + (1 - pulse) * ambient * 0.06;
+          const lr = ramp[0] + (255 - ramp[0]) * lift, lg = ramp[1] + (255 - ramp[1]) * lift, lb = ramp[2] + (255 - ramp[2]) * lift;
+          paintCell(col, row, lr + (FILL_TINT[0] - lr) * tint, lg + (FILL_TINT[1] - lg) * tint, lb + (FILL_TINT[2] - lb) * tint, 0.5, fillAlpha, glyph);
         }
+        const at = index * 4;
+        px[at] = cellR;
+        px[at + 1] = cellG;
+        px[at + 2] = cellB;
+        px[at + 3] = cellA * 255;
       }
     }
 
+    // Blit the cell image up to the grid. Drawn at cols×cellWidth by rows×cellHeight (not the canvas size) so
+    // every cell edge lands on the same device pixel the per-cell rectangles used to snap to.
+    cellsCtx.putImageData(cellImage, 0, 0);
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(cells, 0, 0, cols * cellWidth, rows * cellHeight);
+    if (glyphs.length) {
+      ctx.font = `700 ${1.02 * cellHeight}px ${mono}`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      for (const g of glyphs) {
+        ctx.globalAlpha = g.alpha;
+        ctx.fillStyle = g.css;
+        ctx.fillText(g.glyph, g.x, g.y);
+      }
+    }
     if (!sweeping) {
       ctx.globalAlpha = 0.5;
       ctx.drawImage(glyphLayer, 0, 0, width, height);
@@ -281,7 +325,7 @@ export function initPortraitMark(canvas: HTMLCanvasElement, { src, mono }: Portr
   const frame = (now: number) => {
     frameId = 0;
     if (disposed || !visible || !started) return;
-    if (now - sweepStart > SWEEP_MS && now - lastFrameAt < MIN_FRAME_GAP_MS) {
+    if (now - lastFrameAt < MIN_FRAME_GAP_MS) {
       frameId = requestAnimationFrame(frame);
       return;
     }

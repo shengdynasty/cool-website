@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element -- the header cover has a dissolve canvas over it, like the source */
 import type { CSSProperties, ReactNode } from "react";
 import type { Cover } from "@/content/projects";
 import { ArrowRightIcon } from "./icons";
@@ -49,7 +48,11 @@ export function DetailPage({ back, meta, title, lede, cover, children, contact, 
             </div>
           </div>
           <span className={`cover tone-${cover.tone}${cover.fit ? ` fit-${cover.fit}` : ""}`}>
-            <img src={cover.src} width={1200} height={800} alt="" fetchPriority="high" decoding="async" />
+            {/* <picture> keeps React from emitting a preload hint, which otherwise rides along with route prefetches
+                and downloads every cover onto whichever page links here */}
+            <picture>
+              <img src={cover.src} width={1200} height={800} alt="" fetchPriority="high" decoding="async" />
+            </picture>
             <canvas aria-hidden="true" />
           </span>
         </div>

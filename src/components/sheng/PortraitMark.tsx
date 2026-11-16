@@ -26,8 +26,10 @@ export function PortraitMark({ src, fallbackSrc, alt, mono }: PortraitMarkProps)
   return (
     <div className="ultra ascii-portrait">
       <canvas ref={canvasRef} role="img" aria-label={alt} />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="ultra-plain" src={fallbackSrc} alt="" aria-hidden="true" width={1086} height={724} />
+      <noscript>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="ultra-plain" src={fallbackSrc} alt="" aria-hidden="true" width={1086} height={724} />
+      </noscript>
     </div>
   );
 }
