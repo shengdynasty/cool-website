@@ -152,3 +152,11 @@ body {
 .home .inbox-list p { margin: 0; font-size: 16px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; color: #F5F2EA; }
 .home .inbox-list span { display: block; margin-top: 6px; font-family: var(--mono); font-size: 13px; color: #BDBDBD; }
 .home .inbox-empty { margin: 0; font-size: 14px; color: #BDBDBD; }
+
+/* The hero is at least as tall as its picture plus the status row, so the picture ends above the row instead of
+   running on underneath it. (The source let it: the stage is 8:5 of max(100%, 1440px) while the hero was
+   max(900px, 100vh), which only line up at exactly 1440px wide.) On phones the stage is 1350px wide at top: 100px. */
+.home .hero { min-height: max(900px, 100vh, calc(max(100vw, 1440px) * 0.625 + 41px)); }
+@media (max-width: 760px) {
+  .home .hero { min-height: max(985px, 100vh); }
+}
