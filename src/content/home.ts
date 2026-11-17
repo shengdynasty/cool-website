@@ -84,7 +84,7 @@ export const status = {
     { term: "Now · Wharton", detail: "Team leader in the Global High School Investment Competition. Six people and a $300K simulated fund, synced to the live market." },
     { term: "Recent · YC Startup School", detail: "Invited to Y Combinator's founder conference in San Francisco, with sessions from Jensen Huang and Sam Altman." },
     { term: "Recent · Cornell", detail: "1st place in the Business Simulation Competition at the SC Johnson College of Business, July 2026." },
-    { term: "Next", detail: "Wharton submission, the Conrad Challenge, AMC 10/12 in November, and a couple of stealth startups." },
+    { term: "Next", detail: "Wharton submission, the Conrad Challenge, Project Modula, and Project Reelix." },
   ],
   links: [
     { label: "github", href: site.github, external: true },
