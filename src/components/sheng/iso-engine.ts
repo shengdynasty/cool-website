@@ -860,6 +860,107 @@ const evalGuard: Scene = {
 };
 
 
+/**
+ * Project Reelix: a question comes in, Wikipedia fills it in with a credited photo, a director raises one 3D world of
+ * set pieces, the camera flies through them while the narrator speaks, and the browser saves the video as an MP4.
+ */
+const PROMPT = "WHY IS THE SKY BLUE?";
+/** The set pieces in the order the camera visits them, and what each one holds. */
+const PIECES: Point[] = [[-0.6, -1.6], [1.2, -1.2], [3.0, -0.6], [4.8, 0.2]];
+const PIECE_NAMES = ["TITLE", "CHART", "PHOTO", "KIT MODEL"];
+const PLINTH_TOP = 0.45;
+const CAM_Z = 2.3;
+/** The camera's place on its flight through the pieces, `k` from 0 (first piece) to 1 (last), easing at each stop. */
+const cameraAt = (k: number): Point => {
+  const s = k * (PIECES.length - 1);
+  const i = Math.min(PIECES.length - 2, Math.floor(s));
+  const f = easeInOut(s - i);
+  return [lerp(PIECES[i][0], PIECES[i + 1][0], f), lerp(PIECES[i][1], PIECES[i + 1][1], f)];
+};
+
+const reelix: Scene = {
+  id: "reelix",
+  duration: 16,
+  poster: 11.6,
+  bounds: { min: [-6, -4.2, 0], max: [6, 4.2, 3] },
+  beats: [
+    { at: 0, caption: "ASK ANYTHING · OR UPLOAD A FILE" },
+    { at: 3, caption: "WIKIPEDIA FILLS IN · FREE PHOTOS, CREDITED" },
+    { at: 6, caption: "A DIRECTOR RAISES ONE 3D WORLD" },
+    { at: 9.4, caption: "THE CAMERA FLIES · THE NARRATOR SPEAKS" },
+    { at: 13.4, caption: "SAVED AS A 1080P MP4 · ALL IN THE BROWSER" },
+  ],
+  frame(t) {
+    const shapes: Shape[] = [];
+    const lines: Line3[] = [];
+    const marks: Mark[] = [];
+    const labels: Label[] = [];
+    shapes.push(box(-5.8, -4, 0, 5.8, 4, 0.3, SLAB));
+
+    // the question, typed into the one box
+    shapes.push(box(-5.4, 2.7, 0.3, -1.4, 3.5, 0.5, DARK));
+    const typed = PROMPT.slice(0, Math.round(PROMPT.length * span(t, 0.3, 2.4)));
+    if (typed) labels.push({ at: [-3.4, 3.1, 0.5], text: typed + (t < 2.6 && Math.floor(t * 3) % 2 === 0 ? "_" : ""), dy: -6 });
+
+    // Wikipedia's pages drop onto a stack; a freely licensed photo stands beside them with its credit
+    for (let i = 0; i < 3; i++) {
+      const a = easeOut(span(t, 3 + i * 0.25, 3.5 + i * 0.25));
+      if (a <= 0) continue;
+      const z = 0.3 + i * 0.14 + (1 - a) * 1.2;
+      shapes.push(box(-5.1, -1.3, z, -3.4, 0.9, z + 0.1, DOC, EDGE_SOFT));
+    }
+    if (t >= 3.8) labels.push({ at: [-5.1, 0.9, 0.75], text: "WIKIPEDIA", dy: -6, align: "right" });
+    const photo = easeOut(span(t, 4.2, 5));
+    if (photo > 0) {
+      shapes.push(box(-2.75, -2.1, 0.3, -2.6, -0.5, 0.3 + 1.3 * photo, mix(DOC, CREAM, 0.35), GREEN_EDGE));
+      if (photo > 0.95) labels.push({ at: [-2.6, -2.1, 0.3], text: "PHOTO · CC BY", dy: 12, color: GREEN_LABEL });
+    }
+
+    // the world: a plinth per scene rises along the path, each holding what its scene shows
+    const fly = span(t, 9.4, 13);
+    const flying = t >= 9.2;
+    PIECES.forEach(([x, y], i) => {
+      const a = easeOut(span(t, 6 + i * 0.55, 6.7 + i * 0.55));
+      if (a <= 0) return;
+      const visit = flying ? clamp01(1 - Math.abs(fly * (PIECES.length - 1) - i) * 1.6) : 0;
+      const top = 0.3 + (PLINTH_TOP - 0.3) * a;
+      shapes.push(box(x - 0.6, y - 0.6, 0.3, x + 0.6, y + 0.6, top, mix(SLATE, GREEN, 0.55 * visit), visit > 0.5 ? GREEN_EDGE : EDGE_SOFT));
+      const glow = mix(SLATE, GREEN, 0.25 + 0.75 * visit);
+      if (i === 0) shapes.push(box(x - 0.28, y - 0.28, top, x + 0.28, y + 0.28, top + 0.56 * a, glow, GREEN_EDGE));
+      if (i === 1)
+        [0.35, 0.7, 1.05].forEach((h, k) => shapes.push(box(x - 0.42 + k * 0.3, y - 0.12, top, x - 0.22 + k * 0.3, y + 0.12, top + h * a, k === 2 ? glow : BAR, k === 2 ? GREEN_EDGE : EDGE_SOFT)));
+      if (i === 2) shapes.push(box(x - 0.06, y - 0.48, top, x + 0.06, y + 0.48, top + 0.8 * a, mix(DOC, CREAM, 0.35), visit > 0.5 ? GREEN_EDGE : EDGE_SOFT));
+      if (i === 3) {
+        // a kit's black hole: a dark core inside a glowing disk
+        shapes.push(box(x - 0.14, y - 0.14, top + 0.35, x + 0.14, y + 0.14, top + 0.63, DARK, EDGE));
+        lines.push({ pts: circle(x, y, top + 0.49, 0.5 * a, 20), color: `rgba(44,169,66,${0.55 + 0.45 * visit})`, width: 2, depth: x + y + top + 1 });
+      }
+      if (a > 0.95 && !flying) labels.push({ at: [x, y, top + 1.2], text: PIECE_NAMES[i], dy: -6, color: LABEL_DIM });
+    });
+
+    // the camera: lands on each piece in turn, leaving its path behind it
+    if (flying) {
+      const [cx, cy] = cameraAt(fly);
+      const done = fly * (PIECES.length - 1);
+      const trail: Vec3[] = PIECES.slice(0, Math.floor(done) + 1).map(([x, y]) => [x, y, CAM_Z + 0.2]);
+      trail.push([cx, cy, CAM_Z + 0.2]);
+      lines.push({ pts: trail, color: "rgba(44,169,66,0.7)", dash: [3, 4], depth: 100 });
+      shapes.push(frustum(cx, cy, CAM_Z - 0.35, 0.1, CAM_Z, 0.22, 10, DARK));
+      shapes.push(box(cx - 0.32, cy - 0.24, CAM_Z, cx + 0.32, cy + 0.24, CAM_Z + 0.42, SLATE, EDGE));
+      labels.push({ at: [cx, cy, CAM_Z + 0.5], text: t < 13.2 ? "CAMERA · NARRATION" : "CAMERA", dy: -6 });
+    }
+
+    // the file: a 1080p MP4, rendered frame by frame
+    shapes.push(box(4.9, -3.7, 0.3, 5.1, -1.0, 2.1, DARK));
+    const save = easeOut(span(t, 13.4, 15.2));
+    lines.push({ pts: [[5.11, -3.4, 1.2], [5.11, -1.3, 1.2]], color: EDGE_SOFT, depth: 100 });
+    if (save > 0) shapes.push(box(5.1, -3.4, 1.1, 5.2, -3.4 + 2.1 * save, 1.3, GREEN, GREEN_EDGE));
+    labels.push({ at: [5.1, -2.35, 2.1], text: save >= 1 ? "SAVED · 1080P MP4" : "MP4", dy: -6, color: save >= 1 ? GREEN_LABEL : LABEL_DIM });
+
+    return { shapes, lines, marks, labels };
+  },
+};
+
 // ================================================================ flat scenes (EvalGuard's "how it works" figures)
 const PANEL = "rgb(16, 16, 18)";
 const PANEL_LINE = "rgba(245, 242, 234, 0.25)";
@@ -1140,9 +1241,237 @@ const gateScene: FlatScene = {
   },
 };
 
+// ================================================================ flat scenes (Project Reelix's "how it works" figures)
+const OUTLINE = "rgba(0,0,0,0)";
+
+// ---- from a question to a storyboard
+const ARTICLE_LINES = 9;
+/** The article's sentences the planner keeps, in order, and the scene each one becomes. */
+const PICKS: { line: number; scene: string }[] = [
+  { line: 0, scene: "TITLE · WHY IS THE SKY BLUE?" },
+  { line: 1, scene: "DEFINITION · DIFFUSE SKY RADIATION" },
+  { line: 3, scene: "KEY POINTS · 3 ITEMS" },
+  { line: 4, scene: "STAT · 42% IS VISIBLE LIGHT" },
+  { line: 6, scene: "CHART · SCATTERING BY COLOR" },
+  { line: 8, scene: "IN SHORT · ONE LINE" },
+];
+const PICK_START = 3.6;
+const PICK_STEP = 0.7;
+const plannerScene: FlatScene = {
+  id: "reelix-planner",
+  duration: 12,
+  poster: 9.5,
+  draw(p, t) {
+    const question = "why is the sky blue?";
+    label(p, 30, 34, "THE QUESTION", DIM_TEXT, 9.5);
+    rect(p, 30, 46, 230, 30, PANEL, PANEL_LINE);
+    const typed = question.slice(0, Math.round(question.length * clamp01(t / 1.4)));
+    mono(p, 42, 61, typed + (t < 1.6 && Math.floor(t * 3) % 2 === 0 ? "_" : ""), CAPTION, 12);
+    label(p, 30, 102, "WIKIPEDIA · DIFFUSE SKY RADIATION", DIM_TEXT, 9.5);
+    rect(p, 30, 112, 230, 248, PANEL, PANEL_LINE);
+    for (let i = 0; i < ARTICLE_LINES; i++) {
+      const a = clamp01((t - 1.6 - i * 0.12) / 0.3);
+      if (a <= 0) continue;
+      const pick = PICKS.findIndex((k) => k.line === i);
+      const on = pick >= 0 ? clamp01((t - PICK_START - pick * PICK_STEP) / 0.35) : 0;
+      const w = 160 + 40 * hash2(i, 2.2);
+      const y = 128 + i * 26;
+      rect(p, 44, y, w * a, 8, on > 0 ? `rgba(44,169,66,${0.35 + 0.65 * on})` : GREY_BAR, null);
+      rect(p, 44, y + 11, (w - 60) * a, 5, "rgb(38,38,42)", null);
+      if (on > 0) line(p, 44 + w, y + 4, 330, 66 + pick * 50, `rgba(44,169,66,${0.6 * on})`, 1, [3, 3]);
+    }
+    label(p, 330, 34, "THE STORYBOARD", DIM_TEXT, 9.5);
+    PICKS.forEach((k, i) => {
+      const on = clamp01((t - PICK_START - i * PICK_STEP) / 0.35);
+      if (on <= 0) return;
+      const y = 50 + i * 50;
+      rect(p, 330 + (1 - on) * 20, y, 240, 32, PANEL, on >= 1 ? GREEN_EDGE : PANEL_LINE);
+      mono(p, 344 + (1 - on) * 20, y + 16, k.scene, on >= 1 ? CAPTION : SOFT_TEXT, 10.5);
+    });
+    label(p, 30, 384, "A RULE BASED PLANNER IN THE BROWSER · NO API KEY", DIM_TEXT, 9.5);
+  },
+};
+
+// ---- motion on the spoken word
+const CUE_WORDS = ["Sunlight", "holds", "every", "color,", "air", "scatters", "blue", "most,", "and", "sunsets", "turn", "red."];
+/** The items' key words (indexes into CUE_WORDS) and what each item shows. */
+const CUE_AT = [0, 5, 9];
+const CUE_ITEMS = ["SUNLIGHT", "SCATTERS BLUE", "SUNSETS"];
+const cuesScene: FlatScene = {
+  id: "reelix-cues",
+  duration: 10,
+  poster: 7.6,
+  draw(p, t) {
+    const x0 = 40;
+    const x1 = 560;
+    // each word gets room in proportion to its length, so the narration reads as one spaced line
+    const room = CUE_WORDS.reduce((n, w) => n + w.length + 1.5, 0);
+    const starts = CUE_WORDS.map((_, i) => x0 + ((x1 - x0) * CUE_WORDS.slice(0, i).reduce((n, w) => n + w.length + 1.5, 0)) / room);
+    const centre = (i: number): number => starts[i] + ((x1 - x0) * (CUE_WORDS[i].length + 1.5)) / room / 2;
+    const playX = x0 + (x1 - x0) * clamp01((t - 0.8) / 7.2);
+    const cueX = (i: number): number => centre(CUE_AT[i]);
+    label(p, 40, 34, "ON SCREEN", DIM_TEXT, 9.5);
+    CUE_ITEMS.forEach((name, i) => {
+      const since = playX - cueX(i);
+      if (since <= 0) return;
+      const a = clamp01(since / 18);
+      const s = 1 + 0.25 * Math.sin(Math.PI * clamp01(since / 40));
+      const cx = Math.max(64, cueX(i));
+      rect(p, cx - 22 * s, 92 - 22 * s, 44 * s, 44 * s, `rgba(44,169,66,${0.3 + 0.5 * a})`, GREEN_EDGE);
+      label(p, cx, 134, name, a >= 1 ? CAPTION : SOFT_TEXT, 10, "center");
+    });
+    label(p, 40, 170, "VOICE · KOKORO 82M IN WEB WORKERS", DIM_TEXT, 9.5);
+    for (let k = 0; k < 104; k++) {
+      const x = x0 + k * 5;
+      const h = 4 + 26 * hash2(k, 4.4) * (0.4 + 0.6 * Math.sin(k * 0.47) ** 2);
+      rect(p, x, 210 - h / 2, 3, h, x < playX ? "rgba(245,242,234,0.55)" : "rgb(52,52,56)", null);
+    }
+    CUE_WORDS.forEach((w, i) => {
+      const x = centre(i);
+      const spoken = playX >= starts[i];
+      const cue = CUE_AT.includes(i);
+      mono(p, x, 252, w, cue && spoken ? GREEN_LABEL : spoken ? CAPTION : DIM_TEXT, 10.5, "center");
+      if (cue) {
+        p.polygon([[x, 266], [x + 5, 271], [x, 276], [x - 5, 271]], spoken ? GREEN_FILL : "rgb(52,52,56)", GREEN_EDGE, 1);
+        line(p, x, 238, x, 146, `rgba(44,169,66,${spoken ? 0.6 : 0.2})`, 1, [2, 3]);
+      }
+    });
+    line(p, playX, 180, playX, 284, "rgba(245,242,234,0.85)", 1.5);
+    label(p, 40, 306, "SOUND", DIM_TEXT, 9.5);
+    CUE_AT.forEach((_, i) => {
+      const x = cueX(i);
+      const on = playX >= x;
+      rect(p, x - 16, 316, 32, 16, on ? "rgba(44,169,66,0.35)" : PANEL, on ? GREEN_EDGE : PANEL_LINE);
+      mono(p, x, 324, "POP", on ? CAPTION : DIM_TEXT, 9, "center");
+    });
+    label(p, 40, 360, "WORD TIMES FROM SYLLABLES, SNAPPED TO PAUSES", DIM_TEXT, 9.5);
+    label(p, 40, 384, "EACH ENTRANCE LANDS WITHIN 150 MS OF ITS WORD", DIM_TEXT, 9.5);
+  },
+};
+
+// ---- free photos, credited
+/** Candidate photos: where each came from, its licence, why it is dropped (if it is), and its score for the scene. */
+const CANDIDATES: { src: string; lic: string; drop: string; score: number }[] = [
+  { src: "WIKIPEDIA", lic: "PUBLIC DOMAIN", drop: "", score: 0.9 },
+  { src: "WIKIPEDIA", lic: "CC BY-NC 2.0", drop: "NC", score: 0 },
+  { src: "WIKIPEDIA", lic: "CC0", drop: "DIAGRAM", score: 0 },
+  { src: "COMMONS", lic: "CC BY-SA 4.0", drop: "", score: 0.5 },
+  { src: "COMMONS", lic: "CC BY 4.0", drop: "", score: 0.75 },
+  { src: "COMMONS", lic: "CC BY-ND 4.0", drop: "ND", score: 0 },
+  { src: "OPENVERSE", lic: "CC BY 2.0", drop: "", score: 0.3 },
+  { src: "OPENVERSE", lic: "UNKNOWN", drop: "?", score: 0 },
+];
+const PHOTO_SLOTS = [
+  { name: "TITLE", pick: 0, credit: "PHOTO: NASA, PUBLIC DOMAIN" },
+  { name: "DEFINITION", pick: 4, credit: "PHOTO: ESO, CC BY 4.0" },
+];
+const candidateAt = (i: number): Point => [30 + (i % 4) * 82, 50 + Math.floor(i / 4) * 124];
+/** A stand-in photo: a dark frame with a few soft bands. */
+const photoTile = (p: Painter, x: number, y: number, stroke: string): void => {
+  rect(p, x, y, 70, 52, "rgb(40,40,44)", stroke);
+  for (let k = 0; k < 3; k++) rect(p, x + 6, y + 10 + k * 12, 58 - k * 12, 6, "rgba(245,242,234,0.13)", null);
+};
+const photosScene: FlatScene = {
+  id: "reelix-photos",
+  duration: 12,
+  poster: 9.6,
+  draw(p, t) {
+    label(p, 30, 34, "CANDIDATES", DIM_TEXT, 9.5);
+    CANDIDATES.forEach((c, i) => {
+      const [x, y] = candidateAt(i);
+      if (t < 0.4 + i * 0.12) return;
+      const dropped = c.drop !== "" && t >= 2.4 + i * 0.18;
+      const moved = PHOTO_SLOTS.some((s, k) => s.pick === i && t >= 6.4 + k * 0.6);
+      if (dropped) {
+        rect(p, x, y, 70, 52, "rgb(22,22,24)", PANEL_LINE);
+        line(p, x, y, x + 70, y + 52, "rgba(245,242,234,0.4)");
+        line(p, x + 70, y, x, y + 52, "rgba(245,242,234,0.4)");
+        mono(p, x + 35, y + 26, c.drop, CAPTION, 9.5, "center");
+      } else if (moved) rect(p, x, y, 70, 52, OUTLINE, "rgba(245,242,234,0.2)", 1);
+      else photoTile(p, x, y, PANEL_LINE);
+      label(p, x, y + 66, c.src, DIM_TEXT, 8);
+      mono(p, x, y + 80, c.lic, dropped ? "rgba(245,242,234,0.35)" : SOFT_TEXT, 9);
+      const scored = clamp01((t - 4.6 - i * 0.1) / 0.5);
+      if (c.drop === "" && scored > 0) rect(p, x, y + 92, 70 * c.score * scored, 5, GREEN_FILL, null);
+    });
+    label(p, 380, 34, "SCENES", DIM_TEXT, 9.5);
+    PHOTO_SLOTS.forEach((s, k) => {
+      const y = 50 + k * 124;
+      rect(p, 380, y, 190, 110, PANEL, PANEL_LINE);
+      label(p, 392, y + 14, s.name, DIM_TEXT, 8.5);
+      const m = clamp01((t - 6.4 - k * 0.6) / 0.6);
+      if (m <= 0) return;
+      const [sx, sy] = candidateAt(s.pick);
+      const e = easeInOut(m);
+      const x = lerp(sx, 400, e);
+      const y2 = lerp(sy, y + 34, e);
+      // moving photos: the depth layers lift off the photo
+      const depth = clamp01((t - 8.6) / 0.8);
+      for (let d = 3; d >= 1 && depth > 0; d--) rect(p, x + d * 3 * depth, y2 - d * 3 * depth, 70, 52, OUTLINE, `rgba(44,169,66,${0.25 * depth})`, 1);
+      photoTile(p, x, y2, GREEN_EDGE);
+      if (m >= 1) mono(p, 475, y + 100, s.credit, GREEN_LABEL, 8.5, "center");
+      if (depth > 0 && k === 1) label(p, 482, y2 + 20, "DEPTH", GREEN_LABEL, 8.5);
+    });
+    label(p, 30, 360, "ONLY PD, CC0, CC BY, CC BY-SA · NO DRAWINGS · ONE PER SCENE", DIM_TEXT, 9.5);
+    label(p, 30, 384, "MOVING PHOTOS · DEPTH ANYTHING V2 RAISES THEM INTO RELIEF", DIM_TEXT, 9.5);
+  },
+};
+
+// ---- any frame, any order
+const FRAMES = 12;
+/** The order the preview happens to visit the frames in, as a viewer scrubs. */
+const SCRUB = [7, 2, 10, 4, 0, 9, 5, 11, 1, 6, 3, 8];
+const CHECKS = [
+  { frame: 3, t: "20.3", hash: "de4c967c" },
+  { frame: 7, t: "47.3", hash: "9a10c2f5" },
+  { frame: 10, t: "67.6", hash: "3be7d401" },
+];
+const exportScene: FlatScene = {
+  id: "reelix-export",
+  duration: 12,
+  poster: 8,
+  draw(p, t) {
+    const x0 = 40;
+    const cw = 43;
+    label(p, 40, 34, "PREVIEW · SCRUBBED IN ANY ORDER · 1280×720", DIM_TEXT, 9.5);
+    const seen = Math.floor(clamp01((t - 0.5) / 5.5) * FRAMES);
+    for (let i = 0; i < FRAMES; i++) rect(p, x0 + i * cw, 50, cw - 6, 28, SCRUB.slice(0, seen).includes(i) ? "rgb(44,44,48)" : PANEL, PANEL_LINE);
+    if (seen > 0 && t < 6.2) {
+      const i = SCRUB[seen - 1];
+      rect(p, x0 + i * cw, 50, cw - 6, 28, "rgba(245,242,234,0.15)", "rgba(245,242,234,0.85)", 1.5);
+    }
+    label(p, 40, 116, "EXPORT · EVERY FRAME IN ORDER · 1920×1080", DIM_TEXT, 9.5);
+    const save = clamp01((t - 1) / 6);
+    const done = save * FRAMES;
+    for (let i = 0; i < FRAMES; i++) {
+      const a = clamp01(done - i);
+      rect(p, x0 + i * cw, 132, cw - 6, 28, a > 0 ? `rgba(44,169,66,${0.2 + 0.5 * a})` : PANEL, a >= 1 ? GREEN_EDGE : PANEL_LINE);
+    }
+    label(p, 40, 198, "THE SAME t GIVES THE SAME FRAME", DIM_TEXT, 9.5);
+    CHECKS.forEach((c, k) => {
+      if (done < c.frame + 1 || seen <= SCRUB.indexOf(c.frame)) return;
+      // the matched frame, outlined in both rows
+      rect(p, x0 + c.frame * cw - 2, 48, cw - 2, 32, OUTLINE, GREEN_EDGE, 1.5);
+      rect(p, x0 + c.frame * cw - 2, 130, cw - 2, 32, OUTLINE, CAPTION, 1.5);
+      mono(p, 40, 220 + k * 20, `t = ${c.t} s   preview ${c.hash}   export ${c.hash}   MATCH`, SOFT_TEXT, 10.5);
+    });
+    label(p, 40, 300, "MP4 · H.264 + AAC THROUGH WEBCODECS", DIM_TEXT, 9.5);
+    mono(p, 540, 300, `${Math.round(save * 81)} / 81 S OF VIDEO`, save >= 1 ? GREEN_LABEL : SOFT_TEXT, 10, "right");
+    rect(p, 40, 312, 500, 14, PANEL, PANEL_LINE);
+    if (save > 0) rect(p, 40, 312, 500 * save, 14, "rgba(44,169,66,0.6)", null);
+    if (save >= 1) mono(p, 40, 348, "SAVED · AN 81 S VIDEO IN 27 S, A THIRD OF REAL TIME", GREEN_LABEL, 10.5);
+    label(p, 40, 384, "FRAME t IS A PURE FUNCTION OF t · EXPORT MATCHES PREVIEW", DIM_TEXT, 9.5);
+  },
+};
+
 /** Every scene by id; a project's `cover.scene` or a figure's `scene` names one. */
 export const SCENES: Record<string, AnyScene> = {
   [planetX.id]: planetX,
+  [reelix.id]: reelix,
+  [plannerScene.id]: plannerScene,
+  [cuesScene.id]: cuesScene,
+  [photosScene.id]: photosScene,
+  [exportScene.id]: exportScene,
   [evalGuard.id]: evalGuard,
   [numbersScene.id]: numbersScene,
   [matchersScene.id]: matchersScene,

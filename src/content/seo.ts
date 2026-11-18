@@ -58,6 +58,10 @@ export const routes: Record<string, { title: string; description: string }> = {
     title: "Planet X — SPHEREx Parallax Search | Sheng Yan",
     description: "NASA Space Apps Challenge 2026 entry: a browser app that searches SPHEREx's infrared sky survey for the parallax a distant planet cannot hide, checked against JPL and Gaia.",
   },
+  "project/reelix": {
+    title: "Project Reelix — Understand Any Topic Visually | Sheng Yan",
+    description: "Ask about a topic or upload notes, slides, a PDF or a spreadsheet, and watch a narrated, animated explanation made in your browser with OCR, Wikipedia and a neural voice. No API key, free.",
+  },
   "project/video-to-text": {
     title: "Video-to-Text MCP Server | Sheng Yan",
     description: "Token-budgeted MCP server that lets Claude watch video without blowing its context — cuts a 10-minute clip from ~150k tokens to ~5k.",

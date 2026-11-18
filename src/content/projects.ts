@@ -32,7 +32,7 @@ export interface Project {
   diagrams: Diagram[];     // [] when absent
 }
 export const projectCategories = ["All", "AI", "MCP", "Finance", "Apps"] as const;
-export const featuredProjectIds = ["eval-guard", "planet-x", "quant-platform"] as const;
+export const featuredProjectIds = ["eval-guard", "planet-x", "autonomous-researcher"] as const;
 export const projects: Project[] = [
   {
     "id": "eval-guard",
@@ -166,8 +166,85 @@ export const projects: Project[] = [
     ]
   },
   {
-    "id": "video-to-text",
+    "id": "reelix",
     "n": "03",
+    "title": "Project Reelix",
+    "category": "AI",
+    "excerpt": "Ask about any topic, or upload notes, slides, a PDF or a spreadsheet, and watch a narrated, animated explanation of it, made entirely in the browser. No API key, no server, free to use.",
+    "description": "A browser app that turns a question or an uploaded file into a narrated, animated explanation, filling in from Wikipedia when there is little to go on. No API key, and files never leave your device.",
+    "paragraphs": [
+      "Project Reelix is for understanding a topic, not for making content. There is one box: type “black holes” or “why is the sky blue?”, paste notes, or upload a PDF, Word document, PowerPoint deck, spreadsheet or photo. A narrated explanation plays right on the page, as long as the material needs, and ends with one short “in short” line instead of a long recap.",
+      "It is built to infer from limited information. Pictures and scans are read with OCR in the browser. A short topic, or the subject found in a thin upload, is looked up on Wikipedia, and the source is credited on screen. A rule based planner then finds the structure that explains best: a definition, the kinds of something, the steps of a process, a timeline, the key numbers and charts from tables. It ranks sentences by how well they answer the question, so a “why” question gets its reason, and it drops side remarks instead of cutting sentences mid thought. Run locally with Ollama, a local model can write the script instead.",
+      "The voice is Kokoro 82M, an open text to speech model, running in a pool of Web Workers through WebAssembly. Narration is split into sentences, spread across the workers and cached, and the visuals can be watched while the voice records. Word timings are estimated from syllables and snapped to the pauses found in the audio, which keeps the captions in step with the voice.",
+      "Each video is one continuous 3D world built with three.js. A director turns the plan into set pieces along a gentle path: extruded icons, short labels, framed photos, 3D bars and ribbons, pictograms and particles, each entering on the word that names it, while captions land word by word. The camera flies from piece to piece and dollies through each one, and depth of field, bloom, grain and filmic tone mapping finish every frame. Frames are a pure function of time, so a saved video matches the preview. Topic videos also get freely licensed photos from Wikipedia, Wikimedia Commons and Openverse, credited on screen and raised into relief by a depth model in the browser, and common topics get custom 3D models: a black hole, a virus, light scattering in air, a DNA helix, or a compound's real structure from PubChem. Phones get the 2D canvas renderer, and a watchdog steps a slow preview down. A music bed is synthesized with Web Audio, ducks under the voice, and gets whooshes and pops on the cuts.",
+      "A download button renders every frame offline and encodes 1080p H.264 with AAC audio through WebCodecs, about three times faster than real time in 3D on a laptop. Everything runs client side and the site is static, so the demo costs nothing to host and nothing to use."
+    ],
+    "technologies": [
+      "TypeScript",
+      "React",
+      "three.js",
+      "Canvas 2D",
+      "WebCodecs",
+      "Web Audio",
+      "Kokoro TTS",
+      "ONNX Runtime Web",
+      "Ollama"
+    ],
+    "github": "https://github.com/shengdynasty/project-reelix",
+    "live": "https://shengdynasty.github.io/project-reelix/",
+    "cover": {
+      "src": "/images/projects/reelix.webp",
+      "tone": "original",
+      "scene": "reelix"
+    },
+    "features": [
+      "One box: ask a question, paste notes, or upload PDF, Word, PowerPoint, Excel, CSV or images",
+      "Reads text in images with OCR and fills in short topics from Wikipedia, with sources credited",
+      "Finds definitions, steps, kinds, timelines, key numbers and charts on its own",
+      "One continuous 3D world with a flying camera, lit icons, charts and photos, and a 2D fallback",
+      "Credited online photos with depth parallax, and custom 3D models for space, biology, earth science, optics and chemistry",
+      "Neural voiceover generated in the browser, with word by word captions",
+      "Length follows the material and ends with one short closing line",
+      "1080p MP4 download with WebCodecs, and files never leave your device"
+    ],
+    "diagrams": [
+      {
+        "src": "/images/projects/reelix-planner.webp",
+        "tone": "original",
+        "scene": "reelix-planner",
+        "after": 1,
+        "title": "From a question to a storyboard",
+        "caption": "A short question is filled in from Wikipedia, and a rule based planner in the browser picks the sentences that explain best: the definition, the key points, the numbers and charts, and one short closing line. Each becomes a scene."
+      },
+      {
+        "src": "/images/projects/reelix-cues.webp",
+        "tone": "original",
+        "scene": "reelix-cues",
+        "after": 2,
+        "title": "Motion on the spoken word",
+        "caption": "Word times come from syllables and snap to the pauses in the recorded voice. Each item enters on the word that names it, with its sound, so the picture keeps pace with the narration."
+      },
+      {
+        "src": "/images/projects/reelix-photos.webp",
+        "tone": "original",
+        "scene": "reelix-photos",
+        "after": 3,
+        "title": "Free photos, credited",
+        "caption": "Candidates come from the article, Wikimedia Commons and Openverse. Only public domain, CC0, CC BY and CC BY-SA pass, drawings are skipped, and the best match goes to the scene with its credit. Moving photos adds depth from a model in the browser. Illustrative candidates."
+      },
+      {
+        "src": "/images/projects/reelix-export.webp",
+        "tone": "original",
+        "scene": "reelix-export",
+        "after": 4,
+        "title": "Any frame, any order",
+        "caption": "A frame is a pure function of its time, so scrubbing the preview in any order and exporting every frame in sequence give the same pictures. The MP4 is encoded with WebCodecs at about a third of real time. Illustrative hashes."
+      }
+    ]
+  },
+  {
+    "id": "video-to-text",
+    "n": "04",
     "title": "Video-to-Text MCP Server",
     "category": "MCP",
     "excerpt": "Token-budgeted MCP server that lets Claude watch video without blowing its context — pixel-cost projection, lazy frame manifests, and contact-sheet montages cut a 10-min clip from ~150k tokens to ~5k.",
@@ -228,7 +305,7 @@ export const projects: Project[] = [
   },
   {
     "id": "school-mcp",
-    "n": "04",
+    "n": "05",
     "title": "StudentVue MCP Server",
     "category": "MCP",
     "excerpt": "19-tool MCP server giving Claude natural-language access to your StudentVue gradebook — grades, GPA, attendance, missing work, and live grade simulation.",
@@ -270,7 +347,7 @@ export const projects: Project[] = [
   },
   {
     "id": "autonomous-researcher",
-    "n": "05",
+    "n": "06",
     "title": "Autonomous Research Agent",
     "category": "AI",
     "excerpt": "Agentic research tool that plans its own sub-questions, searches the web, evaluates source relevance, retries bad results, and synthesizes a cited Markdown report — entirely local via Ollama. No API keys.",
@@ -313,7 +390,7 @@ export const projects: Project[] = [
   },
   {
     "id": "quant-platform",
-    "n": "06",
+    "n": "07",
     "title": "Quant Research Platform",
     "category": "Finance",
     "excerpt": "Bloomberg Terminal–style quant finance platform: 7-module React frontend, FastAPI backend, Monte Carlo risk engine, Black-Scholes options pricing, and local Ollama AI analyst.",
@@ -358,7 +435,7 @@ export const projects: Project[] = [
   },
   {
     "id": "web-researcher",
-    "n": "07",
+    "n": "08",
     "title": "AI Web Researcher",
     "category": "AI",
     "excerpt": "Local-first AI research assistant — type any topic, get live DuckDuckGo search results synthesized into a streaming markdown report via Ollama. No API keys.",
@@ -395,7 +472,7 @@ export const projects: Project[] = [
   },
   {
     "id": "rag-chatbot",
-    "n": "08",
+    "n": "09",
     "title": "Local RAG Chatbot",
     "category": "AI",
     "excerpt": "100% local Retrieval-Augmented Generation chatbot — upload any PDF, ask questions, get answers grounded in your document. No API keys. Runs via Ollama.",
@@ -432,7 +509,7 @@ export const projects: Project[] = [
   },
   {
     "id": "mcp-server",
-    "n": "09",
+    "n": "10",
     "title": "Personal AI MCP Server",
     "category": "MCP",
     "excerpt": "Custom MCP server suite connecting Claude to Gmail, Google Calendar, Notion, Spotify, GitHub — natural-language control of real-world tools.",
@@ -470,7 +547,7 @@ export const projects: Project[] = [
   },
   {
     "id": "note-app",
-    "n": "10",
+    "n": "11",
     "title": "AI Note-Taking App",
     "category": "Apps",
     "excerpt": "Notability-style app with AI flashcards, quizzes, fill-in-the-blank, and chat generated from your own notes using Claude.",
@@ -509,7 +586,7 @@ export const projects: Project[] = [
   },
   {
     "id": "csv-stock-visualizer",
-    "n": "11",
+    "n": "12",
     "title": "CSV Stock Visualizer",
     "category": "Finance",
     "excerpt": "Interactive web app that parses CSV stock data into dynamic price charts, volume graphs, and key statistics.",
@@ -545,7 +622,7 @@ export const projects: Project[] = [
   },
   {
     "id": "portfolio-website",
-    "n": "12",
+    "n": "13",
     "title": "Academic Portfolio Website",
     "category": "Apps",
     "excerpt": "Professional web presence to communicate academic interests and projects to university admissions.",
@@ -579,7 +656,7 @@ export const projects: Project[] = [
   },
   {
     "id": "expense-tracker",
-    "n": "13",
+    "n": "14",
     "title": "Personal Expense Tracker",
     "category": "Apps",
     "excerpt": "Tool to categorize and visualize personal spending, applying data structures and basic analysis.",
@@ -612,7 +689,7 @@ export const projects: Project[] = [
   },
   {
     "id": "task-management",
-    "n": "14",
+    "n": "15",
     "title": "Task Management Application",
     "category": "Apps",
     "excerpt": "Productivity tool to organize tasks, track progress, and practice database-like data management.",
