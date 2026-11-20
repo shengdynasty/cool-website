@@ -1,0 +1,1 @@
+function e(e,t,n,r=0){let i=Math.ceil(n/t)+1,a=new Float64Array(i);a[0]=r;let o=e(0);for(let n=1;n<i;n++){let r=e(n*t);a[n]=a[n-1]+(o+r)/2*t,o=r}return{dt:t,values:a}}function t(e,t){let{dt:n,values:r}=e,i=t/n;if(i<=0)return r[0];let a=r.length-1;if(i>=a)return r[a];let o=Math.floor(i),s=i-o;return r[o]+(r[o+1]-r[o])*s}export{e as n,t};
