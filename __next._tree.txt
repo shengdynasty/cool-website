@@ -1,8 +1,8 @@
 :HL["/_next/static/chunks/3eexluiklmhqx.css","style"]
-:HL["/_next/static/chunks/1hkycln7udc6k.css","style"]
+:HL["/_next/static/chunks/0-tisnwiwdso2.css","style"]
 :HL["/_next/static/media/jetbrains_mono_latin-s.p.3t6q91iet4nsy.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/media/switzer_variable-s.p.2cv8cnme15iov.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/home/hero-photo.webp","image",{"fetchPriority":"high"}]
 :HL["/home/hero-code.webp","image",{"fetchPriority":"high"}]
 :HL["/images/experience/mailzoo-bg.jpg","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4224,"slots":null}}},"staleTime":300,"buildId":"QdDnNGMRwR9eCirESjOua"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4224,"slots":null}}},"staleTime":300,"buildId":"bRHaIgz6zYSwYA-w54S3p"}
