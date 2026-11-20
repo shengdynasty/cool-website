@@ -34,9 +34,11 @@ jobs:
           git-config-name: github-actions[bot]
           git-config-email: github-actions[bot]@users.noreply.github.com
 
-      # Swap CNAME and deploy to shawnyan-com repo
+      # Swap CNAME and deploy to shawnyan-com repo, without the Modula preview (it lives on sheng-yan.com only)
       - name: Swap CNAME for shawnyan.com
-        run: echo "shawnyan.com" > out/CNAME
+        run: |
+          echo "shawnyan.com" > out/CNAME
+          rm -rf out/modula
 
       - name: Deploy to shawnyan.com
         uses: JamesIves/github-pages-deploy-action@v4
