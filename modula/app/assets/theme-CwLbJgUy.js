@@ -1,0 +1,1 @@
+var e=`dark`,t=new Set,n=()=>e,r=e=>e===`light`?`light`:`dark`,i=t=>t[e];function a(n){if(typeof document<`u`&&(document.documentElement.dataset.theme=n),n!==e){e=n;for(let e of t)e(n)}}function o(e){return t.add(e),()=>t.delete(e)}export{i as a,a as i,o as n,r,n as t};

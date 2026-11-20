@@ -1,0 +1,1 @@
+function e(e,t){return t&&(t.input!==void 0&&(e.input=t.input),t.phase!==void 0&&(e.phase=t.phase),t.isolate!==void 0&&(e.isolate=t.isolate),t.explode!==void 0&&(e.explode=t.explode),t.apart!==void 0&&(e.apart={...e.apart,...t.apart}),t.cut!==void 0&&(e.cut=t.cut),t.toggles!==void 0&&(e.toggles={...e.toggles,...t.toggles}),t.camera!==void 0&&(e.camera=t.camera)),e}export{e as t};
