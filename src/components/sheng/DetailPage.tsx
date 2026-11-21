@@ -2,6 +2,7 @@ import type { CSSProperties, ReactNode } from "react";
 import type { Cover } from "@/content/projects";
 import { ArrowRightIcon } from "./icons";
 import type { ListItem } from "@/types/listing";
+import { LoopClip } from "./LoopClip";
 import { external, Words } from "./markup";
 import { PostCard } from "./PostCard";
 import { SmartLink } from "./SmartLink";
@@ -53,6 +54,8 @@ export function DetailPage({ back, meta, title, lede, cover, children, contact, 
             <picture>
               <img src={cover.src} width={1200} height={800} alt="" fetchPriority="high" decoding="async" />
             </picture>
+            {/* the cover's loop, when it has one, plays over the still while the header is in view */}
+            {cover.video ? <LoopClip poster={cover.src} mp4={cover.video} webm={cover.webm} /> : null}
             {cover.scene ? <canvas className="iso" aria-hidden="true" /> : null}
             <canvas aria-hidden="true" />
           </span>

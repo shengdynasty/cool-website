@@ -2,7 +2,17 @@
 /** "original": shown exactly as in the portfolio. ("invert" / "photo" are kept for the CSS but no longer generated.) */
 export type CoverTone = "original" | "invert" | "photo";
 /** fit "contain": a small logo, shown whole on white instead of cropped to fill (its text would be cut off). */
-export interface Cover { src: string; tone: CoverTone; fit?: "contain"; /** an animated scene (iso-engine.ts) drawn over the cover where JS runs */ scene?: string }
+export interface Cover {
+  src: string;
+  tone: CoverTone;
+  fit?: "contain";
+  /** an animated scene (iso-engine.ts) drawn over the cover where JS runs */
+  scene?: string;
+  /** a muted 3:2 MP4 loop (H.264) over the still, which is its poster: it plays only while the cover is in view */
+  video?: string;
+  /** the same loop as WebM (VP9), offered first when it is smaller */
+  webm?: string;
+}
 export interface Diagram {
   src: string;
   tone: CoverTone;
@@ -18,7 +28,7 @@ export interface Diagram {
 export type ProjectCategory = "AI" | "MCP" | "Finance" | "Apps";
 export interface Project {
   id: string;              // slug, e.g. "eval-guard"
-  n: string;               // "01".."14", list order (the previous site's Projects.tsx; Planet X added after EvalGuard)
+  n: string;               // "01".."16", list order (Project Modula first, then the previous site's order with Planet X after EvalGuard)
   title: string;           // detail title
   category: ProjectCategory;
   excerpt: string;         // list description (Projects.tsx)
@@ -35,11 +45,91 @@ export interface Project {
   diagrams: Diagram[];     // [] when absent
 }
 export const projectCategories = ["All", "AI", "MCP", "Finance", "Apps"] as const;
-export const featuredProjectIds = ["eval-guard", "planet-x", "autonomous-researcher"] as const;
+export const featuredProjectIds = ["modula", "eval-guard", "planet-x"] as const;
 export const projects: Project[] = [
   {
-    "id": "eval-guard",
+    "id": "modula",
     "n": "01",
+    "title": "Project Modula",
+    "category": "AI",
+    "excerpt": "Upload a photo or drawing of a machine and get an engineering design sheet in about two minutes, then a working 3D model you can run, take apart, test, edit and export.",
+    "description": "A design and creation tool for machines: a photo or drawing goes in, an engineering design sheet comes out in about two minutes, and from it a working 3D model to run, take apart, test, edit and export, with an AI assistant that explains and edits the design.",
+    "paragraphs": [
+      "Project Modula is for designing and making machines, not only for looking at them. It turns a picture of a machine into a design you can work on: first an engineering design sheet, then a 3D model that actually runs. An AI assistant sits beside the model to explain it and to change it.",
+      "It starts from a picture. Drop in a photo or a drawing of a machine, add its name or a sentence about it, and press generate. A quick bot check runs, and the picture goes to a careful model that reads it.",
+      "About two minutes later there is an engineering design sheet: the machine drawn as a blueprint from several sides, its main parts called out with their sizes, and a graph of how it moves. The sheet can be printed or saved as an image, and the 3D model is built from it.",
+      "The model is a machine, not a statue. Press play and it runs at the speed you set, with every part moving the way the design says. Explode it to take it apart and see how the pieces fit, then let it come back together.",
+      "Then test it and change it. A test reports the machine's speeds, mass and aerodynamics, and marks every figure as exact or as an estimate. The assistant explains the whole machine or the part you select, and makes the changes you describe in chat; or select a part and move or turn it by hand, in steps of millimetres or 15 degrees, with undo. A finished design exports as GLB for other 3D tools, STL for 3D printing, or a video.",
+      "The next release is in progress. Generated machines will physically hold together, with no floating parts and with motion that comes from real mechanisms, and they will get richer detail, subassemblies and a parts list for buying the materials to build one."
+    ],
+    "technologies": [
+      "TypeScript",
+      "three.js",
+      "WebGL",
+      "Claude API",
+      "Cloudflare Workers",
+      "Zod",
+      "WebCodecs"
+    ],
+    "cover": {
+      "src": "/images/projects/modula.webp",
+      "tone": "original",
+      "video": "/videos/modula-loop.mp4",
+      "webm": "/videos/modula-loop.webm"
+    },
+    "features": [
+      "Starts from a photo or a drawing of a machine, with its name or a sentence about it",
+      "An engineering design sheet in about two minutes, ready to print or save",
+      "A working 3D model built from the sheet that runs at the speed you set and explodes into its parts",
+      "Tests for speeds, mass and aerodynamics, with every figure marked exact or estimate",
+      "An AI assistant that explains the machine or any part, and edits the design from chat",
+      "Hand edits: move or turn any part in millimetre or 15 degree steps, with undo",
+      "Export as GLB, STL for 3D printing, or video",
+      "Next release, in progress: machines that physically hold together, richer detail, subassemblies and a parts list"
+    ],
+    "diagrams": [
+      {
+        "src": "/images/projects/modula-pipeline.webp",
+        "tone": "original",
+        "scene": "modula-pipeline",
+        "after": 0,
+        "title": "From a picture to a working machine",
+        "caption": "A picture and a sentence go in. About two minutes later there is a design sheet, and from it a model that runs, comes apart, reports its figures and exports. The figures are the V8 example's test results."
+      },
+      {
+        "src": "/images/projects/modula-new.webp",
+        "tone": "original",
+        "after": 1,
+        "title": "New machine",
+        "caption": "The new machine page with a drawing of a V8 picked and a sentence typed, one step before generate."
+      },
+      {
+        "src": "/images/projects/modula-sheet.webp",
+        "tone": "original",
+        "after": 2,
+        "title": "The design sheet",
+        "caption": "The V8 example's design sheet: the engine in iso with its size, callouts for the main parts, detail views, front, side and back elevations, and a graph of piston 1's travel against crank angle."
+      },
+      {
+        "src": "/images/projects/modula-explode.webp",
+        "tone": "original",
+        "video": "/videos/modula-explode.mp4",
+        "after": 3,
+        "title": "Taken apart",
+        "caption": "The hand-built V8 example exploding and coming back together, rendered frame by frame from the app's own model and exploder, toned to this site's palette."
+      },
+      {
+        "src": "/images/projects/modula-workspace.webp",
+        "tone": "original",
+        "after": 4,
+        "title": "The workspace",
+        "caption": "The V8 example open as a model: a test run in the assistant's panel, each figure marked exact or estimate, and the intake plenum selected, with its facts and the move tools on the right."
+      }
+    ]
+  },
+  {
+    "id": "eval-guard",
+    "n": "02",
     "title": "EvalGuard v1",
     "category": "AI",
     "excerpt": "Contamination auditor for LLM evaluations — estimates how much of a reported benchmark score is inflated by training-data leakage, with a four-matcher ensemble, data-driven calibration, and a CI-gate CLI. 34 passing tests.",
@@ -109,7 +199,7 @@ export const projects: Project[] = [
   },
   {
     "id": "planet-x",
-    "n": "02",
+    "n": "03",
     "title": "Planet X",
     "category": "Apps",
     "excerpt": "NASA Space Apps Challenge 2026 entry: a browser app that searches SPHEREx's repeated infrared maps of the sky for the parallax a distant planet cannot hide, checks every change against JPL's known asteroids and Gaia's stars, and leaves the rest for a person to vet — candidates, never detections. Measured by planting synthetic movers into real SPHEREx frames.",
@@ -165,84 +255,6 @@ export const projects: Project[] = [
         "tone": "original",
         "title": "Field view",
         "caption": "The Field view on the saved 16 Psyche field: two SPHEREx passes 163 days apart at 1.86 µm, the asteroid flagged Known · 16 Psyche 1.3″ from its JPL Horizons position, and the field's cosmic rays and bad pixels filed as artifacts."
-      }
-    ]
-  },
-  {
-    "id": "modula",
-    "n": "03",
-    "title": "Project Modula",
-    "category": "AI",
-    "excerpt": "Upload a photo or drawing of a machine and get an engineering design sheet in about two minutes, then a working 3D model you can run, take apart, test, edit and export.",
-    "description": "A design and creation tool for machines: a photo or drawing goes in, an engineering design sheet comes out in about two minutes, and from it a working 3D model to run, take apart, test, edit and export, with an AI assistant that explains and edits the design.",
-    "paragraphs": [
-      "Project Modula is for designing and making machines, not only for looking at them. It turns a picture of a machine into a design you can work on: first an engineering design sheet, then a 3D model that actually runs. An AI assistant sits beside the model to explain it and to change it.",
-      "It starts from a picture. Drop in a photo or a drawing of a machine, add its name or a sentence about it, and press generate. A quick bot check runs, and the picture goes to a careful model that reads it.",
-      "About two minutes later there is an engineering design sheet: the machine drawn as a blueprint from several sides, its main parts called out with their sizes, and a graph of how it moves. The sheet can be printed or saved as an image, and the 3D model is built from it.",
-      "The model is a machine, not a statue. Press play and it runs at the speed you set, with every part moving the way the design says. Explode it to take it apart and see how the pieces fit, then let it come back together.",
-      "Then test it and change it. A test reports the machine's speeds, mass and aerodynamics, and marks every figure as exact or as an estimate. The assistant explains the whole machine or the part you select, and makes the changes you describe in chat; or select a part and move or turn it by hand, in steps of millimetres or 15 degrees, with undo. A finished design exports as GLB for other 3D tools, STL for 3D printing, or a video.",
-      "The next release is in progress. Generated machines will physically hold together, with no floating parts and with motion that comes from real mechanisms, and they will get richer detail, subassemblies and a parts list for buying the materials to build one."
-    ],
-    "technologies": [
-      "TypeScript",
-      "three.js",
-      "WebGL",
-      "Claude API",
-      "Cloudflare Workers",
-      "Zod",
-      "WebCodecs"
-    ],
-    "cover": {
-      "src": "/images/projects/modula.webp",
-      "tone": "original"
-    },
-    "features": [
-      "Starts from a photo or a drawing of a machine, with its name or a sentence about it",
-      "An engineering design sheet in about two minutes, ready to print or save",
-      "A working 3D model built from the sheet that runs at the speed you set and explodes into its parts",
-      "Tests for speeds, mass and aerodynamics, with every figure marked exact or estimate",
-      "An AI assistant that explains the machine or any part, and edits the design from chat",
-      "Hand edits: move or turn any part in millimetre or 15 degree steps, with undo",
-      "Export as GLB, STL for 3D printing, or video",
-      "Next release, in progress: machines that physically hold together, richer detail, subassemblies and a parts list"
-    ],
-    "diagrams": [
-      {
-        "src": "/images/projects/modula-pipeline.webp",
-        "tone": "original",
-        "scene": "modula-pipeline",
-        "after": 0,
-        "title": "From a picture to a working machine",
-        "caption": "A picture and a sentence go in. About two minutes later there is a design sheet, and from it a model that runs, comes apart, reports its figures and exports. The figures are the V8 example's test results."
-      },
-      {
-        "src": "/images/projects/modula-new.webp",
-        "tone": "original",
-        "after": 1,
-        "title": "New machine",
-        "caption": "The new machine page with a drawing of a V8 picked and a sentence typed, one step before generate."
-      },
-      {
-        "src": "/images/projects/modula-sheet.webp",
-        "tone": "original",
-        "after": 2,
-        "title": "The design sheet",
-        "caption": "The V8 example's design sheet: the engine in iso with its size, callouts for the main parts, detail views, front, side and back elevations, and a graph of piston 1's travel against crank angle."
-      },
-      {
-        "src": "/images/projects/modula-explode.webp",
-        "tone": "original",
-        "video": "/videos/modula-explode.mp4",
-        "after": 3,
-        "title": "Taken apart",
-        "caption": "The hand-built V8 example exploding and coming back together, rendered frame by frame from the app's own model and exploder, toned to this site's palette."
-      },
-      {
-        "src": "/images/projects/modula-workspace.webp",
-        "tone": "original",
-        "after": 4,
-        "title": "The workspace",
-        "caption": "The V8 example open as a model: a test run in the assistant's panel, each figure marked exact or estimate, and the intake plenum selected, with its facts and the move tools on the right."
       }
     ]
   },

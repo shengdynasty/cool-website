@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- figures reuse the cover frame (canvas overlay), plain <img> like the source */
 import type { ReactNode } from "react";
 import type { Cover } from "@/content/projects";
+import { LoopClip } from "./LoopClip";
 
 // Article blocks for the detail pages, with the source guide page's exact utility classes
 // (callout, paragraph, link list, h2, copyable code block), recoloured through the theme tokens.
@@ -105,7 +106,7 @@ export function Figure({ src, tone, title, caption, scene, video }: Cover & { ti
     <figure>
       <span className={`cover tone-${tone}`} data-scene={scene}>
         <img src={src} width={1200} height={800} alt={title} loading="lazy" decoding="async" />
-        {video ? <video className="loop-clip" src={video} poster={src} muted loop playsInline preload="none" aria-hidden="true" /> : null}
+        {video ? <LoopClip poster={src} mp4={video} /> : null}
         {scene ? <canvas className="iso" aria-hidden="true" /> : null}
         <canvas aria-hidden="true" />
       </span>

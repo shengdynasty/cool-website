@@ -108,15 +108,28 @@ for the captions), then render its still:
 npm run posters   # writes public/images/projects/<scene id>.webp from the scene's `poster` time
 ```
 
-That still is the cover image everywhere the scene can't play (before JS, reduced motion, link previews).
+That still is the cover image everywhere the scene can't play (before JS, reduced motion, link previews). The poster
+script renders text as JetBrains Mono outlines (opentype.js), so the stills look the same on any machine.
 
 Flat scenes (`FlatScene` in the same file) are 2D explainers drawn in a 600×400 design space with the same painters;
 a figure in `project.diagrams` plays one by naming it in `scene`, and `after: n` puts the figure right under paragraph
 `n` instead of in "How it works". A figure can instead carry a `video`: a muted 3:2 MP4 loop (H.264, ≤ 3 MB, in
 `public/videos/`) that plays over its still while it is in view; the still is its poster and stays under reduced motion.
 
-A project without `github` is shown unlinked: no code row, no "View the code" button and no GitHub line in the callout. The poster script renders text as JetBrains Mono outlines (opentype.js), so the
-stills look the same on any machine.
+A cover can carry a loop as well: `cover.video` (a muted 3:2 H.264 MP4, ≤ 2.5 MB) and optionally `cover.webm` (the
+same clip in VP9, offered first, when it is smaller). It plays over the still on the project cards and the detail
+page's header, only while in view and never under reduced motion; the still is its poster, so make it the clip's first
+frame. Project Modula's cover is made this way from Modula's own hand-built V8 (a `../project-modula` checkout, only
+read): 12 s at 30 fps, one slow turn of the camera while the engine runs, comes apart and goes back together, with
+no interface. One script renders it frame by frame, grades it to black, cream and green, checks that the last frame
+leads back into the first, and writes `public/videos/modula-loop.mp4` and `.webm` plus the poster
+`public/images/projects/modula.webp`:
+
+```bash
+scripts/modula-cover/make.sh   # needs ffmpeg (libx264, libvpx) and Python 3 with numpy and Pillow
+```
+
+A project without `github` is shown unlinked: no code row, no "View the code" button and no GitHub line in the callout.
 
 ## Publish the artifact
 
