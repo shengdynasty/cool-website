@@ -95,12 +95,17 @@ export function CodeBlock({ id, label, source }: { id: string; label: string; so
   );
 }
 
-/** A figure in the reading column; with `scene`, its animated scene (iso-engine.ts) plays over the still. */
-export function Figure({ src, tone, title, caption, scene }: Cover & { title: string; caption: string; scene?: string }) {
+/**
+ * A figure in the reading column; with `scene`, its animated scene (iso-engine.ts) plays over the still. With `video`,
+ * a muted loop plays over the still while the figure is in view (subpage-effects.ts); the still stays underneath as
+ * its poster, before JS, under reduced motion, and wherever the clip can't load.
+ */
+export function Figure({ src, tone, title, caption, scene, video }: Cover & { title: string; caption: string; scene?: string; video?: string }) {
   return (
     <figure>
       <span className={`cover tone-${tone}`} data-scene={scene}>
         <img src={src} width={1200} height={800} alt={title} loading="lazy" decoding="async" />
+        {video ? <video className="loop-clip" src={video} poster={src} muted loop playsInline preload="none" aria-hidden="true" /> : null}
         {scene ? <canvas className="iso" aria-hidden="true" /> : null}
         <canvas aria-hidden="true" />
       </span>

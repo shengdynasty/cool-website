@@ -12,6 +12,8 @@ export interface Diagram {
   scene?: string;
   /** index of the paragraph this figure follows; without it the figure goes in "How it works" */
   after?: number;
+  /** a muted MP4 loop that plays over the still (its poster) while the figure is in view */
+  video?: string;
 }
 export type ProjectCategory = "AI" | "MCP" | "Finance" | "Apps";
 export interface Project {
@@ -23,7 +25,8 @@ export interface Project {
   description: string;     // detail description (ProjectDetailPage.tsx)
   paragraphs: string[];    // fullDescription split on blank lines, trimmed, empty ones dropped
   technologies: string[];
-  github: string;
+  /** absent for a project that isn't linked yet: no code row, no "View the code" button */
+  github?: string;
   live?: string;
   reportUrl?: string;
   cover: Cover;
@@ -166,8 +169,86 @@ export const projects: Project[] = [
     ]
   },
   {
-    "id": "reelix",
+    "id": "modula",
     "n": "03",
+    "title": "Project Modula",
+    "category": "AI",
+    "excerpt": "Upload a photo or drawing of a machine and get an engineering design sheet in about two minutes, then a working 3D model you can run, take apart, test, edit and export.",
+    "description": "A design and creation tool for machines: a photo or drawing goes in, an engineering design sheet comes out in about two minutes, and from it a working 3D model to run, take apart, test, edit and export, with an AI assistant that explains and edits the design.",
+    "paragraphs": [
+      "Project Modula is for designing and making machines, not only for looking at them. It turns a picture of a machine into a design you can work on: first an engineering design sheet, then a 3D model that actually runs. An AI assistant sits beside the model to explain it and to change it.",
+      "It starts from a picture. Drop in a photo or a drawing of a machine, add its name or a sentence about it, and press generate. A quick bot check runs, and the picture goes to a careful model that reads it.",
+      "About two minutes later there is an engineering design sheet: the machine drawn as a blueprint from several sides, its main parts called out with their sizes, and a graph of how it moves. The sheet can be printed or saved as an image, and the 3D model is built from it.",
+      "The model is a machine, not a statue. Press play and it runs at the speed you set, with every part moving the way the design says. Explode it to take it apart and see how the pieces fit, then let it come back together.",
+      "Then test it and change it. A test reports the machine's speeds, mass and aerodynamics, and marks every figure as exact or as an estimate. The assistant explains the whole machine or the part you select, and makes the changes you describe in chat; or select a part and move or turn it by hand, in steps of millimetres or 15 degrees, with undo. A finished design exports as GLB for other 3D tools, STL for 3D printing, or a video.",
+      "The next release is in progress. Generated machines will physically hold together, with no floating parts and with motion that comes from real mechanisms, and they will get richer detail, subassemblies and a parts list for buying the materials to build one."
+    ],
+    "technologies": [
+      "TypeScript",
+      "three.js",
+      "WebGL",
+      "Claude API",
+      "Cloudflare Workers",
+      "Zod",
+      "WebCodecs"
+    ],
+    "cover": {
+      "src": "/images/projects/modula.webp",
+      "tone": "original"
+    },
+    "features": [
+      "Starts from a photo or a drawing of a machine, with its name or a sentence about it",
+      "An engineering design sheet in about two minutes, ready to print or save",
+      "A working 3D model built from the sheet that runs at the speed you set and explodes into its parts",
+      "Tests for speeds, mass and aerodynamics, with every figure marked exact or estimate",
+      "An AI assistant that explains the machine or any part, and edits the design from chat",
+      "Hand edits: move or turn any part in millimetre or 15 degree steps, with undo",
+      "Export as GLB, STL for 3D printing, or video",
+      "Next release, in progress: machines that physically hold together, richer detail, subassemblies and a parts list"
+    ],
+    "diagrams": [
+      {
+        "src": "/images/projects/modula-pipeline.webp",
+        "tone": "original",
+        "scene": "modula-pipeline",
+        "after": 0,
+        "title": "From a picture to a working machine",
+        "caption": "A picture and a sentence go in. About two minutes later there is a design sheet, and from it a model that runs, comes apart, reports its figures and exports. The figures are the V8 example's test results."
+      },
+      {
+        "src": "/images/projects/modula-new.webp",
+        "tone": "original",
+        "after": 1,
+        "title": "New machine",
+        "caption": "The new machine page with a drawing of a V8 picked and a sentence typed, one step before generate."
+      },
+      {
+        "src": "/images/projects/modula-sheet.webp",
+        "tone": "original",
+        "after": 2,
+        "title": "The design sheet",
+        "caption": "The V8 example's design sheet: the engine in iso with its size, callouts for the main parts, detail views, front, side and back elevations, and a graph of piston 1's travel against crank angle."
+      },
+      {
+        "src": "/images/projects/modula-explode.webp",
+        "tone": "original",
+        "video": "/videos/modula-explode.mp4",
+        "after": 3,
+        "title": "Taken apart",
+        "caption": "The hand-built V8 example exploding and coming back together, rendered frame by frame from the app's own model and exploder, toned to this site's palette."
+      },
+      {
+        "src": "/images/projects/modula-workspace.webp",
+        "tone": "original",
+        "after": 4,
+        "title": "The workspace",
+        "caption": "The V8 example open as a model: a test run in the assistant's panel, each figure marked exact or estimate, and the intake plenum selected, with its facts and the move tools on the right."
+      }
+    ]
+  },
+  {
+    "id": "reelix",
+    "n": "04",
     "title": "Project Reelix",
     "category": "AI",
     "excerpt": "Ask about any topic, or upload notes, slides, a PDF or a spreadsheet, and watch a narrated, animated explanation of it, made entirely in the browser. No API key, no server, free to use.",
@@ -194,8 +275,7 @@ export const projects: Project[] = [
     "live": "https://shengdynasty.github.io/project-reelix/",
     "cover": {
       "src": "/images/projects/reelix.webp",
-      "tone": "original",
-      "scene": "reelix"
+      "tone": "original"
     },
     "features": [
       "One box: ask a question, paste notes, or upload PDF, Word, PowerPoint, Excel, CSV or images",
@@ -244,7 +324,7 @@ export const projects: Project[] = [
   },
   {
     "id": "video-to-text",
-    "n": "04",
+    "n": "05",
     "title": "Video-to-Text MCP Server",
     "category": "MCP",
     "excerpt": "Token-budgeted MCP server that lets Claude watch video without blowing its context — pixel-cost projection, lazy frame manifests, and contact-sheet montages cut a 10-min clip from ~150k tokens to ~5k.",
@@ -305,7 +385,7 @@ export const projects: Project[] = [
   },
   {
     "id": "school-mcp",
-    "n": "05",
+    "n": "06",
     "title": "StudentVue MCP Server",
     "category": "MCP",
     "excerpt": "19-tool MCP server giving Claude natural-language access to your StudentVue gradebook — grades, GPA, attendance, missing work, and live grade simulation.",
@@ -347,7 +427,7 @@ export const projects: Project[] = [
   },
   {
     "id": "autonomous-researcher",
-    "n": "06",
+    "n": "07",
     "title": "Autonomous Research Agent",
     "category": "AI",
     "excerpt": "Agentic research tool that plans its own sub-questions, searches the web, evaluates source relevance, retries bad results, and synthesizes a cited Markdown report — entirely local via Ollama. No API keys.",
@@ -390,7 +470,7 @@ export const projects: Project[] = [
   },
   {
     "id": "quant-platform",
-    "n": "07",
+    "n": "08",
     "title": "Quant Research Platform",
     "category": "Finance",
     "excerpt": "Bloomberg Terminal–style quant finance platform: 7-module React frontend, FastAPI backend, Monte Carlo risk engine, Black-Scholes options pricing, and local Ollama AI analyst.",
@@ -435,7 +515,7 @@ export const projects: Project[] = [
   },
   {
     "id": "web-researcher",
-    "n": "08",
+    "n": "09",
     "title": "AI Web Researcher",
     "category": "AI",
     "excerpt": "Local-first AI research assistant — type any topic, get live DuckDuckGo search results synthesized into a streaming markdown report via Ollama. No API keys.",
@@ -472,7 +552,7 @@ export const projects: Project[] = [
   },
   {
     "id": "rag-chatbot",
-    "n": "09",
+    "n": "10",
     "title": "Local RAG Chatbot",
     "category": "AI",
     "excerpt": "100% local Retrieval-Augmented Generation chatbot — upload any PDF, ask questions, get answers grounded in your document. No API keys. Runs via Ollama.",
@@ -509,7 +589,7 @@ export const projects: Project[] = [
   },
   {
     "id": "mcp-server",
-    "n": "10",
+    "n": "11",
     "title": "Personal AI MCP Server",
     "category": "MCP",
     "excerpt": "Custom MCP server suite connecting Claude to Gmail, Google Calendar, Notion, Spotify, GitHub — natural-language control of real-world tools.",
@@ -547,7 +627,7 @@ export const projects: Project[] = [
   },
   {
     "id": "note-app",
-    "n": "11",
+    "n": "12",
     "title": "AI Note-Taking App",
     "category": "Apps",
     "excerpt": "Notability-style app with AI flashcards, quizzes, fill-in-the-blank, and chat generated from your own notes using Claude.",
@@ -586,7 +666,7 @@ export const projects: Project[] = [
   },
   {
     "id": "csv-stock-visualizer",
-    "n": "12",
+    "n": "13",
     "title": "CSV Stock Visualizer",
     "category": "Finance",
     "excerpt": "Interactive web app that parses CSV stock data into dynamic price charts, volume graphs, and key statistics.",
@@ -622,7 +702,7 @@ export const projects: Project[] = [
   },
   {
     "id": "portfolio-website",
-    "n": "13",
+    "n": "14",
     "title": "Academic Portfolio Website",
     "category": "Apps",
     "excerpt": "Professional web presence to communicate academic interests and projects to university admissions.",
@@ -656,7 +736,7 @@ export const projects: Project[] = [
   },
   {
     "id": "expense-tracker",
-    "n": "14",
+    "n": "15",
     "title": "Personal Expense Tracker",
     "category": "Apps",
     "excerpt": "Tool to categorize and visualize personal spending, applying data structures and basic analysis.",
@@ -689,7 +769,7 @@ export const projects: Project[] = [
   },
   {
     "id": "task-management",
-    "n": "15",
+    "n": "16",
     "title": "Task Management Application",
     "category": "Apps",
     "excerpt": "Productivity tool to organize tasks, track progress, and practice database-like data management.",

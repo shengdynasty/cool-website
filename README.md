@@ -94,6 +94,8 @@ node scripts/build-experience-assets.mjs   # the MailZoo/Wharton/NASA panels, th
 
 To swap a photo, change its entry in `covers.json` (any CC0/public-domain/CC BY image URL), delete the old source file, and re-run the script. Covers are normalised to the same dark key automatically; `focus: "attention"` crops to the busiest part of the photo instead of the centre, and `gamma`/`contrast` override the automatic tone.
 
+A cover can also come from the site's own still instead of a download: `file` names a committed image (in `scripts/assets/covers/`), `extract` (`left`, `top`, `width`, `height`) crops it first, and `own: true` keeps it off `/credits`. The Project Reelix cover is made this way from a frame of the app's own video. `node scripts/build-covers.mjs reelix` rebuilds only the ids you name.
+
 ## Project scenes
 
 Some projects have an animated isometric visual instead of a photo (design after aumsuthar.com's project cards): a
@@ -110,7 +112,10 @@ That still is the cover image everywhere the scene can't play (before JS, reduce
 
 Flat scenes (`FlatScene` in the same file) are 2D explainers drawn in a 600×400 design space with the same painters;
 a figure in `project.diagrams` plays one by naming it in `scene`, and `after: n` puts the figure right under paragraph
-`n` instead of in "How it works". The poster script renders text as JetBrains Mono outlines (opentype.js), so the
+`n` instead of in "How it works". A figure can instead carry a `video`: a muted 3:2 MP4 loop (H.264, ≤ 3 MB, in
+`public/videos/`) that plays over its still while it is in view; the still is its poster and stays under reduced motion.
+
+A project without `github` is shown unlinked: no code row, no "View the code" button and no GitHub line in the callout. The poster script renders text as JetBrains Mono outlines (opentype.js), so the
 stills look the same on any machine.
 
 ## Publish the artifact

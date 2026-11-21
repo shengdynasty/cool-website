@@ -65,7 +65,7 @@ export const hero = {
   },
   status: {
     reply: "Replies within a few days",
-    videos: "14 projects",
+    videos: "16 projects",
     followers: "8 activities",
     guides: "3 honors",
   },
@@ -101,7 +101,7 @@ export const ways = {
   a: {
     branch: "engineering",
     title: "I write the code",
-    body: "Fourteen software projects: a NASA Space Apps tool that hunts a distant planet's parallax in SPHEREx sky maps, MCP servers that let Claude watch video and read a gradebook, local AI agents and RAG with no API keys, a Bloomberg-style quant platform. Plus robotics control systems and a NASA drone design.",
+    body: "Sixteen software projects: a NASA Space Apps tool that hunts a distant planet's parallax in SPHEREx sky maps, MCP servers that let Claude watch video and read a gradebook, local AI agents and RAG with no API keys, a Bloomberg-style quant platform. Plus robotics control systems and a NASA drone design.",
   },
   b: {
     branch: "business",
@@ -136,7 +136,7 @@ export interface ProjectCard {
 export const projects = {
   headingWords: ["Projects,", "written", "up"],
   headingAria: "Projects, written up",
-  all: { label: "All 14 projects", href: "/projects" },
+  all: { label: "All 16 projects", href: "/projects" },
   lead: {
     href: `/project/eval-guard`,
     cover: "/images/projects/eval-guard.webp",

@@ -3,7 +3,12 @@
 //   projects    → public/images/projects/<id>.webp      1200×800: three-tone dither in the site's palette (black, grey,
 //                                                       cream), with the brightest 1.5% of each photo in MailZoo green
 //   experience  → public/images/experience/<id>-bg.jpg  1400px wide, natural colour like the other panels
-// Source photos are kept out of git: they download to docs/research/downloads/covers/<id>.jpg when missing.
+// Source photos are kept out of git: they download to docs/research/downloads/covers/<id>.jpg when missing. An entry
+// with `file` instead uses a committed still (the site's own, e.g. a frame of a project's app in scripts/assets/covers/),
+// and `extract` {left, top, width, height} crops the source before it is fitted to 3:2.
+//
+//   node scripts/build-covers.mjs            every entry
+//   node scripts/build-covers.mjs reelix     only the named ids
 import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
@@ -18,6 +23,7 @@ const GRAIN = 2; // dither at half size and scale up with nearest-neighbour, so 
 const KEY = 0.3; // target mean luminance of a cover before dithering (dark, like the site)
 
 async function source(entry) {
+  if (entry.file) return path.join(ROOT, entry.file);
   const file = path.join(SOURCES, `${entry.id}.jpg`);
   try {
     await access(file);
@@ -56,7 +62,8 @@ function diffuse(lum, w, h, levels) {
 async function cover(entry, from, to) {
   const w = W / GRAIN, h = H / GRAIN;
   const position = entry.focus === "attention" ? sharp.strategy.attention : "centre";
-  const grey = sharp(from).rotate().resize(w, h, { fit: "cover", position }).grayscale().normalise();
+  const base = entry.extract ? sharp(from).rotate().extract(entry.extract) : sharp(from).rotate();
+  const grey = base.resize(w, h, { fit: "cover", position }).grayscale().normalise();
   const { data } = await grey.clone().blur(0.4).raw().toBuffer({ resolveWithObject: true });
   const soft = (await grey.clone().blur(5).raw().toBuffer()); // local average, for picking out highlights
   // Every cover lands on the same dark key (mean luminance ≈ KEY) so the set reads as one series on the black site.
@@ -93,9 +100,11 @@ async function cover(entry, from, to) {
 
 const panel = (from, to) => sharp(from).rotate().resize({ width: 1400, withoutEnlargement: true }).jpeg({ quality: 82, mozjpeg: true }).toFile(to);
 
-for (const entry of manifest) {
+const only = process.argv.slice(2);
+const entries = only.length ? manifest.filter((entry) => only.includes(entry.id)) : manifest;
+for (const entry of entries) {
   const from = await source(entry);
   if (entry.kind === "project") await cover(entry, from, path.join(ROOT, "public/images/projects", `${entry.id}.webp`));
   else await panel(from, path.join(ROOT, "public/images/experience", `${entry.id}-bg.jpg`));
 }
-console.log(`${manifest.length} images written`);
+console.log(`${entries.length} images written`);

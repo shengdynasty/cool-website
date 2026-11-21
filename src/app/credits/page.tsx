@@ -18,7 +18,8 @@ const nameOf = (id: string) => projects.find((p) => p.id === id)?.title ?? engag
 /** Where each photograph came from. The project covers are the photos re-rendered in the site's three-tone palette. */
 export default function CreditsPage() {
   const groups = [
-    { heading: "Project covers", items: covers.filter((c) => c.kind === "project") },
+    // the site's own stills (`own`) are rendered the same way but need no credit
+    { heading: "Project covers", items: covers.filter((c) => c.kind === "project" && !("own" in c && c.own)) },
     { heading: "Experience panels", items: covers.filter((c) => c.kind === "experience") },
   ];
   return (
@@ -33,7 +34,8 @@ export default function CreditsPage() {
             <h1 className="head-title">Photo credits</h1>
             <p className="head-lede">
               The project covers are photographs re-rendered in this site&apos;s palette. Every photo is public domain, CC0, or CC BY, and is listed
-              here with its source. The MailZoo, Wharton and NASA panels are the site&apos;s own.
+              here with its source. The MailZoo, Wharton and NASA panels, and the Project Reelix cover (a frame of its own video), are the
+              site&apos;s own.
             </p>
           </div>
         </div>

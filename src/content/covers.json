@@ -11,6 +11,21 @@
     "focus": "attention"
   },
   {
+    "id": "reelix",
+    "kind": "project",
+    "title": "A frame of Project Reelix's “How do vaccines work?” video",
+    "author": "Sheng Yan",
+    "license": "own work",
+    "own": true,
+    "file": "scripts/assets/covers/reelix-vaccines.png",
+    "extract": {
+      "left": 415,
+      "top": 118,
+      "width": 450,
+      "height": 300
+    }
+  },
+  {
     "id": "video-to-text",
     "kind": "project",
     "title": "Vintage cinema projector",

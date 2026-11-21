@@ -3,6 +3,7 @@
  * - list filters (source: framer-motion `PostsExplorer`: spring pill, cards fade/slide in)
  * - copy buttons on code blocks (source: `CopyButton`, "Copied" for 1800ms)
  * - the reading-progress bar under the nav (source: `ScrollProgress`, useScroll + useSpring 120/30)
+ * - figure loop clips (`video.loop-clip`): played while in view, left on their still under reduced motion
  */
 export function initSubpageEffects(root: HTMLElement): () => void {
   const controller = new AbortController();
@@ -142,9 +143,34 @@ export function initSubpageEffects(root: HTMLElement): () => void {
     onScroll();
   }
 
+  // ---------------------------------------------------------------- loop clips
+  // A figure's muted loop plays only while it is in view, and never under reduced motion: the still underneath stays.
+  const clips = [...root.querySelectorAll<HTMLVideoElement>("video.loop-clip")];
+  let clipWatcher: IntersectionObserver | null = null;
+  if (clips.length && !reduced && typeof IntersectionObserver === "function") {
+    clipWatcher = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const clip = entry.target as HTMLVideoElement;
+          if (!entry.isIntersecting) {
+            clip.pause();
+            continue;
+          }
+          // set here too: the prerendered markup may lack the attribute, and only muted video may autoplay
+          clip.muted = true;
+          clip.play().catch(() => {});
+        }
+      },
+      { threshold: 0.25 },
+    );
+    for (const clip of clips) clipWatcher.observe(clip);
+  }
+
   return () => {
     disposed = true;
     controller.abort();
+    clipWatcher?.disconnect();
+    for (const clip of clips) clip.pause();
     cancelAnimationFrame(progressFrame);
     for (const id of timers) window.clearTimeout(id);
     timers.clear();

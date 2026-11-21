@@ -12,7 +12,7 @@ export const routes: Record<string, { title: string; description: string }> = {
   "": { title: "Sheng Yan — CEO & Co-Founder of MailZoo", description: HOME_DESC },
   projects: {
     title: "Projects — Sheng Yan",
-    description: "13 software projects by Sheng Yan (Shawn Yan), CEO of MailZoo — AI agents, MCP servers, quant finance tools, and local-first LLM applications.",
+    description: "16 software projects by Sheng Yan (Shawn Yan), CEO of MailZoo — AI agents, MCP servers, quant finance tools, and local-first LLM applications.",
   },
   engagement: {
     title: "Engagement — Sheng Yan",
@@ -57,6 +57,10 @@ export const routes: Record<string, { title: string; description: string }> = {
   "project/planet-x": {
     title: "Planet X — SPHEREx Parallax Search | Sheng Yan",
     description: "NASA Space Apps Challenge 2026 entry: a browser app that searches SPHEREx's infrared sky survey for the parallax a distant planet cannot hide, checked against JPL and Gaia.",
+  },
+  "project/modula": {
+    title: "Project Modula — From a Photo to a Working 3D Machine | Sheng Yan",
+    description: "Upload a photo or drawing of a machine and get an engineering design sheet in about two minutes, then a working 3D model to run, take apart, test, edit with an AI assistant, and export as GLB, STL or video.",
   },
   "project/reelix": {
     title: "Project Reelix — Understand Any Topic Visually | Sheng Yan",

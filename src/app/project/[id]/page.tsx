@@ -30,9 +30,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
   if (!project) notFound();
   const index = projects.indexOf(project);
 
-  const links: LinkRow[] = [
-    { title: "Code on GitHub", note: project.github.replace(/^https:\/\//, ""), href: project.github, external: true },
-  ];
+  // A project that isn't linked yet has no github: no code row, no "View the code" button, no GitHub line.
+  const links: LinkRow[] = project.github
+    ? [{ title: "Code on GitHub", note: project.github.replace(/^https:\/\//, ""), href: project.github, external: true }]
+    : [];
   if (project.live) links.push({ title: "Live demo", note: project.live.replace(/^https:\/\//, ""), href: project.live, external: true });
   if (project.reportUrl) {
     links.push({ title: "Project report", note: "The full write-up: design, experiments, and results.", href: project.reportUrl, external: true });
@@ -50,21 +51,23 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
           heading: `Questions about ${shortTitle(project.title)}? Send me a note.`,
           links: [
             { label: "Send me a note", href: "/#contact", primary: true },
-            { label: "View the code", href: project.github, external: true },
+            ...(project.github ? [{ label: "View the code", href: project.github, external: true }] : []),
           ],
           note: "I read every note and reply within a few days.",
         }}
         related={nextAfter(projects, index).map(projectItem)}
       >
-        <Callout>Built with {listJoin(project.technologies)}. The code is on GitHub.</Callout>
+        <Callout>
+          Built with {listJoin(project.technologies)}.{project.github ? " The code is on GitHub." : ""}
+        </Callout>
         {/* figures with `after` sit right under the paragraph they illustrate; the rest wait for "How it works" */}
         {project.paragraphs.map((text, i) => (
           <Fragment key={i}>
             <Paragraphs items={[text]} />
             {project.diagrams
               .filter((diagram) => diagram.after === i)
-              .map(({ src, tone, title, caption, scene }) => (
-                <Figure key={src} src={src} tone={tone} title={title} caption={caption} scene={scene} />
+              .map(({ src, tone, title, caption, scene, video }) => (
+                <Figure key={src} src={src} tone={tone} title={title} caption={caption} scene={scene} video={video} />
               ))}
           </Fragment>
         ))}
@@ -80,8 +83,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
             <Heading>How it works</Heading>
             {project.diagrams
               .filter((diagram) => diagram.after === undefined)
-              .map(({ src, tone, title, caption, scene }) => (
-                <Figure key={src} src={src} tone={tone} title={title} caption={caption} scene={scene} />
+              .map(({ src, tone, title, caption, scene, video }) => (
+                <Figure key={src} src={src} tone={tone} title={title} caption={caption} scene={scene} video={video} />
               ))}
           </>
         ) : null}

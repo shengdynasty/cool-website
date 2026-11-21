@@ -859,108 +859,6 @@ const evalGuard: Scene = {
   },
 };
 
-
-/**
- * Project Reelix: a question comes in, Wikipedia fills it in with a credited photo, a director raises one 3D world of
- * set pieces, the camera flies through them while the narrator speaks, and the browser saves the video as an MP4.
- */
-const PROMPT = "WHY IS THE SKY BLUE?";
-/** The set pieces in the order the camera visits them, and what each one holds. */
-const PIECES: Point[] = [[-0.6, -1.6], [1.2, -1.2], [3.0, -0.6], [4.8, 0.2]];
-const PIECE_NAMES = ["TITLE", "CHART", "PHOTO", "KIT MODEL"];
-const PLINTH_TOP = 0.45;
-const CAM_Z = 2.3;
-/** The camera's place on its flight through the pieces, `k` from 0 (first piece) to 1 (last), easing at each stop. */
-const cameraAt = (k: number): Point => {
-  const s = k * (PIECES.length - 1);
-  const i = Math.min(PIECES.length - 2, Math.floor(s));
-  const f = easeInOut(s - i);
-  return [lerp(PIECES[i][0], PIECES[i + 1][0], f), lerp(PIECES[i][1], PIECES[i + 1][1], f)];
-};
-
-const reelix: Scene = {
-  id: "reelix",
-  duration: 16,
-  poster: 11.6,
-  bounds: { min: [-6, -4.2, 0], max: [6, 4.2, 3] },
-  beats: [
-    { at: 0, caption: "ASK ANYTHING · OR UPLOAD A FILE" },
-    { at: 3, caption: "WIKIPEDIA FILLS IN · FREE PHOTOS, CREDITED" },
-    { at: 6, caption: "A DIRECTOR RAISES ONE 3D WORLD" },
-    { at: 9.4, caption: "THE CAMERA FLIES · THE NARRATOR SPEAKS" },
-    { at: 13.4, caption: "SAVED AS A 1080P MP4 · ALL IN THE BROWSER" },
-  ],
-  frame(t) {
-    const shapes: Shape[] = [];
-    const lines: Line3[] = [];
-    const marks: Mark[] = [];
-    const labels: Label[] = [];
-    shapes.push(box(-5.8, -4, 0, 5.8, 4, 0.3, SLAB));
-
-    // the question, typed into the one box
-    shapes.push(box(-5.4, 2.7, 0.3, -1.4, 3.5, 0.5, DARK));
-    const typed = PROMPT.slice(0, Math.round(PROMPT.length * span(t, 0.3, 2.4)));
-    if (typed) labels.push({ at: [-3.4, 3.1, 0.5], text: typed + (t < 2.6 && Math.floor(t * 3) % 2 === 0 ? "_" : ""), dy: -6 });
-
-    // Wikipedia's pages drop onto a stack; a freely licensed photo stands beside them with its credit
-    for (let i = 0; i < 3; i++) {
-      const a = easeOut(span(t, 3 + i * 0.25, 3.5 + i * 0.25));
-      if (a <= 0) continue;
-      const z = 0.3 + i * 0.14 + (1 - a) * 1.2;
-      shapes.push(box(-5.1, -1.3, z, -3.4, 0.9, z + 0.1, DOC, EDGE_SOFT));
-    }
-    if (t >= 3.8) labels.push({ at: [-5.1, 0.9, 0.75], text: "WIKIPEDIA", dy: -6, align: "right" });
-    const photo = easeOut(span(t, 4.2, 5));
-    if (photo > 0) {
-      shapes.push(box(-2.75, -2.1, 0.3, -2.6, -0.5, 0.3 + 1.3 * photo, mix(DOC, CREAM, 0.35), GREEN_EDGE));
-      if (photo > 0.95) labels.push({ at: [-2.6, -2.1, 0.3], text: "PHOTO · CC BY", dy: 12, color: GREEN_LABEL });
-    }
-
-    // the world: a plinth per scene rises along the path, each holding what its scene shows
-    const fly = span(t, 9.4, 13);
-    const flying = t >= 9.2;
-    PIECES.forEach(([x, y], i) => {
-      const a = easeOut(span(t, 6 + i * 0.55, 6.7 + i * 0.55));
-      if (a <= 0) return;
-      const visit = flying ? clamp01(1 - Math.abs(fly * (PIECES.length - 1) - i) * 1.6) : 0;
-      const top = 0.3 + (PLINTH_TOP - 0.3) * a;
-      shapes.push(box(x - 0.6, y - 0.6, 0.3, x + 0.6, y + 0.6, top, mix(SLATE, GREEN, 0.55 * visit), visit > 0.5 ? GREEN_EDGE : EDGE_SOFT));
-      const glow = mix(SLATE, GREEN, 0.25 + 0.75 * visit);
-      if (i === 0) shapes.push(box(x - 0.28, y - 0.28, top, x + 0.28, y + 0.28, top + 0.56 * a, glow, GREEN_EDGE));
-      if (i === 1)
-        [0.35, 0.7, 1.05].forEach((h, k) => shapes.push(box(x - 0.42 + k * 0.3, y - 0.12, top, x - 0.22 + k * 0.3, y + 0.12, top + h * a, k === 2 ? glow : BAR, k === 2 ? GREEN_EDGE : EDGE_SOFT)));
-      if (i === 2) shapes.push(box(x - 0.06, y - 0.48, top, x + 0.06, y + 0.48, top + 0.8 * a, mix(DOC, CREAM, 0.35), visit > 0.5 ? GREEN_EDGE : EDGE_SOFT));
-      if (i === 3) {
-        // a kit's black hole: a dark core inside a glowing disk
-        shapes.push(box(x - 0.14, y - 0.14, top + 0.35, x + 0.14, y + 0.14, top + 0.63, DARK, EDGE));
-        lines.push({ pts: circle(x, y, top + 0.49, 0.5 * a, 20), color: `rgba(44,169,66,${0.55 + 0.45 * visit})`, width: 2, depth: x + y + top + 1 });
-      }
-      if (a > 0.95 && !flying) labels.push({ at: [x, y, top + 1.2], text: PIECE_NAMES[i], dy: -6, color: LABEL_DIM });
-    });
-
-    // the camera: lands on each piece in turn, leaving its path behind it
-    if (flying) {
-      const [cx, cy] = cameraAt(fly);
-      const done = fly * (PIECES.length - 1);
-      const trail: Vec3[] = PIECES.slice(0, Math.floor(done) + 1).map(([x, y]) => [x, y, CAM_Z + 0.2]);
-      trail.push([cx, cy, CAM_Z + 0.2]);
-      lines.push({ pts: trail, color: "rgba(44,169,66,0.7)", dash: [3, 4], depth: 100 });
-      shapes.push(frustum(cx, cy, CAM_Z - 0.35, 0.1, CAM_Z, 0.22, 10, DARK));
-      shapes.push(box(cx - 0.32, cy - 0.24, CAM_Z, cx + 0.32, cy + 0.24, CAM_Z + 0.42, SLATE, EDGE));
-      labels.push({ at: [cx, cy, CAM_Z + 0.5], text: t < 13.2 ? "CAMERA · NARRATION" : "CAMERA", dy: -6 });
-    }
-
-    // the file: a 1080p MP4, rendered frame by frame
-    shapes.push(box(4.9, -3.7, 0.3, 5.1, -1.0, 2.1, DARK));
-    const save = easeOut(span(t, 13.4, 15.2));
-    lines.push({ pts: [[5.11, -3.4, 1.2], [5.11, -1.3, 1.2]], color: EDGE_SOFT, depth: 100 });
-    if (save > 0) shapes.push(box(5.1, -3.4, 1.1, 5.2, -3.4 + 2.1 * save, 1.3, GREEN, GREEN_EDGE));
-    labels.push({ at: [5.1, -2.35, 2.1], text: save >= 1 ? "SAVED · 1080P MP4" : "MP4", dy: -6, color: save >= 1 ? GREEN_LABEL : LABEL_DIM });
-
-    return { shapes, lines, marks, labels };
-  },
-};
-
 // ================================================================ flat scenes (EvalGuard's "how it works" figures)
 const PANEL = "rgb(16, 16, 18)";
 const PANEL_LINE = "rgba(245, 242, 234, 0.25)";
@@ -1464,10 +1362,184 @@ const exportScene: FlatScene = {
   },
 };
 
+// ================================================================ flat scenes (Project Modula's figure)
+const along = (c: Point, u: Point, d: number): Point => [c[0] + u[0] * d, c[1] + u[1] * d];
+/** A rectangle centred on `c`, `hl` long each way along the unit vector `u` and `hw` wide each way across it. */
+const orect = (p: Painter, c: Point, u: Point, hl: number, hw: number, fill: string, stroke: string | null, width = 1): void => {
+  const v: Point = [-u[1], u[0]];
+  p.polygon(
+    [
+      [c[0] - u[0] * hl - v[0] * hw, c[1] - u[1] * hl - v[1] * hw],
+      [c[0] + u[0] * hl - v[0] * hw, c[1] + u[1] * hl - v[1] * hw],
+      [c[0] + u[0] * hl + v[0] * hw, c[1] + u[1] * hl + v[1] * hw],
+      [c[0] - u[0] * hl + v[0] * hw, c[1] - u[1] * hl + v[1] * hw],
+    ],
+    fill,
+    stroke,
+    width,
+  );
+};
+interface EngineLook {
+  line: string;
+  block: string;
+  part: string;
+  pin: string;
+  width: number;
+}
+const BANKS: { a: number; u: Point }[] = [-1, 1].map((side) => {
+  const a = (side * Math.PI) / 4;
+  return { a, u: [Math.sin(a), -Math.cos(a)] as Point };
+});
+/**
+ * A 90° V engine seen end on, `s` design units to a millimetre-ish unit, crank at (cx, cy): sump, crankcase, a cylinder,
+ * piston, rod, head and cam per bank, and the crank pulley. `theta` turns the crank (0 = pin at the top); `apart` (0..1)
+ * pulls sump, cylinders and heads off along their own axes, the explode; `show` (0..1) adds the parts one after another,
+ * a drawing being read or drawn.
+ */
+function vEngine(p: Painter, cx: number, cy: number, s: number, theta: number, apart: number, look: EngineLook, show = 1): void {
+  const c: Point = [cx, cy];
+  const R = 9 * s;
+  const L = 30 * s;
+  const has = (k: number): boolean => show >= (k + 1) / 6 - 1e-6;
+  const pin: Point = [cx + R * Math.sin(theta), cy - R * Math.cos(theta)];
+  if (has(0)) {
+    const drop = apart * 14 * s;
+    p.polygon([[cx - 29 * s, cy + 7 * s + drop], [cx + 29 * s, cy + 7 * s + drop], [cx + 25 * s, cy + 22 * s + drop], [cx - 25 * s, cy + 22 * s + drop]], look.block, look.line, look.width);
+    p.polygon(
+      [[cx - 30 * s, cy + 5 * s], [cx - 30 * s, cy - 4 * s], [cx - 17 * s, cy - 18 * s], [cx, cy - 6 * s], [cx + 17 * s, cy - 18 * s], [cx + 30 * s, cy - 4 * s], [cx + 30 * s, cy + 5 * s]],
+      look.block,
+      look.line,
+      look.width,
+    );
+  }
+  for (const { a, u } of BANKS) {
+    if (has(1)) orect(p, along(c, u, (40 + apart * 10) * s), u, 17 * s, 10 * s, look.block, look.line, look.width);
+    if (has(2)) orect(p, along(c, u, (62 + apart * 24) * s), u, 5 * s, 12.5 * s, look.part, look.line, look.width);
+    if (has(5)) p.circle(...along(c, u, (69.5 + apart * 30) * s), 3.2 * s, look.line, look.width, undefined, look.block);
+    if (has(3)) {
+      // slider-crank along this bank's axis: the piston pin sits d + √(L² − e²) from the crank
+      const d = R * Math.cos(theta - a);
+      const e = R * Math.sin(theta - a);
+      const x = d + Math.sqrt(L * L - e * e) + apart * 10 * s;
+      p.polyline([pin, along(c, u, x)], look.line, look.width * 1.4);
+      orect(p, along(c, u, x + 4 * s), u, 5.5 * s, 8.6 * s, look.part, look.line, look.width);
+    }
+  }
+  if (has(4)) {
+    p.circle(cx, cy, 13 * s, look.line, look.width, undefined, look.block);
+    p.circle(cx, cy, 4 * s, look.line, look.width);
+    p.circle(pin[0], pin[1], 2.4 * s, null, 1, undefined, look.pin);
+  }
+}
+const DRAWN: EngineLook = { line: "rgba(245,242,234,0.7)", block: OUTLINE, part: OUTLINE, pin: "rgba(245,242,234,0.7)", width: 1 };
+const SHEET_INK: EngineLook = { line: "rgba(245,242,234,0.85)", block: OUTLINE, part: OUTLINE, pin: "rgba(245,242,234,0.85)", width: 0.8 };
+const SOLID: EngineLook = { line: "rgba(245,242,234,0.55)", block: "rgb(40,40,44)", part: "rgb(150,148,142)", pin: GREEN_FILL, width: 1 };
+/** The V8 example's own test figures (its design run as a model at 700 rpm). */
+const FIGURES = [
+  { name: "SPEED", value: "700 RPM", exact: true },
+  { name: "STROKE", value: "86 MM", exact: true },
+  { name: "MASS", value: "103 KG", exact: false },
+];
+const EXPORTS = ["GLB", "STL", "VIDEO"];
+const arrow = (p: Painter, x0: number, x1: number, y: number, on: boolean): void => {
+  const color = on ? GREEN_EDGE : PANEL_LINE;
+  line(p, x0, y, x1 - 4, y, color, 1.2);
+  p.polygon([[x1, y], [x1 - 6, y - 4], [x1 - 6, y + 4]], color, null, 1);
+};
+const chip = (p: Painter, x: number, y: number, w: number, text: string, on: number): void => {
+  rect(p, x, y, w, 18, on > 0 ? `rgba(44,169,66,${0.08 + 0.14 * on})` : PANEL, on >= 1 ? GREEN_EDGE : PANEL_LINE);
+  label(p, x + w / 2, y + 9.5, text, on >= 1 ? CAPTION : DIM_TEXT, 8, "center");
+};
+const pipelineScene: FlatScene = {
+  id: "modula-pipeline",
+  duration: 15,
+  poster: 13.6,
+  draw(p, t) {
+    // ---- 01: the picture (a drawing being read) and a sentence
+    label(p, 30, 34, "01 · PHOTO OR DRAWING", DIM_TEXT, 9.5);
+    rect(p, 30, 48, 160, 180, PANEL, PANEL_LINE);
+    vEngine(p, 110, 160, 1.1, 0.7, 0, DRAWN, clamp01((t - 0.2) / 1.4));
+    const scan = (t - 1.9) / 1.1;
+    if (scan > 0 && scan < 1) line(p, 34, 52 + 172 * scan, 186, 52 + 172 * scan, GREEN_EDGE, 1.2);
+    label(p, 30, 246, "SENTENCE", DIM_TEXT, 8.5);
+    rect(p, 30, 254, 160, 24, PANEL, PANEL_LINE);
+    const words = "a 90 degree V8 engine";
+    mono(p, 40, 266, words.slice(0, Math.round(words.length * clamp01((t - 0.6) / 1.2))), CAPTION, 10);
+    const press = clamp01((t - 3) / 0.25) * (1 - clamp01((t - 3.9) / 0.5));
+    chip(p, 30, 290, 160, "GENERATE", press >= 1 ? 1 : press * 0.9);
+
+    // ---- 02: the design sheet, about two minutes
+    arrow(p, 194, 216, 138, t >= 3 && t < 7.4);
+    label(p, 220, 34, "02 · DESIGN SHEET", DIM_TEXT, 9.5);
+    const ready = t >= 7;
+    rect(p, 220, 48, 160, 180, PANEL, ready ? GREEN_EDGE : PANEL_LINE);
+    if (t >= 3.2) {
+      for (let x = 240; x < 380; x += 20) line(p, x, 49, x, 227, "rgba(245,242,234,0.05)");
+      for (let y = 68; y < 228; y += 20) line(p, 221, y, 379, y, "rgba(245,242,234,0.05)");
+      const secs = Math.round(120 * clamp01((t - 3.2) / 3.8));
+      mono(p, 370, 63, `${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, "0")}`, ready ? GREEN_LABEL : SOFT_TEXT, 10.5, "right");
+      label(p, 370, 77, "ABOUT 2 MIN", DIM_TEXT, 7.5, "right");
+    }
+    if (t >= 3.4) {
+      mono(p, 230, 63, "V8 · 90°", CAPTION, 11);
+      label(p, 230, 77, "DESIGN SHEET", DIM_TEXT, 7.5);
+    }
+    if (t >= 3.6) vEngine(p, 267, 160, 0.66, 0.7, 0, SHEET_INK, clamp01((t - 3.6) / 1.4));
+    if (t >= 5) {
+      line(p, 234, 200, 300, 200, SOFT_TEXT, 0.8);
+      line(p, 234, 195, 234, 205, SOFT_TEXT, 0.8);
+      line(p, 300, 195, 300, 205, SOFT_TEXT, 0.8);
+      mono(p, 267, 212, "726 MM", SOFT_TEXT, 8, "center");
+    }
+    ["FRONT", "SIDE", "TOP"].forEach((name, k) => {
+      if (t < 5.3 + k * 0.3) return;
+      const y = 92 + k * 32;
+      rect(p, 316, y, 56, 26, OUTLINE, PANEL_LINE);
+      label(p, 319, y + 6, name, DIM_TEXT, 6);
+      if (k === 0) p.polyline([[332, y + 21], [338, y + 10], [344, y + 17], [350, y + 10], [356, y + 21]], SOFT_TEXT, 0.8);
+      if (k === 1) for (let i = 0; i < 4; i++) rect(p, 330 + i * 8, y + 11, 6, 10, OUTLINE, SOFT_TEXT, 0.8);
+      if (k === 2) for (let i = 0; i < 8; i++) p.circle(331 + (i % 4) * 8, y + 13 + Math.floor(i / 4) * 7, 2.4, SOFT_TEXT, 0.8);
+    });
+    if (t >= 6.2) {
+      // the motion graph: piston 1's travel against crank angle
+      const n = Math.round(24 * clamp01((t - 6.2) / 0.6));
+      const pts: Point[] = [];
+      for (let i = 0; i <= n; i++) pts.push([318 + (52 * i) / 24, 205 - 9 * Math.cos((i / 24) * 4 * Math.PI)]);
+      if (pts.length > 1) p.polyline(pts, GREEN_EDGE, 1);
+      line(p, 318, 218, 370, 218, PANEL_LINE, 0.8);
+    }
+    chip(p, 220, 254, 76, "PRINT", t >= 7.1 ? 0.5 : 0);
+    chip(p, 304, 254, 76, "SAVE PNG", t >= 7.1 ? 0.5 : 0);
+    chip(p, 220, 290, 160, "OPEN MODEL", clamp01((t - 7.2) / 0.3));
+
+    // ---- 03: the model runs, comes apart, is tested and exports
+    arrow(p, 384, 406, 138, t >= 7.4);
+    label(p, 410, 34, "03 · WORKING MODEL", DIM_TEXT, 9.5);
+    rect(p, 410, 48, 160, 180, PANEL, PANEL_LINE);
+    if (t >= 7.4) {
+      const apart = easeInOut(clamp01((t - 9.4) / 0.9)) * (1 - easeInOut(clamp01((t - 11.1) / 0.9)));
+      vEngine(p, 490, 166, 0.9, (t - 7.4) * 5.4, apart, SOLID, clamp01((t - 7.4) / 0.8));
+      mono(p, 418, 60, apart > 0.05 ? "TAKEN APART" : "RUNNING · 700 RPM", apart > 0.05 ? GREEN_LABEL : SOFT_TEXT, 8.5);
+    }
+    FIGURES.forEach((f, k) => {
+      const on = clamp01((t - 8.4 - k * 0.35) / 0.3);
+      if (on <= 0) return;
+      const y = 250 + k * 18;
+      mono(p, 410, y, f.name, on >= 1 ? SOFT_TEXT : DIM_TEXT, 9);
+      mono(p, 528, y, f.value, CAPTION, 9.5, "right");
+      rect(p, 534, y - 7, 36, 14, OUTLINE, f.exact ? GREEN_EDGE : PANEL_LINE);
+      label(p, 552, y + 0.5, f.exact ? "EXACT" : "EST", f.exact ? GREEN_LABEL : DIM_TEXT, 6.5, "center");
+    });
+    EXPORTS.forEach((name, k) => chip(p, 410 + k * 56, 306, 48, name, clamp01((t - 12.4 - k * 0.3) / 0.3)));
+
+    label(p, 30, 360, "A PICTURE IN · A DESIGN SHEET IN ABOUT 2 MIN · A MODEL THAT RUNS", DIM_TEXT, 9.5);
+    label(p, 30, 384, "FIGURES FROM THE V8 EXAMPLE'S TEST · EACH EXACT OR AN ESTIMATE", DIM_TEXT, 9.5);
+  },
+};
+
 /** Every scene by id; a project's `cover.scene` or a figure's `scene` names one. */
 export const SCENES: Record<string, AnyScene> = {
   [planetX.id]: planetX,
-  [reelix.id]: reelix,
   [plannerScene.id]: plannerScene,
   [cuesScene.id]: cuesScene,
   [photosScene.id]: photosScene,
@@ -1477,4 +1549,5 @@ export const SCENES: Record<string, AnyScene> = {
   [matchersScene.id]: matchersScene,
   [harnessScene.id]: harnessScene,
   [gateScene.id]: gateScene,
+  [pipelineScene.id]: pipelineScene,
 };
