@@ -94,14 +94,14 @@ export const projects: Project[] = [
         "scene": "modula-pipeline",
         "after": 0,
         "title": "From a picture to a working machine",
-        "caption": "A picture and a sentence go in. About two minutes later there is a design sheet, and from it a model that runs, comes apart, reports its figures and exports. The figures are the V8 example's test results."
+        "caption": "A photo of a real V8 and a sentence go in. About two minutes later there is a design sheet, and from it a model that runs, comes apart, reports its figures and exports. The figures are the V8 example's test results."
       },
       {
         "src": "/images/projects/modula-new.webp",
         "tone": "original",
         "after": 1,
         "title": "New machine",
-        "caption": "The new machine page with a drawing of a V8 picked and a sentence typed, one step before generate."
+        "caption": "The new machine page with a photo of a real V8 picked (an Aston Martin Lagonda V8, photo by Tony Hisgett, CC BY 2.0) and a sentence typed, one step before generate."
       },
       {
         "src": "/images/projects/modula-sheet.webp",

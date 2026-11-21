@@ -63,6 +63,7 @@ artifact/
 
 # raw third-party downloads (build inputs are composed into scripts/assets)
 docs/research/downloads/
+scratch-media/
 
 # notes received by /api/note when no email provider is configured
 data/

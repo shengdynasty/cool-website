@@ -83,12 +83,13 @@ Inside the claude.ai artifact there is no server. There, the card stores notes i
 
 ## Photos: project covers and experience panels
 
-`src/content/covers.json` lists every photograph used for the 13 project covers and for the Cornell, IIT, robotics and math-team panels: source URL, author and license (public domain, CC0, or CC BY). It is also the data behind `/credits`, linked from the footer.
+`src/content/covers.json` lists every photograph used for the 13 project covers, for the Cornell, IIT, robotics and math-team panels, and inside project figures (`kind: "figure"`): source URL, author and license (public domain, CC0, or CC BY). It is also the data behind `/credits`, linked from the footer.
 
 ```bash
 node scripts/build-covers.mjs              # downloads any missing source to docs/research/downloads/covers/, then renders:
                                            #   public/images/projects/<id>.webp      (1200×800 three-tone dither, green highlights)
                                            #   public/images/experience/<id>-bg.jpg  (1400px wide photo)
+                                           #   figures: public/images/projects/<id>.webp (`width` px, black-to-cream mono)
 node scripts/build-experience-assets.mjs   # the MailZoo/Wharton/NASA panels, the YC illustration, and the logo badges
 ```
 
@@ -113,7 +114,10 @@ script renders text as JetBrains Mono outlines (opentype.js), so the stills look
 
 Flat scenes (`FlatScene` in the same file) are 2D explainers drawn in a 600×400 design space with the same painters;
 a figure in `project.diagrams` plays one by naming it in `scene`, and `after: n` puts the figure right under paragraph
-`n` instead of in "How it works". A figure can instead carry a `video`: a muted 3:2 MP4 loop (H.264, ≤ 3 MB, in
+`n` instead of in "How it works". A flat scene can draw photos: list their public paths in its `images` and draw them
+with `p.image(src, x, y, w, h)`; the figure renders each as a hidden `<img>` (so the artifact build inlines it) and the
+poster script embeds it. Project Modula's pipeline figure starts from a photo of a real V8 this way (`modula-v8` in
+`covers.json`); its "New machine" screenshot shows the same photo, untoned, uploaded in the app. A figure can instead carry a `video`: a muted 3:2 MP4 loop (H.264, ≤ 3 MB, in
 `public/videos/`) that plays over its still while it is in view; the still is its poster and stays under reduced motion.
 
 A cover can carry a loop as well: `cover.video` (a muted 3:2 H.264 MP4, ≤ 2.5 MB) and optionally `cover.webm` (the

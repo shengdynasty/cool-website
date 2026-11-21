@@ -81,6 +81,12 @@ export interface FlatScene {
   id: string;
   duration: number;
   poster: number;
+  /**
+   * Pictures the scene draws with `p.image` (public paths, e.g. "/images/projects/x.webp"). The figure renders each as
+   * a hidden <img>, so the page (and the artifact build, which inlines them) supplies the pixels; the poster script
+   * reads them from public/.
+   */
+  images?: readonly string[];
   draw(p: Painter, t: number): void;
 }
 export type AnyScene = Scene | FlatScene;
@@ -246,15 +252,30 @@ export interface Painter {
   circle(x: number, y: number, r: number, stroke: string | null, width: number, dash?: readonly number[], fill?: string): void;
   /** `spacing` is letter spacing in em (the labels' default is 0.14; terminal text uses 0). */
   text(x: number, y: number, text: string, color: string, size: number, align: Align, spacing?: number): void;
+  /** One of the scene's `images`, stretched to the box; nothing while it hasn't loaded. */
+  image(src: string, x: number, y: number, w: number, h: number, alpha?: number): void;
 }
 
 export class CanvasPainter implements Painter {
   private readonly ctx: CanvasRenderingContext2D;
   private readonly mono: string;
+  private readonly images: ReadonlyMap<string, HTMLImageElement>;
 
-  constructor(ctx: CanvasRenderingContext2D, mono: string) {
+  constructor(ctx: CanvasRenderingContext2D, mono: string, images: ReadonlyMap<string, HTMLImageElement> = new Map()) {
     this.ctx = ctx;
     this.mono = mono;
+    this.images = images;
+  }
+
+  image(src: string, x: number, y: number, w: number, h: number, alpha = 1): void {
+    const img = this.images.get(src);
+    if (!img || !img.complete || img.naturalWidth === 0 || alpha <= 0) return;
+    const { ctx } = this;
+    ctx.globalAlpha = Math.min(1, alpha);
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(img, x, y, w, h);
+    ctx.globalAlpha = 1;
   }
 
   clear(w: number, h: number, color: string): void {
@@ -339,11 +360,23 @@ export type TextToPath = (text: string, x: number, y: number, size: number, alig
 export class SvgPainter implements Painter {
   private readonly font: string;
   private readonly toPath: TextToPath | null;
+  private readonly images: Readonly<Record<string, string>>;
   private readonly parts: string[] = [];
 
-  constructor(font: string, toPath: TextToPath | null = null) {
+  /** `images` maps a scene's picture paths to hrefs the rasteriser can read (the poster script passes data: URIs). */
+  constructor(font: string, toPath: TextToPath | null = null, images: Readonly<Record<string, string>> = {}) {
     this.font = font;
     this.toPath = toPath;
+    this.images = images;
+  }
+
+  image(src: string, x: number, y: number, w: number, h: number, alpha = 1): void {
+    const href = this.images[src];
+    if (!href || alpha <= 0) return;
+    const opacity = alpha < 1 ? ` opacity="${num(alpha)}"` : "";
+    this.parts.push(
+      `<image href="${escapeXml(href)}" x="${num(x)}" y="${num(y)}" width="${num(w)}" height="${num(h)}" preserveAspectRatio="none"${opacity}/>`,
+    );
   }
 
   clear(w: number, h: number, color: string): void {
@@ -418,6 +451,10 @@ class ScaledPainter implements Painter {
   text(x: number, y: number, text: string, color: string, size: number, align: Align, spacing?: number): void {
     this.inner.text(x * this.s, y * this.s, text, color, size * this.s, align, spacing);
   }
+
+  image(src: string, x: number, y: number, w: number, h: number, alpha?: number): void {
+    this.inner.image(src, x * this.s, y * this.s, w * this.s, h * this.s, alpha);
+  }
 }
 
 // ---------------------------------------------------------------- drawing a frame
@@ -488,9 +525,17 @@ export function drawFrame(painter: Painter, scene: AnyScene, w: number, h: numbe
   if (text) painter.text(w * 0.045, h - fontPx * 1.6, text, CAPTION, fontPx, "left");
 }
 
-/** The scene at time `t` as an SVG document (the poster). */
-export function renderSvg(scene: AnyScene, w: number, h: number, t = scene.poster, font = "JetBrains Mono", toPath: TextToPath | null = null): string {
-  const painter = new SvgPainter(font, toPath);
+/** The scene at time `t` as an SVG document (the poster). `images`: hrefs for the scene's pictures (see SvgPainter). */
+export function renderSvg(
+  scene: AnyScene,
+  w: number,
+  h: number,
+  t = scene.poster,
+  font = "JetBrains Mono",
+  toPath: TextToPath | null = null,
+  images: Readonly<Record<string, string>> = {},
+): string {
+  const painter = new SvgPainter(font, toPath, images);
   drawFrame(painter, scene, w, h, t);
   return painter.toString(w, h);
 }
@@ -528,14 +573,21 @@ class IsoPlayer {
   private readonly resizer: ResizeObserver | null = null;
   private readonly watcher: IntersectionObserver | null = null;
 
-  constructor(canvas: HTMLCanvasElement, scene: AnyScene, ctx: CanvasRenderingContext2D, mono: string) {
+  constructor(canvas: HTMLCanvasElement, scene: AnyScene, ctx: CanvasRenderingContext2D, mono: string, images: ReadonlyMap<string, HTMLImageElement>) {
     this.canvas = canvas;
     this.scene = scene;
     this.ctx = ctx;
-    this.painter = new CanvasPainter(ctx, mono);
+    this.painter = new CanvasPainter(ctx, mono, images);
     this.still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     this.beatCaption = captionAt(scene, this.still ? scene.poster : 0);
     this.beatChangedAt = -Infinity;
+    // a picture that arrives while the scene isn't playing shows up in the frame on screen
+    for (const img of images.values()) {
+      if (img.complete) continue;
+      img.addEventListener("load", () => {
+        if (!this.running) this.paint(this.still ? scene.poster : this.played % scene.duration, performance.now());
+      }, { once: true });
+    }
     this.resize();
     if (this.still) {
       this.paint(scene.poster, performance.now());
@@ -620,7 +672,13 @@ export function initIsoScenes(root: ParentNode, mono: string): () => void {
     const canvas = host.querySelector<HTMLCanvasElement>("canvas.iso");
     const ctx = canvas?.getContext("2d");
     if (!scene || !canvas || !ctx) continue;
-    players.push(new IsoPlayer(canvas, scene, ctx, mono));
+    // the scene's pictures, from the hidden <img data-scene-img> the figure renders for each, in the same order
+    const images = new Map<string, HTMLImageElement>();
+    const elements = host.querySelectorAll<HTMLImageElement>("img[data-scene-img]");
+    sceneImages(scene.id).forEach((src, i) => {
+      if (elements[i]) images.set(src, elements[i]);
+    });
+    players.push(new IsoPlayer(canvas, scene, ctx, mono, images));
   }
   return () => {
     for (const player of players) player.destroy();
@@ -1394,7 +1452,7 @@ const BANKS: { a: number; u: Point }[] = [-1, 1].map((side) => {
  * A 90° V engine seen end on, `s` design units to a millimetre-ish unit, crank at (cx, cy): sump, crankcase, a cylinder,
  * piston, rod, head and cam per bank, and the crank pulley. `theta` turns the crank (0 = pin at the top); `apart` (0..1)
  * pulls sump, cylinders and heads off along their own axes, the explode; `show` (0..1) adds the parts one after another,
- * a drawing being read or drawn.
+ * a drawing being drawn.
  */
 function vEngine(p: Painter, cx: number, cy: number, s: number, theta: number, apart: number, look: EngineLook, show = 1): void {
   const c: Point = [cx, cy];
@@ -1431,7 +1489,24 @@ function vEngine(p: Painter, cx: number, cy: number, s: number, theta: number, a
     p.circle(pin[0], pin[1], 2.4 * s, null, 1, undefined, look.pin);
   }
 }
-const DRAWN: EngineLook = { line: "rgba(245,242,234,0.7)", block: OUTLINE, part: OUTLINE, pin: "rgba(245,242,234,0.7)", width: 1 };
+/**
+ * The picture that goes in: a photograph of a real V8 (Tony Hisgett's Aston Martin Lagonda 5.3L, CC BY 2.0, credited
+ * on /credits), toned to black and cream by scripts/build-covers.mjs from src/content/covers.json ("modula-v8").
+ */
+const V8_PHOTO = "/images/projects/modula-v8.webp";
+/** The photo's box in panel 01: the panel's width less a margin, at the photo's own 1568 × 1227 aspect. */
+const PHOTO_BOX = { x: 36, y: 95, w: 148, h: (148 * 1227) / 1568 };
+/** Corner marks just inside a box, like the app's picture frame. */
+const cornerMarks = (p: Painter, x: number, y: number, w: number, h: number, len: number, inset: number, color: string): void => {
+  const x0 = x + inset;
+  const y0 = y + inset;
+  const x1 = x + w - inset;
+  const y1 = y + h - inset;
+  p.polyline([[x0, y0 + len], [x0, y0], [x0 + len, y0]], color, 1);
+  p.polyline([[x1 - len, y0], [x1, y0], [x1, y0 + len]], color, 1);
+  p.polyline([[x1, y1 - len], [x1, y1], [x1 - len, y1]], color, 1);
+  p.polyline([[x0 + len, y1], [x0, y1], [x0, y1 - len]], color, 1);
+};
 const SHEET_INK: EngineLook = { line: "rgba(245,242,234,0.85)", block: OUTLINE, part: OUTLINE, pin: "rgba(245,242,234,0.85)", width: 0.8 };
 const SOLID: EngineLook = { line: "rgba(245,242,234,0.55)", block: "rgb(40,40,44)", part: "rgb(150,148,142)", pin: GREEN_FILL, width: 1 };
 /** The V8 example's own test figures (its design run as a model at 700 rpm). */
@@ -1454,13 +1529,28 @@ const pipelineScene: FlatScene = {
   id: "modula-pipeline",
   duration: 15,
   poster: 13.6,
+  images: [V8_PHOTO],
   draw(p, t) {
-    // ---- 01: the picture (a drawing being read) and a sentence
+    // ---- 01: the picture (a photo of a real V8, dropped in and read) and a sentence
     label(p, 30, 34, "01 · PHOTO OR DRAWING", DIM_TEXT, 9.5);
     rect(p, 30, 48, 160, 180, PANEL, PANEL_LINE);
-    vEngine(p, 110, 160, 1.1, 0.7, 0, DRAWN, clamp01((t - 0.2) / 1.4));
+    const { x: px, y: py, w: pw, h: ph } = PHOTO_BOX;
+    const dropped = easeOut(clamp01((t - 0.2) / 1));
+    if (dropped > 0) {
+      mono(p, 40, 63, "V8.JPG", CAPTION, 11);
+      label(p, 40, 77, "PHOTO", DIM_TEXT, 7.5);
+      mono(p, 180, 63, "1568 × 1227", SOFT_TEXT, 8.5, "right");
+      p.image(V8_PHOTO, px, py, pw, ph, dropped);
+      rect(p, px, py, pw, ph, OUTLINE, `rgba(245,242,234,${0.3 * dropped})`, 0.8);
+      cornerMarks(p, px, py, pw, ph, 7, 4, `rgba(245,242,234,${0.75 * dropped})`);
+    }
     const scan = (t - 1.9) / 1.1;
-    if (scan > 0 && scan < 1) line(p, 34, 52 + 172 * scan, 186, 52 + 172 * scan, GREEN_EDGE, 1.2);
+    if (scan > 0 && scan < 1) {
+      const y = py + ph * scan;
+      rect(p, px, py, pw, y - py, "rgba(44,169,66,0.14)", null);
+      line(p, px - 2, y, px + pw + 2, y, GREEN_EDGE, 1.2);
+      label(p, 180, 77, "READING", GREEN_LABEL, 7.5, "right");
+    }
     label(p, 30, 246, "SENTENCE", DIM_TEXT, 8.5);
     rect(p, 30, 254, 160, 24, PANEL, PANEL_LINE);
     const words = "a 90 degree V8 engine";
@@ -1551,3 +1641,9 @@ export const SCENES: Record<string, AnyScene> = {
   [gateScene.id]: gateScene,
   [pipelineScene.id]: pipelineScene,
 };
+
+/** The pictures the scene `id` draws (public paths, in order); none for isometric scenes and unknown ids. */
+export function sceneImages(id: string | undefined): readonly string[] {
+  const scene = id ? SCENES[id] : undefined;
+  return scene && isFlat(scene) ? (scene.images ?? []) : [];
+}

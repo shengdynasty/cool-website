@@ -1,8 +1,10 @@
 // Renders the still poster of every scene (src/components/sheng/iso-engine.ts) to public/images/projects/<id>.webp:
 // what the card, the detail header or the figure shows before the script runs, under reduced motion, and in link
 // previews. The frame is the scene's `poster` time. Text is rendered as glyph outlines of the site's JetBrains Mono
-// (opentype.js), so the stills don't depend on the fonts the SVG rasteriser can see.
-// Run:  npm run posters
+// (opentype.js), so the stills don't depend on the fonts the SVG rasteriser can see. Pictures a flat scene draws
+// (`images`) are read from public/ and embedded as PNG data URIs.
+// Run:  npm run posters                                       every scene
+//       node scripts/render-scene-posters.mjs modula-pipeline  only the named ids
 import sharp from "sharp";
 import opentype from "opentype.js";
 import { SCENES, renderSvg } from "../src/components/sheng/iso-engine.ts";
@@ -18,8 +20,12 @@ const toPath = (text, x, y, size, align, spacing) => {
 
 const W = 1200;
 const H = 800;
-for (const scene of Object.values(SCENES)) {
-  const svg = renderSvg(scene, W, H, scene.poster, "JetBrains Mono", toPath);
+const only = process.argv.slice(2);
+const scenes = Object.values(SCENES).filter((scene) => !only.length || only.includes(scene.id));
+for (const scene of scenes) {
+  const images = {};
+  for (const src of scene.images ?? []) images[src] = `data:image/png;base64,${(await sharp(`public${src}`).png().toBuffer()).toString("base64")}`;
+  const svg = renderSvg(scene, W, H, scene.poster, "JetBrains Mono", toPath, images);
   const out = `public/images/projects/${scene.id}.webp`;
   await sharp(Buffer.from(svg)).webp({ quality: 88 }).toFile(out);
   console.log(`${out}: ${scene.id} at t=${scene.poster}s`);

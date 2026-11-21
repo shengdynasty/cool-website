@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- figures reuse the cover frame (canvas overlay), plain <img> like the source */
 import type { ReactNode } from "react";
 import type { Cover } from "@/content/projects";
+import { sceneImages } from "./iso-engine";
 import { LoopClip } from "./LoopClip";
 
 // Article blocks for the detail pages, with the source guide page's exact utility classes
@@ -99,13 +100,17 @@ export function CodeBlock({ id, label, source }: { id: string; label: string; so
 /**
  * A figure in the reading column; with `scene`, its animated scene (iso-engine.ts) plays over the still. With `video`,
  * a muted loop plays over the still while the figure is in view (subpage-effects.ts); the still stays underneath as
- * its poster, before JS, under reduced motion, and wherever the clip can't load.
+ * its poster, before JS, under reduced motion, and wherever the clip can't load. A scene that draws pictures gets them
+ * as hidden <img data-scene-img> elements, so the browser loads them and the artifact build inlines them.
  */
 export function Figure({ src, tone, title, caption, scene, video }: Cover & { title: string; caption: string; scene?: string; video?: string }) {
   return (
     <figure>
       <span className={`cover tone-${tone}`} data-scene={scene}>
         <img src={src} width={1200} height={800} alt={title} loading="lazy" decoding="async" />
+        {sceneImages(scene).map((picture) => (
+          <img key={picture} data-scene-img="" src={picture} alt="" aria-hidden="true" decoding="async" style={{ display: "none" }} />
+        ))}
         {video ? <LoopClip poster={src} mp4={video} /> : null}
         {scene ? <canvas className="iso" aria-hidden="true" /> : null}
         <canvas aria-hidden="true" />

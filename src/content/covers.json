@@ -138,6 +138,17 @@
     "focus": "attention"
   },
   {
+    "id": "modula-v8",
+    "for": "modula",
+    "kind": "figure",
+    "title": "Aston Martin Lagonda 5.3L V8 Engine",
+    "author": "Tony Hisgett",
+    "license": "CC BY 2.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Aston_Martin_Lagonda_5.3L_V8_Engine_(54126359080).jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Aston_Martin_Lagonda_5.3L_V8_Engine_%2854126359080%29.jpg/1920px-Aston_Martin_Lagonda_5.3L_V8_Engine_%2854126359080%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "width": 640
+  },
+  {
     "id": "econometrics",
     "kind": "experience",
     "title": "Nightly Uris (McGraw Tower)",

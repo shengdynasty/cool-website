@@ -20,6 +20,7 @@ export default function CreditsPage() {
   const groups = [
     // the site's own stills (`own`) are rendered the same way but need no credit
     { heading: "Project covers", items: covers.filter((c) => c.kind === "project" && !("own" in c && c.own)) },
+    { heading: "Project figures", items: covers.filter((c) => c.kind === "figure") },
     { heading: "Experience panels", items: covers.filter((c) => c.kind === "experience") },
   ];
   return (
@@ -33,8 +34,8 @@ export default function CreditsPage() {
             </div>
             <h1 className="head-title">Photo credits</h1>
             <p className="head-lede">
-              The project covers are photographs re-rendered in this site&apos;s palette. Every photo is public domain, CC0, or CC BY, and is listed
-              here with its source. The MailZoo, Wharton and NASA panels, and the Project Reelix cover (a frame of its own video), are the
+              The project covers are photographs re-rendered in this site&apos;s palette, and Project Modula&apos;s figures start from a photograph
+              of a real V8. Every photo is public domain, CC0, or CC BY, and is listed here with its source. The MailZoo, Wharton and NASA panels, and the Project Reelix cover (a frame of its own video), are the
               site&apos;s own.
             </p>
           </div>

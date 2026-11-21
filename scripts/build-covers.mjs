@@ -3,6 +3,9 @@
 //   projects    → public/images/projects/<id>.webp      1200×800: three-tone dither in the site's palette (black, grey,
 //                                                       cream), with the brightest 1.5% of each photo in MailZoo green
 //   experience  → public/images/experience/<id>-bg.jpg  1400px wide, natural colour like the other panels
+//   figure      → public/images/projects/<id>.webp      a photo drawn inside a flat scene's panel (iso-engine.ts):
+//                                                       `width` px wide (default 640), its own aspect, smooth
+//                                                       monochrome on the black → cream ramp at the covers' dark key
 // Source photos are kept out of git: they download to docs/research/downloads/covers/<id>.jpg when missing. An entry
 // with `file` instead uses a committed still (the site's own, e.g. a frame of a project's app in scripts/assets/covers/),
 // and `extract` {left, top, width, height} crops the source before it is fitted to 3:2.
@@ -98,6 +101,23 @@ async function cover(entry, from, to) {
   await sharp(rgb, { raw: { width: w, height: h, channels: 3 } }).resize(W, H, { kernel: "nearest" }).webp({ lossless: true, effort: 6 }).toFile(to);
 }
 
+/** A photo for a figure: no dither (the figures scale it to any size), the same key as the covers, cream for white. */
+async function figure(entry, from, to) {
+  const grey = sharp(from).rotate().resize({ width: entry.width ?? 640 }).grayscale().normalise();
+  const { data, info } = await grey.raw().toBuffer({ resolveWithObject: true });
+  let mean = 0;
+  for (let i = 0; i < data.length; i++) mean += data[i];
+  mean /= data.length * 255;
+  const gamma = entry.gamma ?? Math.min(2.8, Math.max(0.7, Math.log(KEY) / Math.log(Math.max(0.05, mean))));
+  const contrast = entry.contrast ?? 1.1;
+  const rgb = Buffer.alloc(data.length * 3);
+  for (let i = 0; i < data.length; i++) {
+    const v = Math.min(1, Math.max(0, (Math.pow(data[i] / 255, gamma) - 0.5) * contrast + 0.5));
+    for (let c = 0; c < 3; c++) rgb[i * 3 + c] = Math.round(v * CREAM[c]);
+  }
+  await sharp(rgb, { raw: { width: info.width, height: info.height, channels: 3 } }).webp({ quality: 80, effort: 6 }).toFile(to);
+}
+
 const panel = (from, to) => sharp(from).rotate().resize({ width: 1400, withoutEnlargement: true }).jpeg({ quality: 82, mozjpeg: true }).toFile(to);
 
 const only = process.argv.slice(2);
@@ -105,6 +125,7 @@ const entries = only.length ? manifest.filter((entry) => only.includes(entry.id)
 for (const entry of entries) {
   const from = await source(entry);
   if (entry.kind === "project") await cover(entry, from, path.join(ROOT, "public/images/projects", `${entry.id}.webp`));
+  else if (entry.kind === "figure") await figure(entry, from, path.join(ROOT, "public/images/projects", `${entry.id}.webp`));
   else await panel(from, path.join(ROOT, "public/images/experience", `${entry.id}-bg.jpg`));
 }
 console.log(`${entries.length} images written`);
