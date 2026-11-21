@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Built output copied in or left behind: the Modula app bundle and the old Vite site's dist
+    "public/modula/**",
+    "dist/**",
   ]),
 ]);
 
