@@ -130,7 +130,7 @@ leads back into the first, and writes `public/videos/modula-loop.mp4` and `.webm
 `public/images/projects/modula.webp`:
 
 ```bash
-scripts/modula-cover/make.sh   # needs ffmpeg (libx264, libvpx) and Python 3 with numpy and Pillow
+# lives in the Modula repo: ~/project-modula/tools/portfolio-cover/make.sh (writes the media here)   # needs ffmpeg (libx264, libvpx) and Python 3 with numpy and Pillow
 ```
 
 A project without `github` is shown unlinked: no code row, no "View the code" button and no GitHub line in the callout.
