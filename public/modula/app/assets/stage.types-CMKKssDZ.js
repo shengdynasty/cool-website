@@ -1,1 +1,0 @@
-var e=[{msaa:8,ao:!0,shadow:4096,pr:2},{msaa:4,ao:!1,shadow:2048,pr:1.5},{msaa:2,ao:!1,shadow:1024,pr:1}];export{e as t};
